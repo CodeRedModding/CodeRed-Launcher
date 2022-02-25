@@ -245,7 +245,7 @@ namespace CodeRedLauncher
         }
 
         // Attempts to dynamically load a library into all found processes (if configured as such), as well as update/clean up the "CachedHandles" list.
-        public static List<InjectionResults> TryLoadDynamic(Path libraryFile)
+        public static List<InjectionResults> TryLoadDynamic(Extensions.Path libraryFile)
         {
             List<InjectionResults> returnList = new List<InjectionResults>();
             List<Process> processes = ProcessManager.GetFilteredProcesses(Settings.ProcessName);
@@ -314,7 +314,7 @@ namespace CodeRedLauncher
         }
 
         // Attempts to load a library into an individual process, adds to the "CachedHandles" list but does NOT remove old handles.
-        public static InjectionResults TryLoadIndividual(Process process, Path libraryFile)
+        public static InjectionResults TryLoadIndividual(Process process, Extensions.Path libraryFile)
         {
             if (libraryFile.Exists())
             {
@@ -347,7 +347,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private static InjectionResults LoadLibraryInternal(Process process, Path libraryFile)
+        private static InjectionResults LoadLibraryInternal(Process process, Extensions.Path libraryFile)
         {
             IntPtr processHandle = OpenProcess(Convert.ToUInt32(ProcessFlags.All), 1, Convert.ToUInt32(process.Id));
 

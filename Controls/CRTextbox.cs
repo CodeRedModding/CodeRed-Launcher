@@ -12,35 +12,6 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRTextbox : UserControl
     {
-        // To Do: Not this class get rid of it I hate it but it works so maybe like don't get rid of it??
-        private static class StringDictonary
-        {
-            // I have zero shame in this.
-            private static readonly char[] AlphabetChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-            private static readonly char[] DecimalChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-            private static readonly char[] HexadecimalChars = { 'A', 'B', 'C', 'D', 'E', 'F' };
-
-            public static bool IsCharAlphabet(char c)
-            {
-                return AlphabetChars.Contains(c.ToString().ToUpper()[0]);
-            }
-
-            public static bool IsCharDecimal(char c)
-            {
-                return DecimalChars.Contains(c.ToString().ToUpper()[0]);
-            }
-
-            public static bool IsCharHexadecimal(char c)
-            {
-                if (HexadecimalChars.Contains(c.ToString().ToUpper()[0]))
-                {
-                    return true;
-                }
-
-                return IsCharDecimal(c);
-            }
-        }
-
         public enum FilterTypes : byte
         {
             TYPE_NONE,
@@ -77,7 +48,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (StringDictonary.IsCharAlphabet(c) || StringDictonary.IsCharDecimal(c))
+                    if (Extensions.StringDictonary.IsCharAlphabet(c) || Extensions.StringDictonary.IsCharDecimal(c))
                     {
                         filteredText += c;
                     }
@@ -87,7 +58,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (StringDictonary.IsCharAlphabet(c))
+                    if (Extensions.StringDictonary.IsCharAlphabet(c))
                     {
                         filteredText += c;
                     }
@@ -97,7 +68,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (StringDictonary.IsCharDecimal(c))
+                    if (Extensions.StringDictonary.IsCharDecimal(c))
                     {
                         filteredText += c;
                     }
@@ -107,7 +78,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (StringDictonary.IsCharHexadecimal(c))
+                    if (Extensions.StringDictonary.IsCharHexadecimal(c))
                     {
                         filteredText += c;
                     }

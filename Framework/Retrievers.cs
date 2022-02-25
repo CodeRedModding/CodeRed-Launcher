@@ -27,7 +27,7 @@ namespace CodeRedLauncher
             return pageContent;
         }
 
-        public static async Task<bool> DownloadFile(string url, Path folder, string fileName)
+        public static async Task<bool> DownloadFile(string url, Extensions.Path folder, string fileName)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -35,7 +35,7 @@ namespace CodeRedLauncher
 
                 if (response.IsSuccessStatusCode)
                 {
-                    string path = folder.GetPath() + fileName;
+                    string path = (folder / fileName).GetPath();
                     byte[] file = await response.Content.ReadAsByteArrayAsync();
 
                     if (file.Length > 0)
@@ -54,7 +54,6 @@ namespace CodeRedLauncher
             return false;
         }
     }
-
 
     public static class CRJson
     {
@@ -78,40 +77,6 @@ namespace CodeRedLauncher
             }
 
             return (matches == matchStr.Length);
-        }
-
-        public static string StripPageBody(string pageContent)
-        {
-            string returnBody = "";
-            bool reconstruct = false;
-
-            for (Int32 i = 0; i < pageContent.Length; i++)
-            {
-                if (i + 6 <= pageContent.Length)
-                {
-                    if (!reconstruct)
-                    {
-                        if (CharacterSeqMatch(pageContent, "<body>", i))
-                        {
-                            reconstruct = true;
-                            i += 6;
-                        }
-                    }
-                    else
-                    {
-                        if (!CharacterSeqMatch(pageContent, "</body>", i))
-                        {
-                            returnBody += pageContent[i];
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-
-            return returnBody;
         }
 
         // Super duper specific case only for this project, I don't need to make it support anything other than strings becasue I'm only using strings.
@@ -200,7 +165,7 @@ namespace CodeRedLauncher
     public static class Retrievers
     {
         private static bool Initialized = false;
-        private static readonly string RemoteUrl = "https://coderedmodding.github.io/retriever.html";
+        private static readonly string RemoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Remote.json";
 
         private static PrivateSetting PsyonixVersion = new PrivateSetting("000000.000000.000000");
         private static PrivateSetting InstallerVersion = new PrivateSetting("0.0f");
@@ -210,14 +175,14 @@ namespace CodeRedLauncher
         private static PrivateSetting LauncherUrl = new PrivateSetting();
         private static PrivateSetting ModuleUrl = new PrivateSetting();
         private static PrivateSetting DiscordUrl = new PrivateSetting();
+        private static PrivateSetting NewsUrl = new PrivateSetting();
         private static PrivateSetting Changelog = new PrivateSetting("No changelog provided for the most recent update.");
 
         private static async Task<bool> DownloadRemote()
         {
             if (!Initialized)
             {
-                string pageBody = await Downloaders.DownloadPage(RemoteUrl);
-                pageBody = CRJson.StripPageBody(pageBody);
+                string pageBody = await Downloaders.DownloadPage(RemoteUrl);;
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
@@ -233,6 +198,7 @@ namespace CodeRedLauncher
                         LauncherUrl.SetValue(bodyContent["Launcher_Url"]);
                         ModuleUrl.SetValue(bodyContent["Module_Url"]);
                         DiscordUrl.SetValue(bodyContent["Discord_Url"]);
+                        NewsUrl.SetValue(bodyContent["News_Url"]);
                         Changelog.SetValue(bodyContent["Changelog"]);
                         Initialized = true;
                     }
@@ -319,6 +285,12 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return DiscordUrl.GetStringValue(); }
             return DiscordUrl.GetStringValue(true);
+        }
+
+        public static async Task<string> GetNewsUrl()
+        {
+            if (await CheckInitialized()) { return NewsUrl.GetStringValue(); }
+            return NewsUrl.GetStringValue(true);
         }
 
         public static async Task<string> GetChangelog()

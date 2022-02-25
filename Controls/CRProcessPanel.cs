@@ -33,7 +33,7 @@ namespace CodeRedLauncher.Controls
                 {
                     case StatusTypes.TYPE_DISABLED:
                         TitleLbl.Text = "Monitoring Rocket League Disabled";
-                        DescriptionLbl.Text = "Always injected mode selected, load is done independently.";
+                        DescriptionLbl.Text = "Always injected mode selected, injecting is done independently.";
                         break;
                     case StatusTypes.TYPE_NOT_RUNNING:
                         TitleLbl.Text = "Rocket League Is Not Running";
@@ -44,7 +44,7 @@ namespace CodeRedLauncher.Controls
                         break;
                     case StatusTypes.TYPE_INJECTING:
                         TitleLbl.Text = "Rocket League Is Running";
-                        DescriptionLbl.Text = "Process found, attempting to load module...";
+                        DescriptionLbl.Text = "Process found, attempting to inject module...";
                         break;
                     case StatusTypes.TYPE_MANUAL:
                         TitleLbl.Text = "Rocket League Is Running";

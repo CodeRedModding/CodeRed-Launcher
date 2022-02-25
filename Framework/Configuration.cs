@@ -1,8 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Threading.Tasks;
 
 namespace CodeRedLauncher
 {
@@ -57,8 +54,9 @@ namespace CodeRedLauncher
         public PublicSetting SetValue(Int32 newValue) { return SetValue(newValue.ToString()); }
         public PublicSetting SetValue(Int64 newValue) { return SetValue(newValue.ToString()); }
         public PublicSetting SetValue(float newValue) { return SetValue(newValue.ToString()); }
+        public PublicSetting SetValue(decimal newValue) { return SetValue(newValue.ToString()); }
         public PublicSetting SetValue(double newValue) { return SetValue(newValue.ToString()); }
-        public PublicSetting SetValue(Path newValue) { return SetValue(newValue.GetPath()); }
+        public PublicSetting SetValue(Extensions.Path newValue) { return SetValue(newValue.GetPath()); }
 
         // Return functions that automatically parse value types from the current settings value.
 
@@ -103,9 +101,9 @@ namespace CodeRedLauncher
             return (succeeded ? parsedValue : 0.0d);
         }
 
-        public Path GetPathValue(bool bDefault = false)
+        public Extensions.Path GetPathValue(bool bDefault = false)
         {
-            return new Path(bDefault ? DefaultValue : Value);
+            return new Extensions.Path(bDefault ? DefaultValue : Value);
         }
 
         public T GetEnumValue<T>(bool bDefault = false)
@@ -126,7 +124,7 @@ namespace CodeRedLauncher
     public static class Configuration
     {
         private static bool Initialized = false;
-        private static Path StorageFile = new Path();
+        private static Extensions.Path StorageFile = new Extensions.Path();
 
         public static PublicSetting AutoCheckUpdates = new PublicSetting(
             "True",
@@ -192,7 +190,7 @@ namespace CodeRedLauncher
             SaveChanges
         );
 
-        public static Range InjectionTimeoutRange = new Range(5000, 300000); // 5 seconds to 5 minutes.
+        public static Extensions.Range InjectionTimeoutRange = new Extensions.Range(5000, 300000); // 5 seconds to 5 minutes.
 
         private static bool PhraseConfigFile()
         {

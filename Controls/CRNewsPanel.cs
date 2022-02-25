@@ -24,9 +24,10 @@ namespace CodeRedLauncher.Controls
             public string Category { get; set; }
             public bool Parsed { get; set; } = false;
 
-            public NewsStorage(string newsUrl)
+            public NewsStorage(string newsUrl, string thumbnailUrl = null)
             {
                 NewsUrl = newsUrl;
+                ThumbnailUrl = thumbnailUrl;
             }
         }
 
@@ -65,13 +66,11 @@ namespace CodeRedLauncher.Controls
             InitializeComponent();
         }
 
-        private async Task<NewsStorage> ParseLink(string newsLink)
+        private async Task<NewsStorage> ParseLink(NewsStorage newsStorage)
         {
-            NewsStorage returnStorage = new NewsStorage(newsLink);
-
-            if (!String.IsNullOrEmpty(newsLink))
+            if (!String.IsNullOrEmpty(newsStorage.NewsUrl))
             {
-                string pageBody = await Downloaders.DownloadPage(newsLink);
+                string pageBody = await Downloaders.DownloadPage(newsStorage.NewsUrl);
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
@@ -79,90 +78,113 @@ namespace CodeRedLauncher.Controls
                     Match calendarMatch = Regex.Match(pageBody, "fa fa-calendar\"><\\/i> (.*)", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
                     Match userMatch = Regex.Match(pageBody, "fa fa-user\"><\\/i>(.*) ", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
                     Match categoryMatch = Regex.Match(pageBody, "category tag\">(.*)<", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                    Match thumbnailMatchOne = Regex.Match(pageBody, "\" src=\"(.*)\" class=\"attachment", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
 
                     if (titleMatch.Success && titleMatch.Groups[1].Success)
                     {
-                        returnStorage.Title = titleMatch.Groups[1].Value;
+                        newsStorage.Title = titleMatch.Groups[1].Value;
                     }
                     else
                     {
-                        Logger.Write("Failed to retrieve title for url \"" + newsLink + "\"!", LogLevel.LEVEL_WARN);
+                        Logger.Write("Failed to retrieve title for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.LEVEL_WARN);
                     }
 
                     if (calendarMatch.Success && calendarMatch.Groups[1].Success)
                     {
-                        returnStorage.Calendar = calendarMatch.Groups[1].Value;
+                        newsStorage.Calendar = calendarMatch.Groups[1].Value;
                     }
                     else
                     {
-                        Logger.Write("Failed to retrieve publish date for url \"" + newsLink + "\"!", LogLevel.LEVEL_WARN);
+                        Logger.Write("Failed to retrieve publish date for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.LEVEL_WARN);
                     }
 
                     if (userMatch.Success && userMatch.Groups[1].Success)
                     {
-                        returnStorage.User = userMatch.Groups[1].Value;
+                        newsStorage.User = userMatch.Groups[1].Value;
                     }
                     else
                     {
-                        Logger.Write("Failed to retrieve publish author for url \"" + newsLink + "\"!", LogLevel.LEVEL_WARN);
+                        Logger.Write("Failed to retrieve publish author for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.LEVEL_WARN);
                     }
 
                     if (categoryMatch.Success && categoryMatch.Groups[1].Success)
                     {
-                        returnStorage.Category = categoryMatch.Groups[1].Value;
+                        newsStorage.Category = categoryMatch.Groups[1].Value;
                     }
                     else
                     {
-                        Logger.Write("Failed to retrieve news category for url \"" + newsLink + "\"!", LogLevel.LEVEL_WARN);
+                        Logger.Write("Failed to retrieve news category for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.LEVEL_WARN);
                     }
 
-                    if (thumbnailMatchOne.Success && thumbnailMatchOne.Groups[1].Success)
+                    if (String.IsNullOrEmpty(newsStorage.ThumbnailUrl))
                     {
-                        returnStorage.ThumbnailUrl = thumbnailMatchOne.Groups[1].Value;
-                    }
-                    else if (pageBody.Contains("blog-video-player")) // This usually happens when there is a video link instead of a thumbnail.
-                    {
-                        Match thumbnailMatchAlt = Regex.Match(pageBody, "<img src=\"(.*)\" alt=\"[^article]", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                        Match thumbnailMatchOne = Regex.Match(pageBody, "\" src=\"(.*)\" class=\"attachment", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
 
-                        if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
+                        if (thumbnailMatchOne.Success && thumbnailMatchOne.Groups[1].Success)
                         {
-                            returnStorage.ThumbnailUrl = thumbnailMatchAlt.Groups[1].Value;
+                            newsStorage.ThumbnailUrl = thumbnailMatchOne.Groups[1].Value;
+                        }
+                        else if (pageBody.Contains("blog-video-player")) // This usually happens when there is a video link instead of a thumbnail.
+                        {
+                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<img src=\"(.*)\" alt=\"[^article]", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+
+                            if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
+                            {
+                                newsStorage.ThumbnailUrl = thumbnailMatchAlt.Groups[1].Value;
+                            }
+                        }
+                        else if (newsStorage.Category.ToLower().Contains("community")) // This usually happens with community spotlights.
+                        {
+                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+
+                            if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
+                            {
+                                newsStorage.ThumbnailUrl = thumbnailMatchAlt.Groups[1].Value;
+                            }
                         }
                     }
-                    else if (returnStorage.Category.ToLower().Contains("community")) // This usually happens with community spotlights.
-                    {
-                        Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
 
-                        if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
-                        {
-                            returnStorage.ThumbnailUrl = thumbnailMatchAlt.Groups[1].Value;
-                        }
-                    }
-
-                    returnStorage.Parsed = true;
+                    newsStorage.Parsed = true;
                 }
                 else
                 {
-                    Logger.Write("Failed to download news body for url \"" + newsLink + "\"!", LogLevel.LEVEL_WARN);
+                    Logger.Write("Failed to download news body for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.LEVEL_WARN);
                 }
             }
 
-            return returnStorage;
+            return newsStorage;
+        }
+
+        private void ResetArticles()
+        {
+            PublishDate = "Loading...";
+            PublishAuthor = "Loading...";
+            NewsCategory = "Loading...";
+            Title = "Loading...";
+            ThumbnailImg.BackgroundImage = null;
+            PreviousBtn.Visible = false;
+            NextBtn.Visible = true;
+            CurrentIndex = 0;
+            NewsArticles.Clear();
         }
 
         public async void ParseArticles(string url)
         {
             string pageBody = await Downloaders.DownloadPage(url);
 
-            if (pageBody.Length > 0)
+            if (!String.IsNullOrEmpty(pageBody))
             {
-                MatchCollection articleLinks = Regex.Matches(pageBody, "news-tile-wrap\" href=\"(.*)\">");
+                ResetArticles();
+                MatchCollection articleLinks = Regex.Matches(pageBody, "<a class=\"news-tile-wrap\" href=\"(.*)\">");
+                //MatchCollection thumbnailLinks = Regex.Matches(pageBody, "<img src=\"(.*)\" alt=\"article-image\"\\/>");
 
-                foreach (Match link in articleLinks)
+                for (Int32 i = 0; i < articleLinks.Count; i++)
                 {
-                    if (link.Success && link.Groups[1].Success)
+                    Match link = articleLinks[i];
+                    //Match thumbnail = thumbnailLinks[i];
+
+                    if(link.Success && link.Groups[1].Success)
                     {
+                        //NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value, thumbnail.Groups[1].Value));
                         NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value));
                     }
                 }
@@ -183,7 +205,7 @@ namespace CodeRedLauncher.Controls
 
                 if (!article.Parsed)
                 {
-                    NewsArticles[CurrentIndex] = await ParseLink(NewsArticles[CurrentIndex].NewsUrl);
+                    NewsArticles[CurrentIndex] = await ParseLink(NewsArticles[CurrentIndex]);
                     article = NewsArticles[CurrentIndex];
                 }
 

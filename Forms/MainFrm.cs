@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.Win32;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
+using System.IO.Compression;
+using System.Collections.Generic;
 using CodeRedLauncher.Controls;
 
 namespace CodeRedLauncher
@@ -97,7 +92,7 @@ namespace CodeRedLauncher
 
                     if (platform == PlatformTypes.TYPE_STEAM)
                     {
-                        Path gameFile = Storage.GetSteamPath() / "RocketLeague.exe";
+                        Extensions.Path gameFile = Storage.GetSteamPath() / "RocketLeague.exe";
 
                         if (gameFile.Exists())
                         {
@@ -110,7 +105,7 @@ namespace CodeRedLauncher
                     }
                     else if (platform == PlatformTypes.TYPE_EPIC)
                     {
-                        Path gameFile = Storage.GetEpicPath() / "RocketLeague.exe";
+                        Extensions.Path gameFile = Storage.GetEpicPath() / "RocketLeague.exe";
 
                         if (gameFile.Exists())
                         {
@@ -226,18 +221,104 @@ namespace CodeRedLauncher
             OnInjectionTypeChanged();
         }
 
-        private void InjectionTimeoutBx_TextChangedEvent(object sender, EventArgs e)
+        private void InjectionTimeoutBx_ValueChangedEvent(object sender, EventArgs e)
         {
-            Int32 timeoutValue = Int32.Parse(InjectionTimeoutBx.DisplayText);
-
-            if (Configuration.InjectionTimeoutRange.IsInRange(timeoutValue))
+            if (Configuration.InjectionTimeoutRange.IsInRange(InjectionTimeoutBx.Value))
             {
-                Configuration.InjectionTimeout.SetValue(timeoutValue).Save();
+                Configuration.InjectionTimeout.SetValue(InjectionTimeoutBx.Value).Save();
+                InjectTmr.Interval = InjectionTimeoutBx.Value;
             }
-            else
+        }
+
+        private void OpenFolderBtn_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(Storage.GetModulePath().GetPath()) { UseShellExecute = true });
+        }
+
+        private void ExportLogsBtn_Click(object sender, EventArgs e)
+        {
+            Extensions.Path modulePath = Storage.GetModulePath();
+            Extensions.Path logsPath = (Storage.GetGamesPath() / "TAGame" / "Logs");
+
+            if (modulePath.Exists())
             {
-                Configuration.InjectionTimeout.ResetToDefault().Save();
-                Logger.Write("Injection timeout out of range, resetting to defaut!", LogLevel.LEVEL_WARN);
+                Extensions.Path tempFolder = (new Extensions.Path(Path.GetTempPath()) / "CodeRedLauncher");
+
+                if (tempFolder.Exists())
+                {
+                    Directory.Delete(tempFolder.GetPath(), true);
+                }
+
+                List<string> filesToExport = new List<string>();
+                List<Extensions.Path> moduleFiles = modulePath.GetFiles(true);
+
+                foreach (Extensions.Path file in moduleFiles)
+                {
+                    if (file.Exists())
+                    {
+                        string filePath = file.GetPath();
+
+                        if (filePath.Contains(".log"))
+                        {
+                            filesToExport.Add(filePath);
+                        }
+                    }
+                }
+
+                if (logsPath.Exists())
+                {
+                    List<Extensions.Path> logFiles = logsPath.GetFiles();
+
+                    foreach (Extensions.Path file in logFiles)
+                    {
+                        if (file.Exists())
+                        {
+                            string filePath = file.GetPath();
+
+                            if (filePath.Contains(".mdump") || filePath.Contains(".mdmp") || filePath.Contains(".dmp") || filePath.Contains(".log"))
+                            {
+                                filesToExport.Add(filePath);
+                            }
+                        }
+                    }
+                }
+
+                if (filesToExport.Count > 0)
+                {
+                    FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+
+                    if (folderBrowser.ShowDialog() == DialogResult.OK)
+                    {
+                        Directory.CreateDirectory(tempFolder.GetPath());
+
+                        string zipName = "crash_logs_" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
+                        Extensions.Path zipFolder = (tempFolder / zipName);
+                        Directory.CreateDirectory(zipFolder.GetPath());
+
+                        if (zipFolder.Exists())
+                        {
+                            foreach (string file in filesToExport)
+                            {
+                                if (File.Exists(file))
+                                {
+                                    FileInfo fileInfo = new FileInfo(file);
+                                    File.Copy(file, (zipFolder / fileInfo.Name).GetPath());
+                                }
+                            }
+
+                            Extensions.Path zipFile = (tempFolder / (zipName + ".zip"));
+                            ZipFile.CreateFromDirectory(zipFolder.GetPath(), zipFile.GetPath());
+                            File.Move(zipFile.GetPath(), folderBrowser.SelectedPath + "\\" + zipName + ".zip");
+                            Directory.Delete(tempFolder.GetPath(), true);
+
+                            MessageBox.Show("Successfully exported \"" + filesToExport.Count.ToString() + "\" crash logs to: " + folderBrowser.SelectedPath.ToString(), Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("There were no crash dumps or logs found to export! This could be either a good or bad thing...", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -441,7 +522,7 @@ namespace CodeRedLauncher
                 Logger.Write("Failed to do download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
             }
 
-            NewsCtrl.ParseArticles("https://www.rocketleague.com/ajax/articles-results/?p=0&lang=en-us"); // In the future remember to make this url dynamic, aka returned by the "Retrievers" class.
+            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
         }
 
         private void ConfigToInterface()
@@ -473,8 +554,10 @@ namespace CodeRedLauncher
                         break;
                 }
 
-                InjectTmr.Interval = Configuration.GetInjectionTimeout();
-                InjectionTimeoutBx.DisplayText = Configuration.GetInjectionTimeout().ToString();
+                InjectionTimeoutBx.MinimumValue = Configuration.InjectionTimeoutRange.Minimum;
+                InjectionTimeoutBx.MaximumValue = Configuration.InjectionTimeoutRange.Maximum;
+                InjectionTimeoutBx.Value = Configuration.GetInjectionTimeout();
+                InjectTmr.Interval = InjectionTimeoutBx.Value;
             }
             else
             {
@@ -529,12 +612,13 @@ namespace CodeRedLauncher
 
             if (Storage.CheckInitialized())
             {
-                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
                 StorageToInterface();
+                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
 
                 if (bInvalidate)
                 {
                     Retrievers.Invalidate();
+                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                 }
 
                 if (await Retrievers.CheckInitialized())

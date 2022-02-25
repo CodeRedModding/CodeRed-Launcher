@@ -47,7 +47,9 @@ namespace CodeRedLauncher
             this.ScriptsTab = new System.Windows.Forms.TabPage();
             this.PlaceholderLblThird = new System.Windows.Forms.Label();
             this.SettingsTab = new System.Windows.Forms.TabPage();
-            this.InjectionTimeoutBx = new CodeRedLauncher.Controls.CRTextbox();
+            this.InjectionTimeoutBx = new CodeRedLauncher.Controls.CRNumberbox();
+            this.OpenFolderBtn = new CodeRedLauncher.Controls.CRButton();
+            this.ExportLogsBtn = new CodeRedLauncher.Controls.CRButton();
             this.InjectAllInstancesBx = new CodeRedLauncher.Controls.CRCheckbox();
             this.HideWhenMinimizedBx = new CodeRedLauncher.Controls.CRCheckbox();
             this.MinimizeOnStartupBx = new CodeRedLauncher.Controls.CRCheckbox();
@@ -318,6 +320,8 @@ namespace CodeRedLauncher
             // 
             this.SettingsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.SettingsTab.Controls.Add(this.InjectionTimeoutBx);
+            this.SettingsTab.Controls.Add(this.OpenFolderBtn);
+            this.SettingsTab.Controls.Add(this.ExportLogsBtn);
             this.SettingsTab.Controls.Add(this.InjectAllInstancesBx);
             this.SettingsTab.Controls.Add(this.HideWhenMinimizedBx);
             this.SettingsTab.Controls.Add(this.MinimizeOnStartupBx);
@@ -341,14 +345,43 @@ namespace CodeRedLauncher
             // InjectionTimeoutBx
             // 
             this.InjectionTimeoutBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.InjectionTimeoutBx.DisplayText = "20000";
             this.InjectionTimeoutBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InjectionTimeoutBx.Location = new System.Drawing.Point(202, 440);
+            this.InjectionTimeoutBx.Hexadecimal = false;
+            this.InjectionTimeoutBx.Increment = 1;
+            this.InjectionTimeoutBx.Location = new System.Drawing.Point(202, 441);
+            this.InjectionTimeoutBx.MaximumValue = 300000;
+            this.InjectionTimeoutBx.MinimumValue = 5000;
             this.InjectionTimeoutBx.Name = "InjectionTimeoutBx";
-            this.InjectionTimeoutBx.Size = new System.Drawing.Size(133, 30);
-            this.InjectionTimeoutBx.TabIndex = 61;
-            this.InjectionTimeoutBx.TextFilter = CodeRedLauncher.Controls.CRTextbox.FilterTypes.TYPE_DECIMAL_ONLY;
-            this.InjectionTimeoutBx.TextChangedEvent += new System.EventHandler(this.InjectionTimeoutBx_TextChangedEvent);
+            this.InjectionTimeoutBx.Size = new System.Drawing.Size(175, 29);
+            this.InjectionTimeoutBx.TabIndex = 64;
+            this.InjectionTimeoutBx.Value = 20000;
+            this.InjectionTimeoutBx.ValueChangedEvent += new System.EventHandler(this.InjectionTimeoutBx_ValueChangedEvent);
+            // 
+            // OpenFolderBtn
+            // 
+            this.OpenFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.OpenFolderBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
+            this.OpenFolderBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            this.OpenFolderBtn.DisplayText = "Open CodeRed Folder";
+            this.OpenFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.OpenFolderBtn.Location = new System.Drawing.Point(135, 540);
+            this.OpenFolderBtn.Name = "OpenFolderBtn";
+            this.OpenFolderBtn.Size = new System.Drawing.Size(320, 35);
+            this.OpenFolderBtn.TabIndex = 63;
+            this.OpenFolderBtn.Click += new System.EventHandler(this.OpenFolderBtn_Click);
+            // 
+            // ExportLogsBtn
+            // 
+            this.ExportLogsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ExportLogsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Box_White;
+            this.ExportLogsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            this.ExportLogsBtn.DisplayText = "Export Crash Logs";
+            this.ExportLogsBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.ExportLogsBtn.Location = new System.Drawing.Point(467, 540);
+            this.ExportLogsBtn.Name = "ExportLogsBtn";
+            this.ExportLogsBtn.Size = new System.Drawing.Size(320, 35);
+            this.ExportLogsBtn.TabIndex = 62;
+            this.ExportLogsBtn.Click += new System.EventHandler(this.ExportLogsBtn_Click);
             // 
             // InjectAllInstancesBx
             // 
@@ -899,9 +932,9 @@ namespace CodeRedLauncher
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Controls.Add(this.TabPnl);
             this.BackgroundPnl.Controls.Add(this.TitleBar);
-            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             this.BackgroundPnl.Name = "BackgroundPnl";
             this.BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1160,7 +1193,6 @@ namespace CodeRedLauncher
         private Controls.CRTab AboutTabBtn;
         private Controls.CRTab SettingsTabBtn;
         private Controls.CRButton LaunchBtn;
-        private Controls.CRTextbox InjectionTimeoutBx;
         private Controls.CRChangelog ChangelogCtrl;
         private System.Windows.Forms.Label PlaceholderLblSecond;
         private System.Windows.Forms.Label PlaceholderLblThird;
@@ -1168,6 +1200,9 @@ namespace CodeRedLauncher
         private System.Windows.Forms.NotifyIcon TrayIcon;
         private Controls.CRButton ManualInjectBtn;
         private Controls.CRNewsPanel NewsCtrl;
+        private Controls.CRButton OpenFolderBtn;
+        private Controls.CRButton ExportLogsBtn;
+        private Controls.CRNumberbox InjectionTimeoutBx;
     }
 }
 

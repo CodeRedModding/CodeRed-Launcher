@@ -14,9 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\CRTextbox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\CRTextbox.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

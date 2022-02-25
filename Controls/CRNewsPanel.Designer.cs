@@ -52,11 +52,11 @@
             // 
             // PreviousBtn
             // 
+            this.PreviousBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.PreviousBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.PreviousBtn.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Back_White;
             this.PreviousBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PreviousBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PreviousBtn.Dock = System.Windows.Forms.DockStyle.Left;
             this.PreviousBtn.Location = new System.Drawing.Point(0, 0);
             this.PreviousBtn.Name = "PreviousBtn";
             this.PreviousBtn.Size = new System.Drawing.Size(30, 550);
@@ -95,6 +95,8 @@
             // 
             // TitleLbl
             // 
+            this.TitleLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TitleLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.TitleLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -189,16 +191,17 @@
             // 
             // NextBtn
             // 
+            this.NextBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NextBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.NextBtn.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Forward_White;
             this.NextBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.NextBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.NextBtn.Dock = System.Windows.Forms.DockStyle.Right;
             this.NextBtn.Location = new System.Drawing.Point(830, 0);
             this.NextBtn.Name = "NextBtn";
             this.NextBtn.Size = new System.Drawing.Size(30, 550);
             this.NextBtn.TabIndex = 2;
             this.NextBtn.TabStop = false;
+            this.NextBtn.Visible = false;
             this.NextBtn.Click += new System.EventHandler(this.NextBtn_Click);
             this.NextBtn.DoubleClick += new System.EventHandler(this.NextBtn_DoubleClick);
             this.NextBtn.MouseEnter += new System.EventHandler(this.NextBtn_MouseEnter);

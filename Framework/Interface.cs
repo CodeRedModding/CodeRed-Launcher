@@ -17,11 +17,11 @@ namespace CodeRedLauncher
         TAB_ABOUT
     }
 
-    // Helper class for managing tabs and their button status outside of custom controls.
+    // Helper class for managing tabs and their buttons outside of custom controls.
     public static class Interface
     {
         private static TabControl ControlTab = null;
-        private static Dictionary<Tabs, Pair<CRTab, TabPage>> TabCache = new Dictionary<Tabs, Pair<CRTab, TabPage>>();
+        private static Dictionary<Tabs, Extensions.Pair<CRTab, TabPage>> TabCache = new Dictionary<Tabs, Extensions.Pair<CRTab, TabPage>>();
 
         public static void BindControl(TabControl control)
         {
@@ -30,7 +30,7 @@ namespace CodeRedLauncher
 
         public static void BindTab(Tabs id, CRTab tab, TabPage page)
         {
-            TabCache.Add(id, new Pair<CRTab, TabPage>(tab, page));
+            TabCache.Add(id, new Extensions.Pair<CRTab, TabPage>(tab, page));
         }
 
         private static void ResetTabs()
@@ -46,7 +46,7 @@ namespace CodeRedLauncher
             if (TabCache.ContainsKey(id))
             {
                 ResetTabs();
-                Pair<CRTab, TabPage> tabPair = TabCache[id];
+                Extensions.Pair<CRTab, TabPage> tabPair = TabCache[id];
                 tabPair.First.Selected = true;
                 ControlTab.SelectedTab = tabPair.Second;
             }

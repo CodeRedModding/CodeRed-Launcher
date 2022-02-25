@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace CodeRedLauncher
 {
@@ -17,7 +15,7 @@ namespace CodeRedLauncher
     public static class Logger
     {
         private static bool Initialized = false;
-        private static Path LogFile = new Path();
+        private static Extensions.Path LogFile = new Extensions.Path();
 
         public static bool CheckInitialized()
         {
@@ -43,7 +41,7 @@ namespace CodeRedLauncher
         {
             if (!Initialized)
             {
-                Path modPath = Storage.GetModulePath();
+                Extensions.Path modPath = Storage.GetModulePath();
                 
                 if (modPath.Exists())
                 {

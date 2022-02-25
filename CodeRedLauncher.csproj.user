@@ -13,10 +13,19 @@
     <Compile Update="Controls\CRNewsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\CRNumberbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\CRProcessPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\CRProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\CRTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\CRTextbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\CRTitleBar.cs">

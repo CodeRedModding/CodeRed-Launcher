@@ -1,15 +1,43 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 
-namespace CodeRedLauncher
+namespace CodeRedLauncher.Extensions
 {
+    public static class StringDictonary
+    {
+        private static readonly char[] AlphabetChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        private static readonly char[] DecimalChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        private static readonly char[] HexadecimalChars = { 'A', 'B', 'C', 'D', 'E', 'F' };
+
+        public static bool IsCharAlphabet(char c)
+        {
+            return AlphabetChars.Contains(c.ToString().ToUpper()[0]);
+        }
+
+        public static bool IsCharDecimal(char c)
+        {
+            return DecimalChars.Contains(c.ToString().ToUpper()[0]);
+        }
+
+        public static bool IsCharHexadecimal(char c)
+        {
+            if (HexadecimalChars.Contains(c.ToString().ToUpper()[0]))
+            {
+                return true;
+            }
+
+            return IsCharDecimal(c);
+        }
+    }
+
     // This is a custom class I made just so I could use something that was similar to "std::filesystem::path" which I am more familiar with.
     // Unnecessary but I like working with it anyway because of the "append" function and divide operator overloads, there is room for improvement in some areas for sure but I don't care.
     public class Path
     {
-        private string IndirectPath = "";
-        private bool IndirectFile = false;
+        private string IndirectPath { get; set; }
+        private bool IndirectFile { get; set; }
 
         private void Initialize(string str)
         {
@@ -27,7 +55,7 @@ namespace CodeRedLauncher
 
         public Path()
         {
-            IndirectPath = "";
+            IndirectPath = null;
             IndirectFile = false;
         }
 
@@ -54,7 +82,7 @@ namespace CodeRedLauncher
         // Modifies the current path with the given string. If you wish to return/add on to the path by creating a new one instead of modifying it, see down below for the divide operator overload.
         public Path Append(string str)
         {
-            if (IndirectPath.Length > 0)
+            if (!String.IsNullOrEmpty(IndirectPath))
             {
                 if (IndirectPath[IndirectPath.Length - 1] == '\\')
                 {
@@ -67,7 +95,7 @@ namespace CodeRedLauncher
             }
             else
             {
-                IndirectPath += str;
+                IndirectPath = str;
             }
 
             Initialize(IndirectPath);
@@ -181,13 +209,18 @@ namespace CodeRedLauncher
         }
     }
 
-    // Integer range class, strictly similar to the pair class, stores minimum and maximum values as well as comparing given integers.
+    // Integer range class, similar to the pair class, stores minimum and maximum values as well as comparing given integers.
     public class Range
     {
         public Int32 Minimum { get; set; }
         public Int32 Maximum { get; set; }
 
         public Range(Int32 minimum, Int32 maximum)
+        {
+            SetRange(minimum, maximum);
+        }
+
+        public void SetRange(Int32 minimum, Int32 maximum)
         {
             Minimum = minimum;
             Maximum = maximum;
