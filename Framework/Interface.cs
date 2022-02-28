@@ -30,7 +30,7 @@ namespace CodeRedLauncher
 
         public static void BindTab(Tabs id, CRTab tab, TabPage page)
         {
-            TabCache.Add(id, new Pair<CRTab, TabPage>(tab, page));
+            TabCache[id] = new Pair<CRTab, TabPage>(tab, page);
         }
 
         private static void ResetTabs()

@@ -9,7 +9,6 @@ namespace CodeRedLauncher.Architecture
     public class Path
     {
         private string? IndirectPath { get; set; }
-        private bool IndirectFile { get; set; }
 
         private void Initialize(string str)
         {
@@ -17,18 +16,12 @@ namespace CodeRedLauncher.Architecture
             {
                 IndirectPath = str;
                 IndirectPath = IndirectPath.Replace("\\\\", "\\");
-
-                if (File.Exists(IndirectPath))
-                {
-                    IndirectFile = true;
-                }
             }
         }
 
         public Path()
         {
             IndirectPath = null;
-            IndirectFile = false;
         }
 
         public Path(string str)
@@ -43,7 +36,7 @@ namespace CodeRedLauncher.Architecture
 
         public bool IsFile()
         {
-            return IndirectFile;
+            return File.Exists(IndirectPath);
         }
 
         public bool Exists()
@@ -91,14 +84,18 @@ namespace CodeRedLauncher.Architecture
         // If the paths parent path isn't a valid path the current paths path will return as a new path instead (hehe).
         public Path Parent()
         {
-            string parentPath = GetPath();
-            Int32 parentStart = parentPath.LastIndexOf("\\");
-            string tempPath = parentPath.Substring(parentStart, parentPath.Length - parentStart);
-            parentPath = parentPath.Replace(tempPath, "");
+            string parentPath = IndirectPath;
 
-            if (!Directory.Exists(parentPath))
+            if (!String.IsNullOrEmpty(parentPath))
             {
-                parentPath = GetPath();
+                Int32 parentStart = parentPath.LastIndexOf("\\");
+                string tempPath = parentPath.Substring(parentStart, parentPath.Length - parentStart);
+                parentPath = parentPath.Replace(tempPath, "");
+
+                if (!Directory.Exists(parentPath))
+                {
+                    parentPath = GetPath();
+                }
             }
 
             return new Path(parentPath);
@@ -152,6 +149,7 @@ namespace CodeRedLauncher.Architecture
         {
             Path newPath = new Path();
             newPath.Set(a);
+            b = b.Replace("/", "\\");
             newPath.Append(b);
             return newPath;
         }

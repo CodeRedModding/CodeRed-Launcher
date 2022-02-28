@@ -122,6 +122,7 @@ namespace CodeRedLauncher
             new InternalSetting("0.0.0", "LauncherVersion"),
             new InternalSetting("0.0f", "ModuleVersion"),
             new InternalSetting(null, "LauncherUrl"),
+            new InternalSetting(null, "DropperUrl"),
             new InternalSetting(null, "ModuleUrl"),
             new InternalSetting(null, "DiscordUrl"),
             new InternalSetting(null, "NewsUrl"),
@@ -183,6 +184,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
+                    Logger.Write("Failed to do download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
                     MessageBox.Show("Warning: Failed to do download remote information, cannot check for updates or verify installed version!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
@@ -218,6 +220,12 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return GetStoredSetting("LauncherUrl").GetStringValue(); }
             return GetStoredSetting("LauncherUrl").GetStringValue(true);
+        }
+
+        public static async Task<string> GetDropperUrl()
+        {
+            if (await CheckInitialized()) { return GetStoredSetting("DropperUrl").GetStringValue(); }
+            return GetStoredSetting("DropperUrl").GetStringValue(true);
         }
 
         public static async Task<string> GetModuleUrl()

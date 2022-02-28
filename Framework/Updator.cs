@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
 using System.IO.Compression;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CodeRedLauncher
@@ -21,9 +19,19 @@ namespace CodeRedLauncher
         public static UpdatorStatus Status { get; set; } = UpdatorStatus.STATUS_NONE;
         public static bool IsOutdated { get; set; } = false;
 
-        private static async Task<Report> InstallLauncher()
+        public static async Task<Report> InstallLauncher(bool bForceInstall)
         {
             Report report = new Report();
+
+            if (!bForceInstall)
+            {
+                if (!IsOutdated || ((Status & UpdatorStatus.STATUS_LAUNCHER) == 0))
+                {
+                    report.FailReason = "No launcher update required";
+                    return report;
+                }
+            }
+
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
 
             if (tempFolder.Exists())
@@ -36,21 +44,37 @@ namespace CodeRedLauncher
             if (tempFolder.Exists())
             {
                 string launcherUrl = await Retrievers.GetLauncherUrl();
+                string dropperUrl = await Retrievers.GetDropperUrl();
 
-                if (!String.IsNullOrEmpty(launcherUrl))
+                if (!String.IsNullOrEmpty(launcherUrl) && !String.IsNullOrEmpty(dropperUrl))
                 {
-                    Architecture.Path downloadedFile = tempFolder / "CodeRedLauncher.zip";
+                    Architecture.Path launcherFile = tempFolder / "CodeRedLauncher.exe";
+                    Architecture.Path dropperFile = tempFolder / "CodeRedDropper.exe";
 
-                    if (await Downloaders.DownloadFile(launcherUrl, tempFolder, "CodeRedLauncher.zip"))
+                    if (await Downloaders.DownloadFile(launcherUrl, tempFolder, "CodeRedLauncher.exe"))
                     {
-                        if (downloadedFile.Exists())
+                        if (launcherFile.Exists())
                         {
-                            using (ZipArchive zipArchive = ZipFile.OpenRead(downloadedFile.GetPath()))
+                            if (await Downloaders.DownloadFile(launcherUrl, tempFolder, "CodeRedDropper.exe"))
                             {
-
+                                if (dropperFile.Exists())
+                                {
+                                    // Dropper file closes the launcher, deletes the exe, moves newly downloaded one in place of the old exe, then runs it.
+                                    // Dropper then deletes the temp folder and its contents.
+                                    Process.Start(new ProcessStartInfo(dropperFile.GetPath()) { UseShellExecute = false });
+                                    Environment.Exit(0);
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        report.FailReason = "Failed to download launcher executable.";
+                    }
+                }
+                else
+                {
+                    report.FailReason = "Failed to retrieve download link.";
                 }
             }
 
@@ -58,9 +82,19 @@ namespace CodeRedLauncher
             return report;
         }
 
-        public static async Task<Report> InstallModule()
+        public static async Task<Report> InstallModule(bool bForceInstall)
         {
             Report report = new Report();
+
+            if (!bForceInstall)
+            {
+                if (!IsOutdated || ((Status & UpdatorStatus.STATUS_MODULE) == 0))
+                {
+                    report.FailReason = "No module update required";
+                    return report;
+                }
+            }
+
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
 
             if (tempFolder.Exists())
@@ -82,12 +116,44 @@ namespace CodeRedLauncher
                     {
                         if (downloadedFile.Exists())
                         {
+                            Architecture.Path modulePath = Storage.GetModulePath();
+
+                            if (!modulePath.Exists())
+                            {
+                                Directory.CreateDirectory(modulePath.GetPath());
+                            }
+
                             using (ZipArchive zipArchive = ZipFile.OpenRead(downloadedFile.GetPath()))
                             {
+                                foreach (ZipArchiveEntry archiveEntry in zipArchive.Entries)
+                                {
+                                    Architecture.Path fullPath = modulePath / archiveEntry.FullName;
+                                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath.GetPath()));
+                                    string fileFilter = fullPath.GetPath().ToLower();
 
+                                    // Skip overriding existing files that may be user-specific, such as settings or scripts.
+                                    if (fileFilter.EndsWith(".script") || fileFilter.EndsWith(".sequence") || fileFilter.EndsWith(".cr"))
+                                    {
+                                        continue;
+                                    }
+
+                                    archiveEntry.ExtractToFile(fullPath.GetPath(), true);
+                                }
                             }
+
+                            Directory.Delete(tempFolder.GetPath(), true);
+                            Configuration.SaveChanges();
+                            report.Succeeded = true;
                         }
                     }
+                    else
+                    {
+                        report.FailReason = "Failed to download module archive.";
+                    }
+                }
+                else
+                {
+                    report.FailReason = "Failed to retrieve download link.";
                 }
             }
 
@@ -103,23 +169,31 @@ namespace CodeRedLauncher
             {
                 if ((Status & UpdatorStatus.STATUS_MODULE) != 0)
                 {
-                    Report moduleReport = await InstallModule();
+                    Report moduleReport = await InstallModule(false);
 
                     if (!moduleReport.Succeeded)
                     {
+                        Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_WARN);
                         return moduleReport;
                     }
                 }
 
-
                 if ((Status & UpdatorStatus.STATUS_LAUNCHER) != 0)
                 {
-                    return await InstallLauncher();
+                    Report launcherReport = await InstallLauncher(false);
+
+                    if (!launcherReport.Succeeded)
+                    {
+                        Logger.Write(launcherReport.FailReason, LogLevel.LEVEL_WARN);
+                        return launcherReport;
+                    }
                 }
+
+                report.Succeeded = true;
             }
             else
             {
-                Logger.Write("Could not install updates, launcher is running in offline mode!");
+                report.FailReason = "Could not install updates, launcher is running in offline mode!";
             }
 
             return report;

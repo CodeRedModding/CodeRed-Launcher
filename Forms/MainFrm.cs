@@ -2,9 +2,10 @@
 using System.IO;
 using Microsoft.Win32;
 using System.Text.Json;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
 using System.IO.Compression;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using CodeRedLauncher.Controls;
 
@@ -202,11 +203,16 @@ namespace CodeRedLauncher
 
         private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
         {
+            Updator.InstallModule(true);
+
+            return;
+
             Architecture.Path sessionsFolder = Storage.GetModulePath() / "Sessions";
 
             if (sessionsFolder.Exists())
             {
                 List<Architecture.Path> sessionsFiles = sessionsFolder.GetFiles(true);
+                Logger.Write("Found \"" + sessionsFiles.Count + "\" session files.");
 
                 foreach (Architecture.Path sessionsFile in sessionsFiles)
                 {
@@ -242,12 +248,16 @@ namespace CodeRedLauncher
             {
                 if (RunOnStartupBx.Checked)
                 {
+                    Logger.Write("Setting run on start registry value to \"" + Application.ExecutablePath + "\".");
                     startKey.SetValue(Assembly.GetProduct(), Application.ExecutablePath);
                 }
                 else
                 {
+                    Logger.Write("Deleting run on start registry key.");
                     startKey.DeleteValue(Assembly.GetProduct(), false);
                 }
+
+                startKey.Close();
             }
         }
 
@@ -377,27 +387,32 @@ namespace CodeRedLauncher
                     {
                         Directory.CreateDirectory(tempFolder.GetPath());
 
-                        string zipName = "crash_logs_" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
-                        Architecture.Path zipFolder = (tempFolder / zipName);
-                        Directory.CreateDirectory(zipFolder.GetPath());
-
-                        if (zipFolder.Exists())
+                        if (Directory.Exists(tempFolder.GetPath()))
                         {
-                            foreach (string file in filesToExport)
+                            string zipName = "crash_logs_" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
+                            Architecture.Path zipFolder = (tempFolder / zipName);
+                            Directory.CreateDirectory(zipFolder.GetPath());
+
+                            if (zipFolder.Exists())
                             {
-                                if (File.Exists(file))
+                                Logger.Write("Found \"" + filesToExport.Count + "\" files to export.");
+
+                                foreach (string file in filesToExport)
                                 {
-                                    FileInfo fileInfo = new FileInfo(file);
-                                    File.Copy(file, (zipFolder / fileInfo.Name).GetPath());
+                                    if (File.Exists(file))
+                                    {
+                                        FileInfo fileInfo = new FileInfo(file);
+                                        File.Copy(file, (zipFolder / fileInfo.Name).GetPath());
+                                    }
                                 }
+
+                                Architecture.Path zipFile = (tempFolder / (zipName + ".zip"));
+                                ZipFile.CreateFromDirectory(zipFolder.GetPath(), zipFile.GetPath());
+                                File.Move(zipFile.GetPath(), folderBrowser.SelectedPath + "\\" + zipName + ".zip");
+                                Directory.Delete(tempFolder.GetPath(), true);
+
+                                MessageBox.Show("Successfully exported \"" + filesToExport.Count.ToString() + "\" crash logs to: " + folderBrowser.SelectedPath.ToString(), Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
-
-                            Architecture.Path zipFile = (tempFolder / (zipName + ".zip"));
-                            ZipFile.CreateFromDirectory(zipFolder.GetPath(), zipFile.GetPath());
-                            File.Move(zipFile.GetPath(), folderBrowser.SelectedPath + "\\" + zipName + ".zip");
-                            Directory.Delete(tempFolder.GetPath(), true);
-
-                            MessageBox.Show("Successfully exported \"" + filesToExport.Count.ToString() + "\" crash logs to: " + folderBrowser.SelectedPath.ToString(), Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -466,10 +481,13 @@ namespace CodeRedLauncher
         {
             CheckForUpdates(true);
 
-            if (Updator.IsOutdated && Configuration.ShouldPreventInjection())
+            if (!Configuration.OfflineMode.GetBoolValue())
             {
-                Logger.Write("Prevented injection, updator returned out of date!");
-                return;
+                if (Updator.IsOutdated && Configuration.ShouldPreventInjection())
+                {
+                    Logger.Write("Prevented injection, updator returned out of date!");
+                    return;
+                }
             }
 
             if (Configuration.GetInjectionType() == InjectionTypes.TYPE_MANUAL)
@@ -568,7 +586,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private async void StartupRoutine()
+        private async void StartupRoutine(bool bInvalidate = false)
         {
             this.Text = Assembly.GetTitle();
             TitleBar.BoundForm = this; // Bind "MainFrm" to the "CRTitleBar", which handles mouse moving and dragging the window around.
@@ -582,6 +600,12 @@ namespace CodeRedLauncher
             Interface.BindTab(Tabs.TAB_SETTINGS, SettingsTabBtn, SettingsTab);
             Interface.BindTab(Tabs.TAB_ABOUT, AboutTabBtn, AboutTab);
 
+            if (bInvalidate)
+            {
+                Storage.Invalidate(true);
+                Retrievers.Invalidate();
+            }
+
             Logger.CheckInitialized(); // Create and initialize the log file for the launcher.
 
             if (Configuration.CheckInitialized())
@@ -590,31 +614,53 @@ namespace CodeRedLauncher
                 {
                     TitleBar_OnMinimized(null, null);
                 }
-            }
 
-            ConfigToInterface(); // Retrieves the users configuration settings and assigns it to the UI.
-            StorageToInterface(); // Retrieves Rocket League paths, version, and platform info to then assign to the UI.
+                if (await Retrievers.CheckInitialized())
+                {
+                    string pingUrl = await Retrievers.GetModuleUrl();
 
-            if (await Retrievers.CheckInitialized())
-            {
-                string pingUrl = await Retrievers.GetModuleUrl();
-
-                if ((await Downloaders.WebsiteOnline(pingUrl)) == false)
+                    if ((await Downloaders.WebsiteOnline(pingUrl)) == false)
+                    {
+                        OfflinePopupCtrl.Show();
+                    }
+                    else
+                    {
+                        ContinueStartup();
+                    }
+                }
+                else
                 {
                     OfflinePopupCtrl.Show();
+                }
+
+                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+            }
+            else
+            {
+                if (!Storage.GetModulePath().Exists())
+                {
+                    if (await Retrievers.CheckInitialized())
+                    {
+                        InstallPopupCtrl.Show();
+                    }
+                    else
+                    {
+                        //"NO INTERNET CONNECTION!";
+                    }
+                }
+                else if (!Storage.GetLibraryFile().Exists())
+                {
+                    await Installer.InstallModule();
+                    StartupRoutine(true);
                 }
                 else
                 {
                     ContinueStartup();
                 }
             }
-            else
-            {
-                OfflinePopupCtrl.Show();
-                Logger.Write("Failed to do download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
-            }
 
-            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+            ConfigToInterface(); // Retrieves the users configuration settings and assigns it to the UI.
+            StorageToInterface(); // Retrieves Rocket League paths, version, and platform info to then assign to the UI.
         }
 
         private async void ContinueStartup()
@@ -713,14 +759,10 @@ namespace CodeRedLauncher
                 LaunchBtn.Visible = true;
                 ManualInjectBtn.Visible = false;
             }
-            else
-            {
-                Logger.Write("Failed to retrieve local directory information, cannot verify Rocket League version!", LogLevel.LEVEL_ERROR);
-            }
         }
 
         // If "bInvalidate" is set to true it forces the application to re-fetch all local and remote information, this also doubles to determine to display a message popup if there is no update found.
-        private async void CheckForUpdates(bool bInvalidate)
+        private async Task<bool> CheckForUpdates(bool bInvalidate)
         {
             if (bInvalidate)
             {
@@ -755,6 +797,8 @@ namespace CodeRedLauncher
                             // REMEMBER TO DO ASYNC STARTING OF ProcessTmr WHEN UPDATING IS DONE! AND MESSAGEBOX
                             if (moduleOutdated && launcherOutdated)
                             {
+                                Updator.Status |= UpdatorStatus.STATUS_MODULE;
+                                Updator.Status |= UpdatorStatus.STATUS_LAUNCHER;
                                 UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_BOTH;
                                 UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
                                 UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, would you like to automatically install both now?";
@@ -762,6 +806,7 @@ namespace CodeRedLauncher
                             }
                             else if (moduleOutdated)
                             {
+                                Updator.Status |= UpdatorStatus.STATUS_MODULE;
                                 UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_MODULE;
                                 UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
                                 UpdatePopupCtrl.DisplayDescription = "A new version of the CodeRed module was found, would you like to automatically install it now?";
@@ -769,6 +814,7 @@ namespace CodeRedLauncher
                             }
                             else if (launcherOutdated)
                             {
+                                Updator.Status |= UpdatorStatus.STATUS_LAUNCHER;
                                 UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_LAUNCHER;
                                 UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
                                 UpdatePopupCtrl.DisplayDescription = "A new version of the launcher was found, would you like to automatically install it now?";
@@ -777,6 +823,7 @@ namespace CodeRedLauncher
                         }
                         else
                         {
+                            Updator.Status = UpdatorStatus.STATUS_NONE;
                             UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_UPDATED;
                             UpdateCtrl.TitleImage = Properties.Resources.Success_White;
                             UpdatePopupCtrl.Hide();
@@ -793,11 +840,65 @@ namespace CodeRedLauncher
             {
                 Logger.Write("Failed to retrieve local directory information while checking for updates!", LogLevel.LEVEL_FATAL);
             }
+
+            return true;
+        }
+
+        private async void InstallPopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
+        {
+            Report pathReport = Installer.CreateInstallPath(true);
+
+            if (pathReport.Succeeded)
+            {
+                Report moduleReport = await Installer.InstallModule();
+
+                if (moduleReport.Succeeded)
+                {
+                    InstallPopupCtrl.Hide();
+                    await CheckForUpdates(true);
+                    StartupRoutine(true);
+                }
+                else
+                {
+                    MessageBox.Show(moduleReport.FailReason);
+                }
+            }
+            else
+            {
+                MessageBox.Show(pathReport.FailReason);
+            }
+        }
+
+        private async void InstallPopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
+        {
+            Report pathReport = Installer.CreateInstallPath(false);
+
+            if (pathReport.Succeeded)
+            {
+                Report moduleReport = await Installer.InstallModule();
+
+                if (moduleReport.Succeeded)
+                {
+                    InstallPopupCtrl.Hide();
+                    Storage.Invalidate(true);
+                    await CheckForUpdates(true);
+                    StartupRoutine(true);
+                }
+                else
+                {
+                    MessageBox.Show(moduleReport.FailReason);
+                }
+            }
+            else
+            {
+                MessageBox.Show(pathReport.FailReason);
+            }
         }
 
         private void UpdatePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
         {
             this.TopMost = false;
+            ProcessTmr.Start();
             UpdatePopupCtrl.Hide();
         }
 

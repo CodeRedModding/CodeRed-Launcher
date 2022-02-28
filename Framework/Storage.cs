@@ -31,9 +31,15 @@ namespace CodeRedLauncher
         private static PrivateSetting NetBuild = new PrivateSetting("0");
         private static PrivateSetting ModuleVersion = new PrivateSetting("0.0f");
 
-        public static void Invalidate()
+        public static void Invalidate(bool bForceReset = false)
         {
             VersionsValid = false;
+
+            if (bForceReset)
+            {
+                Initialized = false;
+            }
+
             CheckInitialized();
         }
 
@@ -47,7 +53,8 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    MessageBox.Show("Error: Failed to initialize directories!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Write("Failed to retrieve local directory information, cannot verify Rocket League version!", LogLevel.LEVEL_ERROR);
+                    MessageBox.Show("Error: Failed to retrieve local directory information!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -164,8 +171,6 @@ namespace CodeRedLauncher
         private static bool ParseRegistryKeys()
         {
             bool foundAtLeastOnePath = false;
-            bool foundModPath = false;
-
             RegistryKey modKey = Registry.CurrentUser.OpenSubKey("CodeRedModding");
 
             if (modKey != null)
@@ -181,20 +186,7 @@ namespace CodeRedLauncher
                         ModuleFolder.SetValue(moduleFolder);
                         LibraryFile.SetValue(moduleFolder / "DLL" / "CodeRed.dll");
                     }
-                    else
-                    {
-                        MessageBox.Show("Error: Failed validate the CodeRed install path!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Environment.Exit(0);
-                    }
-
-                    foundModPath = true;
                 }
-            }
-
-            if (!foundModPath)
-            {
-                MessageBox.Show("Error: Failed to locate the CodeRed install path!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
             }
 
             RegistryKey epicKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\EpicGames\\Unreal Engine");
@@ -264,7 +256,7 @@ namespace CodeRedLauncher
             return foundAtLeastOnePath;
         }
 
-        private static bool FindDirectories()
+        public static bool FindDirectories()
         {
             if (!Initialized)
             {
@@ -282,24 +274,12 @@ namespace CodeRedLauncher
                     }
                     else
                     {
-                        bool shownMessage = false;
-
-                        if (!shownMessage)
-                        {
-                            shownMessage = true;
-                            MessageBox.Show("Error: Failed to locate the needed registry keys!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        MessageBox.Show("Error: Failed to locate the needed registry keys!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    bool shownMessage = false;
-
-                    if (!shownMessage)
-                    {
-                        shownMessage = true;
-                        MessageBox.Show("Error: Failed to find the Rocket League games folder!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Error: Failed to find the Rocket League games folder!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 

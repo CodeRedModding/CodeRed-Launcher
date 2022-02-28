@@ -108,6 +108,7 @@ namespace CodeRedLauncher
             this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
             this.OfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.UpdatePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
+            this.InstallPopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.ProcessTmr = new System.Windows.Forms.Timer(this.components);
             this.InjectTmr = new System.Windows.Forms.Timer(this.components);
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -956,11 +957,12 @@ namespace CodeRedLauncher
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Controls.Add(this.TabPnl);
             this.BackgroundPnl.Controls.Add(this.TitleBar);
             this.BackgroundPnl.Controls.Add(this.OfflinePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.UpdatePopupCtrl);
+            this.BackgroundPnl.Controls.Add(this.InstallPopupCtrl);
+            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             this.BackgroundPnl.Name = "BackgroundPnl";
             this.BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1101,7 +1103,7 @@ namespace CodeRedLauncher
     "Version checking, news, changelog, and remote information will all be disabled.";
             this.OfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
             this.OfflinePopupCtrl.DoubleFirstImage = null;
-            this.OfflinePopupCtrl.DoubleFirstText = "No thanks, I messed up";
+            this.OfflinePopupCtrl.DoubleFirstText = "No thanks, let\'s try again";
             this.OfflinePopupCtrl.DoubleSecondImage = null;
             this.OfflinePopupCtrl.DoubleSecondText = "Yeah, that was the point";
             this.OfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -1135,6 +1137,29 @@ namespace CodeRedLauncher
             this.UpdatePopupCtrl.Visible = false;
             this.UpdatePopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleFirstButtonClick);
             this.UpdatePopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleSecondButtonClick);
+            // 
+            // InstallPopupCtrl
+            // 
+            this.InstallPopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.InstallPopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            this.InstallPopupCtrl.DisplayDescription = "It looks like this if your first time running CodeRed, we need to setup and downl" +
+    "oad a few things before we can get started. First, would you like to customize y" +
+    "our install path?";
+            this.InstallPopupCtrl.DisplayTitle = "WELCOME TO CODERED";
+            this.InstallPopupCtrl.DoubleFirstImage = null;
+            this.InstallPopupCtrl.DoubleFirstText = "Sure, let me pick a folder";
+            this.InstallPopupCtrl.DoubleSecondImage = null;
+            this.InstallPopupCtrl.DoubleSecondText = "Nah, do everything for me";
+            this.InstallPopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.InstallPopupCtrl.Location = new System.Drawing.Point(0, 0);
+            this.InstallPopupCtrl.Name = "InstallPopupCtrl";
+            this.InstallPopupCtrl.SingleButtonImage = null;
+            this.InstallPopupCtrl.SingleButtonText = "Single Option";
+            this.InstallPopupCtrl.Size = new System.Drawing.Size(970, 630);
+            this.InstallPopupCtrl.TabIndex = 37;
+            this.InstallPopupCtrl.Visible = false;
+            this.InstallPopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleFirstButtonClick);
+            this.InstallPopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleSecondButtonClick);
             // 
             // ProcessTmr
             // 
@@ -1277,6 +1302,7 @@ namespace CodeRedLauncher
         private Controls.CRButton ReloadSessionsBtn;
         private Controls.CRPopup UpdatePopupCtrl;
         private Controls.CRPopup OfflinePopupCtrl;
+        private Controls.CRPopup InstallPopupCtrl;
     }
 }
 
