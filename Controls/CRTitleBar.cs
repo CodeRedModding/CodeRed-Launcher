@@ -82,7 +82,8 @@ namespace CodeRedLauncher.Controls
 
         private void ExitBtn_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            base.OnClick(e);
+            CRTitleBar_OnExit(e);
         }
 
         private void MinimizeBtn_MouseEnter(object sender, EventArgs e)
@@ -107,13 +108,20 @@ namespace CodeRedLauncher.Controls
 
         private void MinimizeBtn_Click(object sender, EventArgs e)
         {
-            CRTitleBar_Minimized(e);
+            base.OnClick(e);
+            CRTitleBar_OnMinimized(e);
         }
 
-        public event EventHandler MinimizedEvent;
-        protected void CRTitleBar_Minimized(EventArgs e)
+        public event EventHandler OnMinimized;
+        protected void CRTitleBar_OnMinimized(EventArgs e)
         {
-            MinimizedEvent?.Invoke(this, e);
+            OnMinimized?.Invoke(this, e);
+        }
+
+        public event EventHandler OnExit;
+        protected void CRTitleBar_OnExit(EventArgs e)
+        {
+            OnExit?.Invoke(this, e);
         }
     }
 }

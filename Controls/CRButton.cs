@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher.Controls
@@ -21,22 +15,26 @@ namespace CodeRedLauncher.Controls
             public static readonly Color BackgroundColor0 = Color.FromArgb(255, 0, 0);
             public static readonly Color HoverColor0 = Color.FromArgb(255, 50, 50);
             public static readonly Color ClickColor0 = Color.FromArgb(200, 20, 0);
-            // Black and White
+            // Light
             public static readonly Color BorderColor1 = Color.FromArgb(185, 185, 185);
             public static readonly Color BackgroundColor1 = Color.FromArgb(235, 235, 235);
             public static readonly Color HoverColor1 = Color.FromArgb(245, 245, 245);
             public static readonly Color ClickColor1 = Color.FromArgb(215, 215, 215);
+            // Dark
+            public static readonly Color BorderColor2 = Color.FromArgb(30, 30, 30);
+            public static readonly Color BackgroundColor2 = Color.FromArgb(26, 26, 26);
+            public static readonly Color HoverColor2 = Color.FromArgb(28, 28, 28);
+            public static readonly Color ClickColor2 = Color.FromArgb(24, 24, 24);
         }
 
         public enum ButtonStyles : byte
         {
             STYLE_COLORED,
-            STYLE_BLACK_WHITE
+            STYLE_LIGHT,
+            STYLE_DARK
         }
 
         private ButtonStyles ButtonStyle = ButtonStyles.STYLE_COLORED;
-        private Image ButtonImage = null;
-        private string ButtonText = "Button";
 
         public ButtonStyles DisplayStyle
         {
@@ -46,14 +44,20 @@ namespace CodeRedLauncher.Controls
 
         public Image DisplayImage
         {
-            get { return ButtonImage; }
-            set { ButtonImage = value; UpdateStyle(); Invalidate(); }
+            get { return ButtonImg.BackgroundImage; }
+            set { ButtonImg.BackgroundImage = value; ButtonImg.Visible = (value != null); Invalidate(); }
+        }
+
+        public Font DisplayFont
+        {
+            get { return TextLbl.Font; }
+            set { TextLbl.Font = value; Invalidate(); }
         }
 
         public string DisplayText
         {
-            get { return ButtonText; }
-            set { ButtonText = value; TextLbl.Text = ButtonText; UpdateStyle(); Invalidate(); }
+            get { return TextLbl.Text; }
+            set { TextLbl.Text = value; Invalidate(); }
         }
 
         public CRButton()
@@ -66,13 +70,20 @@ namespace CodeRedLauncher.Controls
             if (ButtonStyle == ButtonStyles.STYLE_COLORED)
             {
                 this.BackColor = Palette.BorderColor0;
-                ButtonImg.BackgroundImage = ButtonImage;
+                BackgroundPnl.BackColor = Palette.BackgroundColor0;
                 TextLbl.ForeColor = Palette.FontLight;
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_BLACK_WHITE)
+            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
             {
                 this.BackColor = Palette.BorderColor1;
+                BackgroundPnl.BackColor = Palette.BackgroundColor1;
                 TextLbl.ForeColor = Palette.FontDark;
+            }
+            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
+            {
+                this.BackColor = Palette.BorderColor2;
+                BackgroundPnl.BackColor = Palette.BackgroundColor2;
+                TextLbl.ForeColor = Palette.FontLight;
             }
         }
 
@@ -82,9 +93,13 @@ namespace CodeRedLauncher.Controls
             {
                 BackgroundPnl.BackColor = Palette.HoverColor0;
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_BLACK_WHITE)
+            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
             {
                 BackgroundPnl.BackColor = Palette.HoverColor1;
+            }
+            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
+            {
+                BackgroundPnl.BackColor = Palette.HoverColor2;
             }
         }
 
@@ -94,9 +109,13 @@ namespace CodeRedLauncher.Controls
             {
                 BackgroundPnl.BackColor = Palette.ClickColor0;
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_BLACK_WHITE)
+            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
             {
                 BackgroundPnl.BackColor = Palette.ClickColor1;
+            }
+            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
+            {
+                BackgroundPnl.BackColor = Palette.ClickColor2;
             }
         }
 
@@ -106,9 +125,13 @@ namespace CodeRedLauncher.Controls
             {
                 BackgroundPnl.BackColor = Palette.HoverColor0;
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_BLACK_WHITE)
+            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
             {
                 BackgroundPnl.BackColor = Palette.HoverColor1;
+            }
+            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
+            {
+                BackgroundPnl.BackColor = Palette.HoverColor2;
             }
         }
 
@@ -118,9 +141,13 @@ namespace CodeRedLauncher.Controls
             {
                 BackgroundPnl.BackColor = Palette.BackgroundColor0;
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_BLACK_WHITE)
+            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
             {
                 BackgroundPnl.BackColor = Palette.BackgroundColor1;
+            }
+            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
+            {
+                BackgroundPnl.BackColor = Palette.BackgroundColor2;
             }
         }
 
@@ -150,7 +177,8 @@ namespace CodeRedLauncher.Controls
 
         private void TextLbl_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            base.OnClick(e);
+            CRButton_OnClick(e);
             GlobalMouseDown();
         }
 
@@ -180,8 +208,15 @@ namespace CodeRedLauncher.Controls
 
         private void ButtonImg_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            base.OnClick(e);
+            CRButton_OnClick(e);
             GlobalMouseDown();
+        }
+
+        public event EventHandler OnButtonClick;
+        protected void CRButton_OnClick(EventArgs e)
+        {
+            OnButtonClick?.Invoke(this, e);
         }
     }
 }

@@ -101,7 +101,7 @@
             this.InputBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.InputBx.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.InputBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InputBx.Location = new System.Drawing.Point(8, 4);
+            this.InputBx.Location = new System.Drawing.Point(8, 5);
             this.InputBx.Name = "InputBx";
             this.InputBx.Size = new System.Drawing.Size(152, 21);
             this.InputBx.TabIndex = 2;

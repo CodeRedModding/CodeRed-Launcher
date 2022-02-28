@@ -47,15 +47,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    bool shownMessage = false;
-
-                    if (!shownMessage)
-                    {
-                        shownMessage = true;
-                        MessageBox.Show("Error: Failed to initialize directories!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    return false;
+                    MessageBox.Show("Error: Failed to initialize directories!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -70,11 +62,11 @@ namespace CodeRedLauncher
 
         private static void ParseLogFile()
         {
-            Extensions.Path gamesPath = GamesFolder.GetPathValue();
+            Architecture.Path gamesPath = GamesFolder.GetPathValue();
 
             if (gamesPath.Exists())
             {
-                Extensions.Path logFile = gamesPath / "TAGame" / "Logs" / "Launch.log";
+                Architecture.Path logFile = gamesPath / "TAGame" / "Logs" / "Launch.log";
 
                 if (logFile.Exists())
                 {
@@ -140,11 +132,11 @@ namespace CodeRedLauncher
         private static void ParseVersionFile()
         {
             VersionsValid = false;
-            Extensions.Path moduleFolder = ModuleFolder.GetPathValue();
+            Architecture.Path moduleFolder = ModuleFolder.GetPathValue();
 
             if (moduleFolder.Exists())
             {
-                Extensions.Path versionFile = moduleFolder / "DLL" / "Version.txt";
+                Architecture.Path versionFile = moduleFolder / "DLL" / "Version.txt";
 
                 if (versionFile.Exists())
                 {
@@ -182,7 +174,7 @@ namespace CodeRedLauncher
 
                 if (modObj != null)
                 {
-                    Extensions.Path moduleFolder = new Extensions.Path(modObj.ToString());
+                    Architecture.Path moduleFolder = new Architecture.Path(modObj.ToString());
 
                     if (moduleFolder.Exists())
                     {
@@ -213,7 +205,7 @@ namespace CodeRedLauncher
 
                 if (epicObj != null)
                 {
-                    Extensions.Path epicFolder = (new Extensions.Path(epicObj.ToString()) / "rocketleague" / "Binaries" / "Win64");
+                    Architecture.Path epicFolder = (new Architecture.Path(epicObj.ToString()) / "rocketleague" / "Binaries" / "Win64");
 
                     if (epicFolder.Exists())
                     {
@@ -239,7 +231,7 @@ namespace CodeRedLauncher
                     // This is not stored in the registry and this file is the only place that I could find where it has path/drive info like this.
                     // If anyone has a better solution or suggestion please do create an issue in the repo, or submit your own pull request.
 
-                    Extensions.Path libraryFile = new Extensions.Path(steamObj.ToString()).Append("steamapps").Append("libraryfolders.vdf");
+                    Architecture.Path libraryFile = new Architecture.Path(steamObj.ToString()).Append("steamapps").Append("libraryfolders.vdf");
 
                     if (libraryFile.Exists())
                     {
@@ -250,7 +242,7 @@ namespace CodeRedLauncher
                         {
                             if (match.Success && match.Groups[1].Success)
                             {
-                                Extensions.Path steamFolder = (new Extensions.Path(match.Groups[1].Value) / "steamapps" / "common" / "rocketleague" / "Binaries" / "Win64");
+                                Architecture.Path steamFolder = (new Architecture.Path(match.Groups[1].Value) / "steamapps" / "common" / "rocketleague" / "Binaries" / "Win64");
 
                                 if (steamFolder.Exists())
                                 {
@@ -276,7 +268,7 @@ namespace CodeRedLauncher
         {
             if (!Initialized)
             {
-                Extensions.Path gamesFolder = (new Extensions.Path(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) / "My Games" / "Rocket League");
+                Architecture.Path gamesFolder = (new Architecture.Path(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) / "My Games" / "Rocket League");
 
                 if (gamesFolder.Exists())
                 {
@@ -314,37 +306,37 @@ namespace CodeRedLauncher
             return Initialized;
         }
 
-        public static Extensions.Path GetGamesPath()
+        public static Architecture.Path GetGamesPath()
         {
             if (CheckInitialized()) { return GamesFolder.GetPathValue(); }
             return EmptySetting.GetPathValue();
         }
 
-        public static Extensions.Path GetLogFile()
+        public static Architecture.Path GetLogFile()
         {
             if (CheckInitialized()) { return LogFile.GetPathValue(); }
             return EmptySetting.GetPathValue();
         }
 
-        public static Extensions.Path GetModulePath()
+        public static Architecture.Path GetModulePath()
         {
             if (CheckInitialized()) { return ModuleFolder.GetPathValue(); }
             return EmptySetting.GetPathValue();
         }
 
-        public static Extensions.Path GetLibraryFile()
+        public static Architecture.Path GetLibraryFile()
         {
             if (CheckInitialized()) { return LibraryFile.GetPathValue(); }
             return EmptySetting.GetPathValue();
         }
 
-        public static Extensions.Path GetSteamPath()
+        public static Architecture.Path GetSteamPath()
         {
             if (CheckInitialized()) { return SteamFolder.GetPathValue(); }
             return EmptySetting.GetPathValue();
         }
 
-        public static Extensions.Path GetEpicPath()
+        public static Architecture.Path GetEpicPath()
         {
             if (CheckInitialized()) { return EpicFolder.GetPathValue(); }
             return EmptySetting.GetPathValue();

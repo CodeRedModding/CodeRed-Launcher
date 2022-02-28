@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher.Controls
@@ -48,7 +41,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (Extensions.StringDictonary.IsCharAlphabet(c) || Extensions.StringDictonary.IsCharDecimal(c))
+                    if (Extensions.Strings.IsCharAlphabet(c) || Extensions.Strings.IsCharDecimal(c))
                     {
                         filteredText += c;
                     }
@@ -58,7 +51,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (Extensions.StringDictonary.IsCharAlphabet(c))
+                    if (Extensions.Strings.IsCharAlphabet(c))
                     {
                         filteredText += c;
                     }
@@ -68,7 +61,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (Extensions.StringDictonary.IsCharDecimal(c))
+                    if (Extensions.Strings.IsCharDecimal(c))
                     {
                         filteredText += c;
                     }
@@ -78,7 +71,7 @@ namespace CodeRedLauncher.Controls
             {
                 foreach (char c in inputText)
                 {
-                    if (Extensions.StringDictonary.IsCharHexadecimal(c))
+                    if (Extensions.Strings.IsCharHexadecimal(c))
                     {
                         filteredText += c;
                     }
@@ -96,13 +89,13 @@ namespace CodeRedLauncher.Controls
             }
 
             base.OnTextChanged(e);
-            CRTextbox_TextChanged(e);
+            CRTextbox_InputChanged(e);
         }
 
-        public event EventHandler TextChangedEvent;
-        protected void CRTextbox_TextChanged(EventArgs e)
+        public event EventHandler OnInputChanged;
+        protected void CRTextbox_InputChanged(EventArgs e)
         {
-            TextChangedEvent?.Invoke(this, e);
+            OnInputChanged?.Invoke(this, e);
         }
     }
 }

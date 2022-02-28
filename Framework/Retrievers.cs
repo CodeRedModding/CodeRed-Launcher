@@ -1,51 +1,80 @@
 ﻿using System;
-using System.Net;
 using System.IO;
 using System.Net.Http;
+using System.Text.Json;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+
+// https://zetcode.com/csharp/json/
 
 namespace CodeRedLauncher
 {
     public static class Downloaders
     {
+        public static async Task<bool> WebsiteOnline(string url)
+        {
+            if (!String.IsNullOrEmpty(url))
+            {
+                Ping newPing = new Ping();
+
+                try
+                {
+                    PingReply pingReply = await newPing.SendPingAsync(new Uri(url).Host);
+
+                    if (pingReply.Status == IPStatus.Success)
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(ex.ToString(), LogLevel.LEVEL_WARN);
+                }
+
+            }
+
+            return false;
+        }
+
         public static async Task<string> DownloadPage(string url)
         {
-            string pageContent = "";
+            string? pageContent = null;
 
-            using (HttpClient client = new HttpClient())
+            if (!String.IsNullOrEmpty(url))
             {
-                HttpResponseMessage response = await client.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    pageContent = await response.Content.ReadAsStringAsync();
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        pageContent = await response.Content.ReadAsStringAsync();
+                    }
                 }
             }
 
             return pageContent;
         }
 
-        public static async Task<bool> DownloadFile(string url, Extensions.Path folder, string fileName)
+        public static async Task<bool> DownloadFile(string url, Architecture.Path toFolder, string fileName)
         {
-            using (HttpClient client = new HttpClient())
+            if (!String.IsNullOrEmpty(url))
             {
-                HttpResponseMessage response = await client.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    string path = (folder / fileName).GetPath();
-                    byte[] file = await response.Content.ReadAsByteArrayAsync();
+                    HttpResponseMessage response = await client.GetAsync(url);
 
-                    if (file.Length > 0)
+                    if (response.IsSuccessStatusCode)
                     {
-                        File.Create(path);
+                        string path = (toFolder / fileName).GetPath();
+                        byte[] content = await response.Content.ReadAsByteArrayAsync();
 
-                        if (File.Exists(path))
+                        if (content.Length > 0)
                         {
-                            File.WriteAllBytes(path, file);
-                            return true;
+                            File.WriteAllBytes(path, content);
+                            return File.Exists(path);
                         }
                     }
                 }
@@ -55,111 +84,31 @@ namespace CodeRedLauncher
         }
     }
 
-    public static class CRJson
+    public class MatchObject
     {
-        private static bool CharacterSeqMatch(string baseStr, string matchStr, Int32 startOffset)
-        {
-            Int32 matches = 0;
+        public UInt64 Timestamp { get; set; }
+        public float StartSkill { get; set; }
+        public float EndSkill { get; set; }
+        public Int32 Score { get; set; }
+        public Int32 Goals { get; set; }
+        public Int32 Assists { get; set; }
+        public Int32 Saves { get; set; }
+        public Int32 Shots { get; set; }
+        public Int32 Damage { get; set; }
+        public bool Partied { get; set; }
+        public bool LeftEarly { get; set; }
+        public bool Won { get; set; }
+    }
 
-            if ((baseStr.Length - startOffset) + matchStr.Length <= baseStr.Length)
-            {
-                for (Int32 i = 0; i < matchStr.Length; i++)
-                {
-                    if (baseStr[startOffset + i] == matchStr[i])
-                    {
-                        matches++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-
-            return (matches == matchStr.Length);
-        }
-
-        // Super duper specific case only for this project, I don't need to make it support anything other than strings becasue I'm only using strings.
-        public static Dictionary<string, string> ParseJSONStrings(string jsonString)
-        {
-            List<string> keys = new List<string>();
-            List<string> values = new List<string>();
-
-            bool keyStart = false;
-            bool valueStart = false;
-            string currentKey = "";
-            string currentValue = "";
-
-            for (Int32 i = 0; i < jsonString.Length; i++)
-            {
-                if (i + 1 <= jsonString.Length)
-                {
-                    if (jsonString[i] == '"')
-                    {
-                        if (jsonString[i - 1] == '\t')
-                        {
-                            keyStart = true;
-                            valueStart = false;
-                        }
-                        else if (jsonString[i - 2] == ':')
-                        {
-                            keyStart = false;
-                            valueStart = true;
-                        }
-                        else
-                        {
-                            keyStart = false;
-                            valueStart = false;
-                        }
-
-                        if (!String.IsNullOrEmpty(currentKey))
-                        {
-                            keys.Add(currentKey);
-                            currentKey = "";
-                        }
-
-                        if (!String.IsNullOrEmpty(currentValue))
-                        {
-                            values.Add(currentValue);
-                            currentValue = "";
-                        }
-                    }
-                    else
-                    {
-                        if (keyStart)
-                        {
-                            currentKey += jsonString[i];
-                        }
-                        else if (valueStart)
-                        {
-                            currentValue += jsonString[i];
-                        }
-                    }
-                }
-            }
-
-            if (!String.IsNullOrEmpty(currentKey))
-            {
-                keys.Add(currentKey);
-            }
-
-            if (!String.IsNullOrEmpty(currentValue))
-            {
-                values.Add(currentValue);
-            }
-
-            Dictionary<string, string> returnDictionary = new Dictionary<string, string>();
-
-            if (keys.Count == values.Count)
-            {
-                for (Int32 i = 0; i < keys.Count; i++)
-                {
-                    returnDictionary.Add(keys[i], values[i]);
-                }
-            }
-
-            return returnDictionary;
-        }
+    public class SessionObject
+    {
+        public Int32 Playlist { get; set; }
+        public Int32 Wins { get; set; }
+        public Int32 Losses { get; set; }
+        public Int32 Streak { get; set; }
+        public bool OnFire { get; set; }
+        public Int32 Matches { get; set; }
+        public MatchObject[] MatchData { get; set; }
     }
 
     public static class Retrievers
@@ -167,41 +116,51 @@ namespace CodeRedLauncher
         private static bool Initialized = false;
         private static readonly string RemoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Remote.json";
 
-        private static PrivateSetting PsyonixVersion = new PrivateSetting("000000.000000.000000");
-        private static PrivateSetting InstallerVersion = new PrivateSetting("0.0f");
-        private static PrivateSetting LauncherVersion = new PrivateSetting("0.0.0");
-        private static PrivateSetting ModuleVersion = new PrivateSetting("0.0f");
-        private static PrivateSetting InstallerUrl = new PrivateSetting();
-        private static PrivateSetting LauncherUrl = new PrivateSetting();
-        private static PrivateSetting ModuleUrl = new PrivateSetting();
-        private static PrivateSetting DiscordUrl = new PrivateSetting();
-        private static PrivateSetting NewsUrl = new PrivateSetting();
-        private static PrivateSetting Changelog = new PrivateSetting("No changelog provided for the most recent update.");
+        private static List<InternalSetting> RemoteSettings = new List<InternalSetting>()
+        {
+            new InternalSetting("000000.000000.000000", "PsyonixVersion"),
+            new InternalSetting("0.0.0", "LauncherVersion"),
+            new InternalSetting("0.0f", "ModuleVersion"),
+            new InternalSetting(null, "LauncherUrl"),
+            new InternalSetting(null, "ModuleUrl"),
+            new InternalSetting(null, "DiscordUrl"),
+            new InternalSetting(null, "NewsUrl"),
+            new InternalSetting("No changelog provided for the most recent update.", "LauncherChangelog"),
+            new InternalSetting("No changelog provided for the most recent update.", "ModuleChangelog")
+        };
+
+        private static InternalSetting? GetStoredSetting(string name)
+        {
+            foreach (InternalSetting setting in RemoteSettings)
+            {
+                if (setting.Name == name)
+                {
+                    return setting;
+                }
+            }
+
+            return null;
+        }
 
         private static async Task<bool> DownloadRemote()
         {
             if (!Initialized)
             {
-                string pageBody = await Downloaders.DownloadPage(RemoteUrl);;
+                string pageBody = await Downloaders.DownloadPage(RemoteUrl);
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
-                    Dictionary<string, string> bodyContent = CRJson.ParseJSONStrings(pageBody);
+                    Dictionary<string, string> mappedBody = Extensions.Json.MapContent(pageBody);
 
-                    if (bodyContent.Count >= 9)
+                    for (Int32 i = 0; i < RemoteSettings.Count; i++)
                     {
-                        PsyonixVersion.SetValue(bodyContent["Psyonix_Version"]);
-                        InstallerVersion.SetValue(bodyContent["Installer_Version"]);
-                        LauncherVersion.SetValue(bodyContent["Launcher_Version"]);
-                        ModuleVersion.SetValue(bodyContent["Module_Version"]);
-                        InstallerUrl.SetValue(bodyContent["Installer_Url"]);
-                        LauncherUrl.SetValue(bodyContent["Launcher_Url"]);
-                        ModuleUrl.SetValue(bodyContent["Module_Url"]);
-                        DiscordUrl.SetValue(bodyContent["Discord_Url"]);
-                        NewsUrl.SetValue(bodyContent["News_Url"]);
-                        Changelog.SetValue(bodyContent["Changelog"]);
-                        Initialized = true;
+                        if (mappedBody.ContainsKey(RemoteSettings[i].Name))
+                        {
+                            RemoteSettings[i].SetValue(mappedBody[RemoteSettings[i].Name]);
+                        }
                     }
+
+                    Initialized = true;
                 }
             }
 
@@ -224,15 +183,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    bool shownMessage = false;
-
-                    if (!shownMessage)
-                    {
-                        shownMessage = true;
-                        MessageBox.Show("Warning: Failed to connect to the remote server, cannot grab latest versions!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-
-                    return false;
+                    MessageBox.Show("Warning: Failed to do download remote information, cannot check for updates or verify installed version!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
@@ -241,62 +192,62 @@ namespace CodeRedLauncher
 
         public static async Task<string> GetPsyonixBuild()
         {
-            if (await CheckInitialized()) { return PsyonixVersion.GetStringValue(); }
-            return PsyonixVersion.GetStringValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("PsyonixVersion").GetStringValue(); }
+            return GetStoredSetting("PsyonixVersion").GetStringValue(true);
         }
 
         public static async Task<float> GetInstallerVersion()
         {
-            if (await CheckInitialized()) { return InstallerVersion.GetFloatValue(); }
-            return InstallerVersion.GetFloatValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("InstallerVersion").GetFloatValue(); }
+            return GetStoredSetting("InstallerVersion").GetFloatValue(true);
         }
 
         public static async Task<string> GetLauncherVersion()
         {
-            if (await CheckInitialized()) { return LauncherVersion.GetStringValue(); }
-            return LauncherVersion.GetStringValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("LauncherVersion").GetStringValue(); }
+            return GetStoredSetting("LauncherVersion").GetStringValue(true);
         }
 
         public static async Task<float> GetModuleVersion()
         {
-            if (await CheckInitialized()) { return ModuleVersion.GetFloatValue(); }
-            return ModuleVersion.GetFloatValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("ModuleVersion").GetFloatValue(); }
+            return GetStoredSetting("ModuleVersion").GetFloatValue(true);
         }
 
-        public static async Task<string> GetInstallerUrl()
+        public static async Task<string> GetLauncherUrl()
         {
-            if (await CheckInitialized()) { return InstallerUrl.GetStringValue(); }
-            return InstallerUrl.GetStringValue(true);
-        }
-
-        public static async Task<string> GetInjectorUrl()
-        {
-            if (await CheckInitialized()) { return LauncherUrl.GetStringValue(); }
-            return LauncherUrl.GetStringValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("LauncherUrl").GetStringValue(); }
+            return GetStoredSetting("LauncherUrl").GetStringValue(true);
         }
 
         public static async Task<string> GetModuleUrl()
         {
-            if (await CheckInitialized()) { return ModuleUrl.GetStringValue(); }
-            return ModuleUrl.GetStringValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("ModuleUrl").GetStringValue(); }
+            return GetStoredSetting("ModuleUrl").GetStringValue(true);
         }
 
         public static async Task<string> GetDiscordUrl()
         {
-            if (await CheckInitialized()) { return DiscordUrl.GetStringValue(); }
-            return DiscordUrl.GetStringValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("DiscordUrl").GetStringValue(); }
+            return GetStoredSetting("DiscordUrl").GetStringValue(true);
         }
 
         public static async Task<string> GetNewsUrl()
         {
-            if (await CheckInitialized()) { return NewsUrl.GetStringValue(); }
-            return NewsUrl.GetStringValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("NewsUrl").GetStringValue(); }
+            return GetStoredSetting("NewsUrl").GetStringValue(true);
         }
 
-        public static async Task<string> GetChangelog()
+        public static async Task<string> GetLauncherChangelog()
         {
-            if (await CheckInitialized()) { return Changelog.GetStringValue(); }
-            return Changelog.GetStringValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("LauncherChangelog").GetStringValue(); }
+            return GetStoredSetting("LauncherChangelog").GetStringValue(true);
+        }
+
+        public static async Task<string> GetModuleChangelog()
+        {
+            if (await CheckInitialized()) { return GetStoredSetting("ModuleChangelog").GetStringValue(); }
+            return GetStoredSetting("ModuleChangelog").GetStringValue(true);
         }
     }
 }

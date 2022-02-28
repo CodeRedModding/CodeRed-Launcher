@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher.Controls
@@ -43,23 +37,29 @@ namespace CodeRedLauncher.Controls
 
         private void TextLbl_Click(object sender, EventArgs e)
         {
-            Checked = !Checked;
             base.OnClick(e);
-            this.OnClick(e);
+            Checked = !Checked;
+            CRButton_CheckChanged(e);
         }
 
         private void BackgroundPnl_Click(object sender, EventArgs e)
         {
-            Checked = !Checked;
             base.OnClick(e);
-            this.OnClick(e);
+            Checked = !Checked;
+            CRButton_CheckChanged(e);
         }
 
         private void CheckedPnl_Click(object sender, EventArgs e)
         {
-            Checked = !Checked;
             base.OnClick(e);
-            this.OnClick(e);
+            Checked = !Checked;
+            CRButton_CheckChanged(e);
+        }
+
+        public event EventHandler OnCheckChanged;
+        protected void CRButton_CheckChanged(EventArgs e)
+        {
+            OnCheckChanged?.Invoke(this, e);
         }
     }
 }

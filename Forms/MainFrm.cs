@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Win32;
+using System.Text.Json;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -21,10 +22,8 @@ namespace CodeRedLauncher
             StartupRoutine();
         }
 
-        private void TitleBar_MinimizedEvent(object sender, EventArgs e)
+        private void TitleBar_OnMinimized(object sender, EventArgs e)
         {
-            TrayIcon.Visible = true;
-
             if (Configuration.ShouldHideWhenMinimized())
             {
                 this.Hide();
@@ -35,54 +34,88 @@ namespace CodeRedLauncher
             }
         }
 
-        private void TrayIcon_Click(object sender, EventArgs e)
-        {
-            TrayIcon.Visible = false;
-            this.WindowState = FormWindowState.Normal;
-            this.Show();
-        }
-
-        private void DashboardTabBtn_Click(object sender, EventArgs e)
-        {
-            Interface.SelectTab(Tabs.TAB_DASHBOARD);
-        }
-
-        private void NewsTabBtn_Click(object sender, EventArgs e)
-        {
-            Interface.SelectTab(Tabs.TAB_NEWS);
-        }
-
-        private void TrackerTabBtn_Click(object sender, EventArgs e)
-        {
-            Interface.SelectTab(Tabs.TAB_TRACKER);
-        }
-
-        private void TexturesTabBtn_Click(object sender, EventArgs e)
-        {
-            Interface.SelectTab(Tabs.TAB_TEXTURES);
-        }
-
-        private void ScriptsTabBtn_Click(object sender, EventArgs e)
-        {
-            Interface.SelectTab(Tabs.TAB_SCRIPTS);
-        }
-
-        private void SettingsTabBtn_Click(object sender, EventArgs e)
-        {
-            Interface.SelectTab(Tabs.TAB_SETTINGS);
-        }
-
-        private void AboutTabBtn_Click(object sender, EventArgs e)
-        {
-            Interface.SelectTab(Tabs.TAB_ABOUT);
-        }
-
-        private void ExitTabBtn_Click(object sender, EventArgs e)
+        private void TitleBar_OnExit(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
 
-        private void LaunchBtn_Click(object sender, EventArgs e)
+        private void TrayIcon_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+
+        private void DashboardTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Interface.SelectTab(Tabs.TAB_DASHBOARD);
+        }
+
+        private void NewsTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Interface.SelectTab(Tabs.TAB_NEWS);
+        }
+
+        private void SessionsTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Interface.SelectTab(Tabs.TAB_SESSIONS);
+        }
+
+        private void TexturesTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Interface.SelectTab(Tabs.TAB_TEXTURES);
+        }
+
+        private void ScriptsTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Interface.SelectTab(Tabs.TAB_SCRIPTS);
+        }
+
+        private void SettingsTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Interface.SelectTab(Tabs.TAB_SETTINGS);
+        }
+
+        private void AboutTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Interface.SelectTab(Tabs.TAB_ABOUT);
+        }
+
+        private void ExitTabBtn_OnTabClick(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private async void ChangelogCtrl_OnChangelogSwap(object sender, EventArgs e)
+        {
+            if (ChangelogCtrl.DisplayTitle == "Module Changelog")
+            {
+                ChangelogCtrl.DisplayTitle = "Launcher Changelog";
+
+                if (!Configuration.OfflineMode.GetBoolValue())
+                {
+                    ChangelogCtrl.DisplayText = await Retrievers.GetLauncherChangelog();
+                }
+                else
+                {
+                    ChangelogCtrl.DisplayText = "Offline mode enabled, cannot retrieve changelog information at this time.";
+                }
+            }
+            else
+            {
+                ChangelogCtrl.DisplayTitle = "Module Changelog";
+
+                if (!Configuration.OfflineMode.GetBoolValue())
+                {
+                    ChangelogCtrl.DisplayText = await Retrievers.GetModuleChangelog();
+                }
+                else
+                {
+                    ChangelogCtrl.DisplayText = "Offline mode enabled, cannot retrieve changelog information at this time.";
+                }
+            }
+        }
+
+        private void LaunchBtn_OnButtonClick(object sender, EventArgs e)
         {
             if (!LibraryManager.AnyProcessRunning())
             {
@@ -92,7 +125,7 @@ namespace CodeRedLauncher
 
                     if (platform == PlatformTypes.TYPE_STEAM)
                     {
-                        Extensions.Path gameFile = Storage.GetSteamPath() / "RocketLeague.exe";
+                        Architecture.Path gameFile = Storage.GetSteamPath() / "RocketLeague.exe";
 
                         if (gameFile.Exists())
                         {
@@ -105,7 +138,7 @@ namespace CodeRedLauncher
                     }
                     else if (platform == PlatformTypes.TYPE_EPIC)
                     {
-                        Extensions.Path gameFile = Storage.GetEpicPath() / "RocketLeague.exe";
+                        Architecture.Path gameFile = Storage.GetEpicPath() / "RocketLeague.exe";
 
                         if (gameFile.Exists())
                         {
@@ -145,42 +178,90 @@ namespace CodeRedLauncher
             }
         }
 
-        private void AutoCheckUpdatesBx_Click(object sender, EventArgs e)
+        // combobox for player id
+        // combobox for playlist
+        // slider for timeframe (or combo)
+
+        /*
+
+        Data Graph:
+        - Score [Red]
+        - Goals [Orange]
+        - Assists [Yellow]
+        - Saves [Green]
+        - Shots [Blue]
+        - Damage [Purple] (Dropshot only)
+
+        MMR Graph:
+        - Start Line in Center
+
+        Bar Graph:
+        - Goal to shot ratio
+
+        */
+
+        private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
+        {
+            Architecture.Path sessionsFolder = Storage.GetModulePath() / "Sessions";
+
+            if (sessionsFolder.Exists())
+            {
+                List<Architecture.Path> sessionsFiles = sessionsFolder.GetFiles(true);
+
+                foreach (Architecture.Path sessionsFile in sessionsFiles)
+                {
+                    List<SessionObject> sessionObjects = JsonSerializer.Deserialize<List<SessionObject>>(File.ReadAllText(sessionsFile.GetPath()));
+
+                    if (sessionObjects.Count > 0)
+                    {
+                        foreach (SessionObject sessionObject in sessionObjects)
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.AutoCheckUpdates.SetValue(AutoCheckUpdatesBx.Checked).Save();
         }
 
-        private void PreventInjectionBx_Click(object sender, EventArgs e)
+        private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.PreventInjection.SetValue(PreventInjectionBx.Checked).Save();
         }
 
-        private void RunOnStartupBx_Click(object sender, EventArgs e)
+        private void RunOnStartupBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.RunOnStartup.SetValue(RunOnStartupBx.Checked).Save();
             RegistryKey startKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
-            if (RunOnStartupBx.Checked)
+            if (startKey != null)
             {
-                startKey.SetValue(Assembly.GetProduct(), Application.ExecutablePath);
-            }
-            else
-            {
-                startKey.DeleteValue(Assembly.GetProduct(), false);
+                if (RunOnStartupBx.Checked)
+                {
+                    startKey.SetValue(Assembly.GetProduct(), Application.ExecutablePath);
+                }
+                else
+                {
+                    startKey.DeleteValue(Assembly.GetProduct(), false);
+                }
             }
         }
 
-        private void MinimizeOnStartupBx_Click(object sender, EventArgs e)
+        private void MinimizeOnStartupBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.MinimizeOnStartup.SetValue(MinimizeOnStartupBx.Checked).Save();
         }
 
-        private void HideWhenMinimizedBx_Click(object sender, EventArgs e)
+        private void HideWhenMinimizedBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.HideWhenMinimized.SetValue(HideWhenMinimizedBx.Checked).Save();
         }
 
-        private void InjectAllInstancesBx_Click(object sender, EventArgs e)
+        private void InjectAllInstancesBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.InjectAllInstances.SetValue(InjectAllInstancesBx.Checked).Save();
         }
@@ -221,7 +302,7 @@ namespace CodeRedLauncher
             OnInjectionTypeChanged();
         }
 
-        private void InjectionTimeoutBx_ValueChangedEvent(object sender, EventArgs e)
+        private void InjectionTimeoutBx_OnValueChanged(object sender, EventArgs e)
         {
             if (Configuration.InjectionTimeoutRange.IsInRange(InjectionTimeoutBx.Value))
             {
@@ -230,19 +311,24 @@ namespace CodeRedLauncher
             }
         }
 
-        private void OpenFolderBtn_Click(object sender, EventArgs e)
+        private void OpenFolderBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Process.Start(new ProcessStartInfo(Storage.GetModulePath().GetPath()) { UseShellExecute = true });
+            Architecture.Path folderPath = Storage.GetModulePath();
+
+            if (folderPath.Exists())
+            {
+                Process.Start(new ProcessStartInfo(folderPath.GetPath()) { UseShellExecute = true });
+            }
         }
 
-        private void ExportLogsBtn_Click(object sender, EventArgs e)
+        private void ExportLogsBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Extensions.Path modulePath = Storage.GetModulePath();
-            Extensions.Path logsPath = (Storage.GetGamesPath() / "TAGame" / "Logs");
+            Architecture.Path modulePath = Storage.GetModulePath();
+            Architecture.Path logsPath = (Storage.GetGamesPath() / "TAGame" / "Logs");
 
             if (modulePath.Exists())
             {
-                Extensions.Path tempFolder = (new Extensions.Path(Path.GetTempPath()) / "CodeRedLauncher");
+                Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
 
                 if (tempFolder.Exists())
                 {
@@ -250,9 +336,9 @@ namespace CodeRedLauncher
                 }
 
                 List<string> filesToExport = new List<string>();
-                List<Extensions.Path> moduleFiles = modulePath.GetFiles(true);
+                List<Architecture.Path> moduleFiles = modulePath.GetFiles(true);
 
-                foreach (Extensions.Path file in moduleFiles)
+                foreach (Architecture.Path file in moduleFiles)
                 {
                     if (file.Exists())
                     {
@@ -267,9 +353,9 @@ namespace CodeRedLauncher
 
                 if (logsPath.Exists())
                 {
-                    List<Extensions.Path> logFiles = logsPath.GetFiles();
+                    List<Architecture.Path> logFiles = logsPath.GetFiles();
 
-                    foreach (Extensions.Path file in logFiles)
+                    foreach (Architecture.Path file in logFiles)
                     {
                         if (file.Exists())
                         {
@@ -292,7 +378,7 @@ namespace CodeRedLauncher
                         Directory.CreateDirectory(tempFolder.GetPath());
 
                         string zipName = "crash_logs_" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
-                        Extensions.Path zipFolder = (tempFolder / zipName);
+                        Architecture.Path zipFolder = (tempFolder / zipName);
                         Directory.CreateDirectory(zipFolder.GetPath());
 
                         if (zipFolder.Exists())
@@ -306,7 +392,7 @@ namespace CodeRedLauncher
                                 }
                             }
 
-                            Extensions.Path zipFile = (tempFolder / (zipName + ".zip"));
+                            Architecture.Path zipFile = (tempFolder / (zipName + ".zip"));
                             ZipFile.CreateFromDirectory(zipFolder.GetPath(), zipFile.GetPath());
                             File.Move(zipFile.GetPath(), folderBrowser.SelectedPath + "\\" + zipName + ".zip");
                             Directory.Delete(tempFolder.GetPath(), true);
@@ -332,9 +418,9 @@ namespace CodeRedLauncher
             Process.Start(new ProcessStartInfo(DiscordLink.Text) { UseShellExecute = true });
         }
 
-        private void PatreonLink_Click(object sender, EventArgs e)
+        private void KofiLink_Click(object sender, EventArgs e)
         {
-            Process.Start(new ProcessStartInfo(PatreonLink.Text) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(KofiLink.Text) { UseShellExecute = true });
         }
 
         private void Icons8Link_Click(object sender, EventArgs e)
@@ -342,7 +428,7 @@ namespace CodeRedLauncher
             Process.Start(new ProcessStartInfo(Icons8Link.Text) { UseShellExecute = true });
         }
 
-        private void CheckUpdatesBtn_Click(object sender, EventArgs e)
+        private void CheckUpdatesBtn_OnButtonClick(object sender, EventArgs e)
         {
             CheckForUpdates(true);
         }
@@ -490,39 +576,70 @@ namespace CodeRedLauncher
             Interface.BindControl(TabCtrl);
             Interface.BindTab(Tabs.TAB_DASHBOARD, DashboardTabBtn, DashboardTab);
             Interface.BindTab(Tabs.TAB_NEWS, NewsTabBtn, NewsTab);
-            Interface.BindTab(Tabs.TAB_TRACKER, TrackerTabBtn, TrackerTab);
+            Interface.BindTab(Tabs.TAB_SESSIONS, SessionsTabBtn, SessionsTab);
             Interface.BindTab(Tabs.TAB_TEXTURES, TexturesTabBtn, TexturesTab);
             Interface.BindTab(Tabs.TAB_SCRIPTS, ScriptsTabBtn, ScriptsTab);
             Interface.BindTab(Tabs.TAB_SETTINGS, SettingsTabBtn, SettingsTab);
             Interface.BindTab(Tabs.TAB_ABOUT, AboutTabBtn, AboutTab);
 
             Logger.CheckInitialized(); // Create and initialize the log file for the launcher.
-            ConfigToInterface(); // Retrieves the users configuration settings and assigns it to the ui.
+
+            if (Configuration.CheckInitialized())
+            {
+                if (Configuration.ShouldMinimizeOnStartup())
+                {
+                    TitleBar_OnMinimized(null, null);
+                }
+            }
+
+            ConfigToInterface(); // Retrieves the users configuration settings and assigns it to the UI.
             StorageToInterface(); // Retrieves Rocket League paths, version, and platform info to then assign to the UI.
 
             if (await Retrievers.CheckInitialized())
             {
-                // Temporarily disabled.
-                ChangelogCtrl.DisplayText = await Retrievers.GetChangelog();
-                DiscordLink.Text = await Retrievers.GetDiscordUrl();
+                string pingUrl = await Retrievers.GetModuleUrl();
 
-                if (Configuration.ShouldCheckForUpdates())
+                if ((await Downloaders.WebsiteOnline(pingUrl)) == false)
                 {
-                    CheckForUpdates(false); // Setting to false because we don't want to display a popup on startup if no update is found, plus there's no need to invalidate anything.
+                    OfflinePopupCtrl.Show();
                 }
-
-                // Don't want to bother monitoring processes while updating if we aren't doing anything with it yet, like during updates...
-                if (Updator.Status == UpdatorStatus.STATUS_IDLE)
+                else
                 {
-                    ProcessTmr.Start();
+                    ContinueStartup();
                 }
             }
             else
             {
+                OfflinePopupCtrl.Show();
                 Logger.Write("Failed to do download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
             }
 
             NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+        }
+
+        private async void ContinueStartup()
+        {
+            if (!Configuration.OfflineMode.GetBoolValue())
+            {
+                ChangelogCtrl.DisplayText = await Retrievers.GetModuleChangelog();
+                DiscordLink.Text = await Retrievers.GetDiscordUrl();
+
+                if (Configuration.ShouldCheckForUpdates())
+                {
+                    CheckForUpdates(false);
+                }
+            }
+            else
+            {
+                ChangelogCtrl.DisplayText = "Offline mode enabled, cannot retrieve changelog information at this time.";
+                DiscordLink.Text = "Offline mode enabled";
+            }
+
+            // Don't want to bother monitoring processes while updating if we aren't doing anything with it yet, like during updates...
+            if (!Updator.IsOutdated && Updator.Status == UpdatorStatus.STATUS_NONE)
+            {
+                ProcessTmr.Start();
+            }
         }
 
         private void ConfigToInterface()
@@ -613,51 +730,105 @@ namespace CodeRedLauncher
             if (Storage.CheckInitialized())
             {
                 StorageToInterface();
-                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
 
-                if (bInvalidate)
+                if (!Configuration.OfflineMode.GetBoolValue())
                 {
-                    Retrievers.Invalidate();
-                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                    UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
+
+                    if (bInvalidate)
+                    {
+                        Retrievers.Invalidate();
+                        NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                    }
+
+                    if (await Retrievers.CheckInitialized())
+                    {
+                        bool moduleOutdated = Storage.GetModuleVersion() != await Retrievers.GetModuleVersion();
+                        bool launcherOutdated = Assembly.GetVersion() != await Retrievers.GetLauncherVersion();
+                        Updator.IsOutdated = ((moduleOutdated || launcherOutdated) == true);
+
+                        if (Updator.IsOutdated)
+                        {
+                            this.Show();
+                            this.TopMost = true;
+
+                            // REMEMBER TO DO ASYNC STARTING OF ProcessTmr WHEN UPDATING IS DONE! AND MESSAGEBOX
+                            if (moduleOutdated && launcherOutdated)
+                            {
+                                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_BOTH;
+                                UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
+                                UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, would you like to automatically install both now?";
+                                UpdatePopupCtrl.Show();
+                            }
+                            else if (moduleOutdated)
+                            {
+                                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_MODULE;
+                                UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
+                                UpdatePopupCtrl.DisplayDescription = "A new version of the CodeRed module was found, would you like to automatically install it now?";
+                                UpdatePopupCtrl.Show();
+                            }
+                            else if (launcherOutdated)
+                            {
+                                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_LAUNCHER;
+                                UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
+                                UpdatePopupCtrl.DisplayDescription = "A new version of the launcher was found, would you like to automatically install it now?";
+                                UpdatePopupCtrl.Show();
+                            }
+                        }
+                        else
+                        {
+                            UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_UPDATED;
+                            UpdateCtrl.TitleImage = Properties.Resources.Success_White;
+                            UpdatePopupCtrl.Hide();
+                            ProcessTmr.Start();
+                        }
+                    }
                 }
-
-                if (await Retrievers.CheckInitialized())
+                else
                 {
-                    bool moduleOutdated = Storage.GetModuleVersion() != await Retrievers.GetModuleVersion();
-                    bool launcherOutdated = Assembly.GetVersion() != await Retrievers.GetLauncherVersion();
-                    Updator.IsOutdated = ((moduleOutdated || launcherOutdated) == true);
-
-                    // Prioritize updating launcher first, in case the launcher update fixes something wrong with the dll updator.
-                    // The updator for the launcher is always downloaded first, so that will always be up to date.
-
-                    // REMEMBER TO DO ASYNC STARTING OF ProcessTmr WHEN UPDATING IS DONE! AND MESSAGEBOX
-                    if (moduleOutdated && launcherOutdated)
-                    {
-                        UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_BOTH;
-                        UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
-                    }
-                    else if (moduleOutdated)
-                    {
-                        UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_MODULE;
-                        UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
-                    }
-                    else if (launcherOutdated)
-                    {
-                        UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_LAUNCHER;
-                        UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
-                    }
-                    else
-                    {
-                        UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_UPDATED;
-                        UpdateCtrl.TitleImage = Properties.Resources.Success_White;
-                        ProcessTmr.Start();
-                    }
+                    Logger.Write("Could not check for updates, launcher is running in offline mode!");
                 }
             }
             else
             {
                 Logger.Write("Failed to retrieve local directory information while checking for updates!", LogLevel.LEVEL_FATAL);
             }
+        }
+
+        private void UpdatePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+            UpdatePopupCtrl.Hide();
+        }
+
+        private async void UpdatePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
+        {
+            Report report = await Updator.InstallUpdates();
+
+            if (report.Succeeded)
+            {
+                UpdatePopupCtrl.Hide();
+                ProcessTmr.Start();
+                this.TopMost = false;
+            }
+            else if (report.FailReason != null)
+            {
+                Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
+            }
+        }
+
+        private void OfflinePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
+        {
+            Configuration.OfflineMode.SetValue(false);
+            OfflinePopupCtrl.Hide();
+            ContinueStartup();
+        }
+
+        private void OfflinePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
+        {
+            Configuration.OfflineMode.SetValue(true);
+            OfflinePopupCtrl.Hide();
+            ContinueStartup();
         }
     }
 }

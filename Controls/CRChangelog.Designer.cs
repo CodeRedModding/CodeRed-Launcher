@@ -53,6 +53,7 @@
             // TitleLbl
             // 
             this.TitleLbl.BackColor = System.Drawing.Color.Transparent;
+            this.TitleLbl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TitleLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TitleLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -62,17 +63,20 @@
             this.TitleLbl.TabIndex = 46;
             this.TitleLbl.Text = "Changelog";
             this.TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TitleLbl.Click += new System.EventHandler(this.TitleLbl_Click);
             // 
             // TitleImg
             // 
             this.TitleImg.BackColor = System.Drawing.Color.Transparent;
             this.TitleImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.TitleImg.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TitleImg.Dock = System.Windows.Forms.DockStyle.Left;
             this.TitleImg.Location = new System.Drawing.Point(0, 0);
             this.TitleImg.Name = "TitleImg";
             this.TitleImg.Size = new System.Drawing.Size(40, 40);
             this.TitleImg.TabIndex = 45;
             this.TitleImg.TabStop = false;
+            this.TitleImg.Click += new System.EventHandler(this.TitleImg_Click);
             // 
             // BackgroundPnl
             // 

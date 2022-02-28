@@ -83,6 +83,26 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Archive_Red {
+            get {
+                object obj = ResourceManager.GetObject("Archive_Red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Archive_White {
+            get {
+                object obj = ResourceManager.GetObject("Archive_White", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Author_Red {
             get {
                 object obj = ResourceManager.GetObject("Author_Red", resourceCulture);
@@ -236,6 +256,26 @@ namespace CodeRedLauncher.Properties {
         internal static System.Drawing.Bitmap Clipboard_White {
             get {
                 object obj = ResourceManager.GetObject("Clipboard_White", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Coffee_Red {
+            get {
+                object obj = ResourceManager.GetObject("Coffee_Red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Coffee_White {
+            get {
+                object obj = ResourceManager.GetObject("Coffee_White", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

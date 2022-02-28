@@ -169,31 +169,34 @@ namespace CodeRedLauncher.Controls
 
         public async void ParseArticles(string url)
         {
-            string pageBody = await Downloaders.DownloadPage(url);
-
-            if (!String.IsNullOrEmpty(pageBody))
+            if (!String.IsNullOrEmpty(url))
             {
-                ResetArticles();
-                MatchCollection articleLinks = Regex.Matches(pageBody, "<a class=\"news-tile-wrap\" href=\"(.*)\">");
-                //MatchCollection thumbnailLinks = Regex.Matches(pageBody, "<img src=\"(.*)\" alt=\"article-image\"\\/>");
+                string pageBody = await Downloaders.DownloadPage(url);
 
-                for (Int32 i = 0; i < articleLinks.Count; i++)
+                if (!String.IsNullOrEmpty(pageBody))
                 {
-                    Match link = articleLinks[i];
-                    //Match thumbnail = thumbnailLinks[i];
+                    ResetArticles();
+                    MatchCollection articleLinks = Regex.Matches(pageBody, "<a class=\"news-tile-wrap\" href=\"(.*)\">");
+                    //MatchCollection thumbnailLinks = Regex.Matches(pageBody, "<img src=\"(.*)\" alt=\"article-image\"\\/>");
 
-                    if(link.Success && link.Groups[1].Success)
+                    for (Int32 i = 0; i < articleLinks.Count; i++)
                     {
-                        //NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value, thumbnail.Groups[1].Value));
-                        NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value));
-                    }
-                }
+                        Match link = articleLinks[i];
+                        //Match thumbnail = thumbnailLinks[i];
 
-                LoadCurrentIndex();
-            }
-            else
-            {
-                Logger.Write("Failed to download news article info!", LogLevel.LEVEL_WARN);
+                        if (link.Success && link.Groups[1].Success)
+                        {
+                            //NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value, thumbnail.Groups[1].Value));
+                            NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value));
+                        }
+                    }
+
+                    LoadCurrentIndex();
+                }
+                else
+                {
+                    Logger.Write("Failed to download news article info!", LogLevel.LEVEL_WARN);
+                }
             }
         }
 

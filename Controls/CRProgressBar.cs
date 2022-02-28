@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher.Controls
@@ -18,20 +12,13 @@ namespace CodeRedLauncher.Controls
         public Color ProgressColor
         {
             get { return ProgressImg.BackColor; }
-            set { ProgressImg.BackColor = value; }
+            set { ProgressImg.BackColor = value; Invalidate(); }
         }
 
         public float Value
         {
-            get
-            {
-                return Percentage;
-            }
-            set
-            {
-                Percentage = value;
-                CalculateValue();
-            }
+            get { return Percentage; }
+            set { Percentage = value; CalculateValue(); Invalidate(); }
         }
 
         public CRProgressBar()

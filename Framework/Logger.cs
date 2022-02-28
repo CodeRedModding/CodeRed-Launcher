@@ -15,7 +15,7 @@ namespace CodeRedLauncher
     public static class Logger
     {
         private static bool Initialized = false;
-        private static Extensions.Path LogFile = new Extensions.Path();
+        private static Architecture.Path LogFile = new Architecture.Path();
 
         public static bool CheckInitialized()
         {
@@ -41,7 +41,7 @@ namespace CodeRedLauncher
         {
             if (!Initialized)
             {
-                Extensions.Path modPath = Storage.GetModulePath();
+                Architecture.Path modPath = Storage.GetModulePath();
                 
                 if (modPath.Exists())
                 {

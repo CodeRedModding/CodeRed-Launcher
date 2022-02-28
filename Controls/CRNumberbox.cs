@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher.Controls
@@ -67,17 +61,6 @@ namespace CodeRedLauncher.Controls
             DecrementBtn.BackColor = Color.FromArgb(24, 24, 24);
         }
 
-        private void InputBx_ValueChanged(object sender, EventArgs e)
-        {
-            CRTextbox_ValueChanged(e);
-        }
-
-        public event EventHandler ValueChangedEvent;
-        protected void CRTextbox_ValueChanged(EventArgs e)
-        {
-            ValueChangedEvent?.Invoke(this, e);
-        }
-
         private void IncrementBtn_Click(object sender, EventArgs e)
         {
             Value++;
@@ -96,6 +79,17 @@ namespace CodeRedLauncher.Controls
         private void DecrementBtn_DoubleClick(object sender, EventArgs e)
         {
             Value--;
+        }
+
+        private void InputBx_ValueChanged(object sender, EventArgs e)
+        {
+            CRTextbox_ValueChanged(e);
+        }
+
+        public event EventHandler OnValueChanged;
+        protected void CRTextbox_ValueChanged(EventArgs e)
+        {
+            OnValueChanged?.Invoke(this, e);
         }
     }
 }

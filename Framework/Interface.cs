@@ -10,7 +10,7 @@ namespace CodeRedLauncher
     {
         TAB_DASHBOARD,
         TAB_NEWS,
-        TAB_TRACKER,
+        TAB_SESSIONS,
         TAB_TEXTURES,
         TAB_SCRIPTS,
         TAB_SETTINGS,
@@ -21,7 +21,7 @@ namespace CodeRedLauncher
     public static class Interface
     {
         private static TabControl ControlTab = null;
-        private static Dictionary<Tabs, Extensions.Pair<CRTab, TabPage>> TabCache = new Dictionary<Tabs, Extensions.Pair<CRTab, TabPage>>();
+        private static Dictionary<Tabs, Pair<CRTab, TabPage>> TabCache = new Dictionary<Tabs, Pair<CRTab, TabPage>>();
 
         public static void BindControl(TabControl control)
         {
@@ -30,7 +30,7 @@ namespace CodeRedLauncher
 
         public static void BindTab(Tabs id, CRTab tab, TabPage page)
         {
-            TabCache.Add(id, new Extensions.Pair<CRTab, TabPage>(tab, page));
+            TabCache.Add(id, new Pair<CRTab, TabPage>(tab, page));
         }
 
         private static void ResetTabs()
@@ -46,7 +46,7 @@ namespace CodeRedLauncher
             if (TabCache.ContainsKey(id))
             {
                 ResetTabs();
-                Extensions.Pair<CRTab, TabPage> tabPair = TabCache[id];
+                Pair<CRTab, TabPage> tabPair = TabCache[id];
                 tabPair.First.Selected = true;
                 ControlTab.SelectedTab = tabPair.Second;
             }

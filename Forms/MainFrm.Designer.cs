@@ -40,8 +40,9 @@ namespace CodeRedLauncher
             this.ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
             this.NewsTab = new System.Windows.Forms.TabPage();
             this.NewsCtrl = new CodeRedLauncher.Controls.CRNewsPanel();
-            this.TrackerTab = new System.Windows.Forms.TabPage();
-            this.PlaceholderLblFirst = new System.Windows.Forms.Label();
+            this.SessionsTab = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.ReloadSessionsBtn = new CodeRedLauncher.Controls.CRButton();
             this.TexturesTab = new System.Windows.Forms.TabPage();
             this.PlaceholderLblSecond = new System.Windows.Forms.Label();
             this.ScriptsTab = new System.Windows.Forms.TabPage();
@@ -67,7 +68,7 @@ namespace CodeRedLauncher
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.CheckUpdatesBtn = new CodeRedLauncher.Controls.CRButton();
             this.Icons8Link = new System.Windows.Forms.Label();
-            this.PatreonLink = new System.Windows.Forms.Label();
+            this.KofiLink = new System.Windows.Forms.Label();
             this.DiscordLink = new System.Windows.Forms.Label();
             this.WebsiteLink = new System.Windows.Forms.Label();
             this.PlatformText = new System.Windows.Forms.Label();
@@ -78,8 +79,8 @@ namespace CodeRedLauncher
             this.ThankiesLbl = new System.Windows.Forms.Label();
             this.Icons8Img = new System.Windows.Forms.PictureBox();
             this.IconsLbl = new System.Windows.Forms.Label();
-            this.PatreonImg = new System.Windows.Forms.PictureBox();
-            this.PatreonLbl = new System.Windows.Forms.Label();
+            this.KofiImg = new System.Windows.Forms.PictureBox();
+            this.KofiLbl = new System.Windows.Forms.Label();
             this.DiscordImg = new System.Windows.Forms.PictureBox();
             this.DiscordLbl = new System.Windows.Forms.Label();
             this.WebsiteImg = new System.Windows.Forms.PictureBox();
@@ -101,17 +102,19 @@ namespace CodeRedLauncher
             this.ExitTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.ScriptsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.TexturesTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.TrackerTabBtn = new CodeRedLauncher.Controls.CRTab();
+            this.SessionsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.NewsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.DashboardTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
+            this.OfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
+            this.UpdatePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.ProcessTmr = new System.Windows.Forms.Timer(this.components);
             this.InjectTmr = new System.Windows.Forms.Timer(this.components);
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TabCtrl.SuspendLayout();
             this.DashboardTab.SuspendLayout();
             this.NewsTab.SuspendLayout();
-            this.TrackerTab.SuspendLayout();
+            this.SessionsTab.SuspendLayout();
             this.TexturesTab.SuspendLayout();
             this.ScriptsTab.SuspendLayout();
             this.SettingsTab.SuspendLayout();
@@ -121,7 +124,7 @@ namespace CodeRedLauncher
             ((System.ComponentModel.ISupportInitialize)(this.TimeoutRadioImg)).BeginInit();
             this.AboutTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Icons8Img)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PatreonImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KofiImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DiscordImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WebsiteImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlatformImg)).BeginInit();
@@ -137,7 +140,7 @@ namespace CodeRedLauncher
             // 
             this.TabCtrl.Controls.Add(this.DashboardTab);
             this.TabCtrl.Controls.Add(this.NewsTab);
-            this.TabCtrl.Controls.Add(this.TrackerTab);
+            this.TabCtrl.Controls.Add(this.SessionsTab);
             this.TabCtrl.Controls.Add(this.TexturesTab);
             this.TabCtrl.Controls.Add(this.ScriptsTab);
             this.TabCtrl.Controls.Add(this.SettingsTab);
@@ -168,10 +171,12 @@ namespace CodeRedLauncher
             this.ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ChangelogCtrl.DisplayImage = global::CodeRedLauncher.Properties.Resources.Log_White;
             this.ChangelogCtrl.DisplayText = "Loading...";
+            this.ChangelogCtrl.DisplayTitle = "Module Changelog";
             this.ChangelogCtrl.Location = new System.Drawing.Point(25, 180);
             this.ChangelogCtrl.Name = "ChangelogCtrl";
             this.ChangelogCtrl.Size = new System.Drawing.Size(860, 315);
             this.ChangelogCtrl.TabIndex = 33;
+            this.ChangelogCtrl.OnChangelogSwap += new System.EventHandler(this.ChangelogCtrl_OnChangelogSwap);
             // 
             // UpdateCtrl
             // 
@@ -201,6 +206,7 @@ namespace CodeRedLauncher
             // LaunchBtn
             // 
             this.LaunchBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.LaunchBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Question_White;
             this.LaunchBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
             this.LaunchBtn.DisplayText = "Launch Rocket League";
@@ -210,11 +216,12 @@ namespace CodeRedLauncher
             this.LaunchBtn.Size = new System.Drawing.Size(320, 35);
             this.LaunchBtn.TabIndex = 32;
             this.LaunchBtn.Visible = false;
-            this.LaunchBtn.Click += new System.EventHandler(this.LaunchBtn_Click);
+            this.LaunchBtn.OnButtonClick += new System.EventHandler(this.LaunchBtn_OnButtonClick);
             // 
             // ManualInjectBtn
             // 
             this.ManualInjectBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ManualInjectBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ManualInjectBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Hand_White;
             this.ManualInjectBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
             this.ManualInjectBtn.DisplayText = "Manually Inject";
@@ -250,27 +257,41 @@ namespace CodeRedLauncher
             this.NewsCtrl.Thumbnail = null;
             this.NewsCtrl.Title = "Loading...";
             // 
-            // TrackerTab
+            // SessionsTab
             // 
-            this.TrackerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.TrackerTab.Controls.Add(this.PlaceholderLblFirst);
-            this.TrackerTab.Location = new System.Drawing.Point(4, 24);
-            this.TrackerTab.Name = "TrackerTab";
-            this.TrackerTab.Size = new System.Drawing.Size(910, 600);
-            this.TrackerTab.TabIndex = 2;
-            this.TrackerTab.Text = "Tracker";
+            this.SessionsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.SessionsTab.Controls.Add(this.richTextBox1);
+            this.SessionsTab.Controls.Add(this.ReloadSessionsBtn);
+            this.SessionsTab.Location = new System.Drawing.Point(4, 24);
+            this.SessionsTab.Name = "SessionsTab";
+            this.SessionsTab.Size = new System.Drawing.Size(910, 600);
+            this.SessionsTab.TabIndex = 2;
+            this.SessionsTab.Text = "Sessions";
             // 
-            // PlaceholderLblFirst
+            // richTextBox1
             // 
-            this.PlaceholderLblFirst.BackColor = System.Drawing.Color.Transparent;
-            this.PlaceholderLblFirst.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PlaceholderLblFirst.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PlaceholderLblFirst.Location = new System.Drawing.Point(0, 0);
-            this.PlaceholderLblFirst.Name = "PlaceholderLblFirst";
-            this.PlaceholderLblFirst.Size = new System.Drawing.Size(910, 600);
-            this.PlaceholderLblFirst.TabIndex = 4;
-            this.PlaceholderLblFirst.Text = "Coming soon!";
-            this.PlaceholderLblFirst.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.richTextBox1.Location = new System.Drawing.Point(195, 84);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(488, 372);
+            this.richTextBox1.TabIndex = 65;
+            this.richTextBox1.Text = "";
+            // 
+            // ReloadSessionsBtn
+            // 
+            this.ReloadSessionsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ReloadSessionsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ReloadSessionsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
+            this.ReloadSessionsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            this.ReloadSessionsBtn.DisplayText = "Reload Sessions";
+            this.ReloadSessionsBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.ReloadSessionsBtn.Location = new System.Drawing.Point(329, 515);
+            this.ReloadSessionsBtn.Name = "ReloadSessionsBtn";
+            this.ReloadSessionsBtn.Size = new System.Drawing.Size(226, 35);
+            this.ReloadSessionsBtn.TabIndex = 64;
+            this.ReloadSessionsBtn.OnButtonClick += new System.EventHandler(this.ReloadSessionsBtn_OnButtonClick);
             // 
             // TexturesTab
             // 
@@ -355,11 +376,12 @@ namespace CodeRedLauncher
             this.InjectionTimeoutBx.Size = new System.Drawing.Size(175, 29);
             this.InjectionTimeoutBx.TabIndex = 64;
             this.InjectionTimeoutBx.Value = 20000;
-            this.InjectionTimeoutBx.ValueChangedEvent += new System.EventHandler(this.InjectionTimeoutBx_ValueChangedEvent);
+            this.InjectionTimeoutBx.OnValueChanged += new System.EventHandler(this.InjectionTimeoutBx_OnValueChanged);
             // 
             // OpenFolderBtn
             // 
             this.OpenFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.OpenFolderBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.OpenFolderBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
             this.OpenFolderBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
             this.OpenFolderBtn.DisplayText = "Open CodeRed Folder";
@@ -368,12 +390,13 @@ namespace CodeRedLauncher
             this.OpenFolderBtn.Name = "OpenFolderBtn";
             this.OpenFolderBtn.Size = new System.Drawing.Size(320, 35);
             this.OpenFolderBtn.TabIndex = 63;
-            this.OpenFolderBtn.Click += new System.EventHandler(this.OpenFolderBtn_Click);
+            this.OpenFolderBtn.OnButtonClick += new System.EventHandler(this.OpenFolderBtn_OnButtonClick);
             // 
             // ExportLogsBtn
             // 
             this.ExportLogsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ExportLogsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Box_White;
+            this.ExportLogsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ExportLogsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Archive_White;
             this.ExportLogsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
             this.ExportLogsBtn.DisplayText = "Export Crash Logs";
             this.ExportLogsBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -381,7 +404,7 @@ namespace CodeRedLauncher
             this.ExportLogsBtn.Name = "ExportLogsBtn";
             this.ExportLogsBtn.Size = new System.Drawing.Size(320, 35);
             this.ExportLogsBtn.TabIndex = 62;
-            this.ExportLogsBtn.Click += new System.EventHandler(this.ExportLogsBtn_Click);
+            this.ExportLogsBtn.OnButtonClick += new System.EventHandler(this.ExportLogsBtn_OnButtonClick);
             // 
             // InjectAllInstancesBx
             // 
@@ -394,7 +417,7 @@ namespace CodeRedLauncher
             this.InjectAllInstancesBx.Name = "InjectAllInstancesBx";
             this.InjectAllInstancesBx.Size = new System.Drawing.Size(300, 30);
             this.InjectAllInstancesBx.TabIndex = 60;
-            this.InjectAllInstancesBx.Click += new System.EventHandler(this.InjectAllInstancesBx_Click);
+            this.InjectAllInstancesBx.OnCheckChanged += new System.EventHandler(this.InjectAllInstancesBx_OnCheckChanged);
             // 
             // HideWhenMinimizedBx
             // 
@@ -407,7 +430,7 @@ namespace CodeRedLauncher
             this.HideWhenMinimizedBx.Name = "HideWhenMinimizedBx";
             this.HideWhenMinimizedBx.Size = new System.Drawing.Size(300, 30);
             this.HideWhenMinimizedBx.TabIndex = 59;
-            this.HideWhenMinimizedBx.Click += new System.EventHandler(this.HideWhenMinimizedBx_Click);
+            this.HideWhenMinimizedBx.OnCheckChanged += new System.EventHandler(this.HideWhenMinimizedBx_OnCheckChanged);
             // 
             // MinimizeOnStartupBx
             // 
@@ -420,7 +443,7 @@ namespace CodeRedLauncher
             this.MinimizeOnStartupBx.Name = "MinimizeOnStartupBx";
             this.MinimizeOnStartupBx.Size = new System.Drawing.Size(300, 30);
             this.MinimizeOnStartupBx.TabIndex = 58;
-            this.MinimizeOnStartupBx.Click += new System.EventHandler(this.MinimizeOnStartupBx_Click);
+            this.MinimizeOnStartupBx.OnCheckChanged += new System.EventHandler(this.MinimizeOnStartupBx_OnCheckChanged);
             // 
             // RunOnStartupBx
             // 
@@ -433,7 +456,7 @@ namespace CodeRedLauncher
             this.RunOnStartupBx.Name = "RunOnStartupBx";
             this.RunOnStartupBx.Size = new System.Drawing.Size(300, 30);
             this.RunOnStartupBx.TabIndex = 57;
-            this.RunOnStartupBx.Click += new System.EventHandler(this.RunOnStartupBx_Click);
+            this.RunOnStartupBx.OnCheckChanged += new System.EventHandler(this.RunOnStartupBx_OnCheckChanged);
             // 
             // PreventInjectionBx
             // 
@@ -446,7 +469,7 @@ namespace CodeRedLauncher
             this.PreventInjectionBx.Name = "PreventInjectionBx";
             this.PreventInjectionBx.Size = new System.Drawing.Size(300, 30);
             this.PreventInjectionBx.TabIndex = 56;
-            this.PreventInjectionBx.Click += new System.EventHandler(this.PreventInjectionBx_Click);
+            this.PreventInjectionBx.OnCheckChanged += new System.EventHandler(this.PreventInjectionBx_OnCheckChanged);
             // 
             // AutoCheckUpdatesBx
             // 
@@ -459,7 +482,7 @@ namespace CodeRedLauncher
             this.AutoCheckUpdatesBx.Name = "AutoCheckUpdatesBx";
             this.AutoCheckUpdatesBx.Size = new System.Drawing.Size(300, 30);
             this.AutoCheckUpdatesBx.TabIndex = 55;
-            this.AutoCheckUpdatesBx.Click += new System.EventHandler(this.AutoCheckUpdatesBx_Click);
+            this.AutoCheckUpdatesBx.OnCheckChanged += new System.EventHandler(this.AutoCheckUpdatesBx_OnCheckChanged);
             // 
             // AlwaysRadioBtn
             // 
@@ -559,7 +582,7 @@ namespace CodeRedLauncher
             this.AboutTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.AboutTab.Controls.Add(this.CheckUpdatesBtn);
             this.AboutTab.Controls.Add(this.Icons8Link);
-            this.AboutTab.Controls.Add(this.PatreonLink);
+            this.AboutTab.Controls.Add(this.KofiLink);
             this.AboutTab.Controls.Add(this.DiscordLink);
             this.AboutTab.Controls.Add(this.WebsiteLink);
             this.AboutTab.Controls.Add(this.PlatformText);
@@ -570,8 +593,8 @@ namespace CodeRedLauncher
             this.AboutTab.Controls.Add(this.ThankiesLbl);
             this.AboutTab.Controls.Add(this.Icons8Img);
             this.AboutTab.Controls.Add(this.IconsLbl);
-            this.AboutTab.Controls.Add(this.PatreonImg);
-            this.AboutTab.Controls.Add(this.PatreonLbl);
+            this.AboutTab.Controls.Add(this.KofiImg);
+            this.AboutTab.Controls.Add(this.KofiLbl);
             this.AboutTab.Controls.Add(this.DiscordImg);
             this.AboutTab.Controls.Add(this.DiscordLbl);
             this.AboutTab.Controls.Add(this.WebsiteImg);
@@ -595,6 +618,7 @@ namespace CodeRedLauncher
             // CheckUpdatesBtn
             // 
             this.CheckUpdatesBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CheckUpdatesBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.CheckUpdatesBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
             this.CheckUpdatesBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
             this.CheckUpdatesBtn.DisplayText = "Check for Updates";
@@ -603,7 +627,7 @@ namespace CodeRedLauncher
             this.CheckUpdatesBtn.Name = "CheckUpdatesBtn";
             this.CheckUpdatesBtn.Size = new System.Drawing.Size(440, 35);
             this.CheckUpdatesBtn.TabIndex = 31;
-            this.CheckUpdatesBtn.Click += new System.EventHandler(this.CheckUpdatesBtn_Click);
+            this.CheckUpdatesBtn.OnButtonClick += new System.EventHandler(this.CheckUpdatesBtn_OnButtonClick);
             // 
             // Icons8Link
             // 
@@ -619,19 +643,19 @@ namespace CodeRedLauncher
             this.Icons8Link.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Icons8Link.Click += new System.EventHandler(this.Icons8Link_Click);
             // 
-            // PatreonLink
+            // KofiLink
             // 
-            this.PatreonLink.BackColor = System.Drawing.Color.Transparent;
-            this.PatreonLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PatreonLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PatreonLink.ForeColor = System.Drawing.Color.Red;
-            this.PatreonLink.Location = new System.Drawing.Point(207, 350);
-            this.PatreonLink.Name = "PatreonLink";
-            this.PatreonLink.Size = new System.Drawing.Size(275, 30);
-            this.PatreonLink.TabIndex = 29;
-            this.PatreonLink.Text = "https://www.patreon.com/coderedmodding/";
-            this.PatreonLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.PatreonLink.Click += new System.EventHandler(this.PatreonLink_Click);
+            this.KofiLink.BackColor = System.Drawing.Color.Transparent;
+            this.KofiLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.KofiLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.KofiLink.ForeColor = System.Drawing.Color.Red;
+            this.KofiLink.Location = new System.Drawing.Point(207, 350);
+            this.KofiLink.Name = "KofiLink";
+            this.KofiLink.Size = new System.Drawing.Size(275, 30);
+            this.KofiLink.TabIndex = 29;
+            this.KofiLink.Text = "https://ko-fi.com/coderedmodding/";
+            this.KofiLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.KofiLink.Click += new System.EventHandler(this.KofiLink_Click);
             // 
             // DiscordLink
             // 
@@ -643,7 +667,7 @@ namespace CodeRedLauncher
             this.DiscordLink.Name = "DiscordLink";
             this.DiscordLink.Size = new System.Drawing.Size(275, 30);
             this.DiscordLink.TabIndex = 28;
-            this.DiscordLink.Text = "https://discord.gg/PRD6TCG5uF/";
+            this.DiscordLink.Text = "Loading...";
             this.DiscordLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DiscordLink.Click += new System.EventHandler(this.DiscordLink_Click);
             // 
@@ -750,27 +774,27 @@ namespace CodeRedLauncher
             this.IconsLbl.Text = "Icons provided by:";
             this.IconsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // PatreonImg
+            // KofiImg
             // 
-            this.PatreonImg.BackColor = System.Drawing.Color.Transparent;
-            this.PatreonImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Patreon_White;
-            this.PatreonImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PatreonImg.Location = new System.Drawing.Point(35, 350);
-            this.PatreonImg.Name = "PatreonImg";
-            this.PatreonImg.Size = new System.Drawing.Size(30, 30);
-            this.PatreonImg.TabIndex = 17;
-            this.PatreonImg.TabStop = false;
+            this.KofiImg.BackColor = System.Drawing.Color.Transparent;
+            this.KofiImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Coffee_White;
+            this.KofiImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.KofiImg.Location = new System.Drawing.Point(35, 350);
+            this.KofiImg.Name = "KofiImg";
+            this.KofiImg.Size = new System.Drawing.Size(30, 30);
+            this.KofiImg.TabIndex = 17;
+            this.KofiImg.TabStop = false;
             // 
-            // PatreonLbl
+            // KofiLbl
             // 
-            this.PatreonLbl.BackColor = System.Drawing.Color.Transparent;
-            this.PatreonLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PatreonLbl.Location = new System.Drawing.Point(71, 350);
-            this.PatreonLbl.Name = "PatreonLbl";
-            this.PatreonLbl.Size = new System.Drawing.Size(130, 30);
-            this.PatreonLbl.TabIndex = 16;
-            this.PatreonLbl.Text = "Patreon:";
-            this.PatreonLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.KofiLbl.BackColor = System.Drawing.Color.Transparent;
+            this.KofiLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.KofiLbl.Location = new System.Drawing.Point(71, 350);
+            this.KofiLbl.Name = "KofiLbl";
+            this.KofiLbl.Size = new System.Drawing.Size(130, 30);
+            this.KofiLbl.TabIndex = 16;
+            this.KofiLbl.Text = "Ko-fi:";
+            this.KofiLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DiscordImg
             // 
@@ -935,6 +959,8 @@ namespace CodeRedLauncher
             this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Controls.Add(this.TabPnl);
             this.BackgroundPnl.Controls.Add(this.TitleBar);
+            this.BackgroundPnl.Controls.Add(this.OfflinePopupCtrl);
+            this.BackgroundPnl.Controls.Add(this.UpdatePopupCtrl);
             this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             this.BackgroundPnl.Name = "BackgroundPnl";
             this.BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -948,7 +974,7 @@ namespace CodeRedLauncher
             this.TabPnl.Controls.Add(this.ExitTabBtn);
             this.TabPnl.Controls.Add(this.ScriptsTabBtn);
             this.TabPnl.Controls.Add(this.TexturesTabBtn);
-            this.TabPnl.Controls.Add(this.TrackerTabBtn);
+            this.TabPnl.Controls.Add(this.SessionsTabBtn);
             this.TabPnl.Controls.Add(this.NewsTabBtn);
             this.TabPnl.Controls.Add(this.DashboardTabBtn);
             this.TabPnl.Dock = System.Windows.Forms.DockStyle.Left;
@@ -967,7 +993,7 @@ namespace CodeRedLauncher
             this.AboutTabBtn.Selected = false;
             this.AboutTabBtn.Size = new System.Drawing.Size(60, 50);
             this.AboutTabBtn.TabIndex = 7;
-            this.AboutTabBtn.Click += new System.EventHandler(this.AboutTabBtn_Click);
+            this.AboutTabBtn.OnTabClick += new System.EventHandler(this.AboutTabBtn_OnTabClick);
             // 
             // SettingsTabBtn
             // 
@@ -979,7 +1005,7 @@ namespace CodeRedLauncher
             this.SettingsTabBtn.Selected = false;
             this.SettingsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.SettingsTabBtn.TabIndex = 6;
-            this.SettingsTabBtn.Click += new System.EventHandler(this.SettingsTabBtn_Click);
+            this.SettingsTabBtn.OnTabClick += new System.EventHandler(this.SettingsTabBtn_OnTabClick);
             // 
             // ExitTabBtn
             // 
@@ -991,7 +1017,7 @@ namespace CodeRedLauncher
             this.ExitTabBtn.Selected = false;
             this.ExitTabBtn.Size = new System.Drawing.Size(60, 50);
             this.ExitTabBtn.TabIndex = 5;
-            this.ExitTabBtn.Click += new System.EventHandler(this.ExitTabBtn_Click);
+            this.ExitTabBtn.OnTabClick += new System.EventHandler(this.ExitTabBtn_OnTabClick);
             // 
             // ScriptsTabBtn
             // 
@@ -1003,7 +1029,7 @@ namespace CodeRedLauncher
             this.ScriptsTabBtn.Selected = false;
             this.ScriptsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.ScriptsTabBtn.TabIndex = 4;
-            this.ScriptsTabBtn.Click += new System.EventHandler(this.ScriptsTabBtn_Click);
+            this.ScriptsTabBtn.OnTabClick += new System.EventHandler(this.ScriptsTabBtn_OnTabClick);
             // 
             // TexturesTabBtn
             // 
@@ -1015,19 +1041,19 @@ namespace CodeRedLauncher
             this.TexturesTabBtn.Selected = false;
             this.TexturesTabBtn.Size = new System.Drawing.Size(60, 50);
             this.TexturesTabBtn.TabIndex = 3;
-            this.TexturesTabBtn.Click += new System.EventHandler(this.TexturesTabBtn_Click);
+            this.TexturesTabBtn.OnTabClick += new System.EventHandler(this.TexturesTabBtn_OnTabClick);
             // 
-            // TrackerTabBtn
+            // SessionsTabBtn
             // 
-            this.TrackerTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.TrackerTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Chart_Red;
-            this.TrackerTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Chart_White;
-            this.TrackerTabBtn.Location = new System.Drawing.Point(0, 100);
-            this.TrackerTabBtn.Name = "TrackerTabBtn";
-            this.TrackerTabBtn.Selected = false;
-            this.TrackerTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.TrackerTabBtn.TabIndex = 2;
-            this.TrackerTabBtn.Click += new System.EventHandler(this.TrackerTabBtn_Click);
+            this.SessionsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.SessionsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Chart_Red;
+            this.SessionsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Chart_White;
+            this.SessionsTabBtn.Location = new System.Drawing.Point(0, 100);
+            this.SessionsTabBtn.Name = "SessionsTabBtn";
+            this.SessionsTabBtn.Selected = false;
+            this.SessionsTabBtn.Size = new System.Drawing.Size(60, 50);
+            this.SessionsTabBtn.TabIndex = 2;
+            this.SessionsTabBtn.OnTabClick += new System.EventHandler(this.SessionsTabBtn_OnTabClick);
             // 
             // NewsTabBtn
             // 
@@ -1039,7 +1065,7 @@ namespace CodeRedLauncher
             this.NewsTabBtn.Selected = false;
             this.NewsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.NewsTabBtn.TabIndex = 1;
-            this.NewsTabBtn.Click += new System.EventHandler(this.NewsTabBtn_Click);
+            this.NewsTabBtn.OnTabClick += new System.EventHandler(this.NewsTabBtn_OnTabClick);
             // 
             // DashboardTabBtn
             // 
@@ -1051,7 +1077,7 @@ namespace CodeRedLauncher
             this.DashboardTabBtn.Selected = true;
             this.DashboardTabBtn.Size = new System.Drawing.Size(60, 50);
             this.DashboardTabBtn.TabIndex = 0;
-            this.DashboardTabBtn.Click += new System.EventHandler(this.DashboardTabBtn_Click);
+            this.DashboardTabBtn.OnTabClick += new System.EventHandler(this.DashboardTabBtn_OnTabClick);
             // 
             // TitleBar
             // 
@@ -1064,7 +1090,51 @@ namespace CodeRedLauncher
             this.TitleBar.Name = "TitleBar";
             this.TitleBar.Size = new System.Drawing.Size(970, 30);
             this.TitleBar.TabIndex = 2;
-            this.TitleBar.MinimizedEvent += new System.EventHandler(this.TitleBar_MinimizedEvent);
+            this.TitleBar.OnMinimized += new System.EventHandler(this.TitleBar_OnMinimized);
+            this.TitleBar.OnExit += new System.EventHandler(this.TitleBar_OnExit);
+            // 
+            // OfflinePopupCtrl
+            // 
+            this.OfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.OfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            this.OfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, would you like to start in offline mode? " +
+    "Version checking, news, changelog, and remote information will all be disabled.";
+            this.OfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
+            this.OfflinePopupCtrl.DoubleFirstImage = null;
+            this.OfflinePopupCtrl.DoubleFirstText = "No thanks, I messed up";
+            this.OfflinePopupCtrl.DoubleSecondImage = null;
+            this.OfflinePopupCtrl.DoubleSecondText = "Yeah, that was the point";
+            this.OfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.OfflinePopupCtrl.Location = new System.Drawing.Point(0, 0);
+            this.OfflinePopupCtrl.Name = "OfflinePopupCtrl";
+            this.OfflinePopupCtrl.SingleButtonImage = null;
+            this.OfflinePopupCtrl.SingleButtonText = "Single Option";
+            this.OfflinePopupCtrl.Size = new System.Drawing.Size(970, 630);
+            this.OfflinePopupCtrl.TabIndex = 36;
+            this.OfflinePopupCtrl.Visible = false;
+            this.OfflinePopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.OfflinePopupCtrl_DoubleFirstButtonClick);
+            this.OfflinePopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.OfflinePopupCtrl_DoubleSecondButtonClick);
+            // 
+            // UpdatePopupCtrl
+            // 
+            this.UpdatePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.UpdatePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            this.UpdatePopupCtrl.DisplayDescription = "A new version was found, would you like to automatically install it now?";
+            this.UpdatePopupCtrl.DisplayTitle = "UPDATE AVAILABLE";
+            this.UpdatePopupCtrl.DoubleFirstImage = null;
+            this.UpdatePopupCtrl.DoubleFirstText = "No thanks, I\'ll update later";
+            this.UpdatePopupCtrl.DoubleSecondImage = null;
+            this.UpdatePopupCtrl.DoubleSecondText = "Yes please, show me what you got";
+            this.UpdatePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.UpdatePopupCtrl.Location = new System.Drawing.Point(0, 0);
+            this.UpdatePopupCtrl.Name = "UpdatePopupCtrl";
+            this.UpdatePopupCtrl.SingleButtonImage = null;
+            this.UpdatePopupCtrl.SingleButtonText = "Sure";
+            this.UpdatePopupCtrl.Size = new System.Drawing.Size(970, 630);
+            this.UpdatePopupCtrl.TabIndex = 35;
+            this.UpdatePopupCtrl.Visible = false;
+            this.UpdatePopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleFirstButtonClick);
+            this.UpdatePopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleSecondButtonClick);
             // 
             // ProcessTmr
             // 
@@ -1080,6 +1150,7 @@ namespace CodeRedLauncher
             // 
             this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
             this.TrayIcon.Text = "CodeRed Launcher";
+            this.TrayIcon.Visible = true;
             this.TrayIcon.Click += new System.EventHandler(this.TrayIcon_Click);
             // 
             // MainFrm
@@ -1100,7 +1171,7 @@ namespace CodeRedLauncher
             this.TabCtrl.ResumeLayout(false);
             this.DashboardTab.ResumeLayout(false);
             this.NewsTab.ResumeLayout(false);
-            this.TrackerTab.ResumeLayout(false);
+            this.SessionsTab.ResumeLayout(false);
             this.TexturesTab.ResumeLayout(false);
             this.ScriptsTab.ResumeLayout(false);
             this.SettingsTab.ResumeLayout(false);
@@ -1110,7 +1181,7 @@ namespace CodeRedLauncher
             ((System.ComponentModel.ISupportInitialize)(this.TimeoutRadioImg)).EndInit();
             this.AboutTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Icons8Img)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PatreonImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KofiImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DiscordImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WebsiteImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlatformImg)).EndInit();
@@ -1128,7 +1199,7 @@ namespace CodeRedLauncher
 
         private System.Windows.Forms.TabControl TabCtrl;
         private System.Windows.Forms.TabPage NewsTab;
-        private System.Windows.Forms.TabPage TrackerTab;
+        private System.Windows.Forms.TabPage SessionsTab;
         private System.Windows.Forms.TabPage ScriptsTab;
         private System.Windows.Forms.TabPage SettingsTab;
         private System.Windows.Forms.TabPage AboutTab;
@@ -1137,8 +1208,8 @@ namespace CodeRedLauncher
         private System.Windows.Forms.Label LauncherVersionLbl;
         private System.Windows.Forms.PictureBox ModVersionImg;
         private System.Windows.Forms.Label ModuleVersionLbl;
-        private System.Windows.Forms.PictureBox PatreonImg;
-        private System.Windows.Forms.Label PatreonLbl;
+        private System.Windows.Forms.PictureBox KofiImg;
+        private System.Windows.Forms.Label KofiLbl;
         private System.Windows.Forms.PictureBox DiscordImg;
         private System.Windows.Forms.Label DiscordLbl;
         private System.Windows.Forms.PictureBox WebsiteImg;
@@ -1153,7 +1224,7 @@ namespace CodeRedLauncher
         private System.Windows.Forms.Label IconsLbl;
         private System.Windows.Forms.Label ThankiesLbl;
         private System.Windows.Forms.Label Icons8Link;
-        private System.Windows.Forms.Label PatreonLink;
+        private System.Windows.Forms.Label KofiLink;
         private System.Windows.Forms.Label DiscordLink;
         private System.Windows.Forms.Label WebsiteLink;
         private System.Windows.Forms.Label PlatformText;
@@ -1186,7 +1257,7 @@ namespace CodeRedLauncher
         private Controls.CRCheckbox InjectAllInstancesBx;
         private Controls.CRTab DashboardTabBtn;
         private Controls.CRTab NewsTabBtn;
-        private Controls.CRTab TrackerTabBtn;
+        private Controls.CRTab SessionsTabBtn;
         private Controls.CRTab TexturesTabBtn;
         private Controls.CRTab ScriptsTabBtn;
         private Controls.CRTab ExitTabBtn;
@@ -1196,13 +1267,16 @@ namespace CodeRedLauncher
         private Controls.CRChangelog ChangelogCtrl;
         private System.Windows.Forms.Label PlaceholderLblSecond;
         private System.Windows.Forms.Label PlaceholderLblThird;
-        private System.Windows.Forms.Label PlaceholderLblFirst;
         private System.Windows.Forms.NotifyIcon TrayIcon;
         private Controls.CRButton ManualInjectBtn;
         private Controls.CRNewsPanel NewsCtrl;
         private Controls.CRButton OpenFolderBtn;
         private Controls.CRButton ExportLogsBtn;
         private Controls.CRNumberbox InjectionTimeoutBx;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private Controls.CRButton ReloadSessionsBtn;
+        private Controls.CRPopup UpdatePopupCtrl;
+        private Controls.CRPopup OfflinePopupCtrl;
     }
 }
 

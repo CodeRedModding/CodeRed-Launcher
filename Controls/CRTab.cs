@@ -65,11 +65,19 @@ namespace CodeRedLauncher.Controls
         private void TabImg_Click(object sender, EventArgs e)
         {
             base.OnClick(e);
+            CRTab_OnClick(e);
         }
 
         private void TabImg_DoubleClick(object sender, EventArgs e)
         {
             base.OnClick(e);
+            CRTab_OnClick(e);
+        }
+
+        public event EventHandler OnTabClick;
+        protected void CRTab_OnClick(EventArgs e)
+        {
+            OnTabClick?.Invoke(this, e);
         }
     }
 }
