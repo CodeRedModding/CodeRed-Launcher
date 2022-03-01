@@ -63,7 +63,7 @@ namespace CodeRedLauncher
             return "[" + DateTime.Now.ToString() + "] [" + stackTrace.GetFrame(1).GetMethod().Name + "] ";
         }
 
-        public static void Write(string text, LogLevel level = LogLevel.LEVEL_NONE)
+        public static void Write(string str, LogLevel level = LogLevel.LEVEL_NONE)
         {
             if (CheckInitialized())
             {
@@ -82,7 +82,7 @@ namespace CodeRedLauncher
                         break;
                 }
 
-                newLine += (text + "\n");
+                newLine += (str + Environment.NewLine);
                 File.AppendAllText(LogFile.GetPath(), newLine);
             }
         }

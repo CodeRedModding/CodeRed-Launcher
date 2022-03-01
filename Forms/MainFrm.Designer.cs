@@ -106,6 +106,7 @@ namespace CodeRedLauncher
             this.NewsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.DashboardTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
+            this.InstallOfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.OfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.UpdatePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.InstallPopupCtrl = new CodeRedLauncher.Controls.CRPopup();
@@ -959,10 +960,11 @@ namespace CodeRedLauncher
             this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.BackgroundPnl.Controls.Add(this.TabPnl);
             this.BackgroundPnl.Controls.Add(this.TitleBar);
+            this.BackgroundPnl.Controls.Add(this.TabCtrl);
+            this.BackgroundPnl.Controls.Add(this.InstallOfflinePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.OfflinePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.UpdatePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.InstallPopupCtrl);
-            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             this.BackgroundPnl.Name = "BackgroundPnl";
             this.BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1031,6 +1033,7 @@ namespace CodeRedLauncher
             this.ScriptsTabBtn.Selected = false;
             this.ScriptsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.ScriptsTabBtn.TabIndex = 4;
+            this.ScriptsTabBtn.Visible = false;
             this.ScriptsTabBtn.OnTabClick += new System.EventHandler(this.ScriptsTabBtn_OnTabClick);
             // 
             // TexturesTabBtn
@@ -1043,6 +1046,7 @@ namespace CodeRedLauncher
             this.TexturesTabBtn.Selected = false;
             this.TexturesTabBtn.Size = new System.Drawing.Size(60, 50);
             this.TexturesTabBtn.TabIndex = 3;
+            this.TexturesTabBtn.Visible = false;
             this.TexturesTabBtn.OnTabClick += new System.EventHandler(this.TexturesTabBtn_OnTabClick);
             // 
             // SessionsTabBtn
@@ -1095,9 +1099,32 @@ namespace CodeRedLauncher
             this.TitleBar.OnMinimized += new System.EventHandler(this.TitleBar_OnMinimized);
             this.TitleBar.OnExit += new System.EventHandler(this.TitleBar_OnExit);
             // 
+            // InstallOfflinePopupCtrl
+            // 
+            this.InstallOfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.InstallOfflinePopupCtrl.BoundForm = null;
+            this.InstallOfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_SINGLE;
+            this.InstallOfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, an active internet connection is required" +
+    " to install CodeRed! Please connect to the internet and try again";
+            this.InstallOfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
+            this.InstallOfflinePopupCtrl.DoubleFirstImage = null;
+            this.InstallOfflinePopupCtrl.DoubleFirstText = "First Option";
+            this.InstallOfflinePopupCtrl.DoubleSecondImage = null;
+            this.InstallOfflinePopupCtrl.DoubleSecondText = "Second Option";
+            this.InstallOfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.InstallOfflinePopupCtrl.Location = new System.Drawing.Point(0, 0);
+            this.InstallOfflinePopupCtrl.Name = "InstallOfflinePopupCtrl";
+            this.InstallOfflinePopupCtrl.SingleButtonImage = null;
+            this.InstallOfflinePopupCtrl.SingleButtonText = "Ok fine, I\'ll go do that";
+            this.InstallOfflinePopupCtrl.Size = new System.Drawing.Size(970, 630);
+            this.InstallOfflinePopupCtrl.TabIndex = 38;
+            this.InstallOfflinePopupCtrl.Visible = false;
+            this.InstallOfflinePopupCtrl.SingleButtonClick += new System.EventHandler(this.InstallOfflinePopupCtrl_SingleButtonClick);
+            // 
             // OfflinePopupCtrl
             // 
             this.OfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.OfflinePopupCtrl.BoundForm = null;
             this.OfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
             this.OfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, would you like to start in offline mode? " +
     "Version checking, news, changelog, and remote information will all be disabled.";
@@ -1120,6 +1147,7 @@ namespace CodeRedLauncher
             // UpdatePopupCtrl
             // 
             this.UpdatePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.UpdatePopupCtrl.BoundForm = null;
             this.UpdatePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
             this.UpdatePopupCtrl.DisplayDescription = "A new version was found, would you like to automatically install it now?";
             this.UpdatePopupCtrl.DisplayTitle = "UPDATE AVAILABLE";
@@ -1141,10 +1169,11 @@ namespace CodeRedLauncher
             // InstallPopupCtrl
             // 
             this.InstallPopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.InstallPopupCtrl.BoundForm = null;
             this.InstallPopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
-            this.InstallPopupCtrl.DisplayDescription = "It looks like this if your first time running CodeRed, we need to setup and downl" +
-    "oad a few things before we can get started. First, would you like to customize y" +
-    "our install path?";
+            this.InstallPopupCtrl.DisplayDescription = "It looks like this if your first time using CodeRed, we need to download  and set" +
+    "up a few things first before we can get started. First, would you like to custom" +
+    "ize your install path?";
             this.InstallPopupCtrl.DisplayTitle = "WELCOME TO CODERED";
             this.InstallPopupCtrl.DoubleFirstImage = null;
             this.InstallPopupCtrl.DoubleFirstText = "Sure, let me pick a folder";
@@ -1303,6 +1332,7 @@ namespace CodeRedLauncher
         private Controls.CRPopup UpdatePopupCtrl;
         private Controls.CRPopup OfflinePopupCtrl;
         private Controls.CRPopup InstallPopupCtrl;
+        private Controls.CRPopup InstallOfflinePopupCtrl;
     }
 }
 

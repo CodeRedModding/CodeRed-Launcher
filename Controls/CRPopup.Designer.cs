@@ -31,14 +31,14 @@
             this.BackgroundPnl = new System.Windows.Forms.Panel();
             this.DescriptionLbl = new System.Windows.Forms.Label();
             this.TitleLbl = new System.Windows.Forms.Label();
-            this.SinglePnl = new System.Windows.Forms.Panel();
-            this.SingleBtn = new CodeRedLauncher.Controls.CRButton();
             this.DoublePnl = new System.Windows.Forms.Panel();
             this.DoubleSecondBtn = new CodeRedLauncher.Controls.CRButton();
             this.DoubleFirstBtn = new CodeRedLauncher.Controls.CRButton();
+            this.SinglePnl = new System.Windows.Forms.Panel();
+            this.SingleBtn = new CodeRedLauncher.Controls.CRButton();
             this.BackgroundPnl.SuspendLayout();
-            this.SinglePnl.SuspendLayout();
             this.DoublePnl.SuspendLayout();
+            this.SinglePnl.SuspendLayout();
             this.SuspendLayout();
             // 
             // BackgroundPnl
@@ -74,29 +74,6 @@
             this.TitleLbl.TabIndex = 0;
             this.TitleLbl.Text = "Title";
             this.TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // SinglePnl
-            // 
-            this.SinglePnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.SinglePnl.Controls.Add(this.SingleBtn);
-            this.SinglePnl.Location = new System.Drawing.Point(0, 543);
-            this.SinglePnl.Name = "SinglePnl";
-            this.SinglePnl.Size = new System.Drawing.Size(968, 85);
-            this.SinglePnl.TabIndex = 3;
-            // 
-            // SingleBtn
-            // 
-            this.SingleBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
-            this.SingleBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.SingleBtn.DisplayImage = null;
-            this.SingleBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_LIGHT;
-            this.SingleBtn.DisplayText = "Single Option";
-            this.SingleBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.SingleBtn.Location = new System.Drawing.Point(341, 23);
-            this.SingleBtn.Name = "SingleBtn";
-            this.SingleBtn.Size = new System.Drawing.Size(285, 40);
-            this.SingleBtn.TabIndex = 0;
-            this.SingleBtn.OnButtonClick += new System.EventHandler(this.SingleBtn_OnButtonClick);
             // 
             // DoublePnl
             // 
@@ -137,6 +114,29 @@
             this.DoubleFirstBtn.TabIndex = 0;
             this.DoubleFirstBtn.OnButtonClick += new System.EventHandler(this.DoubleFirstBtn_OnButtonClick);
             // 
+            // SinglePnl
+            // 
+            this.SinglePnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.SinglePnl.Controls.Add(this.SingleBtn);
+            this.SinglePnl.Location = new System.Drawing.Point(0, 543);
+            this.SinglePnl.Name = "SinglePnl";
+            this.SinglePnl.Size = new System.Drawing.Size(968, 85);
+            this.SinglePnl.TabIndex = 3;
+            // 
+            // SingleBtn
+            // 
+            this.SingleBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
+            this.SingleBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.SingleBtn.DisplayImage = null;
+            this.SingleBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_LIGHT;
+            this.SingleBtn.DisplayText = "Single Option";
+            this.SingleBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.SingleBtn.Location = new System.Drawing.Point(341, 23);
+            this.SingleBtn.Name = "SingleBtn";
+            this.SingleBtn.Size = new System.Drawing.Size(285, 40);
+            this.SingleBtn.TabIndex = 0;
+            this.SingleBtn.OnButtonClick += new System.EventHandler(this.SingleBtn_OnButtonClick);
+            // 
             // CRPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -147,8 +147,8 @@
             this.Name = "CRPopup";
             this.Size = new System.Drawing.Size(970, 630);
             this.BackgroundPnl.ResumeLayout(false);
-            this.SinglePnl.ResumeLayout(false);
             this.DoublePnl.ResumeLayout(false);
+            this.SinglePnl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

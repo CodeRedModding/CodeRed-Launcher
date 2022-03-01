@@ -137,6 +137,29 @@ namespace CodeRedLauncher
             return returnList;
         }
 
+        public static bool CloseProcesses()
+        {
+            List<Process> runningProcesses = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
+
+            foreach (Process process in runningProcesses)
+            {
+                if (IsValidProcess(process))
+                {
+                    try
+                    {
+                        process.Kill();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Write("Exception when trying to close process: " + ex.ToString());
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public static void Suspend(Process process)
         {
             if (IsValidProcess(process))

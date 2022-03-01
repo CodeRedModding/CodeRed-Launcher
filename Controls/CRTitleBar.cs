@@ -13,19 +13,19 @@ namespace CodeRedLauncher.Controls
             public static readonly Color ClickColor = Color.FromArgb(20, 20, 20);
         }
 
-        private Form _Form = null;
-        private Point _Mouse = new Point(0, 0);
+        private Form InternalForm = null;
+        private Point InternalMouse = new Point(0, 0);
+
+        public Form BoundForm
+        {
+            get { return InternalForm; }
+            set { InternalForm = value; }
+        }
 
         public string DisplayText
         {
             get { return TitleLbl.Text; }
             set { TitleLbl.Text = value; }
-        }
-
-        public Form BoundForm
-        {
-            get { return _Form; }
-            set { _Form = value; }
         }
 
         public CRTitleBar()
@@ -47,17 +47,14 @@ namespace CodeRedLauncher.Controls
 
         private void TitleLbl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_Form != null)
+            if (e.Button == MouseButtons.Left)
             {
-                if (e.Button == MouseButtons.Left)
-                {
-                    _Form.SetDesktopLocation(MousePosition.X - _Mouse.X, MousePosition.Y - _Mouse.Y);
-                }
-                else
-                {
-                    _Mouse.X = e.X + TitleLbl.Location.X;
-                    _Mouse.Y = e.Y;
-                }
+                InternalForm?.SetDesktopLocation(MousePosition.X - InternalMouse.X, MousePosition.Y - InternalMouse.Y);
+            }
+            else
+            {
+                InternalMouse.X = e.X + TitleLbl.Location.X;
+                InternalMouse.Y = e.Y;
             }
         }
         private void ExitBtn_MouseEnter(object sender, EventArgs e)

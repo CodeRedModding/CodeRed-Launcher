@@ -121,6 +121,7 @@ namespace CodeRedLauncher
             new InternalSetting("000000.000000.000000", "PsyonixVersion"),
             new InternalSetting("0.0.0", "LauncherVersion"),
             new InternalSetting("0.0f", "ModuleVersion"),
+            new InternalSetting(null, "UninstallerUrl"),
             new InternalSetting(null, "LauncherUrl"),
             new InternalSetting(null, "DropperUrl"),
             new InternalSetting(null, "ModuleUrl"),
@@ -214,6 +215,12 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return GetStoredSetting("ModuleVersion").GetFloatValue(); }
             return GetStoredSetting("ModuleVersion").GetFloatValue(true);
+        }
+
+        public static async Task<string> GetUninstallerUrl()
+        {
+            if (await CheckInitialized()) { return GetStoredSetting("UninstallerUrl").GetStringValue(); }
+            return GetStoredSetting("UninstallerUrl").GetStringValue(true);
         }
 
         public static async Task<string> GetLauncherUrl()

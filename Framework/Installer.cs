@@ -72,7 +72,7 @@ namespace CodeRedLauncher
             return report;
         }
 
-        public static async Task<Report> InstallModule()
+        public static async Task<Report> DownloadModule()
         {
             Report report = new Report();
             Architecture.Path moduleFolder = Storage.GetModulePath();

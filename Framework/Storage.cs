@@ -171,15 +171,15 @@ namespace CodeRedLauncher
         private static bool ParseRegistryKeys()
         {
             bool foundAtLeastOnePath = false;
-            RegistryKey modKey = Registry.CurrentUser.OpenSubKey("CodeRedModding");
+            RegistryKey coderedKey = Registry.CurrentUser.OpenSubKey("CodeRedModding");
 
-            if (modKey != null)
+            if (coderedKey != null)
             {
-                Object modObj = modKey.GetValue("InstallPath");
+                Object installObject = coderedKey.GetValue("InstallPath");
 
-                if (modObj != null)
+                if (installObject != null)
                 {
-                    Architecture.Path moduleFolder = new Architecture.Path(modObj.ToString());
+                    Architecture.Path moduleFolder = new Architecture.Path(installObject.ToString());
 
                     if (moduleFolder.Exists())
                     {
@@ -187,6 +187,8 @@ namespace CodeRedLauncher
                         LibraryFile.SetValue(moduleFolder / "DLL" / "CodeRed.dll");
                     }
                 }
+
+                coderedKey.Close();
             }
 
             RegistryKey epicKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\EpicGames\\Unreal Engine");

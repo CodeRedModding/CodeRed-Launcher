@@ -37,6 +37,7 @@ namespace CodeRedLauncher
 
         private void TitleBar_OnExit(object sender, EventArgs e)
         {
+            this.TrayIcon.Visible = false;
             Environment.Exit(0);
         }
 
@@ -201,9 +202,14 @@ namespace CodeRedLauncher
 
         */
 
-        private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
+        private async void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Updator.InstallModule(true);
+            Report debug = await Updator.InstallLauncher(true);
+
+            if (debug.Succeeded == false)
+            {
+                MessageBox.Show(debug.FailReason);
+            }
 
             return;
 
@@ -248,12 +254,12 @@ namespace CodeRedLauncher
             {
                 if (RunOnStartupBx.Checked)
                 {
-                    Logger.Write("Setting run on start registry value to \"" + Application.ExecutablePath + "\".");
+                    Logger.Write("Setting run on start registry value to \"" + Application.ExecutablePath + "\"...");
                     startKey.SetValue(Assembly.GetProduct(), Application.ExecutablePath);
                 }
                 else
                 {
-                    Logger.Write("Deleting run on start registry key.");
+                    Logger.Write("Deleting run on start registry key...");
                     startKey.DeleteValue(Assembly.GetProduct(), false);
                 }
 
@@ -293,7 +299,7 @@ namespace CodeRedLauncher
             else
             {
                 Configuration.InjectionType.ResetToDefault().Save();
-                Logger.Write("Unknown injection type detected, resetting to default!", LogLevel.LEVEL_WARN);
+                Logger.Write("Unknown injection type detected, resetting value to default!", LogLevel.LEVEL_WARN);
             }
         }
 
@@ -454,6 +460,7 @@ namespace CodeRedLauncher
             {
                 if (LibraryManager.AnyProcessRunning())
                 {
+                    LaunchBtn.DisplayText = "Launch (Already Running)";
                     ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_RUNNING;
 
                     if (!InjectTmr.Enabled)
@@ -465,6 +472,7 @@ namespace CodeRedLauncher
                 else
                 {
                     InjectTmr.Stop();
+                    LaunchBtn.DisplayText = "Launch Rocket League";
                     ManualInjectBtn.Visible = false;
                     ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_NOT_RUNNING;
                 }
@@ -589,7 +597,12 @@ namespace CodeRedLauncher
         private async void StartupRoutine(bool bInvalidate = false)
         {
             this.Text = Assembly.GetTitle();
-            TitleBar.BoundForm = this; // Bind "MainFrm" to the "CRTitleBar", which handles mouse moving and dragging the window around.
+
+            TitleBar.BoundForm = this;
+            InstallPopupCtrl.BoundForm = this;
+            InstallOfflinePopupCtrl.BoundForm = this;
+            UpdatePopupCtrl.BoundForm = this;
+            OfflinePopupCtrl.BoundForm = this;
 
             Interface.BindControl(TabCtrl);
             Interface.BindTab(Tabs.TAB_DASHBOARD, DashboardTabBtn, DashboardTab);
@@ -645,12 +658,12 @@ namespace CodeRedLauncher
                     }
                     else
                     {
-                        //"NO INTERNET CONNECTION!";
+                        InstallOfflinePopupCtrl.Show();
                     }
                 }
                 else if (!Storage.GetLibraryFile().Exists())
                 {
-                    await Installer.InstallModule();
+                    await Installer.DownloadModule();
                     StartupRoutine(true);
                 }
                 else
@@ -773,7 +786,7 @@ namespace CodeRedLauncher
             {
                 StorageToInterface();
 
-                if (!Configuration.OfflineMode.GetBoolValue())
+                if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
                 {
                     UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
 
@@ -850,13 +863,13 @@ namespace CodeRedLauncher
 
             if (pathReport.Succeeded)
             {
-                Report moduleReport = await Installer.InstallModule();
+                Report moduleReport = await Installer.DownloadModule();
 
                 if (moduleReport.Succeeded)
                 {
-                    InstallPopupCtrl.Hide();
                     await CheckForUpdates(true);
                     StartupRoutine(true);
+                    InstallPopupCtrl.Hide();
                 }
                 else
                 {
@@ -875,14 +888,14 @@ namespace CodeRedLauncher
 
             if (pathReport.Succeeded)
             {
-                Report moduleReport = await Installer.InstallModule();
+                Report moduleReport = await Installer.DownloadModule();
 
                 if (moduleReport.Succeeded)
                 {
-                    InstallPopupCtrl.Hide();
                     Storage.Invalidate(true);
                     await CheckForUpdates(true);
                     StartupRoutine(true);
+                    InstallPopupCtrl.Hide();
                 }
                 else
                 {
@@ -893,6 +906,11 @@ namespace CodeRedLauncher
             {
                 MessageBox.Show(pathReport.FailReason);
             }
+        }
+
+        private void InstallOfflinePopupCtrl_SingleButtonClick(object sender, EventArgs e)
+        {
+            TitleBar_OnExit(null, null);
         }
 
         private void UpdatePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
@@ -921,15 +939,15 @@ namespace CodeRedLauncher
         private void OfflinePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
         {
             Configuration.OfflineMode.SetValue(false);
-            OfflinePopupCtrl.Hide();
             ContinueStartup();
+            OfflinePopupCtrl.Hide();
         }
 
         private void OfflinePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
         {
             Configuration.OfflineMode.SetValue(true);
-            OfflinePopupCtrl.Hide();
             ContinueStartup();
+            OfflinePopupCtrl.Hide();
         }
     }
 }

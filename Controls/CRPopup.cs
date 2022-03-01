@@ -12,7 +12,14 @@ namespace CodeRedLauncher.Controls
             TYPE_DOUBLE
         }
 
+        private Form? InternalForm = null;
         private ButtonLayouts CurrentLayout = ButtonLayouts.TYPE_SINGLE;
+
+        public Form BoundForm
+        {
+            get { return InternalForm; }
+            set { InternalForm = value; }
+        }
 
         public ButtonLayouts ButtonLayout
         {
@@ -124,12 +131,22 @@ namespace CodeRedLauncher.Controls
         {
             this.Visible = true;
             this.BringToFront();
+
+            if (InternalForm != null)
+            {
+                InternalForm.TopMost = true;
+            }
         }
 
         new public void Hide()
         {
             this.Visible = false;
             this.SendToBack();
+
+            if (InternalForm != null)
+            {
+                InternalForm.TopMost = false;
+            }
         }
     }
 }
