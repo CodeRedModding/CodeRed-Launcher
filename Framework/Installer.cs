@@ -11,7 +11,7 @@ namespace CodeRedLauncher
         private static readonly string SubKey = "CodeRedModding";
         private static readonly string KeyName = "InstallPath";
 
-        private static void ModifyRegistry(bool bDeleteKey, Architecture.Path installPath)
+        public static void ModifyRegistry(bool bDeleteKey, Architecture.Path installPath)
         {
             if (bDeleteKey)
             {
@@ -19,7 +19,7 @@ namespace CodeRedLauncher
 
                 if (coderedKey != null)
                 {
-                    Logger.Write("Deleting install path registry key.");
+                    Logger.Write("Deleting install path registry key...");
                     coderedKey.DeleteValue(KeyName, false);
                     coderedKey.Close();
                     Registry.CurrentUser.DeleteSubKey(SubKey);
@@ -31,7 +31,7 @@ namespace CodeRedLauncher
 
                 if (coderedKey != null)
                 {
-                    Logger.Write("Setting install path registry value to \"" + installPath + "\".");
+                    Logger.Write("Setting install path registry value to \"" + installPath + "\"...");
                     coderedKey.SetValue(KeyName, installPath.GetPath());
                     coderedKey.Close();
                 }
@@ -50,6 +50,7 @@ namespace CodeRedLauncher
                 if (folderBrowser.ShowDialog() == DialogResult.OK)
                 {
                     installPath.Set(folderBrowser.SelectedPath);
+                    Logger.Write("User manually selected \"" + folderBrowser.SelectedPath + "\" for the install path.");
                 }
             }
             else
@@ -79,7 +80,7 @@ namespace CodeRedLauncher
 
             if (moduleFolder.Exists())
             {
-                Report moduleReport = await Updator.InstallModule(true); // Doing a little cheaty cheat here, letting the updator do the rest of the work.
+                Report moduleReport = await Updator.ForceInstallModule(); // Doing a little cheaty cheat here, letting the updator do the rest of the work.
 
                 if (!moduleReport.Succeeded)
                 {

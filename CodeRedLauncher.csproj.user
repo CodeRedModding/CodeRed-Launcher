@@ -16,9 +16,6 @@
     <Compile Update="Controls\CRNumberbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRMessagebox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Controls\CRPopup.cs">
       <SubType>UserControl</SubType>
     </Compile>

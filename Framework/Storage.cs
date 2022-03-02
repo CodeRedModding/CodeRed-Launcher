@@ -27,7 +27,7 @@ namespace CodeRedLauncher
         private static PrivateSetting SteamFolder = new PrivateSetting();
         private static PrivateSetting EpicFolder = new PrivateSetting();
         private static PrivateSetting CurrentPlatform = new PrivateSetting(PlatformTypes.TYPE_UNKNOWN.ToString());
-        private static PrivateSetting PsyonixBuild = new PrivateSetting("000000.000000.000000");
+        private static PrivateSetting PsyonixVersion = new PrivateSetting("000000.000000.000000");
         private static PrivateSetting NetBuild = new PrivateSetting("0");
         private static PrivateSetting ModuleVersion = new PrivateSetting("0.0f");
 
@@ -94,7 +94,7 @@ namespace CodeRedLauncher
 
                     if (psyMatch.Groups[1].Success)
                     {
-                        PsyonixBuild.SetValue(psyMatch.Groups[1].Value);
+                        PsyonixVersion.SetValue(psyMatch.Groups[1].Value);
                         VersionsValid = true;
                     }
                     else
@@ -350,10 +350,28 @@ namespace CodeRedLauncher
             }
         }
 
-        public static string GetPsyonixBuild()
+        public static string GetPsyonixVersion()
         {
-            if (CheckInitialized()) { return PsyonixBuild.GetStringValue(); }
-            return PsyonixBuild.GetStringValue(true);
+            if (CheckInitialized()) { return PsyonixVersion.GetStringValue(); }
+            return PsyonixVersion.GetStringValue(true);
+        }
+
+        // The first six numbers in the Psyonix version string is actually a date timestamp.
+        // First two numbers are the year, second two are the month, and last two are the day.
+        public static UInt32 GetPsyonixDate()
+        {
+            if (CheckInitialized())
+            {
+                string psyonixVersion = PsyonixVersion.GetStringValue();
+                string buildDate = psyonixVersion.Substring(0, psyonixVersion.IndexOf("."));
+
+                if (Extensions.Strings.IsStringDecimal(buildDate))
+                {
+                    return UInt32.Parse(buildDate);
+                }
+            }
+
+            return 0;
         }
 
         public static Int32 GetNetBuild()

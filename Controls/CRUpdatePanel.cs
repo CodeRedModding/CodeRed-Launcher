@@ -13,7 +13,8 @@ namespace CodeRedLauncher.Controls
             TYPE_MODULE,
             TYPE_LAUNCHER,
             TYPE_BOTH,
-            TYPE_UPDATED
+            TYPE_UPDATED,
+            TYPE_OUTDATED
         }
 
         private StatusTypes CurrentStatus = StatusTypes.TYPE_LOADING;
@@ -49,6 +50,10 @@ namespace CodeRedLauncher.Controls
                     case StatusTypes.TYPE_UPDATED:
                         TitleLbl.Text = "Up to Date";
                         DescriptionLbl.Text = "You are running on the latest version!";
+                        break;
+                    case StatusTypes.TYPE_OUTDATED:
+                        TitleLbl.Text = "Out of Date";
+                        DescriptionLbl.Text = "Please wait until the developers release a new version of CodeRed!";
                         break;
                     default:
                         TitleLbl.Text = "Loading...";

@@ -95,6 +95,7 @@ namespace CodeRedLauncher
         public Int32 Saves { get; set; }
         public Int32 Shots { get; set; }
         public Int32 Damage { get; set; }
+        public Int32 Demolishes { get; set; }
         public bool Partied { get; set; }
         public bool LeftEarly { get; set; }
         public bool Won { get; set; }
@@ -193,10 +194,28 @@ namespace CodeRedLauncher
             return true;
         }
 
-        public static async Task<string> GetPsyonixBuild()
+        public static async Task<string> GetPsyonixVersion()
         {
             if (await CheckInitialized()) { return GetStoredSetting("PsyonixVersion").GetStringValue(); }
             return GetStoredSetting("PsyonixVersion").GetStringValue(true);
+        }
+
+        // The first six numbers in the Psyonix version string is actually a date timestamp.
+        // First two numbers are the year, second two are the month, and last two are the day.
+        public static async Task<UInt32> GetPsyonixDate()
+        {
+            if (await CheckInitialized())
+            {
+                string psyonixVersion =  GetStoredSetting("PsyonixVersion").GetStringValue();
+                string buildDate = psyonixVersion.Substring(0, psyonixVersion.IndexOf("."));
+
+                if (Extensions.Strings.IsStringDecimal(buildDate))
+                {
+                    return UInt32.Parse(buildDate);
+                }
+            }
+
+            return 0;
         }
 
         public static async Task<float> GetInstallerVersion()

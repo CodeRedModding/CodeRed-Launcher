@@ -6,7 +6,7 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRPopup : UserControl
     {
-        public enum ButtonLayouts
+        public enum ButtonLayouts : byte
         {
             TYPE_SINGLE,
             TYPE_DOUBLE

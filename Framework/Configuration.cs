@@ -88,7 +88,7 @@ namespace CodeRedLauncher
             SaveChanges
         );
 
-        public static Architecture.Range32 InjectionTimeoutRange = new Architecture.Range32(5000, 300000); // 5 seconds to 5 minutes.
+        public static Architecture.Range32 InjectionTimeoutRange = new Architecture.Range32(5000, 300000); // Five seconds to five minutes.
 
         private static bool PhraseConfigFile()
         {

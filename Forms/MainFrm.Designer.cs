@@ -41,7 +41,6 @@ namespace CodeRedLauncher
             this.NewsTab = new System.Windows.Forms.TabPage();
             this.NewsCtrl = new CodeRedLauncher.Controls.CRNewsPanel();
             this.SessionsTab = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.ReloadSessionsBtn = new CodeRedLauncher.Controls.CRButton();
             this.TexturesTab = new System.Windows.Forms.TabPage();
             this.PlaceholderLblSecond = new System.Windows.Forms.Label();
@@ -73,7 +72,7 @@ namespace CodeRedLauncher
             this.WebsiteLink = new System.Windows.Forms.Label();
             this.PlatformText = new System.Windows.Forms.Label();
             this.NetBuildText = new System.Windows.Forms.Label();
-            this.PsyonixBuildText = new System.Windows.Forms.Label();
+            this.PsyonixVersionText = new System.Windows.Forms.Label();
             this.ModuleVersionText = new System.Windows.Forms.Label();
             this.LauncherVersionText = new System.Windows.Forms.Label();
             this.ThankiesLbl = new System.Windows.Forms.Label();
@@ -89,8 +88,8 @@ namespace CodeRedLauncher
             this.PlatformLbl = new System.Windows.Forms.Label();
             this.NetBuildImg = new System.Windows.Forms.PictureBox();
             this.NetBuildLbl = new System.Windows.Forms.Label();
-            this.PsyonixBuildImg = new System.Windows.Forms.PictureBox();
-            this.PsyonixBuildLbl = new System.Windows.Forms.Label();
+            this.PsyonixVersionImg = new System.Windows.Forms.PictureBox();
+            this.PsyonixVersionLbl = new System.Windows.Forms.Label();
             this.ModVersionImg = new System.Windows.Forms.PictureBox();
             this.ModuleVersionLbl = new System.Windows.Forms.Label();
             this.LauncherVersionImg = new System.Windows.Forms.PictureBox();
@@ -113,6 +112,7 @@ namespace CodeRedLauncher
             this.ProcessTmr = new System.Windows.Forms.Timer(this.components);
             this.InjectTmr = new System.Windows.Forms.Timer(this.components);
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.UpdateTmr = new System.Windows.Forms.Timer(this.components);
             this.TabCtrl.SuspendLayout();
             this.DashboardTab.SuspendLayout();
             this.NewsTab.SuspendLayout();
@@ -131,7 +131,7 @@ namespace CodeRedLauncher
             ((System.ComponentModel.ISupportInitialize)(this.WebsiteImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlatformImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NetBuildImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PsyonixBuildImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PsyonixVersionImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ModVersionImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LauncherVersionImg)).BeginInit();
             this.BackgroundPnl.SuspendLayout();
@@ -262,24 +262,12 @@ namespace CodeRedLauncher
             // SessionsTab
             // 
             this.SessionsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.SessionsTab.Controls.Add(this.richTextBox1);
             this.SessionsTab.Controls.Add(this.ReloadSessionsBtn);
             this.SessionsTab.Location = new System.Drawing.Point(4, 24);
             this.SessionsTab.Name = "SessionsTab";
             this.SessionsTab.Size = new System.Drawing.Size(910, 600);
             this.SessionsTab.TabIndex = 2;
             this.SessionsTab.Text = "Sessions";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.richTextBox1.Location = new System.Drawing.Point(195, 84);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(488, 372);
-            this.richTextBox1.TabIndex = 65;
-            this.richTextBox1.Text = "";
             // 
             // ReloadSessionsBtn
             // 
@@ -589,7 +577,7 @@ namespace CodeRedLauncher
             this.AboutTab.Controls.Add(this.WebsiteLink);
             this.AboutTab.Controls.Add(this.PlatformText);
             this.AboutTab.Controls.Add(this.NetBuildText);
-            this.AboutTab.Controls.Add(this.PsyonixBuildText);
+            this.AboutTab.Controls.Add(this.PsyonixVersionText);
             this.AboutTab.Controls.Add(this.ModuleVersionText);
             this.AboutTab.Controls.Add(this.LauncherVersionText);
             this.AboutTab.Controls.Add(this.ThankiesLbl);
@@ -605,8 +593,8 @@ namespace CodeRedLauncher
             this.AboutTab.Controls.Add(this.PlatformLbl);
             this.AboutTab.Controls.Add(this.NetBuildImg);
             this.AboutTab.Controls.Add(this.NetBuildLbl);
-            this.AboutTab.Controls.Add(this.PsyonixBuildImg);
-            this.AboutTab.Controls.Add(this.PsyonixBuildLbl);
+            this.AboutTab.Controls.Add(this.PsyonixVersionImg);
+            this.AboutTab.Controls.Add(this.PsyonixVersionLbl);
             this.AboutTab.Controls.Add(this.ModVersionImg);
             this.AboutTab.Controls.Add(this.ModuleVersionLbl);
             this.AboutTab.Controls.Add(this.LauncherVersionImg);
@@ -709,16 +697,16 @@ namespace CodeRedLauncher
             this.NetBuildText.Text = "Loading...";
             this.NetBuildText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // PsyonixBuildText
+            // PsyonixVersionText
             // 
-            this.PsyonixBuildText.BackColor = System.Drawing.Color.Transparent;
-            this.PsyonixBuildText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PsyonixBuildText.Location = new System.Drawing.Point(207, 125);
-            this.PsyonixBuildText.Name = "PsyonixBuildText";
-            this.PsyonixBuildText.Size = new System.Drawing.Size(275, 30);
-            this.PsyonixBuildText.TabIndex = 24;
-            this.PsyonixBuildText.Text = "Loading...";
-            this.PsyonixBuildText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.PsyonixVersionText.BackColor = System.Drawing.Color.Transparent;
+            this.PsyonixVersionText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PsyonixVersionText.Location = new System.Drawing.Point(207, 125);
+            this.PsyonixVersionText.Name = "PsyonixVersionText";
+            this.PsyonixVersionText.Size = new System.Drawing.Size(275, 30);
+            this.PsyonixVersionText.TabIndex = 24;
+            this.PsyonixVersionText.Text = "Loading...";
+            this.PsyonixVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ModuleVersionText
             // 
@@ -886,27 +874,27 @@ namespace CodeRedLauncher
             this.NetBuildLbl.Text = "Net Build:";
             this.NetBuildLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // PsyonixBuildImg
+            // PsyonixVersionImg
             // 
-            this.PsyonixBuildImg.BackColor = System.Drawing.Color.Transparent;
-            this.PsyonixBuildImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Server_White;
-            this.PsyonixBuildImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PsyonixBuildImg.Location = new System.Drawing.Point(35, 125);
-            this.PsyonixBuildImg.Name = "PsyonixBuildImg";
-            this.PsyonixBuildImg.Size = new System.Drawing.Size(30, 30);
-            this.PsyonixBuildImg.TabIndex = 7;
-            this.PsyonixBuildImg.TabStop = false;
+            this.PsyonixVersionImg.BackColor = System.Drawing.Color.Transparent;
+            this.PsyonixVersionImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Server_White;
+            this.PsyonixVersionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.PsyonixVersionImg.Location = new System.Drawing.Point(35, 125);
+            this.PsyonixVersionImg.Name = "PsyonixVersionImg";
+            this.PsyonixVersionImg.Size = new System.Drawing.Size(30, 30);
+            this.PsyonixVersionImg.TabIndex = 7;
+            this.PsyonixVersionImg.TabStop = false;
             // 
-            // PsyonixBuildLbl
+            // PsyonixVersionLbl
             // 
-            this.PsyonixBuildLbl.BackColor = System.Drawing.Color.Transparent;
-            this.PsyonixBuildLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PsyonixBuildLbl.Location = new System.Drawing.Point(71, 125);
-            this.PsyonixBuildLbl.Name = "PsyonixBuildLbl";
-            this.PsyonixBuildLbl.Size = new System.Drawing.Size(130, 30);
-            this.PsyonixBuildLbl.TabIndex = 6;
-            this.PsyonixBuildLbl.Text = "Psyonix Build:";
-            this.PsyonixBuildLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.PsyonixVersionLbl.BackColor = System.Drawing.Color.Transparent;
+            this.PsyonixVersionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.PsyonixVersionLbl.Location = new System.Drawing.Point(71, 125);
+            this.PsyonixVersionLbl.Name = "PsyonixVersionLbl";
+            this.PsyonixVersionLbl.Size = new System.Drawing.Size(130, 30);
+            this.PsyonixVersionLbl.TabIndex = 6;
+            this.PsyonixVersionLbl.Text = "Psyonix Version:";
+            this.PsyonixVersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ModVersionImg
             // 
@@ -958,9 +946,9 @@ namespace CodeRedLauncher
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Controls.Add(this.TabPnl);
             this.BackgroundPnl.Controls.Add(this.TitleBar);
-            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Controls.Add(this.InstallOfflinePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.OfflinePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.UpdatePopupCtrl);
@@ -1132,7 +1120,7 @@ namespace CodeRedLauncher
             this.OfflinePopupCtrl.DoubleFirstImage = null;
             this.OfflinePopupCtrl.DoubleFirstText = "No thanks, let\'s try again";
             this.OfflinePopupCtrl.DoubleSecondImage = null;
-            this.OfflinePopupCtrl.DoubleSecondText = "Yeah, that was the point";
+            this.OfflinePopupCtrl.DoubleSecondText = "Sure, sounds good to me";
             this.OfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.OfflinePopupCtrl.Location = new System.Drawing.Point(0, 0);
             this.OfflinePopupCtrl.Name = "OfflinePopupCtrl";
@@ -1159,10 +1147,11 @@ namespace CodeRedLauncher
             this.UpdatePopupCtrl.Location = new System.Drawing.Point(0, 0);
             this.UpdatePopupCtrl.Name = "UpdatePopupCtrl";
             this.UpdatePopupCtrl.SingleButtonImage = null;
-            this.UpdatePopupCtrl.SingleButtonText = "Sure";
+            this.UpdatePopupCtrl.SingleButtonText = "Ok fine, I\'ll close the game";
             this.UpdatePopupCtrl.Size = new System.Drawing.Size(970, 630);
             this.UpdatePopupCtrl.TabIndex = 35;
             this.UpdatePopupCtrl.Visible = false;
+            this.UpdatePopupCtrl.SingleButtonClick += new System.EventHandler(this.UpdatePopupCtrl_SingleButtonClick);
             this.UpdatePopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleFirstButtonClick);
             this.UpdatePopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleSecondButtonClick);
             // 
@@ -1207,6 +1196,11 @@ namespace CodeRedLauncher
             this.TrayIcon.Visible = true;
             this.TrayIcon.Click += new System.EventHandler(this.TrayIcon_Click);
             // 
+            // UpdateTmr
+            // 
+            this.UpdateTmr.Interval = 6000;
+            this.UpdateTmr.Tick += new System.EventHandler(this.UpdateTmr_Tick);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1240,7 +1234,7 @@ namespace CodeRedLauncher
             ((System.ComponentModel.ISupportInitialize)(this.WebsiteImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlatformImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NetBuildImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PsyonixBuildImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PsyonixVersionImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ModVersionImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LauncherVersionImg)).EndInit();
             this.BackgroundPnl.ResumeLayout(false);
@@ -1272,8 +1266,8 @@ namespace CodeRedLauncher
         private System.Windows.Forms.Label PlatformLbl;
         private System.Windows.Forms.PictureBox NetBuildImg;
         private System.Windows.Forms.Label NetBuildLbl;
-        private System.Windows.Forms.PictureBox PsyonixBuildImg;
-        private System.Windows.Forms.Label PsyonixBuildLbl;
+        private System.Windows.Forms.PictureBox PsyonixVersionImg;
+        private System.Windows.Forms.Label PsyonixVersionLbl;
         private System.Windows.Forms.PictureBox Icons8Img;
         private System.Windows.Forms.Label IconsLbl;
         private System.Windows.Forms.Label ThankiesLbl;
@@ -1283,7 +1277,7 @@ namespace CodeRedLauncher
         private System.Windows.Forms.Label WebsiteLink;
         private System.Windows.Forms.Label PlatformText;
         private System.Windows.Forms.Label NetBuildText;
-        private System.Windows.Forms.Label PsyonixBuildText;
+        private System.Windows.Forms.Label PsyonixVersionText;
         private System.Windows.Forms.Label ModuleVersionText;
         private System.Windows.Forms.Label LauncherVersionText;
         private System.Windows.Forms.PictureBox ManualRadioImg;
@@ -1327,12 +1321,12 @@ namespace CodeRedLauncher
         private Controls.CRButton OpenFolderBtn;
         private Controls.CRButton ExportLogsBtn;
         private Controls.CRNumberbox InjectionTimeoutBx;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private Controls.CRButton ReloadSessionsBtn;
         private Controls.CRPopup UpdatePopupCtrl;
         private Controls.CRPopup OfflinePopupCtrl;
         private Controls.CRPopup InstallPopupCtrl;
         private Controls.CRPopup InstallOfflinePopupCtrl;
+        private System.Windows.Forms.Timer UpdateTmr;
     }
 }
 

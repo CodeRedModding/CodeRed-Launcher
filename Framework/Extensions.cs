@@ -32,6 +32,45 @@ namespace CodeRedLauncher.Extensions
             return IsCharDecimal(c);
         }
 
+        public static bool IsStringAlphabet(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!IsCharAlphabet(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsStringDecimal(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!IsCharDecimal(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsStringHexadecimal(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!IsCharHexadecimal(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private static bool SequenceMatches(string baseStr, string matchStr, Int32 startOffset)
         {
             Int32 matches = 0;

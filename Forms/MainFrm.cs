@@ -199,20 +199,10 @@ namespace CodeRedLauncher
 
         Bar Graph:
         - Goal to shot ratio
-
         */
 
-        private async void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
+        private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Report debug = await Updator.InstallLauncher(true);
-
-            if (debug.Succeeded == false)
-            {
-                MessageBox.Show(debug.FailReason);
-            }
-
-            return;
-
             Architecture.Path sessionsFolder = Storage.GetModulePath() / "Sessions";
 
             if (sessionsFolder.Exists())
@@ -491,7 +481,7 @@ namespace CodeRedLauncher
 
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                if (Updator.IsOutdated && Configuration.ShouldPreventInjection())
+                if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
                 {
                     Logger.Write("Prevented injection, updator returned out of date!");
                     return;
@@ -537,6 +527,18 @@ namespace CodeRedLauncher
                 {
                     InjectTmr.Stop();
                 }
+            }
+        }
+
+        private void UpdateTmr_Tick(object sender, EventArgs e)
+        {
+            if (Updator.IsOutdated())
+            {
+                CheckForUpdates(true);
+            }
+            else
+            {
+                UpdateTmr.Stop();
             }
         }
 
@@ -612,6 +614,14 @@ namespace CodeRedLauncher
             Interface.BindTab(Tabs.TAB_SCRIPTS, ScriptsTabBtn, ScriptsTab);
             Interface.BindTab(Tabs.TAB_SETTINGS, SettingsTabBtn, SettingsTab);
             Interface.BindTab(Tabs.TAB_ABOUT, AboutTabBtn, AboutTab);
+
+            Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
+
+            if (tempFolder.Exists())
+            {
+                // This is to cleanup anything left over by the auto updator/dropper file.
+                Directory.Delete(tempFolder.GetPath(), true);
+            }
 
             if (bInvalidate)
             {
@@ -695,7 +705,7 @@ namespace CodeRedLauncher
             }
 
             // Don't want to bother monitoring processes while updating if we aren't doing anything with it yet, like during updates...
-            if (!Updator.IsOutdated && Updator.Status == UpdatorStatus.STATUS_NONE)
+            if (!Updator.IsOutdated())
             {
                 ProcessTmr.Start();
             }
@@ -747,7 +757,7 @@ namespace CodeRedLauncher
             {
                 LauncherVersionText.Text = "v" + Assembly.GetVersion();
                 ModuleVersionText.Text = "v" + Storage.GetModuleVersion();
-                PsyonixBuildText.Text = Storage.GetPsyonixBuild();
+                PsyonixVersionText.Text = Storage.GetPsyonixVersion();
                 NetBuildText.Text = Storage.GetNetBuild().ToString();
                 PlatformText.Text = Storage.GetPlatformString(false);
 
@@ -774,69 +784,86 @@ namespace CodeRedLauncher
             }
         }
 
-        // If "bInvalidate" is set to true it forces the application to re-fetch all local and remote information, this also doubles to determine to display a message popup if there is no update found.
+        // If "bInvalidate" is set to true it forces the application to retrieve all local and remote information.
         private async Task<bool> CheckForUpdates(bool bInvalidate)
         {
-            if (bInvalidate)
+            if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
             {
-                Storage.Invalidate();
-            }
+                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
 
-            if (Storage.CheckInitialized())
-            {
-                StorageToInterface();
-
-                if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
+                if (await Retrievers.CheckInitialized())
                 {
-                    UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
+                    bool moduleOutdated = await Updator.IsModuleOutdated(bInvalidate);
+                    bool launcherOutdated = await Updator.IsLauncherOutdated(bInvalidate);
 
-                    if (bInvalidate)
+                    UInt32 localVersion = Storage.GetPsyonixDate();
+                    UInt32 remoteVersion = await Retrievers.GetPsyonixDate();
+                    bool ignoreModule = (localVersion > remoteVersion);
+
+                    // If the installed Rocket League version is greater than the one retrieved remotely, an update for the module is not out yet.
+                    if (ignoreModule && !launcherOutdated)
                     {
-                        Retrievers.Invalidate();
-                        NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
-                    }
+                        UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_OUTDATED;
+                        UpdateCtrl.TitleImage = Properties.Resources.Hourglass_White;
 
-                    if (await Retrievers.CheckInitialized())
-                    {
-                        bool moduleOutdated = Storage.GetModuleVersion() != await Retrievers.GetModuleVersion();
-                        bool launcherOutdated = Assembly.GetVersion() != await Retrievers.GetLauncherVersion();
-                        Updator.IsOutdated = ((moduleOutdated || launcherOutdated) == true);
-
-                        if (Updator.IsOutdated)
+                        // Every sixty seconds this timer automatically checks for updates.
+                        if (!UpdateTmr.Enabled)
                         {
-                            this.Show();
-                            this.TopMost = true;
+                            UpdateTmr.Start();
+                        }
+                    }
+                    else if (Updator.IsOutdated())
+                    {
+                        UpdateTmr.Stop();
 
-                            // REMEMBER TO DO ASYNC STARTING OF ProcessTmr WHEN UPDATING IS DONE! AND MESSAGEBOX
-                            if (moduleOutdated && launcherOutdated)
+                        // Prioritize updating the module first, then the launcher.
+                        if (!ignoreModule && moduleOutdated && launcherOutdated)
+                        {
+                            UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_BOTH;
+                            UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
+
+                            if (LibraryManager.AnyProcessRunning())
                             {
-                                Updator.Status |= UpdatorStatus.STATUS_MODULE;
-                                Updator.Status |= UpdatorStatus.STATUS_LAUNCHER;
-                                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_BOTH;
-                                UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
+                                UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_SINGLE;
+                                UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, but Rocket League needs to be closed in order to install it first! Please close the game and try again.";
+                            }
+                            else
+                            {
                                 UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, would you like to automatically install both now?";
-                                UpdatePopupCtrl.Show();
                             }
-                            else if (moduleOutdated)
+
+                            UpdatePopupCtrl.Show();
+                        }
+                        else if (!ignoreModule && moduleOutdated)
+                        {
+                            UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_MODULE;
+                            UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
+
+                            if (LibraryManager.AnyProcessRunning())
                             {
-                                Updator.Status |= UpdatorStatus.STATUS_MODULE;
-                                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_MODULE;
-                                UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
-                                UpdatePopupCtrl.DisplayDescription = "A new version of the CodeRed module was found, would you like to automatically install it now?";
-                                UpdatePopupCtrl.Show();
+                                UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_DOUBLE;
+                                UpdatePopupCtrl.DisplayDescription = "A new version of the module was found, but Rocket League needs to be closed in order to install it first! Please close the game and try again.";
                             }
-                            else if (launcherOutdated)
+                            else
                             {
-                                Updator.Status |= UpdatorStatus.STATUS_LAUNCHER;
-                                UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_LAUNCHER;
-                                UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
-                                UpdatePopupCtrl.DisplayDescription = "A new version of the launcher was found, would you like to automatically install it now?";
-                                UpdatePopupCtrl.Show();
+                                UpdatePopupCtrl.DisplayDescription = "A new version of the module was found, would you like to automatically install it now?";
                             }
+
+                            UpdatePopupCtrl.Show();
+                        }
+                        else if (launcherOutdated)
+                        {
+                            UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_LAUNCHER;
+                            UpdateCtrl.TitleImage = Properties.Resources.Warning_White;
+
+                            // Doesn't matter if Rocket League is open or not when updating the launcher, so no need to check if any processes are running.
+
+                            UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_DOUBLE;
+                            UpdatePopupCtrl.DisplayDescription = "A new version of the launcher was found, would you like to automatically install it now?";
+                            UpdatePopupCtrl.Show();
                         }
                         else
                         {
-                            Updator.Status = UpdatorStatus.STATUS_NONE;
                             UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_UPDATED;
                             UpdateCtrl.TitleImage = Properties.Resources.Success_White;
                             UpdatePopupCtrl.Hide();
@@ -844,16 +871,14 @@ namespace CodeRedLauncher
                         }
                     }
                 }
-                else
-                {
-                    Logger.Write("Could not check for updates, launcher is running in offline mode!");
-                }
             }
             else
             {
-                Logger.Write("Failed to retrieve local directory information while checking for updates!", LogLevel.LEVEL_FATAL);
+                Logger.Write("Could not check for updates, launcher is running in offline mode!");
             }
 
+            StorageToInterface();
+            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
             return true;
         }
 
@@ -871,13 +896,15 @@ namespace CodeRedLauncher
                     StartupRoutine(true);
                     InstallPopupCtrl.Hide();
                 }
-                else
+                else if (moduleReport.FailReason != null)
                 {
+                    Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_ERROR);
                     MessageBox.Show(moduleReport.FailReason);
                 }
             }
-            else
+            else if (pathReport.FailReason != null)
             {
+                Logger.Write(pathReport.FailReason, LogLevel.LEVEL_ERROR);
                 MessageBox.Show(pathReport.FailReason);
             }
         }
@@ -897,13 +924,15 @@ namespace CodeRedLauncher
                     StartupRoutine(true);
                     InstallPopupCtrl.Hide();
                 }
-                else
+                else if (moduleReport.FailReason != null)
                 {
+                    Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_ERROR);
                     MessageBox.Show(moduleReport.FailReason);
                 }
             }
-            else
+            else if (pathReport.FailReason != null)
             {
+                Logger.Write(pathReport.FailReason, LogLevel.LEVEL_ERROR);
                 MessageBox.Show(pathReport.FailReason);
             }
         }
@@ -934,6 +963,11 @@ namespace CodeRedLauncher
             {
                 Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
             }
+        }
+
+        private void UpdatePopupCtrl_SingleButtonClick(object sender, EventArgs e)
+        {
+            UpdatePopupCtrl.Hide();
         }
 
         private void OfflinePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)

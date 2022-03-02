@@ -18,19 +18,146 @@ namespace CodeRedLauncher
     public static class Updator
     {
         public static UpdatorStatus Status { get; set; } = UpdatorStatus.STATUS_NONE;
-        public static bool IsOutdated { get; set; } = false;
 
-        public static async Task<Report> InstallLauncher(bool bForceInstall)
+        public static bool IsOutdated()
+        {
+            return ((Status & UpdatorStatus.STATUS_NONE) == 0);
+        }
+
+        public static async Task<bool> IsModuleOutdated(bool bInvalidate)
+        {
+            if (bInvalidate)
+            {
+                Storage.Invalidate();
+                Retrievers.Invalidate();
+            }
+
+            if (await Retrievers.CheckInitialized())
+            {
+                if (Storage.GetModuleVersion() != await Retrievers.GetModuleVersion())
+                {
+                    Status |= UpdatorStatus.STATUS_MODULE;
+                    return true;
+                }
+            }
+
+            Status &= ~UpdatorStatus.STATUS_MODULE;
+            return false;
+        }
+
+        public static async Task<bool> IsLauncherOutdated(bool bInvalidate)
+        {
+            if (bInvalidate)
+            {
+                Storage.Invalidate();
+                Retrievers.Invalidate();
+            }
+
+            if (await Retrievers.CheckInitialized())
+            {
+                if (Assembly.GetVersion() != await Retrievers.GetLauncherVersion())
+                {
+                    Status |= UpdatorStatus.STATUS_LAUNCHER;
+                    return true;
+                }
+            }
+
+            Status &= ~UpdatorStatus.STATUS_LAUNCHER;
+            return false;
+        }
+
+        private static async Task<Report> InstallModule(bool bForceInstall)
         {
             Report report = new Report();
 
-            if (!bForceInstall)
+            if (!bForceInstall && !IsOutdated())
             {
-                if (!IsOutdated || ((Status & UpdatorStatus.STATUS_LAUNCHER) == 0))
+                report.FailReason = "No module update required.";
+                return report;
+            }
+
+            Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
+
+            if (tempFolder.Exists())
+            {
+                Directory.Delete(tempFolder.GetPath(), true);
+            }
+
+            Directory.CreateDirectory(tempFolder.GetPath());
+
+            if (tempFolder.Exists())
+            {
+                string moduleUrl = await Retrievers.GetModuleUrl();
+
+                if (!String.IsNullOrEmpty(moduleUrl))
                 {
-                    report.FailReason = "No launcher update required.";
+                    Architecture.Path downloadedFile = (tempFolder / "CodeRedModule.zip");
+
+                    if (await Downloaders.DownloadFile(moduleUrl, tempFolder, "CodeRedModule.zip"))
+                    {
+                        if (downloadedFile.Exists())
+                        {
+                            Architecture.Path modulePath = Storage.GetModulePath();
+
+                            if (!modulePath.Exists())
+                            {
+                                Directory.CreateDirectory(modulePath.GetPath());
+                            }
+
+                            using (ZipArchive zipArchive = ZipFile.OpenRead(downloadedFile.GetPath()))
+                            {
+                                foreach (ZipArchiveEntry archiveEntry in zipArchive.Entries)
+                                {
+                                    Architecture.Path fullPath = modulePath / archiveEntry.FullName;
+                                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath.GetPath()));
+                                    string fileFilter = fullPath.GetPath().ToLower();
+
+                                    // Skip overriding existing files that may be user-specific, such as settings or scripts.
+                                    if (fileFilter.EndsWith(".script") || fileFilter.EndsWith(".sequence") || fileFilter.EndsWith(".cr"))
+                                    {
+                                        continue;
+                                    }
+
+                                    archiveEntry.ExtractToFile(fullPath.GetPath(), true);
+                                }
+                            }
+
+                            report.Succeeded = true;
+                            Status &= ~UpdatorStatus.STATUS_MODULE;
+                            Configuration.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        report.FailReason = "Failed to download module archive.";
+                        return report;
+                    }
+                }
+                else
+                {
+                    report.FailReason = "Failed to retrieve download link.";
                     return report;
                 }
+
+                Directory.Delete(tempFolder.GetPath(), true);
+            }
+
+            return report;
+        }
+
+        public static async Task<Report> ForceInstallModule()
+        {
+            return await InstallModule(true);
+        }
+
+        private static async Task<Report> InstallLauncher(bool bForceInstall)
+        {
+            Report report = new Report();
+
+            if (!bForceInstall && !IsOutdated())
+            {
+                report.FailReason = "No launcher update required.";
+                return report;
             }
 
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
@@ -92,9 +219,12 @@ namespace CodeRedLauncher
 
                                         if (dropperExe.Exists())
                                         {
-                                            // Since the launcher is "half portable", the user can place the exe wherever they want. This text file is just super simple dynamic way of always finding it.
+                                            report.Succeeded = true;
+                                            Status &= ~UpdatorStatus.STATUS_LAUNCHER;
+
+                                            // Since the launcher is "half portable", the user can place the exe wherever they want and move it around.
+                                            // This text file is just super simple dynamic way to insure the dropper can always find it.
                                             Architecture.Path launcherPath = (tempFolder / "LauncherPath.txt");
-                                            File.CreateText(launcherPath.GetPath());
                                             File.WriteAllText(launcherPath.GetPath(), Application.ExecutablePath);
 
                                             // Dropper file closes the launcher, deletes the exe, moves the newly downloaded one in place of the old exe, then runs it.
@@ -138,93 +268,15 @@ namespace CodeRedLauncher
                     return report;
                 }
 
-                //Directory.Delete(tempFolder.GetPath(), true);
+                Directory.Delete(tempFolder.GetPath(), true);
             }
 
-            Status &= ~UpdatorStatus.STATUS_LAUNCHER;
             return report;
         }
 
-        public static async Task<Report> InstallModule(bool bForceInstall)
+        public static async Task<Report> ForceInstallLauncher()
         {
-            Report report = new Report();
-
-            if (!bForceInstall)
-            {
-                if (!IsOutdated || ((Status & UpdatorStatus.STATUS_MODULE) == 0))
-                {
-                    report.FailReason = "No module update required.";
-                    return report;
-                }
-            }
-
-            Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
-
-            if (tempFolder.Exists())
-            {
-                Directory.Delete(tempFolder.GetPath(), true);
-            }
-
-            Directory.CreateDirectory(tempFolder.GetPath());
-
-            if (tempFolder.Exists())
-            {
-                string moduleUrl = await Retrievers.GetModuleUrl();
-
-                if (!String.IsNullOrEmpty(moduleUrl))
-                {
-                    Architecture.Path downloadedFile = (tempFolder / "CodeRedModule.zip");
-
-                    if (await Downloaders.DownloadFile(moduleUrl, tempFolder, "CodeRedModule.zip"))
-                    {
-                        if (downloadedFile.Exists())
-                        {
-                            Architecture.Path modulePath = Storage.GetModulePath();
-
-                            if (!modulePath.Exists())
-                            {
-                                Directory.CreateDirectory(modulePath.GetPath());
-                            }
-
-                            using (ZipArchive zipArchive = ZipFile.OpenRead(downloadedFile.GetPath()))
-                            {
-                                foreach (ZipArchiveEntry archiveEntry in zipArchive.Entries)
-                                {
-                                    Architecture.Path fullPath = modulePath / archiveEntry.FullName;
-                                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath.GetPath()));
-                                    string fileFilter = fullPath.GetPath().ToLower();
-
-                                    // Skip overriding existing files that may be user-specific, such as settings or scripts.
-                                    if (fileFilter.EndsWith(".script") || fileFilter.EndsWith(".sequence") || fileFilter.EndsWith(".cr"))
-                                    {
-                                        continue;
-                                    }
-
-                                    archiveEntry.ExtractToFile(fullPath.GetPath(), true);
-                                }
-                            }
-
-                            Configuration.SaveChanges();
-                            report.Succeeded = true;
-                        }
-                    }
-                    else
-                    {
-                        report.FailReason = "Failed to download module archive.";
-                        return report;
-                    }
-                }
-                else
-                {
-                    report.FailReason = "Failed to retrieve download link.";
-                    return report;
-                }
-
-                Directory.Delete(tempFolder.GetPath(), true);
-            }
-
-            Status &= ~UpdatorStatus.STATUS_MODULE;
-            return report;
+            return await InstallLauncher(true);
         }
 
         public static async Task<Report> InstallUpdates()

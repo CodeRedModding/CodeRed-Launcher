@@ -167,6 +167,7 @@ namespace CodeRedLauncher.Controls
             NewsArticles.Clear();
         }
 
+        // The commented out stuff in this function works fine, just the image links it retrieves are super low quality.
         public async void ParseArticles(string url)
         {
             if (!String.IsNullOrEmpty(url))
