@@ -1,4 +1,6 @@
-﻿namespace CodeRedLauncher
+﻿using System;
+
+namespace CodeRedLauncher
 {
     public static class Assembly
     {
