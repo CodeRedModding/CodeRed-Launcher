@@ -17,11 +17,11 @@ namespace CodeRedLauncher
 
     public static class Updator
     {
-        public static UpdatorStatus Status { get; set; } = UpdatorStatus.STATUS_NONE;
+        private static UpdatorStatus Status { get; set; } = UpdatorStatus.STATUS_NONE;
 
         public static bool IsOutdated()
         {
-            return ((Status & UpdatorStatus.STATUS_NONE) == 0);
+            return (Status != UpdatorStatus.STATUS_NONE);
         }
 
         public static async Task<bool> IsModuleOutdated(bool bInvalidate)

@@ -946,9 +946,9 @@ namespace CodeRedLauncher
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Controls.Add(this.TabPnl);
             this.BackgroundPnl.Controls.Add(this.TitleBar);
+            this.BackgroundPnl.Controls.Add(this.TabCtrl);
             this.BackgroundPnl.Controls.Add(this.InstallOfflinePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.OfflinePopupCtrl);
             this.BackgroundPnl.Controls.Add(this.UpdatePopupCtrl);

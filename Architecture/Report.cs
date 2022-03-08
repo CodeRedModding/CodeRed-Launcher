@@ -2,7 +2,7 @@
 
 namespace CodeRedLauncher
 {
-    // Storage class used to report if async tasks have failed or not, along with optional details regarding why it either failed or succeeded.
+    // Storage class used to report if tasks have failed or not, along with optional details regarding why it either failed or succeeded.
     public class Report
     {
         public bool Succeeded { get; set; }
@@ -18,6 +18,11 @@ namespace CodeRedLauncher
         {
             Succeeded = bSucceeded;
             FailReason = failReason;
+        }
+        
+        bool HasFailReason()
+        {
+            return (FailReason != null);
         }
     }
 }

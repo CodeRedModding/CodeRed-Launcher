@@ -8,23 +8,23 @@ namespace CodeRedLauncher.Extensions
 {
     public static class Strings
     {
-        private static readonly char[] AlphabetChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        private static readonly char[] AlphabetChars = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
         private static readonly char[] DecimalChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        private static readonly char[] HexadecimalChars = { 'A', 'B', 'C', 'D', 'E', 'F' };
+        private static readonly char[] HexadecimalChars = { 'a', 'b', 'c', 'd', 'e', 'f' };
 
         public static bool IsCharAlphabet(char c)
         {
-            return AlphabetChars.Contains(c.ToString().ToUpper()[0]);
+            return AlphabetChars.Contains(Char.ToLower(c));
         }
 
         public static bool IsCharDecimal(char c)
         {
-            return DecimalChars.Contains(c.ToString().ToUpper()[0]);
+            return DecimalChars.Contains(Char.ToLower(c));
         }
 
         public static bool IsCharHexadecimal(char c)
         {
-            if (HexadecimalChars.Contains(c.ToString().ToUpper()[0]))
+            if (HexadecimalChars.Contains(Char.ToLower(c)))
             {
                 return true;
             }
@@ -71,7 +71,7 @@ namespace CodeRedLauncher.Extensions
             return true;
         }
 
-        private static bool SequenceMatches(string baseStr, string matchStr, Int32 startOffset)
+        private static bool StringSequenceMatches(string baseStr, string matchStr, Int32 startOffset)
         {
             Int32 matches = 0;
 
@@ -91,6 +91,81 @@ namespace CodeRedLauncher.Extensions
             }
 
             return (matches == matchStr.Length);
+        }
+
+        public static List<string> SplitRange(string str, char from, char to, bool bIncludeChar)
+        {
+            List<string> splitStrings = new List<string>();
+            string currentWord = "";
+            bool startWord = false;
+
+            foreach (char c in str)
+            {
+                if (!startWord)
+                {
+                    if (c == from)
+                    {
+                        startWord = true;
+
+                        if (bIncludeChar)
+                        {
+                            currentWord += c;
+                        }
+                    }
+                }
+                else if (startWord)
+                {
+                    if (c == to)
+                    {
+                        startWord = false;
+
+                        if (bIncludeChar)
+                        {
+                            currentWord += c;
+                        }
+
+                        splitStrings.Add(currentWord);
+                        currentWord = "";
+                    }
+                    else
+                    {
+                        currentWord += c;
+                    }
+                }
+            }
+
+            return splitStrings;
+        }
+
+        public static Dictionary<string, string> MapValuesToKeys(string str)
+        {
+            // Remove simple pretty print characters.
+            str = str.Replace("\n", "");
+            str = str.Replace("\t", " ");
+
+            Dictionary<string, string> returnMap = new Dictionary<string, string>();
+            List<string>splitPairs = SplitRange(str, '"', '"', false);
+
+            bool swap = false;
+            string currentKey = "";
+            string currentValue = "";
+
+            foreach (string pair in splitPairs)
+        {
+                if (!swap)
+                {
+                    currentKey = pair;
+                    swap = true;
+                }
+                else
+                {
+                    currentValue = pair;
+                    returnMap[currentKey] = currentValue;
+                    swap = false;
+                }
+            }
+
+            return returnMap;
         }
     }
 

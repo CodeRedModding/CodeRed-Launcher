@@ -44,14 +44,21 @@ namespace CodeRedLauncher
 
             if (!String.IsNullOrEmpty(url))
             {
-                using (HttpClient client = new HttpClient())
+                if (await WebsiteOnline(url))
                 {
-                    HttpResponseMessage response = await client.GetAsync(url);
-
-                    if (response.IsSuccessStatusCode)
+                    using (HttpClient client = new HttpClient())
                     {
-                        pageContent = await response.Content.ReadAsStringAsync();
+                        HttpResponseMessage response = await client.GetAsync(url);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            pageContent = await response.Content.ReadAsStringAsync();
+                        }
                     }
+                }
+                else
+                {
+                    Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
                 }
             }
 
@@ -84,38 +91,10 @@ namespace CodeRedLauncher
         }
     }
 
-    public class MatchObject
-    {
-        public UInt64 Timestamp { get; set; }
-        public float StartSkill { get; set; }
-        public float EndSkill { get; set; }
-        public Int32 Score { get; set; }
-        public Int32 Goals { get; set; }
-        public Int32 Assists { get; set; }
-        public Int32 Saves { get; set; }
-        public Int32 Shots { get; set; }
-        public Int32 Damage { get; set; }
-        public Int32 Demolishes { get; set; }
-        public bool Partied { get; set; }
-        public bool LeftEarly { get; set; }
-        public bool Won { get; set; }
-    }
-
-    public class SessionObject
-    {
-        public Int32 Playlist { get; set; }
-        public Int32 Wins { get; set; }
-        public Int32 Losses { get; set; }
-        public Int32 Streak { get; set; }
-        public bool OnFire { get; set; }
-        public Int32 Matches { get; set; }
-        public MatchObject[] MatchData { get; set; }
-    }
-
     public static class Retrievers
     {
         private static bool Initialized = false;
-        private static readonly string RemoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Remote.json";
+        private static readonly string RemoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Launcher.json";
 
         private static List<InternalSetting> RemoteSettings = new List<InternalSetting>()
         {
@@ -153,7 +132,7 @@ namespace CodeRedLauncher
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
-                    Dictionary<string, string> mappedBody = Extensions.Json.MapContent(pageBody);
+                    Dictionary<string, string> mappedBody = Extensions.Strings.MapValuesToKeys(pageBody);
 
                     for (Int32 i = 0; i < RemoteSettings.Count; i++)
                     {

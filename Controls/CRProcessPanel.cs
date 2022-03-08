@@ -13,7 +13,8 @@ namespace CodeRedLauncher.Controls
             TYPE_NOT_RUNNING,
             TYPE_RUNNING,
             TYPE_INJECTING,
-            TYPE_MANUAL
+            TYPE_MANUAL,
+            TYPE_OUTDATED
         }
 
         StatusTypes CurrentStatus = StatusTypes.TYPE_LOADING;
@@ -49,6 +50,10 @@ namespace CodeRedLauncher.Controls
                     case StatusTypes.TYPE_MANUAL:
                         TitleLbl.Text = "Rocket League Is Running";
                         DescriptionLbl.Text = "Process found, ready for manual injection!";
+                        break;
+                    case StatusTypes.TYPE_OUTDATED:
+                        TitleLbl.Text = "Rocket League Is Running";
+                        DescriptionLbl.Text = "Version mismatch, prevented injection!";
                         break;
                     default:
                         TitleLbl.Text = "Loading...";

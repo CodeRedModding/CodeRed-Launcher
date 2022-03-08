@@ -203,26 +203,7 @@ namespace CodeRedLauncher
 
         private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Architecture.Path sessionsFolder = Storage.GetModulePath() / "Sessions";
-
-            if (sessionsFolder.Exists())
-            {
-                List<Architecture.Path> sessionsFiles = sessionsFolder.GetFiles(true);
-                Logger.Write("Found \"" + sessionsFiles.Count + "\" session files.");
-
-                foreach (Architecture.Path sessionsFile in sessionsFiles)
-                {
-                    List<SessionObject> sessionObjects = JsonSerializer.Deserialize<List<SessionObject>>(File.ReadAllText(sessionsFile.GetPath()));
-
-                    if (sessionObjects.Count > 0)
-                    {
-                        foreach (SessionObject sessionObject in sessionObjects)
-                        {
-
-                        }
-                    }
-                }
-            }
+            Sessions.ReloadSessions();
         }
 
         private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs e)
@@ -455,7 +436,15 @@ namespace CodeRedLauncher
 
                     if (!InjectTmr.Enabled)
                     {
-                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
+                        if (Updator.IsOutdated())
+                        {
+                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
+                        }
+                        else
+                        {
+                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
+                        }
+
                         InjectTmr.Start();
                     }
                 }

@@ -10,6 +10,9 @@
     <Compile Update="Controls\CRCheckbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\CRCountdown.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\CRNewsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
