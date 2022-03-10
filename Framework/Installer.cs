@@ -38,9 +38,9 @@ namespace CodeRedLauncher
             }
         }
 
-        public static Report CreateInstallPath(bool bManuallyChoose)
+        public static Result CreateInstallPath(bool bManuallyChoose)
         {
-            Report report = new Report();
+            Result report = new Result();
             Architecture.Path installPath = new Architecture.Path();
 
             if (bManuallyChoose)
@@ -73,14 +73,14 @@ namespace CodeRedLauncher
             return report;
         }
 
-        public static async Task<Report> DownloadModule()
+        public static async Task<Result> DownloadModule()
         {
-            Report report = new Report();
+            Result report = new Result();
             Architecture.Path moduleFolder = Storage.GetModulePath();
 
             if (moduleFolder.Exists())
             {
-                Report moduleReport = await Updator.ForceInstallModule(); // Doing a little cheaty cheat here, letting the updator do the rest of the work.
+                Result moduleReport = await Updator.ForceInstallModule(); // Doing a little cheaty cheat here, letting the updator do the rest of the work.
 
                 if (!moduleReport.Succeeded)
                 {

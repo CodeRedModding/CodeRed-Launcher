@@ -66,9 +66,9 @@ namespace CodeRedLauncher
             return false;
         }
 
-        private static async Task<Report> InstallModule(bool bForceInstall)
+        private static async Task<Result> InstallModule(bool bForceInstall)
         {
-            Report report = new Report();
+            Result report = new Result();
 
             if (!bForceInstall && !IsOutdated())
             {
@@ -145,14 +145,14 @@ namespace CodeRedLauncher
             return report;
         }
 
-        public static async Task<Report> ForceInstallModule()
+        public static async Task<Result> ForceInstallModule()
         {
             return await InstallModule(true);
         }
 
-        private static async Task<Report> InstallLauncher(bool bForceInstall)
+        private static async Task<Result> InstallLauncher(bool bForceInstall)
         {
-            Report report = new Report();
+            Result report = new Result();
 
             if (!bForceInstall && !IsOutdated())
             {
@@ -274,20 +274,20 @@ namespace CodeRedLauncher
             return report;
         }
 
-        public static async Task<Report> ForceInstallLauncher()
+        public static async Task<Result> ForceInstallLauncher()
         {
             return await InstallLauncher(true);
         }
 
-        public static async Task<Report> InstallUpdates()
+        public static async Task<Result> InstallUpdates()
         {
-            Report report = new Report(true);
+            Result report = new Result(true);
 
             if (!Configuration.OfflineMode.GetBoolValue())
             {
                 if ((Status & UpdatorStatus.STATUS_MODULE) != 0)
                 {
-                    Report moduleReport = await InstallModule(false);
+                    Result moduleReport = await InstallModule(false);
 
                     if (!moduleReport.Succeeded)
                     {
@@ -298,7 +298,7 @@ namespace CodeRedLauncher
 
                 if ((Status & UpdatorStatus.STATUS_LAUNCHER) != 0)
                 {
-                    Report launcherReport = await InstallLauncher(false);
+                    Result launcherReport = await InstallLauncher(false);
 
                     if (!launcherReport.Succeeded)
                     {

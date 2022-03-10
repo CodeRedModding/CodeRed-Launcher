@@ -873,11 +873,11 @@ namespace CodeRedLauncher
 
         private async void InstallPopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
         {
-            Report pathReport = Installer.CreateInstallPath(true);
+            Result pathReport = Installer.CreateInstallPath(true);
 
             if (pathReport.Succeeded)
             {
-                Report moduleReport = await Installer.DownloadModule();
+                Result moduleReport = await Installer.DownloadModule();
 
                 if (moduleReport.Succeeded)
                 {
@@ -900,11 +900,11 @@ namespace CodeRedLauncher
 
         private async void InstallPopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
         {
-            Report pathReport = Installer.CreateInstallPath(false);
+            Result pathReport = Installer.CreateInstallPath(false);
 
             if (pathReport.Succeeded)
             {
-                Report moduleReport = await Installer.DownloadModule();
+                Result moduleReport = await Installer.DownloadModule();
 
                 if (moduleReport.Succeeded)
                 {
@@ -940,7 +940,7 @@ namespace CodeRedLauncher
 
         private async void UpdatePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
         {
-            Report report = await Updator.InstallUpdates();
+            Result report = await Updator.InstallUpdates();
 
             if (report.Succeeded)
             {

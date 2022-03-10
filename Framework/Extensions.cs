@@ -136,22 +136,25 @@ namespace CodeRedLauncher.Extensions
 
             return splitStrings;
         }
+    }
 
-        public static Dictionary<string, string> MapValuesToKeys(string str)
+    public static class Json
+    {
+        public static Dictionary<string, string> MapValuesToKeys(string jsonStr)
         {
             // Remove simple pretty print characters.
-            str = str.Replace("\n", "");
-            str = str.Replace("\t", " ");
+            jsonStr = jsonStr.Replace("\n", "");
+            jsonStr = jsonStr.Replace("\t", " ");
 
             Dictionary<string, string> returnMap = new Dictionary<string, string>();
-            List<string>splitPairs = SplitRange(str, '"', '"', false);
+            List<string> splitPairs = Strings.SplitRange(jsonStr, '"', '"', false);
 
             bool swap = false;
             string currentKey = "";
             string currentValue = "";
 
             foreach (string pair in splitPairs)
-        {
+            {
                 if (!swap)
                 {
                     currentKey = pair;
@@ -167,10 +170,7 @@ namespace CodeRedLauncher.Extensions
 
             return returnMap;
         }
-    }
 
-    public static class Json
-    {
         // Iterating through key and values then mapping them out, as an alternative to deserializing into an object.
         public static Dictionary<string, string> MapContent(string jsonStr)
         {
@@ -178,6 +178,10 @@ namespace CodeRedLauncher.Extensions
 
             if (!String.IsNullOrEmpty(jsonStr))
             {
+                // Remove simple pretty print characters.
+                jsonStr = jsonStr.Replace("\n", "");
+                jsonStr = jsonStr.Replace("\t", " ");
+
                 JsonDocument parsedBody = JsonDocument.Parse(jsonStr);
                 JsonElement.ObjectEnumerator objectEnum = parsedBody.RootElement.EnumerateObject();
 
