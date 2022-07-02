@@ -552,7 +552,7 @@ namespace CodeRedLauncher
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.RESULT_ALREADY_INJECTED:
-                    // If we uncomment this it will write to the log file infinitely as long as the game is running.
+                    // If we uncomment this it will write to the log file indefinitely as long as the game is running.
                     // Logger.Write("Successfully injected, changes applied in-game.");
                     break;
                 case InjectionResults.RESULT_HANDLE_NOT_FOUND:
@@ -681,6 +681,7 @@ namespace CodeRedLauncher
             {
                 ChangelogCtrl.DisplayText = await Retrievers.GetModuleChangelog();
                 DiscordLink.Text = await Retrievers.GetDiscordUrl();
+                KofiLink.Text = await Retrievers.GetKofiUrl();
 
                 if (Configuration.ShouldCheckForUpdates())
                 {

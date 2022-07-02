@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace CodeRedLauncher
 {
@@ -18,6 +19,7 @@ namespace CodeRedLauncher
     public static class Updator
     {
         private static UpdatorStatus Status { get; set; } = UpdatorStatus.STATUS_NONE;
+        private static List<string> ExcludedFiles = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" };
 
         public static bool IsOutdated()
         {
@@ -113,9 +115,12 @@ namespace CodeRedLauncher
                                     string fileFilter = fullPath.GetPath().ToLower();
 
                                     // Skip overriding existing files that may be user-specific, such as settings or scripts.
-                                    if (fileFilter.EndsWith(".script") || fileFilter.EndsWith(".sequence") || fileFilter.EndsWith(".cr"))
+                                    foreach (string file in ExcludedFiles)
                                     {
-                                        continue;
+                                        if (fileFilter.EndsWith(file))
+                                        {
+                                            continue;
+                                        }
                                     }
 
                                     archiveEntry.ExtractToFile(fullPath.GetPath(), true);

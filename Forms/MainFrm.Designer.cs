@@ -477,12 +477,13 @@ namespace CodeRedLauncher
             // AlwaysRadioBtn
             // 
             this.AlwaysRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            this.AlwaysRadioBtn.Enabled = false;
             this.AlwaysRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.AlwaysRadioBtn.Location = new System.Drawing.Point(71, 395);
             this.AlwaysRadioBtn.Name = "AlwaysRadioBtn";
             this.AlwaysRadioBtn.Size = new System.Drawing.Size(250, 30);
             this.AlwaysRadioBtn.TabIndex = 52;
-            this.AlwaysRadioBtn.Text = "Always injected";
+            this.AlwaysRadioBtn.Text = "Always injected (Disabled for alpha)";
             this.AlwaysRadioBtn.UseVisualStyleBackColor = false;
             this.AlwaysRadioBtn.CheckedChanged += new System.EventHandler(this.AlwaysRadioBtn_CheckedChanged);
             // 
@@ -1160,9 +1161,9 @@ namespace CodeRedLauncher
             this.InstallPopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.InstallPopupCtrl.BoundForm = null;
             this.InstallPopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
-            this.InstallPopupCtrl.DisplayDescription = "It looks like this if your first time using CodeRed, we need to download  and set" +
-    "up a few things first before we can get started. First, would you like to custom" +
-    "ize your install path?";
+            this.InstallPopupCtrl.DisplayDescription = "It looks like this if your first time using CodeRed, we need to download and setu" +
+    "p a few things first before we can get started. First, would you like to customi" +
+    "ze your install path?";
             this.InstallPopupCtrl.DisplayTitle = "WELCOME TO CODERED";
             this.InstallPopupCtrl.DoubleFirstImage = null;
             this.InstallPopupCtrl.DoubleFirstText = "Sure, let me pick a folder";

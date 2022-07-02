@@ -106,6 +106,7 @@ namespace CodeRedLauncher
             new InternalSetting(null, "DropperUrl"),
             new InternalSetting(null, "ModuleUrl"),
             new InternalSetting(null, "DiscordUrl"),
+            new InternalSetting(null, "KofiUrl"),
             new InternalSetting(null, "NewsUrl"),
             new InternalSetting("No changelog provided for the most recent update.", "LauncherChangelog"),
             new InternalSetting("No changelog provided for the most recent update.", "ModuleChangelog")
@@ -132,7 +133,7 @@ namespace CodeRedLauncher
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
-                    Dictionary<string, string> mappedBody = Extensions.Strings.MapValuesToKeys(pageBody);
+                    Dictionary<string, string> mappedBody = Extensions.Json.MapValuesToKeys(pageBody);
 
                     for (Int32 i = 0; i < RemoteSettings.Count; i++)
                     {
@@ -243,6 +244,12 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return GetStoredSetting("DiscordUrl").GetStringValue(); }
             return GetStoredSetting("DiscordUrl").GetStringValue(true);
+        }
+
+        public static async Task<string> GetKofiUrl()
+        {
+            if (await CheckInitialized()) { return GetStoredSetting("KofiUrl").GetStringValue(); }
+            return GetStoredSetting("KofiUrl").GetStringValue(true);
         }
 
         public static async Task<string> GetNewsUrl()
