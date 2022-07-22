@@ -38,11 +38,13 @@ namespace CodeRedLauncher
             {
                 if (Storage.GetModuleVersion() != await Retrievers.GetModuleVersion())
                 {
+                    Logger.Write("Module detected as outdated!");
                     Status |= UpdatorStatus.STATUS_MODULE;
                     return true;
                 }
             }
 
+            Logger.Write("Module is up to date!");
             Status &= ~UpdatorStatus.STATUS_MODULE;
             return false;
         }
@@ -59,11 +61,13 @@ namespace CodeRedLauncher
             {
                 if (Assembly.GetVersion() != await Retrievers.GetLauncherVersion())
                 {
+                    Logger.Write("Launcher detected as outdated!");
                     Status |= UpdatorStatus.STATUS_LAUNCHER;
                     return true;
                 }
             }
 
+            Logger.Write("Launcher is up to date!");
             Status &= ~UpdatorStatus.STATUS_LAUNCHER;
             return false;
         }

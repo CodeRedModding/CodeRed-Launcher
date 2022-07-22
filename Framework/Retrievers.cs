@@ -100,7 +100,7 @@ namespace CodeRedLauncher
         {
             new InternalSetting("000000.000000.000000", "PsyonixVersion"),
             new InternalSetting("0.0.0", "LauncherVersion"),
-            new InternalSetting("0.0f", "ModuleVersion"),
+            new InternalSetting("0.0.0", "ModuleVersion"),
             new InternalSetting(null, "UninstallerUrl"),
             new InternalSetting(null, "LauncherUrl"),
             new InternalSetting(null, "DropperUrl"),
@@ -140,6 +140,7 @@ namespace CodeRedLauncher
                         if (mappedBody.ContainsKey(RemoteSettings[i].Name))
                         {
                             RemoteSettings[i].SetValue(mappedBody[RemoteSettings[i].Name]);
+                            Logger.Write("Retrieved remote value: " + RemoteSettings[i].GetStringValue());
                         }
                     }
 
@@ -180,7 +181,7 @@ namespace CodeRedLauncher
             return GetStoredSetting("PsyonixVersion").GetStringValue(true);
         }
 
-        // The first six numbers in the Psyonix version string is actually a date timestamp.
+        // The first twelve numbers in the Psyonix version string is a date timestamp, with the remaining six being the perforce changelist.
         // First two numbers are the year, second two are the month, and last two are the day.
         public static async Task<UInt32> GetPsyonixDate()
         {
@@ -198,22 +199,16 @@ namespace CodeRedLauncher
             return 0;
         }
 
-        public static async Task<float> GetInstallerVersion()
-        {
-            if (await CheckInitialized()) { return GetStoredSetting("InstallerVersion").GetFloatValue(); }
-            return GetStoredSetting("InstallerVersion").GetFloatValue(true);
-        }
-
         public static async Task<string> GetLauncherVersion()
         {
             if (await CheckInitialized()) { return GetStoredSetting("LauncherVersion").GetStringValue(); }
             return GetStoredSetting("LauncherVersion").GetStringValue(true);
         }
 
-        public static async Task<float> GetModuleVersion()
+        public static async Task<string> GetModuleVersion()
         {
-            if (await CheckInitialized()) { return GetStoredSetting("ModuleVersion").GetFloatValue(); }
-            return GetStoredSetting("ModuleVersion").GetFloatValue(true);
+            if (await CheckInitialized()) { return GetStoredSetting("ModuleVersion").GetStringValue(); }
+            return GetStoredSetting("ModuleVersion").GetStringValue(true);
         }
 
         public static async Task<string> GetUninstallerUrl()

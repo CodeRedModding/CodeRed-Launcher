@@ -29,7 +29,7 @@ namespace CodeRedLauncher
         private static PrivateSetting CurrentPlatform = new PrivateSetting(PlatformTypes.TYPE_UNKNOWN.ToString());
         private static PrivateSetting PsyonixVersion = new PrivateSetting("000000.000000.000000");
         private static PrivateSetting NetBuild = new PrivateSetting("0");
-        private static PrivateSetting ModuleVersion = new PrivateSetting("0.0f");
+        private static PrivateSetting ModuleVersion = new PrivateSetting("0.0.0");
 
         public static void Invalidate(bool bForceReset = false)
         {
@@ -380,10 +380,10 @@ namespace CodeRedLauncher
             return NetBuild.GetInt32Value(true);
         }
 
-        public static float GetModuleVersion()
+        public static string GetModuleVersion()
         {
-            if (CheckInitialized()) { return ModuleVersion.GetFloatValue(); }
-            return ModuleVersion.GetFloatValue(true);
+            if (CheckInitialized()) { return ModuleVersion.GetStringValue(); }
+            return ModuleVersion.GetStringValue(true);
         }
     }
 }

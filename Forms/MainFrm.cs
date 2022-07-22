@@ -745,8 +745,8 @@ namespace CodeRedLauncher
         {
             if (Storage.CheckInitialized())
             {
-                LauncherVersionText.Text = "v" + Assembly.GetVersion();
-                ModuleVersionText.Text = "v" + Storage.GetModuleVersion();
+                LauncherVersionText.Text =  Assembly.GetVersion();
+                ModuleVersionText.Text = Storage.GetModuleVersion();
                 PsyonixVersionText.Text = Storage.GetPsyonixVersion();
                 NetBuildText.Text = Storage.GetNetBuild().ToString();
                 PlatformText.Text = Storage.GetPlatformString(false);
@@ -779,6 +779,7 @@ namespace CodeRedLauncher
         {
             if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
             {
+                Logger.Write("Checking for updates...");
                 UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_CHECKING;
 
                 if (await Retrievers.CheckInitialized())
@@ -859,6 +860,11 @@ namespace CodeRedLauncher
                             UpdatePopupCtrl.Hide();
                             ProcessTmr.Start();
                         }
+                    }
+                    else
+                    {
+                        Logger.Write("No updates found!");
+                        UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_UPDATED;
                     }
                 }
             }

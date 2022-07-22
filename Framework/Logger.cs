@@ -45,7 +45,7 @@ namespace CodeRedLauncher
                 
                 if (modPath.Exists())
                 {
-                    LogFile.Set(modPath / "Injector.log");
+                    LogFile.Set(modPath / "Launcher.log");
 
                     if (!LogFile.Exists())
                     {

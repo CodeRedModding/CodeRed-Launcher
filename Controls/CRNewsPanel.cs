@@ -74,10 +74,10 @@ namespace CodeRedLauncher.Controls
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
-                    Match titleMatch = Regex.Match(pageBody, "page-title\">(.*)<", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                    Match calendarMatch = Regex.Match(pageBody, "fa fa-calendar\"><\\/i> (.*)", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                    Match userMatch = Regex.Match(pageBody, "fa fa-user\"><\\/i>(.*) ", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                    Match categoryMatch = Regex.Match(pageBody, "category tag\">(.*)<", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                    Match titleMatch = Regex.Match(pageBody, "page-title\">(.*)<", RegexOptions.RightToLeft);
+                    Match calendarMatch = Regex.Match(pageBody, "fa fa-calendar\"><\\/i> (.*)",RegexOptions.RightToLeft);
+                    Match userMatch = Regex.Match(pageBody, "fa fa-user\"><\\/i>(.*) ", RegexOptions.RightToLeft);
+                    Match categoryMatch = Regex.Match(pageBody, "category tag\">(.*)<", RegexOptions.RightToLeft);
 
                     if (titleMatch.Success && titleMatch.Groups[1].Success)
                     {
@@ -117,24 +117,24 @@ namespace CodeRedLauncher.Controls
 
                     if (String.IsNullOrEmpty(newsStorage.ThumbnailUrl))
                     {
-                        Match thumbnailMatchOne = Regex.Match(pageBody, "\" src=\"(.*)\" class=\"attachment", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                        Match thumbnailMatchOne = Regex.Match(pageBody, "\" src=\"(.*)\" class=\"attachment", RegexOptions.RightToLeft);
 
-                        if (thumbnailMatchOne.Success && thumbnailMatchOne.Groups[1].Success)
+                        if (pageBody.Contains("blog-video-player")) // This usually happens when there is a video link instead of a thumbnail.
                         {
-                            newsStorage.ThumbnailUrl = thumbnailMatchOne.Groups[1].Value;
-                        }
-                        else if (pageBody.Contains("blog-video-player")) // This usually happens when there is a video link instead of a thumbnail.
-                        {
-                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<img src=\"(.*)\" alt=\"[^article]", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<img src=\"(.*)\" data-id", RegexOptions.RightToLeft);
 
                             if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
                             {
                                 newsStorage.ThumbnailUrl = thumbnailMatchAlt.Groups[1].Value;
                             }
                         }
+                        else if (thumbnailMatchOne.Success && thumbnailMatchOne.Groups[1].Success)
+                        {
+                            newsStorage.ThumbnailUrl = thumbnailMatchOne.Groups[1].Value;
+                        }
                         else if (newsStorage.Category.ToLower().Contains("community")) // This usually happens with community spotlights.
                         {
-                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"", RegexOptions.RightToLeft);
 
                             if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
                             {
