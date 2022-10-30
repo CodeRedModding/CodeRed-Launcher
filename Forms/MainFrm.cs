@@ -203,7 +203,7 @@ namespace CodeRedLauncher
 
         private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Sessions.ReloadSessions();
+            Sessions.ParseSessions();
         }
 
         private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs e)
@@ -815,8 +815,17 @@ namespace CodeRedLauncher
 
                             if (LibraryManager.AnyProcessRunning())
                             {
-                                UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_SINGLE;
-                                UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, but Rocket League needs to be closed in order to install it first! Please close the game and try again.";
+                                List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
+
+                                if (processes.Count > 0 && LibraryManager.IsModuleLoaded(processes[0], true))
+                                {
+                                    UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_SINGLE;
+                                    UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, but Rocket League needs to be closed in order to install it first! Please close the game and try again.";
+                                }
+                                else
+                                {
+                                    UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, would you like to automatically install both now?";
+                                }
                             }
                             else
                             {
@@ -832,8 +841,17 @@ namespace CodeRedLauncher
 
                             if (LibraryManager.AnyProcessRunning())
                             {
-                                UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_DOUBLE;
-                                UpdatePopupCtrl.DisplayDescription = "A new version of the module was found, but Rocket League needs to be closed in order to install it first! Please close the game and try again.";
+                                List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
+
+                                if (processes.Count > 0 && LibraryManager.IsModuleLoaded(processes[0], true))
+                                {
+                                    UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_DOUBLE;
+                                    UpdatePopupCtrl.DisplayDescription = "A new version of the module was found, but Rocket League needs to be closed in order to install it first! Please close the game and try again.";
+                                }
+                                else
+                                {
+                                    UpdatePopupCtrl.DisplayDescription = "A new version of the module was found, would you like to automatically install it now?";
+                                }
                             }
                             else
                             {
