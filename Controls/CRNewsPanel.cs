@@ -117,24 +117,15 @@ namespace CodeRedLauncher.Controls
 
                     if (String.IsNullOrEmpty(newsStorage.ThumbnailUrl))
                     {
-                        Match thumbnailMatchOne = Regex.Match(pageBody, "\" src=\"(.*)\" class=\"attachment", RegexOptions.RightToLeft);
+                        Match thumbnailMatch = Regex.Match(pageBody, "og:image:url\" content=\"(.*)\" /><meta property=", RegexOptions.RightToLeft); // This can change a lot...
 
-                        if (pageBody.Contains("blog-video-player")) // This usually happens when there is a video link instead of a thumbnail.
+                        if (thumbnailMatch.Success && thumbnailMatch.Groups[1].Success)
                         {
-                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<img src=\"(.*)\" data-id", RegexOptions.RightToLeft);
-
-                            if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
-                            {
-                                newsStorage.ThumbnailUrl = thumbnailMatchAlt.Groups[1].Value;
-                            }
+                            newsStorage.ThumbnailUrl = thumbnailMatch.Groups[1].Value;
                         }
-                        else if (thumbnailMatchOne.Success && thumbnailMatchOne.Groups[1].Success)
+                        else
                         {
-                            newsStorage.ThumbnailUrl = thumbnailMatchOne.Groups[1].Value;
-                        }
-                        else if (newsStorage.Category.ToLower().Contains("community")) // This usually happens with community spotlights.
-                        {
-                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"", RegexOptions.RightToLeft);
+                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"", RegexOptions.RightToLeft); // This usually happens with community spotlights.
 
                             if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
                             {
@@ -178,16 +169,13 @@ namespace CodeRedLauncher.Controls
                 {
                     ResetArticles();
                     MatchCollection articleLinks = Regex.Matches(pageBody, "<a class=\"news-tile-wrap\" href=\"(.*)\">");
-                    //MatchCollection thumbnailLinks = Regex.Matches(pageBody, "<img src=\"(.*)\" alt=\"article-image\"\\/>");
 
                     for (Int32 i = 0; i < articleLinks.Count; i++)
                     {
                         Match link = articleLinks[i];
-                        //Match thumbnail = thumbnailLinks[i];
 
                         if (link.Success && link.Groups[1].Success)
                         {
-                            //NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value, thumbnail.Groups[1].Value));
                             NewsArticles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value));
                         }
                     }
