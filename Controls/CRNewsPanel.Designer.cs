@@ -31,6 +31,7 @@
             this.PreviousBtn = new System.Windows.Forms.PictureBox();
             this.BackgroundPnl = new System.Windows.Forms.Panel();
             this.DetailsPnl = new System.Windows.Forms.Panel();
+            this.IndexLbl = new System.Windows.Forms.Label();
             this.TitleLbl = new System.Windows.Forms.Label();
             this.CategoryLbl = new System.Windows.Forms.Label();
             this.CategoryImg = new System.Windows.Forms.PictureBox();
@@ -80,6 +81,7 @@
             // DetailsPnl
             // 
             this.DetailsPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.DetailsPnl.Controls.Add(this.IndexLbl);
             this.DetailsPnl.Controls.Add(this.TitleLbl);
             this.DetailsPnl.Controls.Add(this.CategoryLbl);
             this.DetailsPnl.Controls.Add(this.CategoryImg);
@@ -92,6 +94,20 @@
             this.DetailsPnl.Name = "DetailsPnl";
             this.DetailsPnl.Size = new System.Drawing.Size(798, 548);
             this.DetailsPnl.TabIndex = 2;
+            // 
+            // IndexLbl
+            // 
+            this.IndexLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.IndexLbl.BackColor = System.Drawing.Color.Transparent;
+            this.IndexLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.IndexLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.IndexLbl.Location = new System.Drawing.Point(749, 0);
+            this.IndexLbl.Name = "IndexLbl";
+            this.IndexLbl.Size = new System.Drawing.Size(50, 40);
+            this.IndexLbl.TabIndex = 10;
+            this.IndexLbl.Text = "0/0";
+            this.IndexLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TitleLbl
             // 
@@ -243,5 +259,6 @@
         private System.Windows.Forms.PictureBox ThumbnailImg;
         private System.Windows.Forms.PictureBox NextBtn;
         private System.Windows.Forms.Label TitleLbl;
+        private System.Windows.Forms.Label IndexLbl;
     }
 }

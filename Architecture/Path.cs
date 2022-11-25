@@ -8,7 +8,7 @@ namespace CodeRedLauncher.Architecture
     // Unnecessary but I like working with it anyway because of the "append" function and divide operator overloads, there is room for improvement in some areas for sure but I don't care.
     public class Path
     {
-        private string? IndirectPath { get; set; } = null;
+        private string IndirectPath { get; set; } = "";
 
         private void Initialize(string str)
         {
@@ -29,7 +29,7 @@ namespace CodeRedLauncher.Architecture
             Initialize(str);
         }
 
-        public string? GetPath()
+        public string GetPath()
         {
             return IndirectPath;
         }

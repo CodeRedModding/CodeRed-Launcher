@@ -10,7 +10,7 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRNewsPanel : UserControl
     {
-        private Int32 CurrentIndex = 0;
+        private Int32 CurrentIndex = -1;
         private List<NewsStorage> NewsArticles = new List<NewsStorage>();
 
         private class NewsStorage
@@ -150,12 +150,11 @@ namespace CodeRedLauncher.Controls
             PublishDate = "Loading...";
             PublishAuthor = "Loading...";
             NewsCategory = "Loading...";
+            IndexLbl.Text = ((CurrentIndex + 1).ToString() + "/" + NewsArticles.Count.ToString());
             Title = "Loading...";
             ThumbnailImg.BackgroundImage = null;
             PreviousBtn.Visible = false;
-            NextBtn.Visible = true;
-            CurrentIndex = 0;
-            NewsArticles.Clear();
+            NextBtn.Visible = false;
         }
 
         // The commented out stuff in this function works fine, just the image links it retrieves are super low quality.
@@ -167,6 +166,7 @@ namespace CodeRedLauncher.Controls
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
+                    NewsArticles.Clear();
                     ResetArticles();
                     MatchCollection articleLinks = Regex.Matches(pageBody, "<a class=\"news-tile-wrap\" href=\"(.*)\">");
 
@@ -180,7 +180,7 @@ namespace CodeRedLauncher.Controls
                         }
                     }
 
-                    LoadCurrentIndex();
+                    LoadNextArticle();
                 }
                 else
                 {
@@ -191,96 +191,134 @@ namespace CodeRedLauncher.Controls
 
         private async void LoadCurrentIndex()
         {
-            if (CurrentIndex < NewsArticles.Count)
+            if (NewsArticles.Count > 0)
             {
-                NewsStorage article = NewsArticles[CurrentIndex];
-
-                if (!article.Parsed)
+                if ((CurrentIndex > -1) && (CurrentIndex < NewsArticles.Count))
                 {
-                    NewsArticles[CurrentIndex] = await ParseLink(NewsArticles[CurrentIndex]);
-                    article = NewsArticles[CurrentIndex];
-                }
+                    ResetArticles();
+                    NewsStorage article = NewsArticles[CurrentIndex];
 
-                PublishDate = article.Calendar;
-                PublishAuthor = article.User;
-                NewsCategory = article.Category;
-                Title = article.Title;
-
-                if (article.ThumbnailImage == null)
-                {
-                    if (!String.IsNullOrEmpty(article.ThumbnailUrl))
+                    if (!article.Parsed)
                     {
-                        ThumbnailImg.LoadAsync(article.ThumbnailUrl);
+                        NewsArticles[CurrentIndex] = await ParseLink(NewsArticles[CurrentIndex]);
+                        article = NewsArticles[CurrentIndex];
+                    }
+
+                    PublishDate = article.Calendar;
+                    PublishAuthor = article.User;
+                    NewsCategory = article.Category;
+                    Title = article.Title;
+
+                    if (article.ThumbnailImage == null)
+                    {
+                        if (!String.IsNullOrEmpty(article.ThumbnailUrl))
+                        {
+                            ThumbnailImg.LoadAsync(article.ThumbnailUrl);
+                        }
+                        else
+                        {
+                            ThumbnailImg.BackgroundImageLayout = ImageLayout.Center;
+                            ThumbnailImg.BackgroundImage = Properties.Resources.Warning_White;
+                        }
                     }
                     else
                     {
-                        ThumbnailImg.BackgroundImage = Properties.Resources.Warning_White;
+                        ThumbnailImg.BackgroundImage = article.ThumbnailImage;
+                        ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
+                    }
+
+                    if (CurrentIndex == 0)
+                    {
+                        PreviousBtn.Visible = false;
+                        NextBtn.Visible = true;
+                    }
+                    else if (CurrentIndex < (NewsArticles.Count - 1))
+                    {
+                        PreviousBtn.Visible = true;
+                        NextBtn.Visible = true;
+                    }
+                    else
+                    {
+                        PreviousBtn.Visible = true;
+                        NextBtn.Visible = false;
                     }
                 }
-                else
-                {
-                    ThumbnailImg.BackgroundImage = article.ThumbnailImage;
-                    ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
-                }
+            }
+            else
+            {
+                ResetArticles();
+                CurrentIndex = -1;
             }
         }
 
         public void LoadPreviousArticle()
         {
-            if (CurrentIndex > 0)
+            if (NewsArticles.Count > 0)
             {
-                CurrentIndex--;
+                if (CurrentIndex > 0)
+                {
+                    CurrentIndex--;
+                }
+                else
+                {
+                    CurrentIndex = 0;
+                }
+
                 LoadCurrentIndex();
             }
-
-            if (CurrentIndex == 0)
+            else
             {
-                PreviousBtn.Visible = false;
-                NextBtn.Visible = true;
-            }
-            else if (CurrentIndex != (NewsArticles.Count - 1))
-            {
-                PreviousBtn.Visible = true;
-                NextBtn.Visible = true;
+                ResetArticles();
+                CurrentIndex = -1;
             }
         }
 
         public void LoadNextArticle()
         {
-            if (CurrentIndex < NewsArticles.Count)
+            if (NewsArticles.Count > 0)
             {
-                CurrentIndex++;
+                if (CurrentIndex < NewsArticles.Count)
+                {
+                    CurrentIndex++;
+                }
+                else
+                {
+                    CurrentIndex = (NewsArticles.Count - 1);
+                }
+
                 LoadCurrentIndex();
             }
-
-            if (CurrentIndex == (NewsArticles.Count - 1))
+            else
             {
-                PreviousBtn.Visible = true;
-                NextBtn.Visible = false;
-            }
-            else if (CurrentIndex != 0)
-            {
-                PreviousBtn.Visible = true;
-                NextBtn.Visible = true;
+                ResetArticles();
+                CurrentIndex = -1;
             }
         }
 
         private void ThumbnailImg_LoadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            if (NewsArticles.Count > 0 && NewsArticles.Count > CurrentIndex)
+            if (NewsArticles.Count > 0)
             {
-                if (NewsArticles[CurrentIndex].ThumbnailImage == null)
+                if ((CurrentIndex > -1) && (CurrentIndex < NewsArticles.Count))
                 {
-                    NewsArticles[CurrentIndex].ThumbnailImage = ThumbnailImg.Image;
-                }
+                    if (NewsArticles[CurrentIndex].ThumbnailImage == null)
+                    {
+                        NewsArticles[CurrentIndex].ThumbnailImage = ThumbnailImg.Image;
+                    }
 
-                if (ThumbnailImg.Image != null)
-                {
-                    ThumbnailImg.BackgroundImage = ThumbnailImg.Image;
-                    ThumbnailImg.Image = null;
-                }
+                    if (ThumbnailImg.Image != null)
+                    {
+                        ThumbnailImg.BackgroundImage = ThumbnailImg.Image;
+                        ThumbnailImg.Image = null;
+                    }
 
-                ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
+                    ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+            }
+            else
+            {
+                ResetArticles();
+                CurrentIndex = -1;
             }
         }
 

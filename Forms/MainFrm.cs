@@ -432,19 +432,24 @@ namespace CodeRedLauncher
                 if (LibraryManager.AnyProcessRunning())
                 {
                     LaunchBtn.DisplayText = "Launch (Already Running)";
-                    ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_RUNNING;
 
-                    if (!InjectTmr.Enabled)
+                    if (!Updator.IsOutdated())
                     {
-                        if (Updator.IsOutdated())
-                        {
-                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
-                        }
-                        else
-                        {
-                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
-                        }
+                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_RUNNING;
+                    }
+                    else
+                    {
+                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
+                    }
 
+                    if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
+                    {
+                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
+                        InjectTmr.Stop();
+                    }
+                    else
+                    {
+                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
                         InjectTmr.Start();
                     }
                 }
@@ -473,6 +478,8 @@ namespace CodeRedLauncher
                 if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
                 {
                     Logger.Write("Prevented injection, updator returned out of date!");
+                    ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
+                    InjectTmr.Stop();
                     return;
                 }
             }
@@ -523,6 +530,7 @@ namespace CodeRedLauncher
         {
             if (Updator.IsOutdated())
             {
+                Logger.Write("Auto checking for updates...");
                 CheckForUpdates(true);
             }
             else
@@ -694,11 +702,7 @@ namespace CodeRedLauncher
                 DiscordLink.Text = "Offline mode enabled";
             }
 
-            // Don't want to bother monitoring processes while updating if we aren't doing anything with it yet, like during updates...
-            if (!Updator.IsOutdated())
-            {
-                ProcessTmr.Start();
-            }
+            ProcessTmr.Start();
         }
 
         private void ConfigToInterface()
@@ -794,6 +798,8 @@ namespace CodeRedLauncher
                     // If the installed Rocket League version is greater than the one retrieved remotely, an update for the module is not out yet.
                     if (ignoreModule && !launcherOutdated)
                     {
+                        Logger.Write("CodeRed is out of date, no new module version has been released yet!");
+                        Updator.OverrideStatus(UpdatorStatus.STATUS_OVERRIDE);
                         UpdateCtrl.Status = CRUpdatePanel.StatusTypes.TYPE_OUTDATED;
                         UpdateCtrl.TitleImage = Properties.Resources.Hourglass_White;
 
@@ -892,7 +898,6 @@ namespace CodeRedLauncher
             }
 
             StorageToInterface();
-            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
             return true;
         }
 

@@ -108,7 +108,7 @@ namespace CodeRedLauncher
 
     public class PrivateSetting : PublicSetting
     {
-        public PrivateSetting(string? defaultValue = null) : base(defaultValue, null, null, null) { }
+        public PrivateSetting(string defaultValue = "") : base(defaultValue, null, null, null) { }
     }
 
     public class InternalSetting : PublicSetting

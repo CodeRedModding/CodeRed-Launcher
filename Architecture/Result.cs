@@ -6,7 +6,7 @@ namespace CodeRedLauncher
     public class Result
     {
         public bool Succeeded { get; set; }
-        public string? FailReason { get; set; }
+        public string FailReason { get; set; }
 
         public Result()
         {
@@ -14,7 +14,7 @@ namespace CodeRedLauncher
             FailReason = null;
         }
 
-        public Result(bool bSucceeded, string? failReason = null)
+        public Result(bool bSucceeded, string failReason = "")
         {
             Succeeded = bSucceeded;
             FailReason = failReason;

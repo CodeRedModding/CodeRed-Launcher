@@ -53,7 +53,7 @@ namespace CodeRedLauncher.Controls
                         break;
                     case StatusTypes.TYPE_OUTDATED:
                         TitleLbl.Text = "Rocket League Is Running";
-                        DescriptionLbl.Text = "Version mismatch, prevented injection!";
+                        DescriptionLbl.Text = "Version mismatch, preventing injection!";
                         break;
                     default:
                         TitleLbl.Text = "Loading...";

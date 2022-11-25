@@ -40,7 +40,7 @@ namespace CodeRedLauncher
 
         public static async Task<string> DownloadPage(string url)
         {
-            string? pageContent = null;
+            string pageContent = "";
 
             if (!String.IsNullOrEmpty(url))
             {

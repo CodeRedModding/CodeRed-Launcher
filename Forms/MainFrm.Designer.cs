@@ -1199,7 +1199,7 @@ namespace CodeRedLauncher
             // 
             // UpdateTmr
             // 
-            this.UpdateTmr.Interval = 6000;
+            this.UpdateTmr.Interval = 150000;
             this.UpdateTmr.Tick += new System.EventHandler(this.UpdateTmr_Tick);
             // 
             // MainFrm

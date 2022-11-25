@@ -13,7 +13,8 @@ namespace CodeRedLauncher
     {
         STATUS_NONE = 0,
         STATUS_LAUNCHER = 1 << 0,
-        STATUS_MODULE = 1 << 1
+        STATUS_MODULE = 1 << 1,
+        STATUS_OVERRIDE = 1 << 2,
     }
 
     public static class Updator
@@ -24,6 +25,11 @@ namespace CodeRedLauncher
         public static bool IsOutdated()
         {
             return (Status != UpdatorStatus.STATUS_NONE);
+        }
+
+        public static void OverrideStatus(UpdatorStatus status)
+        {
+            Status = status;
         }
 
         public static async Task<bool> IsModuleOutdated(bool bInvalidate)

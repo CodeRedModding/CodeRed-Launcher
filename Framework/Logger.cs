@@ -60,7 +60,7 @@ namespace CodeRedLauncher
 
         private static string CreateTimestamp(StackTrace stackTrace)
         {
-            return "[" + DateTime.Now.ToString() + "] [" + stackTrace.GetFrame(1).GetMethod().Name + "] ";
+            return "[" + DateTime.Now.ToString() + "] [" + stackTrace.GetFrame(4).GetMethod().Name + "] ";
         }
 
         public static void Write(string str, LogLevel level = LogLevel.LEVEL_NONE)
