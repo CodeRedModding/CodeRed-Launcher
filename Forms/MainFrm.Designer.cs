@@ -41,6 +41,7 @@ namespace CodeRedLauncher
             this.NewsTab = new System.Windows.Forms.TabPage();
             this.NewsCtrl = new CodeRedLauncher.Controls.CRNewsPanel();
             this.SessionsTab = new System.Windows.Forms.TabPage();
+            this.TotalSessionsLbl = new System.Windows.Forms.Label();
             this.ReloadSessionsBtn = new CodeRedLauncher.Controls.CRButton();
             this.TexturesTab = new System.Windows.Forms.TabPage();
             this.PlaceholderLblSecond = new System.Windows.Forms.Label();
@@ -262,12 +263,24 @@ namespace CodeRedLauncher
             // SessionsTab
             // 
             this.SessionsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.SessionsTab.Controls.Add(this.TotalSessionsLbl);
             this.SessionsTab.Controls.Add(this.ReloadSessionsBtn);
             this.SessionsTab.Location = new System.Drawing.Point(4, 24);
             this.SessionsTab.Name = "SessionsTab";
             this.SessionsTab.Size = new System.Drawing.Size(910, 600);
             this.SessionsTab.TabIndex = 2;
             this.SessionsTab.Text = "Sessions";
+            // 
+            // TotalSessionsLbl
+            // 
+            this.TotalSessionsLbl.BackColor = System.Drawing.Color.Transparent;
+            this.TotalSessionsLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.TotalSessionsLbl.Location = new System.Drawing.Point(35, 35);
+            this.TotalSessionsLbl.Name = "TotalSessionsLbl";
+            this.TotalSessionsLbl.Size = new System.Drawing.Size(275, 30);
+            this.TotalSessionsLbl.TabIndex = 65;
+            this.TotalSessionsLbl.Text = "Sessions Found: ";
+            this.TotalSessionsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ReloadSessionsBtn
             // 
@@ -277,9 +290,9 @@ namespace CodeRedLauncher
             this.ReloadSessionsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
             this.ReloadSessionsBtn.DisplayText = "Reload Sessions";
             this.ReloadSessionsBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ReloadSessionsBtn.Location = new System.Drawing.Point(329, 515);
+            this.ReloadSessionsBtn.Location = new System.Drawing.Point(315, 540);
             this.ReloadSessionsBtn.Name = "ReloadSessionsBtn";
-            this.ReloadSessionsBtn.Size = new System.Drawing.Size(226, 35);
+            this.ReloadSessionsBtn.Size = new System.Drawing.Size(300, 35);
             this.ReloadSessionsBtn.TabIndex = 64;
             this.ReloadSessionsBtn.OnButtonClick += new System.EventHandler(this.ReloadSessionsBtn_OnButtonClick);
             // 
@@ -1328,6 +1341,7 @@ namespace CodeRedLauncher
         private Controls.CRPopup InstallPopupCtrl;
         private Controls.CRPopup InstallOfflinePopupCtrl;
         private System.Windows.Forms.Timer UpdateTmr;
+        private System.Windows.Forms.Label TotalSessionsLbl;
     }
 }
 

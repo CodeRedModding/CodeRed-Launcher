@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using System.Net.Http.Headers;
+using System.Drawing;
 
 // https://zetcode.com/csharp/json/
 
@@ -38,6 +40,43 @@ namespace CodeRedLauncher
             return false;
         }
 
+        public static async Task<Image> DownloadImage(string url)
+        {
+            Image image = null;
+
+            if (!String.IsNullOrEmpty(url))
+            {
+                if (await WebsiteOnline(url))
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        HttpResponseMessage response = await client.GetAsync(url);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            Stream stream = await response.Content.ReadAsStreamAsync();
+
+                            try
+                            {
+                                image = Image.FromStream(stream);
+                            }
+                            catch (Exception ex)
+                            {
+                                image = null;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                }
+            }
+
+            return image;
+        }
+
         public static async Task<string> DownloadPage(string url)
         {
             string pageContent = "";
@@ -48,6 +87,7 @@ namespace CodeRedLauncher
                 {
                     using (HttpClient client = new HttpClient())
                     {
+                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
                         HttpResponseMessage response = await client.GetAsync(url);
 
                         if (response.IsSuccessStatusCode)

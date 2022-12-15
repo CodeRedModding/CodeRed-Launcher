@@ -202,7 +202,6 @@
             this.ThumbnailImg.Size = new System.Drawing.Size(798, 457);
             this.ThumbnailImg.TabIndex = 3;
             this.ThumbnailImg.TabStop = false;
-            this.ThumbnailImg.LoadCompleted += new System.ComponentModel.AsyncCompletedEventHandler(this.ThumbnailImg_LoadCompleted);
             this.ThumbnailImg.Click += new System.EventHandler(this.ThumbnailImg_Click);
             // 
             // NextBtn

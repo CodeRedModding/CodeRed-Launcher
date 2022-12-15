@@ -204,6 +204,7 @@ namespace CodeRedLauncher
         private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
         {
             Sessions.ParseSessions();
+            TotalSessionsLbl.Text = ("Sessions Found: " + Sessions.ParsedSessions.Count);
         }
 
         private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs e)

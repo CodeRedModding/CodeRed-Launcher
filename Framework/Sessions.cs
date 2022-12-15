@@ -18,6 +18,7 @@ namespace CodeRedLauncher
         public UInt32 Shots { get; set; }
         public UInt32 Clears { get; set; }
         public UInt32 Demolishes { get; set; }
+        public UInt32 Exterminations { get; set; }
         public UInt32 DropshotDamage { get; set; }
         public UInt32 Knockouts { get; set; }
         public UInt32 KnockoutAssists { get; set; }
@@ -49,7 +50,7 @@ namespace CodeRedLauncher
 
     public static class Sessions
     {
-        private static List<SessionInfo> ParsedSessions = new List<SessionInfo>();
+        public static List<SessionInfo> ParsedSessions = new List<SessionInfo>();
         public static Architecture.Range32 Timeframe = new Architecture.Range32(0, 30); // Current day, to thirty days back.
 
         public static void ParseSessions()

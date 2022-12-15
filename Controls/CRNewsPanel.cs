@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace CodeRedLauncher.Controls
 {
@@ -16,7 +17,8 @@ namespace CodeRedLauncher.Controls
         private class NewsStorage
         {
             public string NewsUrl { get; set; }
-            public string ThumbnailUrl { get; set; }
+            public string ThumbnailUrl_Main { get; set; }
+            public string ThumbnailUrl_Alt { get; set; }
             public Image ThumbnailImage { get; set; } = null;
             public string Title { get; set; }
             public string Calendar { get; set; }
@@ -24,10 +26,9 @@ namespace CodeRedLauncher.Controls
             public string Category { get; set; }
             public bool Parsed { get; set; } = false;
 
-            public NewsStorage(string newsUrl, string thumbnailUrl = null)
+            public NewsStorage(string newsUrl)
             {
                 NewsUrl = newsUrl;
-                ThumbnailUrl = thumbnailUrl;
             }
         }
 
@@ -115,22 +116,21 @@ namespace CodeRedLauncher.Controls
                         Logger.Write("Failed to retrieve news category for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.LEVEL_WARN);
                     }
 
-                    if (String.IsNullOrEmpty(newsStorage.ThumbnailUrl))
+                    if (String.IsNullOrEmpty(newsStorage.ThumbnailUrl_Main))
                     {
-                        Match thumbnailMatch = Regex.Match(pageBody, "og:image:url\" content=\"(.*)\" /><meta property=", RegexOptions.RightToLeft); // This can change a lot...
+                        Match thumbnailMatch = Regex.Match(pageBody, "property=\"og:image\" content=\"(.*)\" /><meta property=\"og:image:url");
 
                         if (thumbnailMatch.Success && thumbnailMatch.Groups[1].Success)
                         {
-                            newsStorage.ThumbnailUrl = thumbnailMatch.Groups[1].Value;
+                            newsStorage.ThumbnailUrl_Main = thumbnailMatch.Groups[1].Value;
+                            newsStorage.ThumbnailUrl_Main = (newsStorage.ThumbnailUrl_Main.Substring(0, newsStorage.ThumbnailUrl_Main.IndexOf(".jpg")) +".jpg");
                         }
-                        else
-                        {
-                            Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"", RegexOptions.RightToLeft); // This usually happens with community spotlights.
 
-                            if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
-                            {
-                                newsStorage.ThumbnailUrl = thumbnailMatchAlt.Groups[1].Value;
-                            }
+                        Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"");
+
+                        if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
+                        {
+                            newsStorage.ThumbnailUrl_Alt = thumbnailMatchAlt.Groups[1].Value;
                         }
                     }
 
@@ -196,34 +196,52 @@ namespace CodeRedLauncher.Controls
                 if ((CurrentIndex > -1) && (CurrentIndex < NewsArticles.Count))
                 {
                     ResetArticles();
-                    NewsStorage article = NewsArticles[CurrentIndex];
+                    NewsStorage newsStorage = NewsArticles[CurrentIndex];
 
-                    if (!article.Parsed)
+                    if (!newsStorage.Parsed)
                     {
                         NewsArticles[CurrentIndex] = await ParseLink(NewsArticles[CurrentIndex]);
-                        article = NewsArticles[CurrentIndex];
+                        newsStorage = NewsArticles[CurrentIndex];
                     }
 
-                    PublishDate = article.Calendar;
-                    PublishAuthor = article.User;
-                    NewsCategory = article.Category;
-                    Title = article.Title;
+                    PublishDate = newsStorage.Calendar;
+                    PublishAuthor = newsStorage.User;
+                    NewsCategory = newsStorage.Category;
+                    Title = newsStorage.Title;
 
-                    if (article.ThumbnailImage == null)
+                    if (newsStorage.ThumbnailImage == null)
                     {
-                        if (!String.IsNullOrEmpty(article.ThumbnailUrl))
+                        if (!String.IsNullOrEmpty(newsStorage.ThumbnailUrl_Main))
                         {
-                            ThumbnailImg.LoadAsync(article.ThumbnailUrl);
+                            newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl_Main);
+
+                            if ((newsStorage.ThumbnailImage == null) && !String.IsNullOrEmpty(newsStorage.ThumbnailUrl_Alt))
+                            {
+                                newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl_Alt);
+                            }
+
+                            // If no thumbnail was found we gotta use our own image.
+                            if (newsStorage.ThumbnailImage == null)
+                            {
+                                // https://i.imgur.com/dmpY0zQ.png
+                                newsStorage.ThumbnailUrl_Main = "https://i.imgur.com/dmpY0zQ.png";
+                                newsStorage.ThumbnailUrl_Alt = "";
+                                newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl_Main);
+                            }
+
+                            NewsArticles[CurrentIndex] = newsStorage;
+                            ThumbnailImg.BackgroundImage = newsStorage.ThumbnailImage;
+                            ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
                         }
                         else
                         {
-                            ThumbnailImg.BackgroundImageLayout = ImageLayout.Center;
                             ThumbnailImg.BackgroundImage = Properties.Resources.Warning_White;
+                            ThumbnailImg.BackgroundImageLayout = ImageLayout.Center;
                         }
                     }
                     else
                     {
-                        ThumbnailImg.BackgroundImage = article.ThumbnailImage;
+                        ThumbnailImg.BackgroundImage = newsStorage.ThumbnailImage;
                         ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
                     }
 
@@ -294,34 +312,6 @@ namespace CodeRedLauncher.Controls
                 CurrentIndex = -1;
             }
         }
-
-        private void ThumbnailImg_LoadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            if (NewsArticles.Count > 0)
-            {
-                if ((CurrentIndex > -1) && (CurrentIndex < NewsArticles.Count))
-                {
-                    if (NewsArticles[CurrentIndex].ThumbnailImage == null)
-                    {
-                        NewsArticles[CurrentIndex].ThumbnailImage = ThumbnailImg.Image;
-                    }
-
-                    if (ThumbnailImg.Image != null)
-                    {
-                        ThumbnailImg.BackgroundImage = ThumbnailImg.Image;
-                        ThumbnailImg.Image = null;
-                    }
-
-                    ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
-                }
-            }
-            else
-            {
-                ResetArticles();
-                CurrentIndex = -1;
-            }
-        }
-
 
         private void PreviousBtn_Click(object sender, EventArgs e)
         {
