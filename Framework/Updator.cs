@@ -120,20 +120,35 @@ namespace CodeRedLauncher
                             {
                                 foreach (ZipArchiveEntry archiveEntry in zipArchive.Entries)
                                 {
-                                    Architecture.Path fullPath = modulePath / archiveEntry.FullName;
-                                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath.GetPath()));
+                                    Architecture.Path fullPath = (modulePath / archiveEntry.FullName);
+
+                                    if ( !fullPath.IsFile())
+                                    {
+                                        if (!fullPath.Exists())
+                                        {
+                                            Directory.CreateDirectory(fullPath.GetFolderPath());
+                                        }
+
+                                        continue;
+                                    }
+
                                     string fileFilter = fullPath.GetPath().ToLower();
+                                    bool shouldSkip = false;
 
                                     // Skip overriding existing files that may be user-specific, such as settings or scripts.
                                     foreach (string file in ExcludedFiles)
                                     {
                                         if (fileFilter.EndsWith(file))
                                         {
-                                            continue;
+                                            shouldSkip = true;
+                                            break;
                                         }
                                     }
 
-                                    archiveEntry.ExtractToFile(fullPath.GetPath(), true);
+                                    if (!shouldSkip)
+                                    {
+                                        archiveEntry.ExtractToFile(fullPath.GetPath(), true);
+                                    }
                                 }
                             }
 

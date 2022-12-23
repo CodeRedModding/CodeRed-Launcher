@@ -15,7 +15,9 @@ namespace CodeRedLauncher.Architecture
             if (!String.IsNullOrEmpty(str))
             {
                 IndirectPath = str;
+                IndirectPath = IndirectPath.Replace("/", "\\");
                 IndirectPath = IndirectPath.Replace("\\\\", "\\");
+                IndirectPath = System.IO.Path.GetFullPath(IndirectPath);
             }
         }
 
@@ -34,9 +36,19 @@ namespace CodeRedLauncher.Architecture
             return IndirectPath;
         }
 
+        public string GetFolderPath()
+        {
+            if (IsFile())
+            {
+                return System.IO.Path.GetDirectoryName(IndirectPath);
+            }
+
+            return IndirectPath;
+        }
+
         public bool IsFile()
         {
-            return File.Exists(IndirectPath);
+            return System.IO.Path.HasExtension(IndirectPath);
         }
 
         public bool Exists()
@@ -149,7 +161,7 @@ namespace CodeRedLauncher.Architecture
         {
             Path newPath = new Path();
             newPath.Set(a);
-            b = b.Replace("/", "\\");
+            //b = b.Replace("/", "\\");
             newPath.Append(b);
             return newPath;
         }

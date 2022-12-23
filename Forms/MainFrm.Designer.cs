@@ -1061,6 +1061,7 @@ namespace CodeRedLauncher
             this.SessionsTabBtn.Selected = false;
             this.SessionsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.SessionsTabBtn.TabIndex = 2;
+            this.SessionsTabBtn.Visible = false;
             this.SessionsTabBtn.OnTabClick += new System.EventHandler(this.SessionsTabBtn_OnTabClick);
             // 
             // NewsTabBtn
