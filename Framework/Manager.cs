@@ -364,10 +364,8 @@ namespace CodeRedLauncher
                     return InjectionResults.RESULT_PROCESS_NOT_FOUND;
                 }
             }
-            else
-            {
-                return InjectionResults.RESULT_LIBRARY_NOT_FOUND;
-            }
+
+            return InjectionResults.RESULT_LIBRARY_NOT_FOUND;
         }
 
         private static InjectionResults LoadLibraryInternal(Process process, Architecture.Path libraryFile)

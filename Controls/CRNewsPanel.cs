@@ -335,7 +335,10 @@ namespace CodeRedLauncher.Controls
 
         private void ThumbnailImg_Click(object sender, EventArgs e)
         {
-            Process.Start(new ProcessStartInfo(NewsArticles[CurrentIndex].NewsUrl) { UseShellExecute = true });
+            if (!String.IsNullOrEmpty(NewsArticles[CurrentIndex].NewsUrl))
+            {
+                Process.Start(new ProcessStartInfo(NewsArticles[CurrentIndex].NewsUrl) { UseShellExecute = true });
+            }
         }
 
         private void PreviousBtn_MouseEnter(object sender, EventArgs e)

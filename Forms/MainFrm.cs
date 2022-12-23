@@ -163,7 +163,7 @@ namespace CodeRedLauncher
 
                 if (processes.Count > 0)
                 {
-                    LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()), true);
+                    LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
                 }
             }
             else
@@ -174,32 +174,11 @@ namespace CodeRedLauncher
                 {
                     foreach (InjectionResults result in results)
                     {
-                        LogInjectionResult(result, true);
+                        LogInjectionResult(result);
                     }
                 }
             }
         }
-
-        // combobox for player id
-        // combobox for playlist
-        // slider for timeframe (or combo)
-
-        /*
-
-        Data Graph:
-        - Score [Red]
-        - Goals [Orange]
-        - Assists [Yellow]
-        - Saves [Green]
-        - Shots [Blue]
-        - Damage [Purple] (Dropshot only)
-
-        MMR Graph:
-        - Start Line in Center
-
-        Bar Graph:
-        - Goal to shot ratio
-        */
 
         private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
         {
@@ -434,24 +413,31 @@ namespace CodeRedLauncher
                 {
                     LaunchBtn.DisplayText = "Launch (Already Running)";
 
-                    if (!Updator.IsOutdated())
+                    if (ProcessCtrl.Status != CRProcessPanel.StatusTypes.TYPE_INJECTING)
                     {
-                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_RUNNING;
-                    }
-                    else
-                    {
-                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
-                    }
+                        if (!Updator.IsOutdated())
+                        {
+                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_RUNNING;
+                            ProcessCtrl.Result = InjectionResults.RESULT_NONE;
+                        }
+                        else
+                        {
+                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
+                            ProcessCtrl.Result = InjectionResults.RESULT_NONE;
+                        }
 
-                    if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
-                    {
-                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
-                        InjectTmr.Stop();
-                    }
-                    else
-                    {
-                        ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
-                        InjectTmr.Start();
+                        if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
+                        {
+                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_OUTDATED;
+                            ProcessCtrl.Result = InjectionResults.RESULT_NONE;
+                            InjectTmr.Stop();
+                        }
+                        else
+                        {
+                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
+                            ProcessCtrl.Result = InjectionResults.RESULT_NONE;
+                            InjectTmr.Start();
+                        }
                     }
                 }
                 else
@@ -460,6 +446,7 @@ namespace CodeRedLauncher
                     LaunchBtn.DisplayText = "Launch Rocket League";
                     ManualInjectBtn.Visible = false;
                     ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_NOT_RUNNING;
+                    ProcessCtrl.Result = InjectionResults.RESULT_NONE;
                 }
             }
             else
@@ -467,6 +454,7 @@ namespace CodeRedLauncher
                 ProcessTmr.Stop();
                 ManualInjectBtn.Visible = false;
                 ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_DISABLED;
+                ProcessCtrl.Result = InjectionResults.RESULT_NONE;
             }
         }
 
@@ -502,12 +490,10 @@ namespace CodeRedLauncher
 
                 if (processes.Count > 0)
                 {
-                    LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()), true);
+                    LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
                 }
-                else
-                {
-                    InjectTmr.Stop();
-                }
+
+                InjectTmr.Stop();
             }
             else
             {
@@ -517,13 +503,11 @@ namespace CodeRedLauncher
                 {
                     foreach (InjectionResults result in results)
                     {
-                        LogInjectionResult(result, true);
+                        LogInjectionResult(result);
                     }
                 }
-                else
-                {
-                    InjectTmr.Stop();
-                }
+
+                InjectTmr.Stop();
             }
         }
 
@@ -540,12 +524,9 @@ namespace CodeRedLauncher
             }
         }
 
-        void LogInjectionResult(InjectionResults result, bool bUpdateStatus)
+        void LogInjectionResult(InjectionResults result)
         {
-            if (bUpdateStatus)
-            {
-                ProcessCtrl.Result = result;
-            }
+            ProcessCtrl.Result = result;
 
             switch (result)
             {
