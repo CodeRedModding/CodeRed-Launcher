@@ -38,12 +38,7 @@ namespace CodeRedLauncher.Architecture
 
         public string GetFolderPath()
         {
-            if (IsFile())
-            {
-                return System.IO.Path.GetDirectoryName(IndirectPath);
-            }
-
-            return IndirectPath;
+            return System.IO.Path.GetDirectoryName(IndirectPath);
         }
 
         public bool IsFile()

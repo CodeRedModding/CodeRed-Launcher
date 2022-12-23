@@ -627,56 +627,70 @@ namespace CodeRedLauncher
                 Retrievers.Invalidate();
             }
 
-            Logger.CheckInitialized(); // Create and initialize the log file for the launcher.
-
-            if (Configuration.CheckInitialized())
+            if (!Storage.GetModulePath().Exists())
             {
-                if (Configuration.ShouldMinimizeOnStartup())
-                {
-                    TitleBar_OnMinimized(null, null);
-                }
-
                 if (await Retrievers.CheckInitialized())
                 {
-                    string pingUrl = await Retrievers.GetModuleUrl();
+                    InstallPopupCtrl.Show();
+                }
+                else
+                {
+                    InstallOfflinePopupCtrl.Show();
+                }
+            }
+            else
+            {
+                Logger.CheckInitialized(); // Create and initialize the log file for the launcher.
 
-                    if ((await Downloaders.WebsiteOnline(pingUrl)) == false)
+                if (Configuration.CheckInitialized())
+                {
+                    if (Configuration.ShouldMinimizeOnStartup())
+                    {
+                        TitleBar_OnMinimized(null, null);
+                    }
+
+                    if (await Retrievers.CheckInitialized())
+                    {
+                        string pingUrl = await Retrievers.GetModuleUrl();
+
+                        if ((await Downloaders.WebsiteOnline(pingUrl)) == false)
+                        {
+                            OfflinePopupCtrl.Show();
+                        }
+                        else
+                        {
+                            ContinueStartup();
+                        }
+                    }
+                    else
                     {
                         OfflinePopupCtrl.Show();
+                    }
+
+                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                }
+                else
+                {
+                    if (!Storage.GetModulePath().Exists())
+                    {
+                        if (await Retrievers.CheckInitialized())
+                        {
+                            InstallPopupCtrl.Show();
+                        }
+                        else
+                        {
+                            InstallOfflinePopupCtrl.Show();
+                        }
+                    }
+                    else if (!Storage.GetLibraryFile().Exists())
+                    {
+                        await Installer.DownloadModule();
+                        StartupRoutine(true);
                     }
                     else
                     {
                         ContinueStartup();
                     }
-                }
-                else
-                {
-                    OfflinePopupCtrl.Show();
-                }
-
-                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
-            }
-            else
-            {
-                if (!Storage.GetModulePath().Exists())
-                {
-                    if (await Retrievers.CheckInitialized())
-                    {
-                        InstallPopupCtrl.Show();
-                    }
-                    else
-                    {
-                        InstallOfflinePopupCtrl.Show();
-                    }
-                }
-                else if (!Storage.GetLibraryFile().Exists())
-                {
-                    await Installer.DownloadModule();
-                    StartupRoutine(true);
-                }
-                else
-                {
-                    ContinueStartup();
                 }
             }
 

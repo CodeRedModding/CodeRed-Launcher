@@ -113,10 +113,12 @@ namespace CodeRedLauncher
 
                         if (baseDirectory.Contains("steamapps"))
                         {
+                            SteamFolder.SetValue(baseDirectory);
                             CurrentPlatform.SetValue(PlatformTypes.TYPE_STEAM.ToString());
                         }
                         else if (baseDirectory.Contains("Epic Games"))
                         {
+                            EpicFolder.SetValue(baseDirectory);
                             CurrentPlatform.SetValue(PlatformTypes.TYPE_EPIC.ToString());
                         }
                         else
@@ -171,6 +173,7 @@ namespace CodeRedLauncher
         private static bool ParseRegistryKeys()
         {
             bool foundAtLeastOnePath = false;
+            bool foundInstallDir = false;
             RegistryKey coderedKey = Registry.CurrentUser.OpenSubKey("CodeRedModding");
 
             if (coderedKey != null)
@@ -185,77 +188,111 @@ namespace CodeRedLauncher
                     {
                         ModuleFolder.SetValue(moduleFolder);
                         LibraryFile.SetValue(moduleFolder / "DLL" / "CodeRed.dll");
+                        foundInstallDir = true;
                     }
                 }
 
                 coderedKey.Close();
             }
 
-            RegistryKey epicKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\EpicGames\\Unreal Engine");
-
-            if (epicKey != null)
+            if (SteamFolder.IsNull())
             {
-                Object epicObj = epicKey.GetValue("INSTALLDIR");
-
-                if (epicObj != null)
+                try
                 {
-                    Architecture.Path epicFolder = (new Architecture.Path(epicObj.ToString()) / "rocketleague" / "Binaries" / "Win64");
+                    RegistryKey steamKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\Valve\\Steam");
 
-                    if (epicFolder.Exists())
+                    if (steamKey != null)
                     {
-                        EpicFolder.SetValue(epicFolder);
-                        foundAtLeastOnePath = true;
-                    }
-                    else
-                    {
-                        EpicFolder.SetValue("");
-                    }
-                }
-            }
+                        Object steamObj = steamKey.GetValue("InstallPath");
 
-            RegistryKey steamKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\Valve\\Steam");
-
-            if (steamKey != null)
-            {
-                Object steamObj = steamKey.GetValue("InstallPath");
-
-                if (steamObj != null)
-                {
-                    // We are phrasing the "libraryfolders.vdf" file here because it's possibe to have Steam installed on one drive, but have the "steamapps" folder on a different drive/location.
-                    // This is not stored in the registry and this file is the only place that I could find where it has path/drive info like this.
-                    // If anyone has a better solution or suggestion please do create an issue in the repo, or submit your own pull request.
-
-                    Architecture.Path libraryFile = new Architecture.Path(steamObj.ToString()).Append("steamapps").Append("libraryfolders.vdf");
-
-                    if (libraryFile.Exists())
-                    {
-                        string libraryContents = File.ReadAllText(libraryFile.GetPath());
-                        MatchCollection pathMatches = Regex.Matches(libraryContents, "\"path\"\t\t\"(.*)\"", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-
-                        foreach (Match match in pathMatches)
+                        if (steamObj != null)
                         {
-                            if (match.Success && match.Groups[1].Success)
-                            {
-                                Architecture.Path steamFolder = (new Architecture.Path(match.Groups[1].Value) / "steamapps" / "common" / "rocketleague" / "Binaries" / "Win64");
+                            // We are phrasing the "libraryfolders.vdf" file here because it's possibe to have Steam installed on one drive, but have the "steamapps" folder on a different drive/location.
+                            // This is not stored in the registry and this file is the only place that I could find where it has path/drive info like this.
+                            // If anyone has a better solution or suggestion please do create an issue in the repo, or submit your own pull request.
 
-                                if (steamFolder.Exists())
+                            Architecture.Path libraryFile = new Architecture.Path(steamObj.ToString()).Append("steamapps").Append("libraryfolders.vdf");
+
+                            if (libraryFile.Exists())
+                            {
+                                string libraryContents = File.ReadAllText(libraryFile.GetPath());
+                                MatchCollection pathMatches = Regex.Matches(libraryContents, "\"path\"\t\t\"(.*)\"", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+
+                                foreach (Match match in pathMatches)
                                 {
-                                    SteamFolder.SetValue(steamFolder);
-                                    foundAtLeastOnePath = true;
-                                    break;
-                                }
-                                else
-                                {
-                                    SteamFolder.SetValue("");
-                                    continue;
+                                    if (match.Success && match.Groups[1].Success)
+                                    {
+                                        Architecture.Path steamFolder = (new Architecture.Path(match.Groups[1].Value) / "steamapps" / "common" / "rocketleague" / "Binaries" / "Win64");
+
+                                        if (steamFolder.Exists())
+                                        {
+                                            SteamFolder.SetValue(steamFolder);
+                                            foundAtLeastOnePath = true;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            SteamFolder.SetValue("");
+                                            continue;
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            else
+            {
+                foundAtLeastOnePath = true;
             }
 
-            return foundAtLeastOnePath;
+            if (EpicFolder.IsNull())
+            {
+                try
+                {
+                    RegistryKey epicKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\EpicGames\\Unreal Engine");
+
+                    if (epicKey != null)
+                    {
+                        Object epicObj = epicKey.GetValue("INSTALLDIR");
+
+                        if (epicObj != null)
+                        {
+                            Architecture.Path epicFolder = (new Architecture.Path(epicObj.ToString()) / "rocketleague" / "Binaries" / "Win64");
+
+                            if (epicFolder.Exists())
+                            {
+                                EpicFolder.SetValue(epicFolder);
+                                foundAtLeastOnePath = true;
+                            }
+                            else
+                            {
+                                EpicFolder.SetValue("");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            else
+            {
+                foundAtLeastOnePath = true;
+            }
+
+            if (!foundInstallDir && !foundAtLeastOnePath)
+            {
+                return false;
+            }
+
+            return foundInstallDir;
         }
 
         public static bool FindDirectories()
@@ -270,13 +307,20 @@ namespace CodeRedLauncher
                     ParseLogFile();
                     ParseVersionFile();
 
-                    if (ParseRegistryKeys())
+                    if (!ParseRegistryKeys())
                     {
-                        Initialized = true;
+                        if (!ModuleFolder.IsNull())
+                        {
+                            MessageBox.Show("Error: Failed to locate the needed registry keys!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            Initialized = true;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Error: Failed to locate the needed registry keys!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Initialized = true;
                     }
                 }
                 else

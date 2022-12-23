@@ -11,7 +11,7 @@ namespace CodeRedLauncher
         private static readonly string Product = "CodeRedLauncher";
         private static readonly string Copyright = "Copyright © CodeRedModding 2022";
         private static readonly string License = "MIT License";
-        private static readonly string Version = "1.0.0";
+        private static readonly string Version = "1.0.3";
 
         public static string GetTitle() { return Title; }
         public static string GetDescription() { return Description; }

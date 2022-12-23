@@ -122,26 +122,29 @@ namespace CodeRedLauncher
                                 {
                                     Architecture.Path fullPath = (modulePath / archiveEntry.FullName);
 
-                                    if ( !fullPath.IsFile())
+                                    if (!Directory.Exists(fullPath.GetFolderPath()))
                                     {
-                                        if (!fullPath.Exists())
-                                        {
-                                            Directory.CreateDirectory(fullPath.GetFolderPath());
-                                        }
+                                        Directory.CreateDirectory(fullPath.GetFolderPath());
+                                    }
 
+                                    if (!fullPath.IsFile())
+                                    {
                                         continue;
                                     }
 
                                     string fileFilter = fullPath.GetPath().ToLower();
                                     bool shouldSkip = false;
 
-                                    // Skip overriding existing files that may be user-specific, such as settings or scripts.
-                                    foreach (string file in ExcludedFiles)
+                                    if (!bForceInstall)
                                     {
-                                        if (fileFilter.EndsWith(file))
+                                        // Skip overriding existing files that may be user-specific, such as settings or scripts.
+                                        foreach (string file in ExcludedFiles)
                                         {
-                                            shouldSkip = true;
-                                            break;
+                                            if (fileFilter.EndsWith(file))
+                                            {
+                                                shouldSkip = true;
+                                                break;
+                                            }
                                         }
                                     }
 
