@@ -255,6 +255,8 @@ namespace CodeRedLauncher
             {
                 try
                 {
+                    // This appears to be broken at the moment, if anyone has any ideas on how to get epic's install path please let me know.
+
                     RegistryKey epicKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\EpicGames\\Unreal Engine");
 
                     if (epicKey != null)
@@ -293,6 +295,27 @@ namespace CodeRedLauncher
             }
 
             return foundInstallDir;
+        }
+
+        public static bool HasCoderedRegistry()
+        {
+            bool regkeyValid = false;
+            RegistryKey coderedKey = Registry.CurrentUser.OpenSubKey("CodeRedModding");
+
+            if (coderedKey != null)
+            {
+                Object installObject = coderedKey.GetValue("InstallPath");
+
+                if (installObject != null)
+                {
+                    Architecture.Path moduleFolder = new Architecture.Path(installObject.ToString());
+                    regkeyValid = moduleFolder.Exists();
+                }
+
+                coderedKey.Close();
+            }
+
+            return regkeyValid;
         }
 
         public static bool FindDirectories()
