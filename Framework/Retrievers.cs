@@ -29,6 +29,10 @@ namespace CodeRedLauncher
                     {
                         return true;
                     }
+                    else
+                    {
+                        Logger.Write("Ping request failed: " + pingReply.Status.ToString(), LogLevel.LEVEL_WARN);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -201,18 +205,14 @@ namespace CodeRedLauncher
         {
             if (!Initialized)
             {
-                if (await DownloadRemote())
-                {
-                    return true;
-                }
-                else
+                if (await DownloadRemote() == false)
                 {
                     Logger.Write("Failed to do download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
                     MessageBox.Show("Warning: Failed to do download remote information, cannot check for updates or verify installed version!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
-            return true;
+            return Initialized;
         }
 
         public static async Task<string> GetPsyonixVersion()

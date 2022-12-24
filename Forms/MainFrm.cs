@@ -593,13 +593,13 @@ namespace CodeRedLauncher
             Interface.BindTab(Tabs.TAB_SCRIPTS, ScriptsTabBtn, ScriptsTab);
             Interface.BindTab(Tabs.TAB_SETTINGS, SettingsTabBtn, SettingsTab);
             Interface.BindTab(Tabs.TAB_ABOUT, AboutTabBtn, AboutTab);
+            Interface.SelectTab(Tabs.TAB_DASHBOARD);
 
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
 
             if (tempFolder.Exists())
             {
-                // This is to cleanup anything left over by the auto updator/dropper program.
-                Directory.Delete(tempFolder.GetPath(), true);
+                Directory.Delete(tempFolder.GetPath(), true); // This is to cleanup anything left over by the auto updator/dropper program.
             }
 
             if (!Storage.HasCoderedRegistry() || !Storage.GetModulePath().Exists())
@@ -635,7 +635,7 @@ namespace CodeRedLauncher
                 {
                     string pingUrl = await Retrievers.GetModuleUrl();
 
-                    if ((await Downloaders.WebsiteOnline(pingUrl)) == false)
+                    if (await Downloaders.WebsiteOnline(pingUrl) == false)
                     {
                         OfflinePopupCtrl.Show();
                     }
@@ -648,8 +648,6 @@ namespace CodeRedLauncher
                 {
                     OfflinePopupCtrl.Show();
                 }
-
-                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
             }
             else
             {
@@ -672,13 +670,14 @@ namespace CodeRedLauncher
         {
             if (!Configuration.OfflineMode.GetBoolValue())
             {
+                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                 ChangelogCtrl.DisplayText = await Retrievers.GetModuleChangelog();
                 DiscordLink.Text = await Retrievers.GetDiscordUrl();
                 KofiLink.Text = await Retrievers.GetKofiUrl();
 
                 if (Configuration.ShouldCheckForUpdates())
                 {
-                    CheckForUpdates(false);
+                    await CheckForUpdates(false);
                 }
             }
             else

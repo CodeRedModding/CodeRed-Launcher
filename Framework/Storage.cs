@@ -47,11 +47,7 @@ namespace CodeRedLauncher
         {
             if (!Initialized)
             {
-                if (FindDirectories())
-                {
-                    return true;
-                }
-                else
+                if (!FindDirectories())
                 {
                     Logger.Write("Failed to retrieve local directory information, cannot verify Rocket League version!", LogLevel.LEVEL_ERROR);
                     MessageBox.Show("Error: Failed to retrieve local directory information!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -64,7 +60,7 @@ namespace CodeRedLauncher
                 ParseVersionFile();
             }
 
-            return true;
+            return Initialized;
         }
 
         private static void ParseLogFile()

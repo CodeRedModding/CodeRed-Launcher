@@ -127,6 +127,8 @@ namespace CodeRedLauncher
                                         Directory.CreateDirectory(fullPath.GetFolderPath());
                                     }
 
+                                    // Nothing to extract if it's just a directory so we can skip the rest.
+
                                     if (!fullPath.IsFile())
                                     {
                                         continue;
@@ -138,6 +140,7 @@ namespace CodeRedLauncher
                                     if (!bForceInstall)
                                     {
                                         // Skip overriding existing files that may be user-specific, such as settings or scripts.
+
                                         foreach (string file in ExcludedFiles)
                                         {
                                             if (fileFilter.EndsWith(file))
