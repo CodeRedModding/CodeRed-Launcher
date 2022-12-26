@@ -417,6 +417,7 @@ namespace CodeRedLauncher
                     {
                         if (!Updator.IsOutdated())
                         {
+                            CheckForUpdates(true, false);
                             ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_RUNNING;
                             ProcessCtrl.Result = InjectionResults.RESULT_NONE;
                         }
@@ -460,8 +461,6 @@ namespace CodeRedLauncher
 
         private void InjectTmr_Tick(object sender, EventArgs e)
         {
-            CheckForUpdates(true);
-
             if (!Configuration.OfflineMode.GetBoolValue())
             {
                 if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
@@ -513,7 +512,7 @@ namespace CodeRedLauncher
 
         private void UpdateTmr_Tick(object sender, EventArgs e)
         {
-            if (Updator.IsOutdated())
+            if (!Updator.IsOutdated())
             {
                 Logger.Write("Auto checking for updates...");
                 CheckForUpdates(true);
@@ -641,7 +640,7 @@ namespace CodeRedLauncher
                     }
                     else
                     {
-                        ContinueStartup();
+                        ContinueStartup(false);
                     }
                 }
                 else
@@ -658,7 +657,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    ContinueStartup();
+                    ContinueStartup(false);
                 }
             }
 
@@ -666,10 +665,15 @@ namespace CodeRedLauncher
             StorageToInterface(); // Retrieves Rocket League paths, version, and platform info to then assign to the UI.
         }
 
-        private async void ContinueStartup()
+        private async void ContinueStartup(bool bInvalidate)
         {
             if (!Configuration.OfflineMode.GetBoolValue())
             {
+                if (bInvalidate)
+                {
+                    Retrievers.Invalidate();
+                }
+
                 NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                 ChangelogCtrl.DisplayText = await Retrievers.GetModuleChangelog();
                 DiscordLink.Text = await Retrievers.GetDiscordUrl();
@@ -763,7 +767,7 @@ namespace CodeRedLauncher
         }
 
         // If "bInvalidate" is set to true it forces the application to retrieve all local and remote information.
-        private async Task<bool> CheckForUpdates(bool bInvalidate)
+        private async Task<bool> CheckForUpdates(bool bInvalidate, bool bShowPrompt = true)
         {
             if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
             {
@@ -822,7 +826,10 @@ namespace CodeRedLauncher
                                 UpdatePopupCtrl.DisplayDescription = "A new version of both the module and launcher were found, would you like to automatically install both now?";
                             }
 
-                            UpdatePopupCtrl.Show();
+                            if (bShowPrompt)
+                            {
+                                UpdatePopupCtrl.Show();
+                            }
                         }
                         else if (!ignoreModule && moduleOutdated)
                         {
@@ -848,7 +855,10 @@ namespace CodeRedLauncher
                                 UpdatePopupCtrl.DisplayDescription = "A new version of the module was found, would you like to automatically install it now?";
                             }
 
-                            UpdatePopupCtrl.Show();
+                            if (bShowPrompt)
+                            {
+                                UpdatePopupCtrl.Show();
+                            }
                         }
                         else if (launcherOutdated)
                         {
@@ -857,9 +867,12 @@ namespace CodeRedLauncher
 
                             // Doesn't matter if Rocket League is open or not when updating the launcher, so no need to check if any processes are running.
 
-                            UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_DOUBLE;
-                            UpdatePopupCtrl.DisplayDescription = "A new version of the launcher was found, would you like to automatically install it now?";
-                            UpdatePopupCtrl.Show();
+                            if (bShowPrompt)
+                            {
+                                UpdatePopupCtrl.ButtonLayout = CRPopup.ButtonLayouts.TYPE_DOUBLE;
+                                UpdatePopupCtrl.DisplayDescription = "A new version of the launcher was found, would you like to automatically install it now?";
+                                UpdatePopupCtrl.Show();
+                            }
                         }
                         else
                         {
@@ -881,7 +894,8 @@ namespace CodeRedLauncher
                 Logger.Write("Could not check for updates, launcher is running in offline mode!");
             }
 
-            StorageToInterface();
+            ConfigToInterface(); // Retrieves the users configuration settings and assigns it to the UI.
+            StorageToInterface(); // Retrieves Rocket League paths, version, and platform info to then assign to the UI.
             return true;
         }
 
@@ -954,6 +968,8 @@ namespace CodeRedLauncher
 
         private async void UpdatePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
         {
+            Retrievers.Invalidate();
+            await Retrievers.CheckInitialized();
             Result report = await Updator.InstallUpdates();
 
             if (report.Succeeded)
@@ -976,14 +992,14 @@ namespace CodeRedLauncher
         private void OfflinePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
         {
             Configuration.OfflineMode.SetValue(false);
-            ContinueStartup();
+            ContinueStartup(true);
             OfflinePopupCtrl.Hide();
         }
 
         private void OfflinePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
         {
             Configuration.OfflineMode.SetValue(true);
-            ContinueStartup();
+            ContinueStartup(false);
             OfflinePopupCtrl.Hide();
         }
     }

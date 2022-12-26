@@ -23,7 +23,7 @@ namespace CodeRedLauncher
 
                 try
                 {
-                    PingReply pingReply = await newPing.SendPingAsync(new Uri(url).Host);
+                    PingReply pingReply = await newPing.SendPingAsync(new Uri(url).Host, 10000);
 
                     if (pingReply.Status == IPStatus.Success)
                     {
@@ -31,7 +31,7 @@ namespace CodeRedLauncher
                     }
                     else
                     {
-                        Logger.Write("Ping request failed: " + pingReply.Status.ToString(), LogLevel.LEVEL_WARN);
+                        Logger.Write("Ping request failed, reason " + pingReply.Status.ToString(), LogLevel.LEVEL_WARN);
                     }
                 }
                 catch (Exception ex)
@@ -109,23 +109,26 @@ namespace CodeRedLauncher
             return pageContent;
         }
 
-        public static async Task<bool> DownloadFile(string url, Architecture.Path toFolder, string fileName)
+        public static async Task<bool> DownloadFile(string url, Architecture.Path folder, string fileName)
         {
-            if (!String.IsNullOrEmpty(url))
+            if (folder.Exists())
             {
-                using (HttpClient client = new HttpClient())
+                if (!String.IsNullOrEmpty(url))
                 {
-                    HttpResponseMessage response = await client.GetAsync(url);
-
-                    if (response.IsSuccessStatusCode)
+                    using (HttpClient client = new HttpClient())
                     {
-                        string path = (toFolder / fileName).GetPath();
-                        byte[] content = await response.Content.ReadAsByteArrayAsync();
+                        HttpResponseMessage response = await client.GetAsync(url);
 
-                        if (content.Length > 0)
+                        if (response.IsSuccessStatusCode)
                         {
-                            File.WriteAllBytes(path, content);
-                            return File.Exists(path);
+                            string path = (folder / fileName).GetPath();
+                            byte[] content = await response.Content.ReadAsByteArrayAsync();
+
+                            if (content.Length > 0)
+                            {
+                                File.WriteAllBytes(path, content);
+                                return File.Exists(path);
+                            }
                         }
                     }
                 }
@@ -207,8 +210,8 @@ namespace CodeRedLauncher
             {
                 if (await DownloadRemote() == false)
                 {
-                    Logger.Write("Failed to do download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
-                    MessageBox.Show("Warning: Failed to do download remote information, cannot check for updates or verify installed version!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Logger.Write("Failed to download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
+                    MessageBox.Show("Warning: Failed to download remote information, cannot check for updates or verify installed version!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 

@@ -166,13 +166,11 @@ namespace CodeRedLauncher
                     else
                     {
                         report.FailReason = "Failed to download module archive.";
-                        return report;
                     }
                 }
                 else
                 {
                     report.FailReason = "Failed to retrieve download link.";
-                    return report;
                 }
 
                 Directory.Delete(tempFolder.GetPath(), true);
