@@ -49,7 +49,7 @@ namespace CodeRedLauncher
 
                 if (folderBrowser.ShowDialog() == DialogResult.OK)
                 {
-                    installPath.Set(folderBrowser.SelectedPath);
+                    installPath.Set(folderBrowser.SelectedPath).Append("CodeRed");
                     Logger.Write("User manually selected \"" + folderBrowser.SelectedPath + "\" for the install path.");
                 }
             }

@@ -62,7 +62,7 @@ namespace CodeRedLauncher.Architecture
                 }
                 else
                 {
-                    IndirectPath += "\\" + str;
+                    IndirectPath += ("\\" + str);
                 }
             }
             else

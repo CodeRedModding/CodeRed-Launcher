@@ -33,10 +33,10 @@ namespace CodeRedLauncher
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
             this.TabCtrl = new System.Windows.Forms.TabControl();
             this.DashboardTab = new System.Windows.Forms.TabPage();
+            this.LaunchBtn = new CodeRedLauncher.Controls.CRButton();
             this.ChangelogCtrl = new CodeRedLauncher.Controls.CRChangelog();
             this.UpdateCtrl = new CodeRedLauncher.Controls.CRUpdatePanel();
             this.ProcessCtrl = new CodeRedLauncher.Controls.CRProcessPanel();
-            this.LaunchBtn = new CodeRedLauncher.Controls.CRButton();
             this.ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
             this.NewsTab = new System.Windows.Forms.TabPage();
             this.NewsCtrl = new CodeRedLauncher.Controls.CRNewsPanel();
@@ -169,6 +169,21 @@ namespace CodeRedLauncher
             this.DashboardTab.TabIndex = 0;
             this.DashboardTab.Text = "Dashboard";
             // 
+            // LaunchBtn
+            // 
+            this.LaunchBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.LaunchBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Question_White;
+            this.LaunchBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            this.LaunchBtn.DisplayText = "Launch Rocket League";
+            this.LaunchBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.LaunchBtn.Location = new System.Drawing.Point(288, 530);
+            this.LaunchBtn.Name = "LaunchBtn";
+            this.LaunchBtn.Size = new System.Drawing.Size(320, 35);
+            this.LaunchBtn.TabIndex = 32;
+            this.LaunchBtn.Visible = false;
+            this.LaunchBtn.OnButtonClick += new System.EventHandler(this.LaunchBtn_OnButtonClick);
+            // 
             // ChangelogCtrl
             // 
             this.ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -205,21 +220,6 @@ namespace CodeRedLauncher
             this.ProcessCtrl.Status = CodeRedLauncher.Controls.CRProcessPanel.StatusTypes.TYPE_LOADING;
             this.ProcessCtrl.TabIndex = 0;
             this.ProcessCtrl.TitleImage = global::CodeRedLauncher.Properties.Resources.Rocket_White;
-            // 
-            // LaunchBtn
-            // 
-            this.LaunchBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LaunchBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Question_White;
-            this.LaunchBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.LaunchBtn.DisplayText = "Launch Rocket League";
-            this.LaunchBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.LaunchBtn.Location = new System.Drawing.Point(288, 530);
-            this.LaunchBtn.Name = "LaunchBtn";
-            this.LaunchBtn.Size = new System.Drawing.Size(320, 35);
-            this.LaunchBtn.TabIndex = 32;
-            this.LaunchBtn.Visible = false;
-            this.LaunchBtn.OnButtonClick += new System.EventHandler(this.LaunchBtn_OnButtonClick);
             // 
             // ManualInjectBtn
             // 
