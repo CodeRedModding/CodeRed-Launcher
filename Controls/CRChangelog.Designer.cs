@@ -98,11 +98,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ChangelogLbl.BackColor = System.Drawing.Color.Transparent;
-            this.ChangelogLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ChangelogLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ChangelogLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ChangelogLbl.Location = new System.Drawing.Point(0, 40);
+            this.ChangelogLbl.Location = new System.Drawing.Point(10, 45);
             this.ChangelogLbl.Name = "ChangelogLbl";
-            this.ChangelogLbl.Size = new System.Drawing.Size(858, 273);
+            this.ChangelogLbl.Size = new System.Drawing.Size(838, 263);
             this.ChangelogLbl.TabIndex = 47;
             this.ChangelogLbl.Text = "Loading...";
             this.ChangelogLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

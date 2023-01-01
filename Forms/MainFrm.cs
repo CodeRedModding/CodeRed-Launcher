@@ -687,7 +687,6 @@ namespace CodeRedLauncher
             else
             {
                 ChangelogCtrl.DisplayText = "Offline mode enabled, cannot retrieve changelog information at this time.";
-                DiscordLink.Text = "Offline mode enabled";
             }
 
             ProcessTmr.Start();
@@ -977,6 +976,7 @@ namespace CodeRedLauncher
                 UpdatePopupCtrl.Hide();
                 ProcessTmr.Start();
                 this.TopMost = false;
+                CheckForUpdates(true, false);
             }
             else if (report.FailReason != null)
             {
