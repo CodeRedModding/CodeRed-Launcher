@@ -60,6 +60,7 @@
             this.InputBx.Size = new System.Drawing.Size(169, 18);
             this.InputBx.TabIndex = 0;
             this.InputBx.Text = "Textbox";
+            this.InputBx.WordWrap = false;
             this.InputBx.TextChanged += new System.EventHandler(this.InputBx_TextChanged);
             // 
             // CRTextbox

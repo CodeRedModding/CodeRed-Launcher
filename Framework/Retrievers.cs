@@ -218,6 +218,11 @@ namespace CodeRedLauncher
             return Initialized;
         }
 
+        public static string GetRemoteURL()
+        {
+            return RemoteUrl;
+        }
+
         public static async Task<string> GetPsyonixVersion()
         {
             if (await CheckInitialized()) { return GetStoredSetting("PsyonixVersion").GetStringValue(); }

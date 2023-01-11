@@ -134,6 +134,7 @@ namespace CodeRedLauncher.Controls
 
             if (InternalForm != null)
             {
+                InternalForm.Show();
                 InternalForm.TopMost = true;
             }
         }

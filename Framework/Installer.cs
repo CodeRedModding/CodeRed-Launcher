@@ -31,7 +31,6 @@ namespace CodeRedLauncher
 
                 if (coderedKey != null)
                 {
-                    Logger.Write("Setting install path registry value to \"" + installPath + "\"...");
                     coderedKey.SetValue(KeyName, installPath.GetPath());
                     coderedKey.Close();
                 }
@@ -49,8 +48,17 @@ namespace CodeRedLauncher
 
                 if (folderBrowser.ShowDialog() == DialogResult.OK)
                 {
-                    installPath.Set(folderBrowser.SelectedPath).Append("CodeRed");
-                    Logger.Write("User manually selected \"" + folderBrowser.SelectedPath + "\" for the install path.");
+                    installPath = new Architecture.Path(folderBrowser.SelectedPath);
+
+                    if (installPath.Exists())
+                    {
+                        if (!installPath.GetPath().Contains("CodeRed"))
+                        {
+                            installPath.Append("CodeRed").CreateDirectory();
+                        }
+
+                        Logger.Write("User manually selected \"" + installPath.GetPath() + "\" for the install path.");
+                    }
                 }
             }
             else

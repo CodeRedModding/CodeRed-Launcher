@@ -48,6 +48,10 @@ namespace CodeRedLauncher
             this.ScriptsTab = new System.Windows.Forms.TabPage();
             this.PlaceholderLblThird = new System.Windows.Forms.Label();
             this.SettingsTab = new System.Windows.Forms.TabPage();
+            this.InstallPathBtn = new CodeRedLauncher.Controls.CRButton();
+            this.InstallPathBx = new CodeRedLauncher.Controls.CRTextbox();
+            this.InstallPathImg = new System.Windows.Forms.PictureBox();
+            this.InstallPathLbl = new System.Windows.Forms.Label();
             this.InjectionTimeoutBx = new CodeRedLauncher.Controls.CRNumberbox();
             this.OpenFolderBtn = new CodeRedLauncher.Controls.CRButton();
             this.ExportLogsBtn = new CodeRedLauncher.Controls.CRButton();
@@ -121,6 +125,7 @@ namespace CodeRedLauncher
             this.TexturesTab.SuspendLayout();
             this.ScriptsTab.SuspendLayout();
             this.SettingsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InstallPathImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InjectionTimeoutImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManualRadioImg)).BeginInit();
@@ -343,6 +348,10 @@ namespace CodeRedLauncher
             // SettingsTab
             // 
             this.SettingsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.SettingsTab.Controls.Add(this.InstallPathBtn);
+            this.SettingsTab.Controls.Add(this.InstallPathBx);
+            this.SettingsTab.Controls.Add(this.InstallPathImg);
+            this.SettingsTab.Controls.Add(this.InstallPathLbl);
             this.SettingsTab.Controls.Add(this.InjectionTimeoutBx);
             this.SettingsTab.Controls.Add(this.OpenFolderBtn);
             this.SettingsTab.Controls.Add(this.ExportLogsBtn);
@@ -366,9 +375,60 @@ namespace CodeRedLauncher
             this.SettingsTab.TabIndex = 4;
             this.SettingsTab.Text = "Settings";
             // 
+            // InstallPathBtn
+            // 
+            this.InstallPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.InstallPathBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.InstallPathBtn.DisplayImage = null;
+            this.InstallPathBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_DARK;
+            this.InstallPathBtn.DisplayText = "Change";
+            this.InstallPathBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.InstallPathBtn.Location = new System.Drawing.Point(384, 485);
+            this.InstallPathBtn.Name = "InstallPathBtn";
+            this.InstallPathBtn.Size = new System.Drawing.Size(71, 30);
+            this.InstallPathBtn.TabIndex = 68;
+            this.InstallPathBtn.OnButtonClick += new System.EventHandler(this.InstallPathBtn_OnButtonClick);
+            // 
+            // InstallPathBx
+            // 
+            this.InstallPathBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.InstallPathBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.InstallPathBx.DisplayText = "";
+            this.InstallPathBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.InstallPathBx.Location = new System.Drawing.Point(162, 485);
+            this.InstallPathBx.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.InstallPathBx.Name = "InstallPathBx";
+            this.InstallPathBx.ReadOnly = true;
+            this.InstallPathBx.Size = new System.Drawing.Size(215, 30);
+            this.InstallPathBx.TabIndex = 67;
+            this.InstallPathBx.TextFilter = CodeRedLauncher.Controls.CRTextbox.FilterTypes.TYPE_NONE;
+            // 
+            // InstallPathImg
+            // 
+            this.InstallPathImg.BackColor = System.Drawing.Color.Transparent;
+            this.InstallPathImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
+            this.InstallPathImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.InstallPathImg.Location = new System.Drawing.Point(35, 485);
+            this.InstallPathImg.Name = "InstallPathImg";
+            this.InstallPathImg.Size = new System.Drawing.Size(30, 30);
+            this.InstallPathImg.TabIndex = 66;
+            this.InstallPathImg.TabStop = false;
+            // 
+            // InstallPathLbl
+            // 
+            this.InstallPathLbl.BackColor = System.Drawing.Color.Transparent;
+            this.InstallPathLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.InstallPathLbl.Location = new System.Drawing.Point(71, 485);
+            this.InstallPathLbl.Name = "InstallPathLbl";
+            this.InstallPathLbl.Size = new System.Drawing.Size(85, 30);
+            this.InstallPathLbl.TabIndex = 65;
+            this.InstallPathLbl.Text = "Install path:";
+            this.InstallPathLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // InjectionTimeoutBx
             // 
             this.InjectionTimeoutBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.InjectionTimeoutBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.InjectionTimeoutBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.InjectionTimeoutBx.Hexadecimal = false;
             this.InjectionTimeoutBx.Increment = 1;
@@ -376,6 +436,7 @@ namespace CodeRedLauncher
             this.InjectionTimeoutBx.MaximumValue = 300000;
             this.InjectionTimeoutBx.MinimumValue = 5000;
             this.InjectionTimeoutBx.Name = "InjectionTimeoutBx";
+            this.InjectionTimeoutBx.ReadOnly = false;
             this.InjectionTimeoutBx.Size = new System.Drawing.Size(175, 29);
             this.InjectionTimeoutBx.TabIndex = 64;
             this.InjectionTimeoutBx.Value = 20000;
@@ -1231,6 +1292,7 @@ namespace CodeRedLauncher
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.MainFrm_Load);
+            this.Resize += new System.EventHandler(this.MainFrm_Resize);
             this.TabCtrl.ResumeLayout(false);
             this.DashboardTab.ResumeLayout(false);
             this.NewsTab.ResumeLayout(false);
@@ -1238,6 +1300,7 @@ namespace CodeRedLauncher
             this.TexturesTab.ResumeLayout(false);
             this.ScriptsTab.ResumeLayout(false);
             this.SettingsTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.InstallPathImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InjectionTimeoutImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManualRadioImg)).EndInit();
@@ -1343,6 +1406,10 @@ namespace CodeRedLauncher
         private Controls.CRPopup InstallOfflinePopupCtrl;
         private System.Windows.Forms.Timer UpdateTmr;
         private System.Windows.Forms.Label TotalSessionsLbl;
+        private System.Windows.Forms.PictureBox InstallPathImg;
+        private System.Windows.Forms.Label InstallPathLbl;
+        private Controls.CRTextbox InstallPathBx;
+        private Controls.CRButton InstallPathBtn;
     }
 }
 

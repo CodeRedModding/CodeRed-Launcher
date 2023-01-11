@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher.Controls
@@ -22,10 +23,22 @@ namespace CodeRedLauncher.Controls
             set { Filter = value; }
         }
 
+        public Font DisplayFont
+        {
+            get { return InputBx.Font; }
+            set { InputBx.Font = value; }
+        }
+
         public string DisplayText
         {
             get { return InputBx.Text; }
             set { InputBx.Text = value; }
+        }
+
+        public bool ReadOnly
+        {
+            get { return InputBx.ReadOnly; }
+            set { InputBx.ReadOnly = value; }
         }
 
         public CRTextbox()

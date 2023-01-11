@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Win32;
-using System.Text.Json;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using CodeRedLauncher.Controls;
+using System.Configuration;
 
 namespace CodeRedLauncher
 {
@@ -23,15 +23,27 @@ namespace CodeRedLauncher
             StartupRoutine();
         }
 
+        private void MainFrm_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                TitleBar_OnMinimized(null, null);
+            }
+        }
+
         private void TitleBar_OnMinimized(object sender, EventArgs e)
         {
-            if (Configuration.ShouldHideWhenMinimized())
+            if (true)
             {
-                this.Hide();
-            }
-            else
-            {
-                this.WindowState = FormWindowState.Minimized;
+                if (Configuration.ShouldHideWhenMinimized())
+                {
+                    this.Hide();
+                }
+                else if (this.WindowState != FormWindowState.Minimized)
+                {
+                    this.Show();
+                    this.WindowState = FormWindowState.Minimized;
+                }
             }
         }
 
@@ -275,6 +287,72 @@ namespace CodeRedLauncher
             {
                 Configuration.InjectionTimeout.SetValue(InjectionTimeoutBx.Value).Save();
                 InjectTmr.Interval = InjectionTimeoutBx.Value;
+            }
+        }
+
+        // https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
+        static void CopyDirectory(string sourceDir, string destinationDir, bool bRecursive)
+        {
+            DirectoryInfo sourceInfo = new DirectoryInfo(sourceDir);
+            DirectoryInfo[] dirs = sourceInfo.GetDirectories();
+            Directory.CreateDirectory(destinationDir);
+
+            foreach (FileInfo file in sourceInfo.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                file.CopyTo(targetFilePath);
+            }
+
+            if (bRecursive)
+            {
+                foreach (DirectoryInfo subDir in dirs)
+                {
+                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                    CopyDirectory(subDir.FullName, newDestinationDir, true);
+                }
+            }
+        }
+
+        private void InstallPathBtn_OnButtonClick(object sender, EventArgs e)
+        {
+            Architecture.Path modulePath = Storage.GetModulePath();
+
+            if (modulePath.Exists())
+            {
+                Architecture.Path newPath = new Architecture.Path();
+                FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+
+                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                {
+                    newPath = new Architecture.Path(folderBrowser.SelectedPath);
+
+                    if (newPath.Exists())
+                    {
+                        if (!newPath.GetPath().Contains("CodeRed"))
+                        {
+                            newPath.Append("CodeRed").CreateDirectory();
+                        }
+                    }
+
+                    Logger.Write("User selected \"" + folderBrowser.SelectedPath + "\" for new install path.");
+                }
+
+                if (newPath.Exists())
+                {
+                    CopyDirectory(modulePath.GetPath(), newPath.GetPath(), true);
+                    Directory.Delete(modulePath.GetPath(), true);
+
+                    Installer.ModifyRegistry(false, newPath);
+                    Configuration.Invalidate(true);
+                    Storage.Invalidate(true);
+                    ConfigToInterface();
+                    StorageToInterface();
+                }
+                else
+                {
+                    Logger.Write("Selected path is invalid, cannot move install path!", LogLevel.LEVEL_ERROR);
+                    MessageBox.Show("Selected path is invalid, cannot move install path!", Assembly.GetTitle());
+                }
             }
         }
 
@@ -632,9 +710,7 @@ namespace CodeRedLauncher
 
                 if (await Retrievers.CheckInitialized())
                 {
-                    string pingUrl = await Retrievers.GetModuleUrl();
-
-                    if (await Downloaders.WebsiteOnline(pingUrl) == false)
+                    if (await Downloaders.WebsiteOnline(Retrievers.GetRemoteURL()) == false)
                     {
                         OfflinePopupCtrl.Show();
                     }
@@ -762,6 +838,7 @@ namespace CodeRedLauncher
 
                 LaunchBtn.Visible = true;
                 ManualInjectBtn.Visible = false;
+                InstallPathBx.DisplayText = Storage.GetModulePath().GetPath();
             }
         }
 
@@ -915,13 +992,13 @@ namespace CodeRedLauncher
                 else if (moduleReport.FailReason != null)
                 {
                     Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_ERROR);
-                    MessageBox.Show(moduleReport.FailReason);
+                    MessageBox.Show(moduleReport.FailReason, Assembly.GetTitle());
                 }
             }
             else if (pathReport.FailReason != null)
             {
                 Logger.Write(pathReport.FailReason, LogLevel.LEVEL_ERROR);
-                MessageBox.Show(pathReport.FailReason);
+                MessageBox.Show(pathReport.FailReason, Assembly.GetTitle());
             }
         }
 
@@ -943,13 +1020,13 @@ namespace CodeRedLauncher
                 else if (moduleReport.FailReason != null)
                 {
                     Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_ERROR);
-                    MessageBox.Show(moduleReport.FailReason);
+                    MessageBox.Show(moduleReport.FailReason, Assembly.GetTitle());
                 }
             }
             else if (pathReport.FailReason != null)
             {
                 Logger.Write(pathReport.FailReason, LogLevel.LEVEL_ERROR);
-                MessageBox.Show(pathReport.FailReason);
+                MessageBox.Show(pathReport.FailReason, Assembly.GetTitle());
             }
         }
 
@@ -975,7 +1052,6 @@ namespace CodeRedLauncher
             {
                 UpdatePopupCtrl.Hide();
                 ProcessTmr.Start();
-                this.TopMost = false;
                 CheckForUpdates(true, false);
             }
             else if (report.FailReason != null)

@@ -51,6 +51,16 @@ namespace CodeRedLauncher.Architecture
             return (IsFile() ? File.Exists(GetPath()) : Directory.Exists(GetPath()));
         }
 
+        public Path CreateDirectory()
+        {
+            if (!IsFile())
+            {
+                Directory.CreateDirectory(GetPath());
+            }
+
+            return this;
+        }
+
         // Modifies the current path with the given string. If you wish to return/add on to the path by creating a new one instead of modifying it, see down below for the divide operator overload.
         public Path Append(string str)
         {

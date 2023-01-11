@@ -19,7 +19,7 @@ namespace CodeRedLauncher
 
         public static bool CheckInitialized()
         {
-            if (!Initialized)
+            if (!Initialized || !LogFile.Exists())
             {
                 CreateLogFile();
 
@@ -39,7 +39,7 @@ namespace CodeRedLauncher
 
         private async static void CreateLogFile()
         {
-            if (!Initialized)
+            if (!Initialized || !LogFile.Exists())
             {
                 Architecture.Path modPath = Storage.GetModulePath();
                 
@@ -60,14 +60,15 @@ namespace CodeRedLauncher
 
         private static string CreateTimestamp(StackTrace stackTrace)
         {
-            return "[" + DateTime.Now.ToString() + "] [" + stackTrace.GetFrame(4).GetMethod().Name + "] ";
+            // return "[" + DateTime.Now.ToString() + "] [" + stackTrace.GetFrame(0).GetMethod().Name + "] "; // Doesn't work for some reason, changes every single time the program is run which frame is grabbed.
+            return "[" + DateTime.Now.ToString() + "] ";
         }
 
         public static void Write(string str, LogLevel level = LogLevel.LEVEL_NONE)
         {
             if (CheckInitialized())
             {
-                string newLine = CreateTimestamp(new StackTrace());
+                string newLine = CreateTimestamp(new StackTrace(4));
 
                 switch (level)
                 {

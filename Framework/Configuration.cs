@@ -127,6 +127,16 @@ namespace CodeRedLauncher
             return false;
         }
 
+        public static void Invalidate(bool bForceReset = false)
+        {
+            if (bForceReset)
+            {
+                Initialized = false;
+            }
+
+            CheckInitialized();
+        }
+
         public static bool CheckInitialized()
         {
             if (!Initialized)

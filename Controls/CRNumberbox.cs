@@ -36,6 +36,18 @@ namespace CodeRedLauncher.Controls
             set { InputBx.Hexadecimal = value; }
         }
 
+        public Font DisplayFont
+        {
+            get { return InputBx.Font; }
+            set { InputBx.Font = value; }
+        }
+
+        public bool ReadOnly
+        {
+            get { return InputBx.ReadOnly; }
+            set { InputBx.ReadOnly = value; }
+        }
+
         public CRNumberbox()
         {
             InitializeComponent();
