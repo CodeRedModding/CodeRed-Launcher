@@ -7,7 +7,7 @@ The CodeRed Launcher is used to inject CodeRed into Rocket League, it also manag
 
 ## Previews
 
-![](https://i.imgur.com/AcrIu5h.png)
-![](https://i.imgur.com/BKyblxY.png)
-![](https://i.imgur.com/TYKTLfA.png)
-![](https://i.imgur.com/sVdVIWj.png)
+![](Previews/Dashboard.png?raw=true)
+![](Previews/News.png?raw=true)
+![](Previews/Settings.png?raw=true)
+![](Previews/About.png?raw=true)
