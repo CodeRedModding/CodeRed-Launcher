@@ -27,23 +27,20 @@ namespace CodeRedLauncher
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
-                TitleBar_OnMinimized(null, null);
+                TitleBar_OnMinimized(this, null);
             }
         }
 
         private void TitleBar_OnMinimized(object sender, EventArgs e)
         {
-            if (true)
+            if (Configuration.ShouldHideWhenMinimized())
             {
-                if (Configuration.ShouldHideWhenMinimized())
-                {
-                    this.Hide();
-                }
-                else if (this.WindowState != FormWindowState.Minimized)
-                {
-                    this.Show();
-                    this.WindowState = FormWindowState.Minimized;
-                }
+                this.Hide();
+            }
+            else if (this.WindowState != FormWindowState.Minimized)
+            {
+                this.Show();
+                this.WindowState = FormWindowState.Minimized;
             }
         }
 
@@ -703,11 +700,6 @@ namespace CodeRedLauncher
 
             if (Configuration.CheckInitialized())
             {
-                if (Configuration.ShouldMinimizeOnStartup())
-                {
-                    TitleBar_OnMinimized(null, null);
-                }
-
                 if (await Retrievers.CheckInitialized())
                 {
                     if (await Downloaders.WebsiteOnline(Retrievers.GetRemoteURL()) == false)
@@ -765,6 +757,11 @@ namespace CodeRedLauncher
                 ChangelogCtrl.DisplayText = "Offline mode enabled, cannot retrieve changelog information at this time.";
             }
 
+            if (Configuration.ShouldMinimizeOnStartup())
+            {
+                this.Hide();
+            }
+
             ProcessTmr.Start();
         }
 
@@ -808,7 +805,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void StorageToInterface()
+        private async void StorageToInterface()
         {
             if (Storage.CheckInitialized())
             {
@@ -839,6 +836,8 @@ namespace CodeRedLauncher
                 LaunchBtn.Visible = true;
                 ManualInjectBtn.Visible = false;
                 InstallPathBx.DisplayText = Storage.GetModulePath().GetPath();
+                CreditsLbl.Text = "CodeRed was created and is maintained by ItsBranK, but its creation would not have been possible without the inspiration of the following people: ";
+                CreditsLbl.Text += await Retrievers.GetCredits();
             }
         }
 

@@ -14,8 +14,24 @@ namespace CodeRedLauncher.Controls
 
         public bool Checked
         {
-            get { return CheckedPnl.Visible; }
-            set { CheckedPnl.Visible = value; Invalidate(); }
+            get
+            {
+                return BackgroundPnl.BackgroundImage != null; 
+            }
+            set
+            {
+                if (value)
+                {
+                    BackgroundPnl.BackgroundImage = Properties.Resources.Check_Black;
+                    BackgroundPnl.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                else
+                {
+                    BackgroundPnl.BackgroundImage = null;
+                }
+
+                Invalidate();
+            }
         }
 
         public Image DisplayImage

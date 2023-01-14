@@ -53,6 +53,8 @@ namespace CodeRedLauncher
             this.InstallPathImg = new System.Windows.Forms.PictureBox();
             this.InstallPathLbl = new System.Windows.Forms.Label();
             this.InjectionTimeoutBx = new CodeRedLauncher.Controls.CRNumberbox();
+            this.InjectionTimeoutImg = new System.Windows.Forms.PictureBox();
+            this.InjectionTimeoutLbl = new System.Windows.Forms.Label();
             this.OpenFolderBtn = new CodeRedLauncher.Controls.CRButton();
             this.ExportLogsBtn = new CodeRedLauncher.Controls.CRButton();
             this.InjectAllInstancesBx = new CodeRedLauncher.Controls.CRCheckbox();
@@ -61,14 +63,12 @@ namespace CodeRedLauncher
             this.RunOnStartupBx = new CodeRedLauncher.Controls.CRCheckbox();
             this.PreventInjectionBx = new CodeRedLauncher.Controls.CRCheckbox();
             this.AutoCheckUpdatesBx = new CodeRedLauncher.Controls.CRCheckbox();
-            this.AlwaysRadioBtn = new System.Windows.Forms.RadioButton();
             this.ManualRadioBtn = new System.Windows.Forms.RadioButton();
             this.TimeoutRadioBtn = new System.Windows.Forms.RadioButton();
-            this.InjectionTimeoutImg = new System.Windows.Forms.PictureBox();
-            this.InjectionTimeoutLbl = new System.Windows.Forms.Label();
-            this.AlwaysRadioImg = new System.Windows.Forms.PictureBox();
             this.ManualRadioImg = new System.Windows.Forms.PictureBox();
             this.TimeoutRadioImg = new System.Windows.Forms.PictureBox();
+            this.AlwaysRadioBtn = new System.Windows.Forms.RadioButton();
+            this.AlwaysRadioImg = new System.Windows.Forms.PictureBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.CheckUpdatesBtn = new CodeRedLauncher.Controls.CRButton();
             this.Icons8Link = new System.Windows.Forms.Label();
@@ -80,7 +80,7 @@ namespace CodeRedLauncher
             this.PsyonixVersionText = new System.Windows.Forms.Label();
             this.ModuleVersionText = new System.Windows.Forms.Label();
             this.LauncherVersionText = new System.Windows.Forms.Label();
-            this.ThankiesLbl = new System.Windows.Forms.Label();
+            this.CreditsLbl = new System.Windows.Forms.Label();
             this.Icons8Img = new System.Windows.Forms.PictureBox();
             this.IconsLbl = new System.Windows.Forms.Label();
             this.KofiImg = new System.Windows.Forms.PictureBox();
@@ -127,9 +127,9 @@ namespace CodeRedLauncher
             this.SettingsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InstallPathImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InjectionTimeoutImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManualRadioImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeoutRadioImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).BeginInit();
             this.AboutTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Icons8Img)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.KofiImg)).BeginInit();
@@ -353,6 +353,8 @@ namespace CodeRedLauncher
             this.SettingsTab.Controls.Add(this.InstallPathImg);
             this.SettingsTab.Controls.Add(this.InstallPathLbl);
             this.SettingsTab.Controls.Add(this.InjectionTimeoutBx);
+            this.SettingsTab.Controls.Add(this.InjectionTimeoutImg);
+            this.SettingsTab.Controls.Add(this.InjectionTimeoutLbl);
             this.SettingsTab.Controls.Add(this.OpenFolderBtn);
             this.SettingsTab.Controls.Add(this.ExportLogsBtn);
             this.SettingsTab.Controls.Add(this.InjectAllInstancesBx);
@@ -361,14 +363,12 @@ namespace CodeRedLauncher
             this.SettingsTab.Controls.Add(this.RunOnStartupBx);
             this.SettingsTab.Controls.Add(this.PreventInjectionBx);
             this.SettingsTab.Controls.Add(this.AutoCheckUpdatesBx);
-            this.SettingsTab.Controls.Add(this.AlwaysRadioBtn);
             this.SettingsTab.Controls.Add(this.ManualRadioBtn);
             this.SettingsTab.Controls.Add(this.TimeoutRadioBtn);
-            this.SettingsTab.Controls.Add(this.InjectionTimeoutImg);
-            this.SettingsTab.Controls.Add(this.InjectionTimeoutLbl);
-            this.SettingsTab.Controls.Add(this.AlwaysRadioImg);
             this.SettingsTab.Controls.Add(this.ManualRadioImg);
             this.SettingsTab.Controls.Add(this.TimeoutRadioImg);
+            this.SettingsTab.Controls.Add(this.AlwaysRadioBtn);
+            this.SettingsTab.Controls.Add(this.AlwaysRadioImg);
             this.SettingsTab.Location = new System.Drawing.Point(4, 24);
             this.SettingsTab.Name = "SettingsTab";
             this.SettingsTab.Size = new System.Drawing.Size(910, 600);
@@ -383,7 +383,7 @@ namespace CodeRedLauncher
             this.InstallPathBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_DARK;
             this.InstallPathBtn.DisplayText = "Change";
             this.InstallPathBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InstallPathBtn.Location = new System.Drawing.Point(384, 485);
+            this.InstallPathBtn.Location = new System.Drawing.Point(384, 440);
             this.InstallPathBtn.Name = "InstallPathBtn";
             this.InstallPathBtn.Size = new System.Drawing.Size(71, 30);
             this.InstallPathBtn.TabIndex = 68;
@@ -395,7 +395,7 @@ namespace CodeRedLauncher
             this.InstallPathBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.InstallPathBx.DisplayText = "";
             this.InstallPathBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InstallPathBx.Location = new System.Drawing.Point(162, 485);
+            this.InstallPathBx.Location = new System.Drawing.Point(162, 440);
             this.InstallPathBx.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.InstallPathBx.Name = "InstallPathBx";
             this.InstallPathBx.ReadOnly = true;
@@ -408,7 +408,7 @@ namespace CodeRedLauncher
             this.InstallPathImg.BackColor = System.Drawing.Color.Transparent;
             this.InstallPathImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
             this.InstallPathImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.InstallPathImg.Location = new System.Drawing.Point(35, 485);
+            this.InstallPathImg.Location = new System.Drawing.Point(35, 440);
             this.InstallPathImg.Name = "InstallPathImg";
             this.InstallPathImg.Size = new System.Drawing.Size(30, 30);
             this.InstallPathImg.TabIndex = 66;
@@ -418,7 +418,7 @@ namespace CodeRedLauncher
             // 
             this.InstallPathLbl.BackColor = System.Drawing.Color.Transparent;
             this.InstallPathLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InstallPathLbl.Location = new System.Drawing.Point(71, 485);
+            this.InstallPathLbl.Location = new System.Drawing.Point(71, 440);
             this.InstallPathLbl.Name = "InstallPathLbl";
             this.InstallPathLbl.Size = new System.Drawing.Size(85, 30);
             this.InstallPathLbl.TabIndex = 65;
@@ -432,7 +432,7 @@ namespace CodeRedLauncher
             this.InjectionTimeoutBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.InjectionTimeoutBx.Hexadecimal = false;
             this.InjectionTimeoutBx.Increment = 1;
-            this.InjectionTimeoutBx.Location = new System.Drawing.Point(202, 441);
+            this.InjectionTimeoutBx.Location = new System.Drawing.Point(202, 396);
             this.InjectionTimeoutBx.MaximumValue = 300000;
             this.InjectionTimeoutBx.MinimumValue = 5000;
             this.InjectionTimeoutBx.Name = "InjectionTimeoutBx";
@@ -441,6 +441,28 @@ namespace CodeRedLauncher
             this.InjectionTimeoutBx.TabIndex = 64;
             this.InjectionTimeoutBx.Value = 20000;
             this.InjectionTimeoutBx.OnValueChanged += new System.EventHandler(this.InjectionTimeoutBx_OnValueChanged);
+            // 
+            // InjectionTimeoutImg
+            // 
+            this.InjectionTimeoutImg.BackColor = System.Drawing.Color.Transparent;
+            this.InjectionTimeoutImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Hourglass_White;
+            this.InjectionTimeoutImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.InjectionTimeoutImg.Location = new System.Drawing.Point(35, 395);
+            this.InjectionTimeoutImg.Name = "InjectionTimeoutImg";
+            this.InjectionTimeoutImg.Size = new System.Drawing.Size(30, 30);
+            this.InjectionTimeoutImg.TabIndex = 40;
+            this.InjectionTimeoutImg.TabStop = false;
+            // 
+            // InjectionTimeoutLbl
+            // 
+            this.InjectionTimeoutLbl.BackColor = System.Drawing.Color.Transparent;
+            this.InjectionTimeoutLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.InjectionTimeoutLbl.Location = new System.Drawing.Point(71, 395);
+            this.InjectionTimeoutLbl.Name = "InjectionTimeoutLbl";
+            this.InjectionTimeoutLbl.Size = new System.Drawing.Size(125, 30);
+            this.InjectionTimeoutLbl.TabIndex = 39;
+            this.InjectionTimeoutLbl.Text = "Injection timeout: ";
+            this.InjectionTimeoutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // OpenFolderBtn
             // 
@@ -473,7 +495,7 @@ namespace CodeRedLauncher
             // InjectAllInstancesBx
             // 
             this.InjectAllInstancesBx.BackColor = System.Drawing.Color.Transparent;
-            this.InjectAllInstancesBx.Checked = false;
+            this.InjectAllInstancesBx.Checked = true;
             this.InjectAllInstancesBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Inject_White;
             this.InjectAllInstancesBx.DisplayText = "Inject into all game instances";
             this.InjectAllInstancesBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -525,7 +547,7 @@ namespace CodeRedLauncher
             // PreventInjectionBx
             // 
             this.PreventInjectionBx.BackColor = System.Drawing.Color.Transparent;
-            this.PreventInjectionBx.Checked = false;
+            this.PreventInjectionBx.Checked = true;
             this.PreventInjectionBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Lock_White;
             this.PreventInjectionBx.DisplayText = "Prevent injection when out of date";
             this.PreventInjectionBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -538,7 +560,7 @@ namespace CodeRedLauncher
             // AutoCheckUpdatesBx
             // 
             this.AutoCheckUpdatesBx.BackColor = System.Drawing.Color.Transparent;
-            this.AutoCheckUpdatesBx.Checked = false;
+            this.AutoCheckUpdatesBx.Checked = true;
             this.AutoCheckUpdatesBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Download_White;
             this.AutoCheckUpdatesBx.DisplayText = "Automatically check for updates";
             this.AutoCheckUpdatesBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -547,19 +569,6 @@ namespace CodeRedLauncher
             this.AutoCheckUpdatesBx.Size = new System.Drawing.Size(300, 30);
             this.AutoCheckUpdatesBx.TabIndex = 55;
             this.AutoCheckUpdatesBx.OnCheckChanged += new System.EventHandler(this.AutoCheckUpdatesBx_OnCheckChanged);
-            // 
-            // AlwaysRadioBtn
-            // 
-            this.AlwaysRadioBtn.BackColor = System.Drawing.Color.Transparent;
-            this.AlwaysRadioBtn.Enabled = false;
-            this.AlwaysRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.AlwaysRadioBtn.Location = new System.Drawing.Point(71, 395);
-            this.AlwaysRadioBtn.Name = "AlwaysRadioBtn";
-            this.AlwaysRadioBtn.Size = new System.Drawing.Size(250, 30);
-            this.AlwaysRadioBtn.TabIndex = 52;
-            this.AlwaysRadioBtn.Text = "Always injected (Disabled for alpha)";
-            this.AlwaysRadioBtn.UseVisualStyleBackColor = false;
-            this.AlwaysRadioBtn.CheckedChanged += new System.EventHandler(this.AlwaysRadioBtn_CheckedChanged);
             // 
             // ManualRadioBtn
             // 
@@ -587,39 +596,6 @@ namespace CodeRedLauncher
             this.TimeoutRadioBtn.UseVisualStyleBackColor = false;
             this.TimeoutRadioBtn.CheckedChanged += new System.EventHandler(this.TimeoutRadioBtn_CheckedChanged);
             // 
-            // InjectionTimeoutImg
-            // 
-            this.InjectionTimeoutImg.BackColor = System.Drawing.Color.Transparent;
-            this.InjectionTimeoutImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Hourglass_White;
-            this.InjectionTimeoutImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.InjectionTimeoutImg.Location = new System.Drawing.Point(35, 440);
-            this.InjectionTimeoutImg.Name = "InjectionTimeoutImg";
-            this.InjectionTimeoutImg.Size = new System.Drawing.Size(30, 30);
-            this.InjectionTimeoutImg.TabIndex = 40;
-            this.InjectionTimeoutImg.TabStop = false;
-            // 
-            // InjectionTimeoutLbl
-            // 
-            this.InjectionTimeoutLbl.BackColor = System.Drawing.Color.Transparent;
-            this.InjectionTimeoutLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InjectionTimeoutLbl.Location = new System.Drawing.Point(71, 440);
-            this.InjectionTimeoutLbl.Name = "InjectionTimeoutLbl";
-            this.InjectionTimeoutLbl.Size = new System.Drawing.Size(125, 30);
-            this.InjectionTimeoutLbl.TabIndex = 39;
-            this.InjectionTimeoutLbl.Text = "Injection timeout: ";
-            this.InjectionTimeoutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AlwaysRadioImg
-            // 
-            this.AlwaysRadioImg.BackColor = System.Drawing.Color.Transparent;
-            this.AlwaysRadioImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Library_White;
-            this.AlwaysRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.AlwaysRadioImg.Location = new System.Drawing.Point(35, 395);
-            this.AlwaysRadioImg.Name = "AlwaysRadioImg";
-            this.AlwaysRadioImg.Size = new System.Drawing.Size(30, 30);
-            this.AlwaysRadioImg.TabIndex = 38;
-            this.AlwaysRadioImg.TabStop = false;
-            // 
             // ManualRadioImg
             // 
             this.ManualRadioImg.BackColor = System.Drawing.Color.Transparent;
@@ -642,6 +618,32 @@ namespace CodeRedLauncher
             this.TimeoutRadioImg.TabIndex = 26;
             this.TimeoutRadioImg.TabStop = false;
             // 
+            // AlwaysRadioBtn
+            // 
+            this.AlwaysRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            this.AlwaysRadioBtn.Enabled = false;
+            this.AlwaysRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.AlwaysRadioBtn.Location = new System.Drawing.Point(71, 395);
+            this.AlwaysRadioBtn.Name = "AlwaysRadioBtn";
+            this.AlwaysRadioBtn.Size = new System.Drawing.Size(250, 30);
+            this.AlwaysRadioBtn.TabIndex = 52;
+            this.AlwaysRadioBtn.Text = "Always injected (Disabled for alpha)";
+            this.AlwaysRadioBtn.UseVisualStyleBackColor = false;
+            this.AlwaysRadioBtn.Visible = false;
+            this.AlwaysRadioBtn.CheckedChanged += new System.EventHandler(this.AlwaysRadioBtn_CheckedChanged);
+            // 
+            // AlwaysRadioImg
+            // 
+            this.AlwaysRadioImg.BackColor = System.Drawing.Color.Transparent;
+            this.AlwaysRadioImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Library_White;
+            this.AlwaysRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.AlwaysRadioImg.Location = new System.Drawing.Point(35, 395);
+            this.AlwaysRadioImg.Name = "AlwaysRadioImg";
+            this.AlwaysRadioImg.Size = new System.Drawing.Size(30, 30);
+            this.AlwaysRadioImg.TabIndex = 38;
+            this.AlwaysRadioImg.TabStop = false;
+            this.AlwaysRadioImg.Visible = false;
+            // 
             // AboutTab
             // 
             this.AboutTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
@@ -655,7 +657,7 @@ namespace CodeRedLauncher
             this.AboutTab.Controls.Add(this.PsyonixVersionText);
             this.AboutTab.Controls.Add(this.ModuleVersionText);
             this.AboutTab.Controls.Add(this.LauncherVersionText);
-            this.AboutTab.Controls.Add(this.ThankiesLbl);
+            this.AboutTab.Controls.Add(this.CreditsLbl);
             this.AboutTab.Controls.Add(this.Icons8Img);
             this.AboutTab.Controls.Add(this.IconsLbl);
             this.AboutTab.Controls.Add(this.KofiImg);
@@ -805,17 +807,17 @@ namespace CodeRedLauncher
             this.LauncherVersionText.Text = "Loading...";
             this.LauncherVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // ThankiesLbl
+            // CreditsLbl
             // 
-            this.ThankiesLbl.BackColor = System.Drawing.Color.Transparent;
-            this.ThankiesLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ThankiesLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(165)))), ((int)(((byte)(165)))));
-            this.ThankiesLbl.Location = new System.Drawing.Point(35, 440);
-            this.ThankiesLbl.Name = "ThankiesLbl";
-            this.ThankiesLbl.Size = new System.Drawing.Size(840, 64);
-            this.ThankiesLbl.TabIndex = 21;
-            this.ThankiesLbl.Text = resources.GetString("ThankiesLbl.Text");
-            this.ThankiesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CreditsLbl.BackColor = System.Drawing.Color.Transparent;
+            this.CreditsLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CreditsLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(165)))), ((int)(((byte)(165)))));
+            this.CreditsLbl.Location = new System.Drawing.Point(35, 440);
+            this.CreditsLbl.Name = "CreditsLbl";
+            this.CreditsLbl.Size = new System.Drawing.Size(840, 64);
+            this.CreditsLbl.TabIndex = 21;
+            this.CreditsLbl.Text = resources.GetString("CreditsLbl.Text");
+            this.CreditsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Icons8Img
             // 
@@ -1302,9 +1304,9 @@ namespace CodeRedLauncher
             this.SettingsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InstallPathImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InjectionTimeoutImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManualRadioImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeoutRadioImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).EndInit();
             this.AboutTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Icons8Img)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.KofiImg)).EndInit();
@@ -1348,7 +1350,7 @@ namespace CodeRedLauncher
         private System.Windows.Forms.Label PsyonixVersionLbl;
         private System.Windows.Forms.PictureBox Icons8Img;
         private System.Windows.Forms.Label IconsLbl;
-        private System.Windows.Forms.Label ThankiesLbl;
+        private System.Windows.Forms.Label CreditsLbl;
         private System.Windows.Forms.Label Icons8Link;
         private System.Windows.Forms.Label KofiLink;
         private System.Windows.Forms.Label DiscordLink;

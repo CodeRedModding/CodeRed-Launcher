@@ -156,7 +156,8 @@ namespace CodeRedLauncher
             new InternalSetting(null, "KofiUrl"),
             new InternalSetting(null, "NewsUrl"),
             new InternalSetting("No changelog provided for the most recent update.", "LauncherChangelog"),
-            new InternalSetting("No changelog provided for the most recent update.", "ModuleChangelog")
+            new InternalSetting("No changelog provided for the most recent update.", "ModuleChangelog"),
+            new InternalSetting("Bakkes, Martinn, TaylorSasser, ButternCream, GlenHumphrey, ToolB0x, BeardedOranges, Megasplat/Aberinkula/FrancesElMute, and Stev.", "Credits"),
         };
 
         private static InternalSetting? GetStoredSetting(string name)
@@ -311,6 +312,12 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return GetStoredSetting("ModuleChangelog").GetStringValue(); }
             return GetStoredSetting("ModuleChangelog").GetStringValue(true);
+        }
+
+        public static async Task<string> GetCredits()
+        {
+            if (await CheckInitialized()) { return GetStoredSetting("Credits").GetStringValue(); }
+            return GetStoredSetting("Credits").GetStringValue(true);
         }
     }
 }

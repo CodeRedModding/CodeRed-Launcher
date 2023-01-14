@@ -31,11 +31,9 @@
             this.DisplayImg = new System.Windows.Forms.PictureBox();
             this.CheckPnl = new System.Windows.Forms.Panel();
             this.BackgroundPnl = new System.Windows.Forms.Panel();
-            this.CheckedPnl = new System.Windows.Forms.Panel();
             this.TextLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DisplayImg)).BeginInit();
             this.CheckPnl.SuspendLayout();
-            this.BackgroundPnl.SuspendLayout();
             this.SuspendLayout();
             // 
             // DisplayImg
@@ -64,22 +62,11 @@
             // BackgroundPnl
             // 
             this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.BackgroundPnl.Controls.Add(this.CheckedPnl);
             this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             this.BackgroundPnl.Name = "BackgroundPnl";
             this.BackgroundPnl.Size = new System.Drawing.Size(16, 16);
             this.BackgroundPnl.TabIndex = 7;
             this.BackgroundPnl.Click += new System.EventHandler(this.BackgroundPnl_Click);
-            // 
-            // CheckedPnl
-            // 
-            this.CheckedPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.CheckedPnl.Location = new System.Drawing.Point(2, 2);
-            this.CheckedPnl.Name = "CheckedPnl";
-            this.CheckedPnl.Size = new System.Drawing.Size(12, 12);
-            this.CheckedPnl.TabIndex = 8;
-            this.CheckedPnl.Visible = false;
-            this.CheckedPnl.Click += new System.EventHandler(this.CheckedPnl_Click);
             // 
             // TextLbl
             // 
@@ -109,7 +96,6 @@
             this.Size = new System.Drawing.Size(300, 30);
             ((System.ComponentModel.ISupportInitialize)(this.DisplayImg)).EndInit();
             this.CheckPnl.ResumeLayout(false);
-            this.BackgroundPnl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -120,6 +106,5 @@
         private System.Windows.Forms.Panel CheckPnl;
         private System.Windows.Forms.Panel BackgroundPnl;
         private System.Windows.Forms.Label TextLbl;
-        private System.Windows.Forms.Panel CheckedPnl;
     }
 }
