@@ -110,5 +110,11 @@ namespace CodeRedLauncher.Controls
         {
             OnInputChanged?.Invoke(this, e);
         }
+
+        private void CRTextbox_SizeChanged(object sender, EventArgs e)
+        {
+            InputBx.Location = new Point(InputBx.Location.X, (BackgroundPnl.Height / 2) - (Int32)InputBx.Font.Size);
+            Invalidate();
+        }
     }
 }

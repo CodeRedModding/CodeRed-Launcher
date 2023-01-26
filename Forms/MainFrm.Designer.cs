@@ -109,11 +109,11 @@ namespace CodeRedLauncher
             this.SessionsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.NewsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.DashboardTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
             this.InstallOfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.OfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.UpdatePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.InstallPopupCtrl = new CodeRedLauncher.Controls.CRPopup();
+            this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
             this.ProcessTmr = new System.Windows.Forms.Timer(this.components);
             this.InjectTmr = new System.Windows.Forms.Timer(this.components);
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -146,6 +146,9 @@ namespace CodeRedLauncher
             // 
             // TabCtrl
             // 
+            this.TabCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TabCtrl.Controls.Add(this.DashboardTab);
             this.TabCtrl.Controls.Add(this.NewsTab);
             this.TabCtrl.Controls.Add(this.SessionsTab);
@@ -176,6 +179,7 @@ namespace CodeRedLauncher
             // 
             // LaunchBtn
             // 
+            this.LaunchBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.LaunchBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.LaunchBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Question_White;
@@ -191,6 +195,8 @@ namespace CodeRedLauncher
             // 
             // ChangelogCtrl
             // 
+            this.ChangelogCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ChangelogCtrl.DisplayImage = global::CodeRedLauncher.Properties.Resources.Log_White;
             this.ChangelogCtrl.DisplayText = "Loading...";
@@ -203,6 +209,7 @@ namespace CodeRedLauncher
             // 
             // UpdateCtrl
             // 
+            this.UpdateCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UpdateCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.UpdateCtrl.DescriptionImage = global::CodeRedLauncher.Properties.Resources.Info_White;
             this.UpdateCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -254,6 +261,9 @@ namespace CodeRedLauncher
             // 
             // NewsCtrl
             // 
+            this.NewsCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NewsCtrl.BackColor = System.Drawing.Color.Transparent;
             this.NewsCtrl.Location = new System.Drawing.Point(25, 25);
             this.NewsCtrl.Name = "NewsCtrl";
@@ -289,6 +299,7 @@ namespace CodeRedLauncher
             // 
             // ReloadSessionsBtn
             // 
+            this.ReloadSessionsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.ReloadSessionsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ReloadSessionsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ReloadSessionsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
@@ -377,6 +388,8 @@ namespace CodeRedLauncher
             // 
             // InstallPathBtn
             // 
+            this.InstallPathBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.InstallPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.InstallPathBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.InstallPathBtn.DisplayImage = null;
@@ -391,6 +404,8 @@ namespace CodeRedLauncher
             // 
             // InstallPathBx
             // 
+            this.InstallPathBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.InstallPathBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.InstallPathBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.InstallPathBx.DisplayText = "";
@@ -427,6 +442,8 @@ namespace CodeRedLauncher
             // 
             // InjectionTimeoutBx
             // 
+            this.InjectionTimeoutBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.InjectionTimeoutBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.InjectionTimeoutBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.InjectionTimeoutBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -466,6 +483,7 @@ namespace CodeRedLauncher
             // 
             // OpenFolderBtn
             // 
+            this.OpenFolderBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.OpenFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.OpenFolderBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.OpenFolderBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
@@ -480,6 +498,7 @@ namespace CodeRedLauncher
             // 
             // ExportLogsBtn
             // 
+            this.ExportLogsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.ExportLogsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ExportLogsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ExportLogsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Archive_White;
@@ -494,6 +513,8 @@ namespace CodeRedLauncher
             // 
             // InjectAllInstancesBx
             // 
+            this.InjectAllInstancesBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.InjectAllInstancesBx.BackColor = System.Drawing.Color.Transparent;
             this.InjectAllInstancesBx.Checked = true;
             this.InjectAllInstancesBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Inject_White;
@@ -507,6 +528,8 @@ namespace CodeRedLauncher
             // 
             // HideWhenMinimizedBx
             // 
+            this.HideWhenMinimizedBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.HideWhenMinimizedBx.BackColor = System.Drawing.Color.Transparent;
             this.HideWhenMinimizedBx.Checked = false;
             this.HideWhenMinimizedBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Hide_White;
@@ -520,6 +543,8 @@ namespace CodeRedLauncher
             // 
             // MinimizeOnStartupBx
             // 
+            this.MinimizeOnStartupBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MinimizeOnStartupBx.BackColor = System.Drawing.Color.Transparent;
             this.MinimizeOnStartupBx.Checked = false;
             this.MinimizeOnStartupBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Minimize_White;
@@ -533,6 +558,8 @@ namespace CodeRedLauncher
             // 
             // RunOnStartupBx
             // 
+            this.RunOnStartupBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RunOnStartupBx.BackColor = System.Drawing.Color.Transparent;
             this.RunOnStartupBx.Checked = false;
             this.RunOnStartupBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Windows_White;
@@ -546,6 +573,8 @@ namespace CodeRedLauncher
             // 
             // PreventInjectionBx
             // 
+            this.PreventInjectionBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PreventInjectionBx.BackColor = System.Drawing.Color.Transparent;
             this.PreventInjectionBx.Checked = true;
             this.PreventInjectionBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Lock_White;
@@ -559,6 +588,8 @@ namespace CodeRedLauncher
             // 
             // AutoCheckUpdatesBx
             // 
+            this.AutoCheckUpdatesBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AutoCheckUpdatesBx.BackColor = System.Drawing.Color.Transparent;
             this.AutoCheckUpdatesBx.Checked = true;
             this.AutoCheckUpdatesBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Download_White;
@@ -572,6 +603,8 @@ namespace CodeRedLauncher
             // 
             // ManualRadioBtn
             // 
+            this.ManualRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ManualRadioBtn.BackColor = System.Drawing.Color.Transparent;
             this.ManualRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ManualRadioBtn.Location = new System.Drawing.Point(71, 350);
@@ -584,6 +617,8 @@ namespace CodeRedLauncher
             // 
             // TimeoutRadioBtn
             // 
+            this.TimeoutRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TimeoutRadioBtn.BackColor = System.Drawing.Color.Transparent;
             this.TimeoutRadioBtn.Checked = true;
             this.TimeoutRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -684,6 +719,7 @@ namespace CodeRedLauncher
             // 
             // CheckUpdatesBtn
             // 
+            this.CheckUpdatesBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.CheckUpdatesBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.CheckUpdatesBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.CheckUpdatesBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
@@ -809,6 +845,8 @@ namespace CodeRedLauncher
             // 
             // CreditsLbl
             // 
+            this.CreditsLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CreditsLbl.BackColor = System.Drawing.Color.Transparent;
             this.CreditsLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CreditsLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(165)))), ((int)(((byte)(165)))));
@@ -1037,6 +1075,8 @@ namespace CodeRedLauncher
             // 
             // TabPnl
             // 
+            this.TabPnl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.TabPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.TabPnl.Controls.Add(this.AboutTabBtn);
             this.TabPnl.Controls.Add(this.SettingsTabBtn);
@@ -1046,7 +1086,6 @@ namespace CodeRedLauncher
             this.TabPnl.Controls.Add(this.SessionsTabBtn);
             this.TabPnl.Controls.Add(this.NewsTabBtn);
             this.TabPnl.Controls.Add(this.DashboardTabBtn);
-            this.TabPnl.Dock = System.Windows.Forms.DockStyle.Left;
             this.TabPnl.Location = new System.Drawing.Point(0, 30);
             this.TabPnl.Name = "TabPnl";
             this.TabPnl.Size = new System.Drawing.Size(60, 600);
@@ -1054,48 +1093,60 @@ namespace CodeRedLauncher
             // 
             // AboutTabBtn
             // 
+            this.AboutTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.AboutTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.About_Red;
             this.AboutTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.About_White;
             this.AboutTabBtn.Location = new System.Drawing.Point(0, 500);
             this.AboutTabBtn.Name = "AboutTabBtn";
             this.AboutTabBtn.Selected = false;
+            this.AboutTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.AboutTabBtn.Size = new System.Drawing.Size(60, 50);
             this.AboutTabBtn.TabIndex = 7;
             this.AboutTabBtn.OnTabClick += new System.EventHandler(this.AboutTabBtn_OnTabClick);
             // 
             // SettingsTabBtn
             // 
+            this.SettingsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SettingsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.SettingsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Settings_Red;
             this.SettingsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Settings_White;
             this.SettingsTabBtn.Location = new System.Drawing.Point(0, 450);
             this.SettingsTabBtn.Name = "SettingsTabBtn";
             this.SettingsTabBtn.Selected = false;
+            this.SettingsTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.SettingsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.SettingsTabBtn.TabIndex = 6;
             this.SettingsTabBtn.OnTabClick += new System.EventHandler(this.SettingsTabBtn_OnTabClick);
             // 
             // ExitTabBtn
             // 
+            this.ExitTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ExitTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ExitTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Exit_Red;
             this.ExitTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Exit_White;
             this.ExitTabBtn.Location = new System.Drawing.Point(0, 550);
             this.ExitTabBtn.Name = "ExitTabBtn";
             this.ExitTabBtn.Selected = false;
+            this.ExitTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.ExitTabBtn.Size = new System.Drawing.Size(60, 50);
             this.ExitTabBtn.TabIndex = 5;
             this.ExitTabBtn.OnTabClick += new System.EventHandler(this.ExitTabBtn_OnTabClick);
             // 
             // ScriptsTabBtn
             // 
+            this.ScriptsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ScriptsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ScriptsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Paper_Red;
             this.ScriptsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Paper_White;
             this.ScriptsTabBtn.Location = new System.Drawing.Point(0, 200);
             this.ScriptsTabBtn.Name = "ScriptsTabBtn";
             this.ScriptsTabBtn.Selected = false;
+            this.ScriptsTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.ScriptsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.ScriptsTabBtn.TabIndex = 4;
             this.ScriptsTabBtn.Visible = false;
@@ -1103,12 +1154,15 @@ namespace CodeRedLauncher
             // 
             // TexturesTabBtn
             // 
+            this.TexturesTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TexturesTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.TexturesTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Texture_Red;
             this.TexturesTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Texture_White;
             this.TexturesTabBtn.Location = new System.Drawing.Point(0, 150);
             this.TexturesTabBtn.Name = "TexturesTabBtn";
             this.TexturesTabBtn.Selected = false;
+            this.TexturesTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.TexturesTabBtn.Size = new System.Drawing.Size(60, 50);
             this.TexturesTabBtn.TabIndex = 3;
             this.TexturesTabBtn.Visible = false;
@@ -1116,12 +1170,15 @@ namespace CodeRedLauncher
             // 
             // SessionsTabBtn
             // 
+            this.SessionsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SessionsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.SessionsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Chart_Red;
             this.SessionsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Chart_White;
             this.SessionsTabBtn.Location = new System.Drawing.Point(0, 100);
             this.SessionsTabBtn.Name = "SessionsTabBtn";
             this.SessionsTabBtn.Selected = false;
+            this.SessionsTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.SessionsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.SessionsTabBtn.TabIndex = 2;
             this.SessionsTabBtn.Visible = false;
@@ -1129,41 +1186,33 @@ namespace CodeRedLauncher
             // 
             // NewsTabBtn
             // 
+            this.NewsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NewsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.NewsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Newspaper_Red;
             this.NewsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Newspaper_White;
             this.NewsTabBtn.Location = new System.Drawing.Point(0, 50);
             this.NewsTabBtn.Name = "NewsTabBtn";
             this.NewsTabBtn.Selected = false;
+            this.NewsTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.NewsTabBtn.Size = new System.Drawing.Size(60, 50);
             this.NewsTabBtn.TabIndex = 1;
             this.NewsTabBtn.OnTabClick += new System.EventHandler(this.NewsTabBtn_OnTabClick);
             // 
             // DashboardTabBtn
             // 
+            this.DashboardTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DashboardTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.DashboardTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Dashboard_Red;
             this.DashboardTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Dashboard_White;
             this.DashboardTabBtn.Location = new System.Drawing.Point(0, 0);
             this.DashboardTabBtn.Name = "DashboardTabBtn";
             this.DashboardTabBtn.Selected = true;
+            this.DashboardTabBtn.SelectedColor = System.Drawing.Color.Red;
             this.DashboardTabBtn.Size = new System.Drawing.Size(60, 50);
             this.DashboardTabBtn.TabIndex = 0;
             this.DashboardTabBtn.OnTabClick += new System.EventHandler(this.DashboardTabBtn_OnTabClick);
-            // 
-            // TitleBar
-            // 
-            this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(22)))));
-            this.TitleBar.BoundForm = null;
-            this.TitleBar.DisplayText = "CODERED LAUNCHER";
-            this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TitleBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.TitleBar.Location = new System.Drawing.Point(0, 0);
-            this.TitleBar.Name = "TitleBar";
-            this.TitleBar.Size = new System.Drawing.Size(970, 30);
-            this.TitleBar.TabIndex = 2;
-            this.TitleBar.OnMinimized += new System.EventHandler(this.TitleBar_OnMinimized);
-            this.TitleBar.OnExit += new System.EventHandler(this.TitleBar_OnExit);
             // 
             // InstallOfflinePopupCtrl
             // 
@@ -1256,6 +1305,20 @@ namespace CodeRedLauncher
             this.InstallPopupCtrl.Visible = false;
             this.InstallPopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleFirstButtonClick);
             this.InstallPopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleSecondButtonClick);
+            // 
+            // TitleBar
+            // 
+            this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(22)))));
+            this.TitleBar.BoundForm = null;
+            this.TitleBar.DisplayText = "CODERED LAUNCHER";
+            this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitleBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.TitleBar.Location = new System.Drawing.Point(0, 0);
+            this.TitleBar.Name = "TitleBar";
+            this.TitleBar.Size = new System.Drawing.Size(970, 30);
+            this.TitleBar.TabIndex = 2;
+            this.TitleBar.OnMinimized += new System.EventHandler(this.TitleBar_OnMinimized);
+            this.TitleBar.OnExit += new System.EventHandler(this.TitleBar_OnExit);
             // 
             // ProcessTmr
             // 

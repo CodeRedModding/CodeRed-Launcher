@@ -103,5 +103,11 @@ namespace CodeRedLauncher.Controls
         {
             OnValueChanged?.Invoke(this, e);
         }
+
+        private void CRNumberbox_SizeChanged(object sender, EventArgs e)
+        {
+            InputBx.Location = new Point(InputBx.Location.X, (BackgroundPnl.Height / 2) - (Int32)InputBx.Font.Size);
+            Invalidate();
+        }
     }
 }

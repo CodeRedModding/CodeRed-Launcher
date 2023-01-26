@@ -53,8 +53,6 @@
             // 
             // PreviousBtn
             // 
-            this.PreviousBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.PreviousBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.PreviousBtn.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Back_White;
             this.PreviousBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
@@ -206,8 +204,6 @@
             // 
             // NextBtn
             // 
-            this.NextBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.NextBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.NextBtn.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Forward_White;
             this.NextBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;

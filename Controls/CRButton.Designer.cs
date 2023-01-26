@@ -47,16 +47,17 @@
             this.BackgroundPnl.Name = "BackgroundPnl";
             this.BackgroundPnl.Size = new System.Drawing.Size(173, 33);
             this.BackgroundPnl.TabIndex = 0;
+            this.BackgroundPnl.SizeChanged += new System.EventHandler(this.BackgroundPnl_SizeChanged);
             // 
             // ButtonImg
             // 
             this.ButtonImg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ButtonImg.BackColor = System.Drawing.Color.Transparent;
-            this.ButtonImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ButtonImg.Location = new System.Drawing.Point(0, 0);
+            this.ButtonImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ButtonImg.Location = new System.Drawing.Point(4, 5);
             this.ButtonImg.Name = "ButtonImg";
-            this.ButtonImg.Size = new System.Drawing.Size(33, 33);
+            this.ButtonImg.Size = new System.Drawing.Size(24, 24);
             this.ButtonImg.TabIndex = 1;
             this.ButtonImg.TabStop = false;
             this.ButtonImg.Click += new System.EventHandler(this.ButtonImg_Click);

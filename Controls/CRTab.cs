@@ -23,6 +23,12 @@ namespace CodeRedLauncher.Controls
             set { TintPnl.Visible = value; UpdateSelected(); Invalidate(); }
         }
 
+        public Color SelectedColor
+        {
+            get { return TintPnl.BackColor; }
+            set { TintPnl.BackColor = value; UpdateSelected(); Invalidate(); }
+        }
+
         public Image ImageSelected
         {
             get { return SelectedImage; }

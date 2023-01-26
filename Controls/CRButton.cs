@@ -218,5 +218,11 @@ namespace CodeRedLauncher.Controls
         {
             OnButtonClick?.Invoke(this, e);
         }
+
+        private void BackgroundPnl_SizeChanged(object sender, EventArgs e)
+        {
+            ButtonImg.Width = ButtonImg.Height;
+            Invalidate();
+        }
     }
 }

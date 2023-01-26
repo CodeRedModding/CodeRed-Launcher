@@ -117,6 +117,7 @@
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.Name = "CRNumberbox";
             this.Size = new System.Drawing.Size(175, 29);
+            this.SizeChanged += new System.EventHandler(this.CRNumberbox_SizeChanged);
             this.ControlPnl.ResumeLayout(false);
             this.BackgroundPnl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InputBx)).EndInit();

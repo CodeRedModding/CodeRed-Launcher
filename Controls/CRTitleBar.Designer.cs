@@ -35,10 +35,8 @@
             // 
             // TitleLbl
             // 
-            this.TitleLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.TitleLbl.BackColor = System.Drawing.Color.Transparent;
+            this.TitleLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TitleLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.TitleLbl.Location = new System.Drawing.Point(0, 0);
             this.TitleLbl.Name = "TitleLbl";

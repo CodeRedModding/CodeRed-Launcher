@@ -36,9 +36,8 @@
             // 
             // TintPnl
             // 
-            this.TintPnl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.TintPnl.BackColor = System.Drawing.Color.Red;
+            this.TintPnl.Dock = System.Windows.Forms.DockStyle.Left;
             this.TintPnl.Location = new System.Drawing.Point(0, 0);
             this.TintPnl.Name = "TintPnl";
             this.TintPnl.Size = new System.Drawing.Size(2, 50);
@@ -48,12 +47,14 @@
             // 
             // TabImg
             // 
+            this.TabImg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TabImg.BackColor = System.Drawing.Color.Transparent;
-            this.TabImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.TabImg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabImg.Location = new System.Drawing.Point(0, 0);
+            this.TabImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.TabImg.Location = new System.Drawing.Point(16, 13);
             this.TabImg.Name = "TabImg";
-            this.TabImg.Size = new System.Drawing.Size(60, 50);
+            this.TabImg.Size = new System.Drawing.Size(24, 24);
             this.TabImg.TabIndex = 1;
             this.TabImg.TabStop = false;
             this.TabImg.Click += new System.EventHandler(this.TabImg_Click);

@@ -77,5 +77,14 @@ namespace CodeRedLauncher.Controls
         {
             OnCheckChanged?.Invoke(this, e);
         }
+
+        private void CRCheckbox_SizeChanged(object sender, EventArgs e)
+        {
+            DisplayImg.Width = DisplayImg.Height;
+            CheckPnl.Width = CheckPnl.Height;
+            CheckPnl.Location = new Point(((DisplayImg.Location.X + DisplayImg.Width) + 5), CheckPnl.Location.Y);
+            TextLbl.Location = new Point(((CheckPnl.Location.X + CheckPnl.Width) + 5), TextLbl.Location.Y);
+            Invalidate();
+        }
     }
 }

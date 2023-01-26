@@ -42,16 +42,17 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.DisplayImg.BackColor = System.Drawing.Color.Transparent;
             this.DisplayImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.DisplayImg.Location = new System.Drawing.Point(0, 0);
+            this.DisplayImg.Location = new System.Drawing.Point(4, 3);
             this.DisplayImg.Name = "DisplayImg";
-            this.DisplayImg.Size = new System.Drawing.Size(30, 30);
+            this.DisplayImg.Size = new System.Drawing.Size(24, 24);
             this.DisplayImg.TabIndex = 5;
             this.DisplayImg.TabStop = false;
             // 
             // CheckPnl
             // 
-            this.CheckPnl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.CheckPnl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CheckPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.CheckPnl.Controls.Add(this.BackgroundPnl);
             this.CheckPnl.Location = new System.Drawing.Point(35, 7);
@@ -61,6 +62,9 @@
             // 
             // BackgroundPnl
             // 
+            this.BackgroundPnl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             this.BackgroundPnl.Name = "BackgroundPnl";
@@ -70,8 +74,7 @@
             // 
             // TextLbl
             // 
-            this.TextLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextLbl.BackColor = System.Drawing.Color.Transparent;
             this.TextLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -94,6 +97,7 @@
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.Name = "CRCheckbox";
             this.Size = new System.Drawing.Size(300, 30);
+            this.SizeChanged += new System.EventHandler(this.CRCheckbox_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DisplayImg)).EndInit();
             this.CheckPnl.ResumeLayout(false);
             this.ResumeLayout(false);
