@@ -33,11 +33,11 @@ namespace CodeRedLauncher
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
             this.TabCtrl = new System.Windows.Forms.TabControl();
             this.DashboardTab = new System.Windows.Forms.TabPage();
-            this.LaunchBtn = new CodeRedLauncher.Controls.CRButton();
-            this.ChangelogCtrl = new CodeRedLauncher.Controls.CRChangelog();
-            this.UpdateCtrl = new CodeRedLauncher.Controls.CRUpdatePanel();
-            this.ProcessCtrl = new CodeRedLauncher.Controls.CRProcessPanel();
             this.ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
+            this.ProcessCtrl = new CodeRedLauncher.Controls.CRProcessPanel();
+            this.UpdateCtrl = new CodeRedLauncher.Controls.CRUpdatePanel();
+            this.ChangelogCtrl = new CodeRedLauncher.Controls.CRChangelog();
+            this.LaunchBtn = new CodeRedLauncher.Controls.CRButton();
             this.NewsTab = new System.Windows.Forms.TabPage();
             this.NewsCtrl = new CodeRedLauncher.Controls.CRNewsPanel();
             this.SessionsTab = new System.Windows.Forms.TabPage();
@@ -109,11 +109,11 @@ namespace CodeRedLauncher
             this.SessionsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.NewsTabBtn = new CodeRedLauncher.Controls.CRTab();
             this.DashboardTabBtn = new CodeRedLauncher.Controls.CRTab();
+            this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
             this.InstallOfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.OfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.UpdatePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
             this.InstallPopupCtrl = new CodeRedLauncher.Controls.CRPopup();
-            this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
             this.ProcessTmr = new System.Windows.Forms.Timer(this.components);
             this.InjectTmr = new System.Windows.Forms.Timer(this.components);
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -165,10 +165,10 @@ namespace CodeRedLauncher
             // DashboardTab
             // 
             this.DashboardTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.DashboardTab.Controls.Add(this.LaunchBtn);
-            this.DashboardTab.Controls.Add(this.ChangelogCtrl);
-            this.DashboardTab.Controls.Add(this.UpdateCtrl);
             this.DashboardTab.Controls.Add(this.ProcessCtrl);
+            this.DashboardTab.Controls.Add(this.UpdateCtrl);
+            this.DashboardTab.Controls.Add(this.ChangelogCtrl);
+            this.DashboardTab.Controls.Add(this.LaunchBtn);
             this.DashboardTab.Controls.Add(this.ManualInjectBtn);
             this.DashboardTab.Location = new System.Drawing.Point(4, 24);
             this.DashboardTab.Name = "DashboardTab";
@@ -177,21 +177,47 @@ namespace CodeRedLauncher
             this.DashboardTab.TabIndex = 0;
             this.DashboardTab.Text = "Dashboard";
             // 
-            // LaunchBtn
+            // ManualInjectBtn
             // 
-            this.LaunchBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.LaunchBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LaunchBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Question_White;
-            this.LaunchBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.LaunchBtn.DisplayText = "Launch Rocket League";
-            this.LaunchBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.LaunchBtn.Location = new System.Drawing.Point(288, 530);
-            this.LaunchBtn.Name = "LaunchBtn";
-            this.LaunchBtn.Size = new System.Drawing.Size(320, 35);
-            this.LaunchBtn.TabIndex = 32;
-            this.LaunchBtn.Visible = false;
-            this.LaunchBtn.OnButtonClick += new System.EventHandler(this.LaunchBtn_OnButtonClick);
+            this.ManualInjectBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ManualInjectBtn.ButtonEnabled = true;
+            this.ManualInjectBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ManualInjectBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Hand_White;
+            this.ManualInjectBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            this.ManualInjectBtn.DisplayText = "Manually Inject";
+            this.ManualInjectBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.ManualInjectBtn.Location = new System.Drawing.Point(288, 530);
+            this.ManualInjectBtn.Name = "ManualInjectBtn";
+            this.ManualInjectBtn.Size = new System.Drawing.Size(320, 35);
+            this.ManualInjectBtn.TabIndex = 34;
+            this.ManualInjectBtn.Visible = false;
+            this.ManualInjectBtn.Click += new System.EventHandler(this.ManualInjectBtn_Click);
+            // 
+            // ProcessCtrl
+            // 
+            this.ProcessCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.ProcessCtrl.DescriptionImage = global::CodeRedLauncher.Properties.Resources.Comment_White;
+            this.ProcessCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.ProcessCtrl.Location = new System.Drawing.Point(25, 25);
+            this.ProcessCtrl.Name = "ProcessCtrl";
+            this.ProcessCtrl.Result = CodeRedLauncher.InjectionResults.RESULT_NONE;
+            this.ProcessCtrl.Size = new System.Drawing.Size(485, 130);
+            this.ProcessCtrl.Status = CodeRedLauncher.Controls.CRProcessPanel.StatusTypes.TYPE_LOADING;
+            this.ProcessCtrl.TabIndex = 0;
+            this.ProcessCtrl.TitleImage = global::CodeRedLauncher.Properties.Resources.Rocket_White;
+            // 
+            // UpdateCtrl
+            // 
+            this.UpdateCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.UpdateCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.UpdateCtrl.DescriptionImage = global::CodeRedLauncher.Properties.Resources.Info_White;
+            this.UpdateCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.UpdateCtrl.Location = new System.Drawing.Point(535, 25);
+            this.UpdateCtrl.Name = "UpdateCtrl";
+            this.UpdateCtrl.Size = new System.Drawing.Size(350, 130);
+            this.UpdateCtrl.Status = CodeRedLauncher.Controls.CRUpdatePanel.StatusTypes.TYPE_LOADING;
+            this.UpdateCtrl.TabIndex = 1;
+            this.UpdateCtrl.TitleImage = global::CodeRedLauncher.Properties.Resources.Question_White;
             // 
             // ChangelogCtrl
             // 
@@ -207,46 +233,22 @@ namespace CodeRedLauncher
             this.ChangelogCtrl.TabIndex = 33;
             this.ChangelogCtrl.OnChangelogSwap += new System.EventHandler(this.ChangelogCtrl_OnChangelogSwap);
             // 
-            // UpdateCtrl
+            // LaunchBtn
             // 
-            this.UpdateCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.UpdateCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.UpdateCtrl.DescriptionImage = global::CodeRedLauncher.Properties.Resources.Info_White;
-            this.UpdateCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.UpdateCtrl.Location = new System.Drawing.Point(535, 25);
-            this.UpdateCtrl.Name = "UpdateCtrl";
-            this.UpdateCtrl.Size = new System.Drawing.Size(350, 130);
-            this.UpdateCtrl.Status = CodeRedLauncher.Controls.CRUpdatePanel.StatusTypes.TYPE_LOADING;
-            this.UpdateCtrl.TabIndex = 1;
-            this.UpdateCtrl.TitleImage = global::CodeRedLauncher.Properties.Resources.Question_White;
-            // 
-            // ProcessCtrl
-            // 
-            this.ProcessCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ProcessCtrl.DescriptionImage = global::CodeRedLauncher.Properties.Resources.Comment_White;
-            this.ProcessCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ProcessCtrl.Location = new System.Drawing.Point(25, 25);
-            this.ProcessCtrl.Name = "ProcessCtrl";
-            this.ProcessCtrl.Result = CodeRedLauncher.InjectionResults.RESULT_NONE;
-            this.ProcessCtrl.Size = new System.Drawing.Size(485, 130);
-            this.ProcessCtrl.Status = CodeRedLauncher.Controls.CRProcessPanel.StatusTypes.TYPE_LOADING;
-            this.ProcessCtrl.TabIndex = 0;
-            this.ProcessCtrl.TitleImage = global::CodeRedLauncher.Properties.Resources.Rocket_White;
-            // 
-            // ManualInjectBtn
-            // 
-            this.ManualInjectBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ManualInjectBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ManualInjectBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Hand_White;
-            this.ManualInjectBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.ManualInjectBtn.DisplayText = "Manually Inject";
-            this.ManualInjectBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ManualInjectBtn.Location = new System.Drawing.Point(288, 530);
-            this.ManualInjectBtn.Name = "ManualInjectBtn";
-            this.ManualInjectBtn.Size = new System.Drawing.Size(320, 35);
-            this.ManualInjectBtn.TabIndex = 34;
-            this.ManualInjectBtn.Visible = false;
-            this.ManualInjectBtn.Click += new System.EventHandler(this.ManualInjectBtn_Click);
+            this.LaunchBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.LaunchBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.LaunchBtn.ButtonEnabled = true;
+            this.LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.LaunchBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Question_White;
+            this.LaunchBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            this.LaunchBtn.DisplayText = "Launch Rocket League";
+            this.LaunchBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.LaunchBtn.Location = new System.Drawing.Point(288, 530);
+            this.LaunchBtn.Name = "LaunchBtn";
+            this.LaunchBtn.Size = new System.Drawing.Size(320, 35);
+            this.LaunchBtn.TabIndex = 32;
+            this.LaunchBtn.Visible = false;
+            this.LaunchBtn.OnButtonClick += new System.EventHandler(this.LaunchBtn_OnButtonClick);
             // 
             // NewsTab
             // 
@@ -301,6 +303,7 @@ namespace CodeRedLauncher
             // 
             this.ReloadSessionsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.ReloadSessionsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ReloadSessionsBtn.ButtonEnabled = true;
             this.ReloadSessionsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ReloadSessionsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
             this.ReloadSessionsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
@@ -391,6 +394,7 @@ namespace CodeRedLauncher
             this.InstallPathBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InstallPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.InstallPathBtn.ButtonEnabled = true;
             this.InstallPathBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.InstallPathBtn.DisplayImage = null;
             this.InstallPathBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_DARK;
@@ -485,6 +489,7 @@ namespace CodeRedLauncher
             // 
             this.OpenFolderBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.OpenFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.OpenFolderBtn.ButtonEnabled = true;
             this.OpenFolderBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.OpenFolderBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
             this.OpenFolderBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
@@ -500,6 +505,7 @@ namespace CodeRedLauncher
             // 
             this.ExportLogsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.ExportLogsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ExportLogsBtn.ButtonEnabled = true;
             this.ExportLogsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ExportLogsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Archive_White;
             this.ExportLogsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
@@ -721,6 +727,7 @@ namespace CodeRedLauncher
             // 
             this.CheckUpdatesBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.CheckUpdatesBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CheckUpdatesBtn.ButtonEnabled = true;
             this.CheckUpdatesBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.CheckUpdatesBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
             this.CheckUpdatesBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
@@ -1214,11 +1221,26 @@ namespace CodeRedLauncher
             this.DashboardTabBtn.TabIndex = 0;
             this.DashboardTabBtn.OnTabClick += new System.EventHandler(this.DashboardTabBtn_OnTabClick);
             // 
+            // TitleBar
+            // 
+            this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(22)))));
+            this.TitleBar.BoundForm = null;
+            this.TitleBar.DisplayText = "CODERED LAUNCHER";
+            this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitleBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.TitleBar.Location = new System.Drawing.Point(0, 0);
+            this.TitleBar.Name = "TitleBar";
+            this.TitleBar.Size = new System.Drawing.Size(970, 30);
+            this.TitleBar.TabIndex = 2;
+            this.TitleBar.OnMinimized += new System.EventHandler(this.TitleBar_OnMinimized);
+            this.TitleBar.OnExit += new System.EventHandler(this.TitleBar_OnExit);
+            // 
             // InstallOfflinePopupCtrl
             // 
             this.InstallOfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.InstallOfflinePopupCtrl.BoundForm = null;
             this.InstallOfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_SINGLE;
+            this.InstallOfflinePopupCtrl.ButtonsEnabled = true;
             this.InstallOfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, an active internet connection is required" +
     " to install CodeRed! Please connect to the internet and try again";
             this.InstallOfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
@@ -1241,6 +1263,7 @@ namespace CodeRedLauncher
             this.OfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.OfflinePopupCtrl.BoundForm = null;
             this.OfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            this.OfflinePopupCtrl.ButtonsEnabled = true;
             this.OfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, would you like to start in offline mode? " +
     "Version checking, news, changelog, and remote information will all be disabled.";
             this.OfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
@@ -1264,6 +1287,7 @@ namespace CodeRedLauncher
             this.UpdatePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.UpdatePopupCtrl.BoundForm = null;
             this.UpdatePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            this.UpdatePopupCtrl.ButtonsEnabled = true;
             this.UpdatePopupCtrl.DisplayDescription = "A new version was found, would you like to automatically install it now?";
             this.UpdatePopupCtrl.DisplayTitle = "UPDATE AVAILABLE";
             this.UpdatePopupCtrl.DoubleFirstImage = null;
@@ -1287,6 +1311,7 @@ namespace CodeRedLauncher
             this.InstallPopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.InstallPopupCtrl.BoundForm = null;
             this.InstallPopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            this.InstallPopupCtrl.ButtonsEnabled = true;
             this.InstallPopupCtrl.DisplayDescription = "It looks like this if your first time using CodeRed, we need to download and setu" +
     "p a few things first before we can get started. First, would you like to customi" +
     "ze your install path?";
@@ -1305,20 +1330,6 @@ namespace CodeRedLauncher
             this.InstallPopupCtrl.Visible = false;
             this.InstallPopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleFirstButtonClick);
             this.InstallPopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleSecondButtonClick);
-            // 
-            // TitleBar
-            // 
-            this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(22)))));
-            this.TitleBar.BoundForm = null;
-            this.TitleBar.DisplayText = "CODERED LAUNCHER";
-            this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TitleBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.TitleBar.Location = new System.Drawing.Point(0, 0);
-            this.TitleBar.Name = "TitleBar";
-            this.TitleBar.Size = new System.Drawing.Size(970, 30);
-            this.TitleBar.TabIndex = 2;
-            this.TitleBar.OnMinimized += new System.EventHandler(this.TitleBar_OnMinimized);
-            this.TitleBar.OnExit += new System.EventHandler(this.TitleBar_OnExit);
             // 
             // ProcessTmr
             // 

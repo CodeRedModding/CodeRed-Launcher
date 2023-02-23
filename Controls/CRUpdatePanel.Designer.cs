@@ -62,6 +62,7 @@
             // 
             // DescriptionImg
             // 
+            this.DescriptionImg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DescriptionImg.BackColor = System.Drawing.Color.Transparent;
             this.DescriptionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.DescriptionImg.Location = new System.Drawing.Point(14, 64);

@@ -55,6 +55,8 @@
             // 
             // DescriptionLbl
             // 
+            this.DescriptionLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DescriptionLbl.BackColor = System.Drawing.Color.Transparent;
             this.DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.DescriptionLbl.Location = new System.Drawing.Point(186, 190);
@@ -66,6 +68,8 @@
             // 
             // TitleLbl
             // 
+            this.TitleLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TitleLbl.BackColor = System.Drawing.Color.Transparent;
             this.TitleLbl.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.TitleLbl.Location = new System.Drawing.Point(186, 140);
@@ -77,6 +81,9 @@
             // 
             // DoublePnl
             // 
+            this.DoublePnl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DoublePnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.DoublePnl.Controls.Add(this.DoubleSecondBtn);
             this.DoublePnl.Controls.Add(this.DoubleFirstBtn);
@@ -88,7 +95,9 @@
             // 
             // DoubleSecondBtn
             // 
+            this.DoubleSecondBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DoubleSecondBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
+            this.DoubleSecondBtn.ButtonEnabled = true;
             this.DoubleSecondBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.DoubleSecondBtn.DisplayImage = null;
             this.DoubleSecondBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_LIGHT;
@@ -102,7 +111,9 @@
             // 
             // DoubleFirstBtn
             // 
+            this.DoubleFirstBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DoubleFirstBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
+            this.DoubleFirstBtn.ButtonEnabled = true;
             this.DoubleFirstBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.DoubleFirstBtn.DisplayImage = null;
             this.DoubleFirstBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_LIGHT;
@@ -126,6 +137,7 @@
             // SingleBtn
             // 
             this.SingleBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
+            this.SingleBtn.ButtonEnabled = true;
             this.SingleBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.SingleBtn.DisplayImage = null;
             this.SingleBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_LIGHT;

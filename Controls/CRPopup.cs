@@ -14,6 +14,7 @@ namespace CodeRedLauncher.Controls
 
         private Form? InternalForm = null;
         private ButtonLayouts CurrentLayout = ButtonLayouts.TYPE_SINGLE;
+        private bool AreButtonsEnabled = true;
 
         public Form BoundForm
         {
@@ -25,6 +26,12 @@ namespace CodeRedLauncher.Controls
         {
             get { return CurrentLayout; }
             set { CurrentLayout = value; UpdateLayout(); Invalidate(); }
+        }
+
+        public bool ButtonsEnabled
+        {
+            get { return AreButtonsEnabled; }
+            set { AreButtonsEnabled = value; UpdateLayout(); Invalidate(); }
         }
 
         public string DisplayTitle
@@ -87,6 +94,10 @@ namespace CodeRedLauncher.Controls
                 SinglePnl.Visible = false;
                 DoublePnl.Visible = true;
             }
+
+            SingleBtn.Enabled = ButtonsEnabled;
+            DoubleFirstBtn.Enabled = ButtonsEnabled;
+            DoubleSecondBtn.Enabled = ButtonsEnabled;
         }
 
         public CRPopup()

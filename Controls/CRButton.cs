@@ -34,7 +34,14 @@ namespace CodeRedLauncher.Controls
             STYLE_DARK
         }
 
+        private bool IsEnabled = true;
         private ButtonStyles ButtonStyle = ButtonStyles.STYLE_COLORED;
+
+        public bool ButtonEnabled
+        {
+            get { return IsEnabled; }
+            set { IsEnabled = value; }
+        }
 
         public ButtonStyles DisplayStyle
         {
@@ -216,7 +223,10 @@ namespace CodeRedLauncher.Controls
         public event EventHandler OnButtonClick;
         protected void CRButton_OnClick(EventArgs e)
         {
-            OnButtonClick?.Invoke(this, e);
+            if (ButtonEnabled)
+            {
+                OnButtonClick?.Invoke(this, e);
+            }
         }
 
         private void BackgroundPnl_SizeChanged(object sender, EventArgs e)

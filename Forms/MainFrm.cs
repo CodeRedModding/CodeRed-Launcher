@@ -488,7 +488,7 @@ namespace CodeRedLauncher
                 {
                     LaunchBtn.DisplayText = "Launch (Already Running)";
 
-                    if (ProcessCtrl.Status != CRProcessPanel.StatusTypes.TYPE_INJECTING)
+                    if ((ProcessCtrl.Status != CRProcessPanel.StatusTypes.TYPE_INJECTING) && (ProcessCtrl.Status != CRProcessPanel.StatusTypes.TYPE_MANUAL))
                     {
                         if (!Updator.IsOutdated())
                         {
@@ -510,9 +510,26 @@ namespace CodeRedLauncher
                         }
                         else
                         {
-                            ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
-                            ProcessCtrl.Result = InjectionResults.RESULT_NONE;
-                            InjectTmr.Start();
+                            if (Configuration.InjectionType.GetStringValue() == InjectionTypes.TYPE_MANUAL.ToString())
+                            {
+                                ManualInjectBtn.BringToFront();
+                                ManualInjectBtn.Visible = true;
+                                LaunchBtn.SendToBack();
+                                LaunchBtn.Visible = false;
+                                ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_MANUAL;
+                                ProcessCtrl.Result = InjectionResults.RESULT_NONE;
+                                InjectTmr.Stop();
+                            }
+                            else
+                            {
+                                ManualInjectBtn.SendToBack();
+                                ManualInjectBtn.Visible = false;
+                                LaunchBtn.BringToFront();
+                                LaunchBtn.Visible = true;
+                                ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_INJECTING;
+                                ProcessCtrl.Result = InjectionResults.RESULT_NONE;
+                                InjectTmr.Start();
+                            }
                         }
                     }
                 }
@@ -520,7 +537,10 @@ namespace CodeRedLauncher
                 {
                     InjectTmr.Stop();
                     LaunchBtn.DisplayText = "Launch Rocket League";
+                    ManualInjectBtn.SendToBack();
                     ManualInjectBtn.Visible = false;
+                    LaunchBtn.BringToFront();
+                    LaunchBtn.Visible = true;
                     ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_NOT_RUNNING;
                     ProcessCtrl.Result = InjectionResults.RESULT_NONE;
                 }
@@ -528,7 +548,10 @@ namespace CodeRedLauncher
             else
             {
                 ProcessTmr.Stop();
+                ManualInjectBtn.SendToBack();
                 ManualInjectBtn.Visible = false;
+                LaunchBtn.BringToFront();
+                LaunchBtn.Visible = true;
                 ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_DISABLED;
                 ProcessCtrl.Result = InjectionResults.RESULT_NONE;
             }
@@ -833,8 +856,6 @@ namespace CodeRedLauncher
                         break;
                 }
 
-                LaunchBtn.Visible = true;
-                ManualInjectBtn.Visible = false;
                 InstallPathBx.DisplayText = Storage.GetModulePath().GetPath();
                 CreditsLbl.Text = "CodeRed was created and is maintained by ItsBranK, but its creation would not have been possible without the inspiration of the following people: ";
                 CreditsLbl.Text += await Retrievers.GetCredits();
@@ -1043,9 +1064,13 @@ namespace CodeRedLauncher
 
         private async void UpdatePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
         {
+            UpdatePopupCtrl.ButtonsEnabled = false;
+            UpdatePopupCtrl.DisplayDescription = "Downloading and installing update...";
+
             Retrievers.Invalidate();
             await Retrievers.CheckInitialized();
             Result report = await Updator.InstallUpdates();
+            UpdatePopupCtrl.ButtonsEnabled = true;
 
             if (report.Succeeded)
             {
@@ -1057,6 +1082,7 @@ namespace CodeRedLauncher
             {
                 Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
             }
+
         }
 
         private void UpdatePopupCtrl_SingleButtonClick(object sender, EventArgs e)

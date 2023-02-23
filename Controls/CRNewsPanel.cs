@@ -180,12 +180,50 @@ namespace CodeRedLauncher.Controls
                         }
                     }
 
+                    LoadAllIndexes(); // Parse and download everything in the background.
                     LoadNextArticle();
                 }
                 else
                 {
                     Logger.Write("Failed to download news article info!", LogLevel.LEVEL_WARN);
                 }
+            }
+        }
+
+        public async void LoadAllIndexes()
+        {
+            for (Int32 i = 0; i < NewsArticles.Count; i++)
+            {
+                NewsStorage newsStorage = NewsArticles[i];
+
+                if (!newsStorage.Parsed)
+                {
+                    NewsArticles[i] = await ParseLink(NewsArticles[i]);
+                    newsStorage = NewsArticles[i];
+                }
+
+                if (newsStorage.ThumbnailImage == null)
+                {
+                    if (!String.IsNullOrEmpty(newsStorage.ThumbnailUrl_Main))
+                    {
+                        newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl_Main);
+
+                        if ((newsStorage.ThumbnailImage == null) && !String.IsNullOrEmpty(newsStorage.ThumbnailUrl_Alt))
+                        {
+                            newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl_Alt);
+                        }
+
+                        // If no thumbnail was found we gotta use our own image.
+                        if (newsStorage.ThumbnailImage == null)
+                        {
+                            newsStorage.ThumbnailUrl_Main = "https://i.imgur.com/dmpY0zQ.png";
+                            newsStorage.ThumbnailUrl_Alt = "";
+                            newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl_Main);
+                        }
+                    }
+                }
+
+                NewsArticles[i] = newsStorage;
             }
         }
 
@@ -223,7 +261,6 @@ namespace CodeRedLauncher.Controls
                             // If no thumbnail was found we gotta use our own image.
                             if (newsStorage.ThumbnailImage == null)
                             {
-                                // https://i.imgur.com/dmpY0zQ.png
                                 newsStorage.ThumbnailUrl_Main = "https://i.imgur.com/dmpY0zQ.png";
                                 newsStorage.ThumbnailUrl_Alt = "";
                                 newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl_Main);
@@ -335,9 +372,12 @@ namespace CodeRedLauncher.Controls
 
         private void ThumbnailImg_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(NewsArticles[CurrentIndex].NewsUrl))
+            if ((CurrentIndex > 0) && (CurrentIndex < NewsArticles.Count))
             {
-                Process.Start(new ProcessStartInfo(NewsArticles[CurrentIndex].NewsUrl) { UseShellExecute = true });
+                if (!String.IsNullOrEmpty(NewsArticles[CurrentIndex].NewsUrl))
+                {
+                    Process.Start(new ProcessStartInfo(NewsArticles[CurrentIndex].NewsUrl) { UseShellExecute = true });
+                }
             }
         }
 
