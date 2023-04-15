@@ -29,1372 +29,1339 @@ namespace CodeRedLauncher
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
-            this.TabCtrl = new System.Windows.Forms.TabControl();
-            this.DashboardTab = new System.Windows.Forms.TabPage();
-            this.ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
-            this.ProcessCtrl = new CodeRedLauncher.Controls.CRProcessPanel();
-            this.UpdateCtrl = new CodeRedLauncher.Controls.CRUpdatePanel();
-            this.ChangelogCtrl = new CodeRedLauncher.Controls.CRChangelog();
-            this.LaunchBtn = new CodeRedLauncher.Controls.CRButton();
-            this.NewsTab = new System.Windows.Forms.TabPage();
-            this.NewsCtrl = new CodeRedLauncher.Controls.CRNewsPanel();
-            this.SessionsTab = new System.Windows.Forms.TabPage();
-            this.TotalSessionsLbl = new System.Windows.Forms.Label();
-            this.ReloadSessionsBtn = new CodeRedLauncher.Controls.CRButton();
-            this.TexturesTab = new System.Windows.Forms.TabPage();
-            this.PlaceholderLblSecond = new System.Windows.Forms.Label();
-            this.ScriptsTab = new System.Windows.Forms.TabPage();
-            this.PlaceholderLblThird = new System.Windows.Forms.Label();
-            this.SettingsTab = new System.Windows.Forms.TabPage();
-            this.InstallPathBtn = new CodeRedLauncher.Controls.CRButton();
-            this.InstallPathBx = new CodeRedLauncher.Controls.CRTextbox();
-            this.InstallPathImg = new System.Windows.Forms.PictureBox();
-            this.InstallPathLbl = new System.Windows.Forms.Label();
-            this.InjectionTimeoutBx = new CodeRedLauncher.Controls.CRNumberbox();
-            this.InjectionTimeoutImg = new System.Windows.Forms.PictureBox();
-            this.InjectionTimeoutLbl = new System.Windows.Forms.Label();
-            this.OpenFolderBtn = new CodeRedLauncher.Controls.CRButton();
-            this.ExportLogsBtn = new CodeRedLauncher.Controls.CRButton();
-            this.InjectAllInstancesBx = new CodeRedLauncher.Controls.CRCheckbox();
-            this.HideWhenMinimizedBx = new CodeRedLauncher.Controls.CRCheckbox();
-            this.MinimizeOnStartupBx = new CodeRedLauncher.Controls.CRCheckbox();
-            this.RunOnStartupBx = new CodeRedLauncher.Controls.CRCheckbox();
-            this.PreventInjectionBx = new CodeRedLauncher.Controls.CRCheckbox();
-            this.AutoCheckUpdatesBx = new CodeRedLauncher.Controls.CRCheckbox();
-            this.ManualRadioBtn = new System.Windows.Forms.RadioButton();
-            this.TimeoutRadioBtn = new System.Windows.Forms.RadioButton();
-            this.ManualRadioImg = new System.Windows.Forms.PictureBox();
-            this.TimeoutRadioImg = new System.Windows.Forms.PictureBox();
-            this.AlwaysRadioBtn = new System.Windows.Forms.RadioButton();
-            this.AlwaysRadioImg = new System.Windows.Forms.PictureBox();
-            this.AboutTab = new System.Windows.Forms.TabPage();
-            this.CheckUpdatesBtn = new CodeRedLauncher.Controls.CRButton();
-            this.Icons8Link = new System.Windows.Forms.Label();
-            this.KofiLink = new System.Windows.Forms.Label();
-            this.DiscordLink = new System.Windows.Forms.Label();
-            this.WebsiteLink = new System.Windows.Forms.Label();
-            this.PlatformText = new System.Windows.Forms.Label();
-            this.NetBuildText = new System.Windows.Forms.Label();
-            this.PsyonixVersionText = new System.Windows.Forms.Label();
-            this.ModuleVersionText = new System.Windows.Forms.Label();
-            this.LauncherVersionText = new System.Windows.Forms.Label();
-            this.CreditsLbl = new System.Windows.Forms.Label();
-            this.Icons8Img = new System.Windows.Forms.PictureBox();
-            this.IconsLbl = new System.Windows.Forms.Label();
-            this.KofiImg = new System.Windows.Forms.PictureBox();
-            this.KofiLbl = new System.Windows.Forms.Label();
-            this.DiscordImg = new System.Windows.Forms.PictureBox();
-            this.DiscordLbl = new System.Windows.Forms.Label();
-            this.WebsiteImg = new System.Windows.Forms.PictureBox();
-            this.WebsiteLbl = new System.Windows.Forms.Label();
-            this.PlatformImg = new System.Windows.Forms.PictureBox();
-            this.PlatformLbl = new System.Windows.Forms.Label();
-            this.NetBuildImg = new System.Windows.Forms.PictureBox();
-            this.NetBuildLbl = new System.Windows.Forms.Label();
-            this.PsyonixVersionImg = new System.Windows.Forms.PictureBox();
-            this.PsyonixVersionLbl = new System.Windows.Forms.Label();
-            this.ModVersionImg = new System.Windows.Forms.PictureBox();
-            this.ModuleVersionLbl = new System.Windows.Forms.Label();
-            this.LauncherVersionImg = new System.Windows.Forms.PictureBox();
-            this.LauncherVersionLbl = new System.Windows.Forms.Label();
-            this.BackgroundPnl = new System.Windows.Forms.Panel();
-            this.TabPnl = new System.Windows.Forms.Panel();
-            this.AboutTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.SettingsTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.ExitTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.ScriptsTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.TexturesTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.SessionsTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.NewsTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.DashboardTabBtn = new CodeRedLauncher.Controls.CRTab();
-            this.TitleBar = new CodeRedLauncher.Controls.CRTitleBar();
-            this.InstallOfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
-            this.OfflinePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
-            this.UpdatePopupCtrl = new CodeRedLauncher.Controls.CRPopup();
-            this.InstallPopupCtrl = new CodeRedLauncher.Controls.CRPopup();
-            this.ProcessTmr = new System.Windows.Forms.Timer(this.components);
-            this.InjectTmr = new System.Windows.Forms.Timer(this.components);
-            this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.UpdateTmr = new System.Windows.Forms.Timer(this.components);
-            this.TabCtrl.SuspendLayout();
-            this.DashboardTab.SuspendLayout();
-            this.NewsTab.SuspendLayout();
-            this.SessionsTab.SuspendLayout();
-            this.TexturesTab.SuspendLayout();
-            this.ScriptsTab.SuspendLayout();
-            this.SettingsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InstallPathImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InjectionTimeoutImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ManualRadioImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TimeoutRadioImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).BeginInit();
-            this.AboutTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Icons8Img)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.KofiImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DiscordImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WebsiteImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PlatformImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NetBuildImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PsyonixVersionImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ModVersionImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LauncherVersionImg)).BeginInit();
-            this.BackgroundPnl.SuspendLayout();
-            this.TabPnl.SuspendLayout();
-            this.SuspendLayout();
+            TabCtrl = new System.Windows.Forms.TabControl();
+            DashboardTab = new System.Windows.Forms.TabPage();
+            ProcessCtrl = new Controls.CRProcessPanel();
+            UpdateCtrl = new Controls.CRUpdatePanel();
+            ChangelogCtrl = new Controls.CRChangelog();
+            LaunchBtn = new Controls.CRButton();
+            ManualInjectBtn = new Controls.CRButton();
+            NewsTab = new System.Windows.Forms.TabPage();
+            NewsCtrl = new Controls.CRNewsPanel();
+            SessionsTab = new System.Windows.Forms.TabPage();
+            TotalSessionsLbl = new System.Windows.Forms.Label();
+            ReloadSessionsBtn = new Controls.CRButton();
+            TexturesTab = new System.Windows.Forms.TabPage();
+            PlaceholderLblSecond = new System.Windows.Forms.Label();
+            ScriptsTab = new System.Windows.Forms.TabPage();
+            PlaceholderLblThird = new System.Windows.Forms.Label();
+            SettingsTab = new System.Windows.Forms.TabPage();
+            InstallPathBtn = new Controls.CRButton();
+            InstallPathBx = new Controls.CRTextbox();
+            InstallPathImg = new System.Windows.Forms.PictureBox();
+            InstallPathLbl = new System.Windows.Forms.Label();
+            InjectionTimeoutBx = new Controls.CRNumberbox();
+            InjectionTimeoutImg = new System.Windows.Forms.PictureBox();
+            InjectionTimeoutLbl = new System.Windows.Forms.Label();
+            OpenFolderBtn = new Controls.CRButton();
+            ExportLogsBtn = new Controls.CRButton();
+            InjectAllInstancesBx = new Controls.CRCheckbox();
+            HideWhenMinimizedBx = new Controls.CRCheckbox();
+            MinimizeOnStartupBx = new Controls.CRCheckbox();
+            RunOnStartupBx = new Controls.CRCheckbox();
+            PreventInjectionBx = new Controls.CRCheckbox();
+            AutoCheckUpdatesBx = new Controls.CRCheckbox();
+            ManualRadioBtn = new System.Windows.Forms.RadioButton();
+            TimeoutRadioBtn = new System.Windows.Forms.RadioButton();
+            ManualRadioImg = new System.Windows.Forms.PictureBox();
+            TimeoutRadioImg = new System.Windows.Forms.PictureBox();
+            AlwaysRadioBtn = new System.Windows.Forms.RadioButton();
+            AlwaysRadioImg = new System.Windows.Forms.PictureBox();
+            AboutTab = new System.Windows.Forms.TabPage();
+            CheckUpdatesBtn = new Controls.CRButton();
+            Icons8Link = new System.Windows.Forms.Label();
+            KofiLink = new System.Windows.Forms.Label();
+            DiscordLink = new System.Windows.Forms.Label();
+            WebsiteLink = new System.Windows.Forms.Label();
+            PlatformText = new System.Windows.Forms.Label();
+            NetBuildText = new System.Windows.Forms.Label();
+            PsyonixVersionText = new System.Windows.Forms.Label();
+            ModuleVersionText = new System.Windows.Forms.Label();
+            LauncherVersionText = new System.Windows.Forms.Label();
+            CreditsLbl = new System.Windows.Forms.Label();
+            Icons8Img = new System.Windows.Forms.PictureBox();
+            IconsLbl = new System.Windows.Forms.Label();
+            KofiImg = new System.Windows.Forms.PictureBox();
+            KofiLbl = new System.Windows.Forms.Label();
+            DiscordImg = new System.Windows.Forms.PictureBox();
+            DiscordLbl = new System.Windows.Forms.Label();
+            WebsiteImg = new System.Windows.Forms.PictureBox();
+            WebsiteLbl = new System.Windows.Forms.Label();
+            PlatformImg = new System.Windows.Forms.PictureBox();
+            PlatformLbl = new System.Windows.Forms.Label();
+            NetBuildImg = new System.Windows.Forms.PictureBox();
+            NetBuildLbl = new System.Windows.Forms.Label();
+            PsyonixVersionImg = new System.Windows.Forms.PictureBox();
+            PsyonixVersionLbl = new System.Windows.Forms.Label();
+            ModVersionImg = new System.Windows.Forms.PictureBox();
+            ModuleVersionLbl = new System.Windows.Forms.Label();
+            LauncherVersionImg = new System.Windows.Forms.PictureBox();
+            LauncherVersionLbl = new System.Windows.Forms.Label();
+            BackgroundPnl = new System.Windows.Forms.Panel();
+            TabPnl = new System.Windows.Forms.Panel();
+            AboutTabBtn = new Controls.CRTab();
+            SettingsTabBtn = new Controls.CRTab();
+            ExitTabBtn = new Controls.CRTab();
+            ScriptsTabBtn = new Controls.CRTab();
+            TexturesTabBtn = new Controls.CRTab();
+            SessionsTabBtn = new Controls.CRTab();
+            NewsTabBtn = new Controls.CRTab();
+            DashboardTabBtn = new Controls.CRTab();
+            TitleBar = new Controls.CRTitleBar();
+            InstallOfflinePopupCtrl = new Controls.CRPopup();
+            OfflinePopupCtrl = new Controls.CRPopup();
+            UpdatePopupCtrl = new Controls.CRPopup();
+            InstallPopupCtrl = new Controls.CRPopup();
+            ProcessTmr = new System.Windows.Forms.Timer(components);
+            InjectTmr = new System.Windows.Forms.Timer(components);
+            TrayIcon = new System.Windows.Forms.NotifyIcon(components);
+            UpdateTmr = new System.Windows.Forms.Timer(components);
+            TabCtrl.SuspendLayout();
+            DashboardTab.SuspendLayout();
+            NewsTab.SuspendLayout();
+            SessionsTab.SuspendLayout();
+            TexturesTab.SuspendLayout();
+            ScriptsTab.SuspendLayout();
+            SettingsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)InstallPathImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)InjectionTimeoutImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ManualRadioImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TimeoutRadioImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)AlwaysRadioImg).BeginInit();
+            AboutTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Icons8Img).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)KofiImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DiscordImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)WebsiteImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PlatformImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NetBuildImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PsyonixVersionImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ModVersionImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)LauncherVersionImg).BeginInit();
+            BackgroundPnl.SuspendLayout();
+            TabPnl.SuspendLayout();
+            SuspendLayout();
             // 
             // TabCtrl
             // 
-            this.TabCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TabCtrl.Controls.Add(this.DashboardTab);
-            this.TabCtrl.Controls.Add(this.NewsTab);
-            this.TabCtrl.Controls.Add(this.SessionsTab);
-            this.TabCtrl.Controls.Add(this.TexturesTab);
-            this.TabCtrl.Controls.Add(this.ScriptsTab);
-            this.TabCtrl.Controls.Add(this.SettingsTab);
-            this.TabCtrl.Controls.Add(this.AboutTab);
-            this.TabCtrl.Location = new System.Drawing.Point(56, 6);
-            this.TabCtrl.Name = "TabCtrl";
-            this.TabCtrl.SelectedIndex = 0;
-            this.TabCtrl.Size = new System.Drawing.Size(918, 628);
-            this.TabCtrl.TabIndex = 3;
+            TabCtrl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            TabCtrl.Controls.Add(DashboardTab);
+            TabCtrl.Controls.Add(NewsTab);
+            TabCtrl.Controls.Add(SessionsTab);
+            TabCtrl.Controls.Add(TexturesTab);
+            TabCtrl.Controls.Add(ScriptsTab);
+            TabCtrl.Controls.Add(SettingsTab);
+            TabCtrl.Controls.Add(AboutTab);
+            TabCtrl.Location = new System.Drawing.Point(56, 6);
+            TabCtrl.Name = "TabCtrl";
+            TabCtrl.SelectedIndex = 0;
+            TabCtrl.Size = new System.Drawing.Size(918, 628);
+            TabCtrl.TabIndex = 3;
             // 
             // DashboardTab
             // 
-            this.DashboardTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.DashboardTab.Controls.Add(this.ProcessCtrl);
-            this.DashboardTab.Controls.Add(this.UpdateCtrl);
-            this.DashboardTab.Controls.Add(this.ChangelogCtrl);
-            this.DashboardTab.Controls.Add(this.LaunchBtn);
-            this.DashboardTab.Controls.Add(this.ManualInjectBtn);
-            this.DashboardTab.Location = new System.Drawing.Point(4, 24);
-            this.DashboardTab.Name = "DashboardTab";
-            this.DashboardTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DashboardTab.Size = new System.Drawing.Size(910, 600);
-            this.DashboardTab.TabIndex = 0;
-            this.DashboardTab.Text = "Dashboard";
-            // 
-            // ManualInjectBtn
-            // 
-            this.ManualInjectBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ManualInjectBtn.ButtonEnabled = true;
-            this.ManualInjectBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ManualInjectBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Hand_White;
-            this.ManualInjectBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.ManualInjectBtn.DisplayText = "Manually Inject";
-            this.ManualInjectBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ManualInjectBtn.Location = new System.Drawing.Point(288, 530);
-            this.ManualInjectBtn.Name = "ManualInjectBtn";
-            this.ManualInjectBtn.Size = new System.Drawing.Size(320, 35);
-            this.ManualInjectBtn.TabIndex = 34;
-            this.ManualInjectBtn.Visible = false;
-            this.ManualInjectBtn.Click += new System.EventHandler(this.ManualInjectBtn_Click);
+            DashboardTab.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            DashboardTab.Controls.Add(ProcessCtrl);
+            DashboardTab.Controls.Add(UpdateCtrl);
+            DashboardTab.Controls.Add(ChangelogCtrl);
+            DashboardTab.Controls.Add(LaunchBtn);
+            DashboardTab.Controls.Add(ManualInjectBtn);
+            DashboardTab.Location = new System.Drawing.Point(4, 24);
+            DashboardTab.Name = "DashboardTab";
+            DashboardTab.Padding = new System.Windows.Forms.Padding(3);
+            DashboardTab.Size = new System.Drawing.Size(910, 600);
+            DashboardTab.TabIndex = 0;
+            DashboardTab.Text = "Dashboard";
             // 
             // ProcessCtrl
             // 
-            this.ProcessCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ProcessCtrl.DescriptionImage = global::CodeRedLauncher.Properties.Resources.Comment_White;
-            this.ProcessCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ProcessCtrl.Location = new System.Drawing.Point(25, 25);
-            this.ProcessCtrl.Name = "ProcessCtrl";
-            this.ProcessCtrl.Result = CodeRedLauncher.InjectionResults.RESULT_NONE;
-            this.ProcessCtrl.Size = new System.Drawing.Size(485, 130);
-            this.ProcessCtrl.Status = CodeRedLauncher.Controls.CRProcessPanel.StatusTypes.TYPE_LOADING;
-            this.ProcessCtrl.TabIndex = 0;
-            this.ProcessCtrl.TitleImage = global::CodeRedLauncher.Properties.Resources.Rocket_White;
+            ProcessCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            ProcessCtrl.DescriptionImage = Properties.Resources.Comment_White;
+            ProcessCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            ProcessCtrl.Location = new System.Drawing.Point(25, 25);
+            ProcessCtrl.Name = "ProcessCtrl";
+            ProcessCtrl.Result = InjectionResults.RESULT_NONE;
+            ProcessCtrl.Size = new System.Drawing.Size(485, 130);
+            ProcessCtrl.Status = CodeRedLauncher.Controls.CRProcessPanel.StatusTypes.TYPE_LOADING;
+            ProcessCtrl.TabIndex = 0;
+            ProcessCtrl.TitleImage = Properties.Resources.Rocket_White;
             // 
             // UpdateCtrl
             // 
-            this.UpdateCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.UpdateCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.UpdateCtrl.DescriptionImage = global::CodeRedLauncher.Properties.Resources.Info_White;
-            this.UpdateCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.UpdateCtrl.Location = new System.Drawing.Point(535, 25);
-            this.UpdateCtrl.Name = "UpdateCtrl";
-            this.UpdateCtrl.Size = new System.Drawing.Size(350, 130);
-            this.UpdateCtrl.Status = CodeRedLauncher.Controls.CRUpdatePanel.StatusTypes.TYPE_LOADING;
-            this.UpdateCtrl.TabIndex = 1;
-            this.UpdateCtrl.TitleImage = global::CodeRedLauncher.Properties.Resources.Question_White;
+            UpdateCtrl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            UpdateCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            UpdateCtrl.DescriptionImage = Properties.Resources.Info_White;
+            UpdateCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            UpdateCtrl.Location = new System.Drawing.Point(535, 25);
+            UpdateCtrl.Name = "UpdateCtrl";
+            UpdateCtrl.Size = new System.Drawing.Size(350, 130);
+            UpdateCtrl.Status = CodeRedLauncher.Controls.CRUpdatePanel.StatusTypes.TYPE_LOADING;
+            UpdateCtrl.TabIndex = 1;
+            UpdateCtrl.TitleImage = Properties.Resources.Question_White;
             // 
             // ChangelogCtrl
             // 
-            this.ChangelogCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ChangelogCtrl.DisplayImage = global::CodeRedLauncher.Properties.Resources.Log_White;
-            this.ChangelogCtrl.DisplayText = "Loading...";
-            this.ChangelogCtrl.DisplayTitle = "Module Changelog";
-            this.ChangelogCtrl.Location = new System.Drawing.Point(25, 180);
-            this.ChangelogCtrl.Name = "ChangelogCtrl";
-            this.ChangelogCtrl.Size = new System.Drawing.Size(860, 315);
-            this.ChangelogCtrl.TabIndex = 33;
-            this.ChangelogCtrl.OnChangelogSwap += new System.EventHandler(this.ChangelogCtrl_OnChangelogSwap);
+            ChangelogCtrl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            ChangelogCtrl.DisplayImage = Properties.Resources.Log_White;
+            ChangelogCtrl.DisplayText = "Loading...";
+            ChangelogCtrl.DisplayTitle = "Module Changelog";
+            ChangelogCtrl.Location = new System.Drawing.Point(25, 180);
+            ChangelogCtrl.Name = "ChangelogCtrl";
+            ChangelogCtrl.Size = new System.Drawing.Size(860, 315);
+            ChangelogCtrl.TabIndex = 33;
+            ChangelogCtrl.OnChangelogSwap += ChangelogCtrl_OnChangelogSwap;
             // 
             // LaunchBtn
             // 
-            this.LaunchBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.LaunchBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.LaunchBtn.ButtonEnabled = true;
-            this.LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LaunchBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Question_White;
-            this.LaunchBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.LaunchBtn.DisplayText = "Launch Rocket League";
-            this.LaunchBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.LaunchBtn.Location = new System.Drawing.Point(288, 530);
-            this.LaunchBtn.Name = "LaunchBtn";
-            this.LaunchBtn.Size = new System.Drawing.Size(320, 35);
-            this.LaunchBtn.TabIndex = 32;
-            this.LaunchBtn.Visible = false;
-            this.LaunchBtn.OnButtonClick += new System.EventHandler(this.LaunchBtn_OnButtonClick);
+            LaunchBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            LaunchBtn.BackColor = System.Drawing.Color.FromArgb(175, 0, 0);
+            LaunchBtn.ButtonEnabled = true;
+            LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            LaunchBtn.DisplayImage = Properties.Resources.Question_White;
+            LaunchBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            LaunchBtn.DisplayText = "Launch Rocket League";
+            LaunchBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            LaunchBtn.Location = new System.Drawing.Point(288, 530);
+            LaunchBtn.Name = "LaunchBtn";
+            LaunchBtn.Size = new System.Drawing.Size(320, 35);
+            LaunchBtn.TabIndex = 32;
+            LaunchBtn.Visible = false;
+            LaunchBtn.OnButtonClick += LaunchBtn_OnButtonClick;
+            // 
+            // ManualInjectBtn
+            // 
+            ManualInjectBtn.BackColor = System.Drawing.Color.FromArgb(175, 0, 0);
+            ManualInjectBtn.ButtonEnabled = true;
+            ManualInjectBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ManualInjectBtn.DisplayImage = Properties.Resources.Hand_White;
+            ManualInjectBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            ManualInjectBtn.DisplayText = "Manually Inject";
+            ManualInjectBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            ManualInjectBtn.Location = new System.Drawing.Point(288, 530);
+            ManualInjectBtn.Name = "ManualInjectBtn";
+            ManualInjectBtn.Size = new System.Drawing.Size(320, 35);
+            ManualInjectBtn.TabIndex = 34;
+            ManualInjectBtn.Visible = false;
+            ManualInjectBtn.Click += ManualInjectBtn_Click;
             // 
             // NewsTab
             // 
-            this.NewsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.NewsTab.Controls.Add(this.NewsCtrl);
-            this.NewsTab.Location = new System.Drawing.Point(4, 24);
-            this.NewsTab.Name = "NewsTab";
-            this.NewsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.NewsTab.Size = new System.Drawing.Size(910, 600);
-            this.NewsTab.TabIndex = 1;
-            this.NewsTab.Text = "News";
+            NewsTab.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            NewsTab.Controls.Add(NewsCtrl);
+            NewsTab.Location = new System.Drawing.Point(4, 24);
+            NewsTab.Name = "NewsTab";
+            NewsTab.Padding = new System.Windows.Forms.Padding(3);
+            NewsTab.Size = new System.Drawing.Size(910, 600);
+            NewsTab.TabIndex = 1;
+            NewsTab.Text = "News";
             // 
             // NewsCtrl
             // 
-            this.NewsCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewsCtrl.BackColor = System.Drawing.Color.Transparent;
-            this.NewsCtrl.Location = new System.Drawing.Point(25, 25);
-            this.NewsCtrl.Name = "NewsCtrl";
-            this.NewsCtrl.NewsCategory = "Loading...";
-            this.NewsCtrl.PublishAuthor = "Loading...";
-            this.NewsCtrl.PublishDate = "Loading...";
-            this.NewsCtrl.Size = new System.Drawing.Size(860, 550);
-            this.NewsCtrl.TabIndex = 0;
-            this.NewsCtrl.Thumbnail = null;
-            this.NewsCtrl.Title = "Loading...";
+            NewsCtrl.BackColor = System.Drawing.Color.Transparent;
+            NewsCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            NewsCtrl.Location = new System.Drawing.Point(3, 3);
+            NewsCtrl.Name = "NewsCtrl";
+            NewsCtrl.NewsCategory = "Loading...";
+            NewsCtrl.PublishAuthor = "Loading...";
+            NewsCtrl.PublishDate = "Loading...";
+            NewsCtrl.Size = new System.Drawing.Size(904, 594);
+            NewsCtrl.TabIndex = 0;
+            NewsCtrl.Thumbnail = null;
+            NewsCtrl.Title = "Loading...";
             // 
             // SessionsTab
             // 
-            this.SessionsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.SessionsTab.Controls.Add(this.TotalSessionsLbl);
-            this.SessionsTab.Controls.Add(this.ReloadSessionsBtn);
-            this.SessionsTab.Location = new System.Drawing.Point(4, 24);
-            this.SessionsTab.Name = "SessionsTab";
-            this.SessionsTab.Size = new System.Drawing.Size(910, 600);
-            this.SessionsTab.TabIndex = 2;
-            this.SessionsTab.Text = "Sessions";
+            SessionsTab.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            SessionsTab.Controls.Add(TotalSessionsLbl);
+            SessionsTab.Controls.Add(ReloadSessionsBtn);
+            SessionsTab.Location = new System.Drawing.Point(4, 24);
+            SessionsTab.Name = "SessionsTab";
+            SessionsTab.Size = new System.Drawing.Size(910, 600);
+            SessionsTab.TabIndex = 2;
+            SessionsTab.Text = "Sessions";
             // 
             // TotalSessionsLbl
             // 
-            this.TotalSessionsLbl.BackColor = System.Drawing.Color.Transparent;
-            this.TotalSessionsLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.TotalSessionsLbl.Location = new System.Drawing.Point(35, 35);
-            this.TotalSessionsLbl.Name = "TotalSessionsLbl";
-            this.TotalSessionsLbl.Size = new System.Drawing.Size(275, 30);
-            this.TotalSessionsLbl.TabIndex = 65;
-            this.TotalSessionsLbl.Text = "Sessions Found: ";
-            this.TotalSessionsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            TotalSessionsLbl.BackColor = System.Drawing.Color.Transparent;
+            TotalSessionsLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            TotalSessionsLbl.Location = new System.Drawing.Point(35, 35);
+            TotalSessionsLbl.Name = "TotalSessionsLbl";
+            TotalSessionsLbl.Size = new System.Drawing.Size(275, 30);
+            TotalSessionsLbl.TabIndex = 65;
+            TotalSessionsLbl.Text = "Sessions Found: ";
+            TotalSessionsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ReloadSessionsBtn
             // 
-            this.ReloadSessionsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ReloadSessionsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ReloadSessionsBtn.ButtonEnabled = true;
-            this.ReloadSessionsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ReloadSessionsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
-            this.ReloadSessionsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.ReloadSessionsBtn.DisplayText = "Reload Sessions";
-            this.ReloadSessionsBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ReloadSessionsBtn.Location = new System.Drawing.Point(315, 540);
-            this.ReloadSessionsBtn.Name = "ReloadSessionsBtn";
-            this.ReloadSessionsBtn.Size = new System.Drawing.Size(300, 35);
-            this.ReloadSessionsBtn.TabIndex = 64;
-            this.ReloadSessionsBtn.OnButtonClick += new System.EventHandler(this.ReloadSessionsBtn_OnButtonClick);
+            ReloadSessionsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            ReloadSessionsBtn.BackColor = System.Drawing.Color.FromArgb(175, 0, 0);
+            ReloadSessionsBtn.ButtonEnabled = true;
+            ReloadSessionsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ReloadSessionsBtn.DisplayImage = Properties.Resources.Refresh_White;
+            ReloadSessionsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            ReloadSessionsBtn.DisplayText = "Reload Sessions";
+            ReloadSessionsBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            ReloadSessionsBtn.Location = new System.Drawing.Point(315, 540);
+            ReloadSessionsBtn.Name = "ReloadSessionsBtn";
+            ReloadSessionsBtn.Size = new System.Drawing.Size(300, 35);
+            ReloadSessionsBtn.TabIndex = 64;
+            ReloadSessionsBtn.OnButtonClick += ReloadSessionsBtn_OnButtonClick;
             // 
             // TexturesTab
             // 
-            this.TexturesTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.TexturesTab.Controls.Add(this.PlaceholderLblSecond);
-            this.TexturesTab.Location = new System.Drawing.Point(4, 24);
-            this.TexturesTab.Name = "TexturesTab";
-            this.TexturesTab.Size = new System.Drawing.Size(910, 600);
-            this.TexturesTab.TabIndex = 6;
-            this.TexturesTab.Text = "Textures";
+            TexturesTab.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            TexturesTab.Controls.Add(PlaceholderLblSecond);
+            TexturesTab.Location = new System.Drawing.Point(4, 24);
+            TexturesTab.Name = "TexturesTab";
+            TexturesTab.Size = new System.Drawing.Size(910, 600);
+            TexturesTab.TabIndex = 6;
+            TexturesTab.Text = "Textures";
             // 
             // PlaceholderLblSecond
             // 
-            this.PlaceholderLblSecond.BackColor = System.Drawing.Color.Transparent;
-            this.PlaceholderLblSecond.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PlaceholderLblSecond.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PlaceholderLblSecond.Location = new System.Drawing.Point(0, 0);
-            this.PlaceholderLblSecond.Name = "PlaceholderLblSecond";
-            this.PlaceholderLblSecond.Size = new System.Drawing.Size(910, 600);
-            this.PlaceholderLblSecond.TabIndex = 3;
-            this.PlaceholderLblSecond.Text = "Coming soon!";
-            this.PlaceholderLblSecond.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            PlaceholderLblSecond.BackColor = System.Drawing.Color.Transparent;
+            PlaceholderLblSecond.Dock = System.Windows.Forms.DockStyle.Fill;
+            PlaceholderLblSecond.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            PlaceholderLblSecond.Location = new System.Drawing.Point(0, 0);
+            PlaceholderLblSecond.Name = "PlaceholderLblSecond";
+            PlaceholderLblSecond.Size = new System.Drawing.Size(910, 600);
+            PlaceholderLblSecond.TabIndex = 3;
+            PlaceholderLblSecond.Text = "Coming soon!";
+            PlaceholderLblSecond.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ScriptsTab
             // 
-            this.ScriptsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.ScriptsTab.Controls.Add(this.PlaceholderLblThird);
-            this.ScriptsTab.Location = new System.Drawing.Point(4, 24);
-            this.ScriptsTab.Name = "ScriptsTab";
-            this.ScriptsTab.Size = new System.Drawing.Size(910, 600);
-            this.ScriptsTab.TabIndex = 3;
-            this.ScriptsTab.Text = "Scripts";
+            ScriptsTab.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            ScriptsTab.Controls.Add(PlaceholderLblThird);
+            ScriptsTab.Location = new System.Drawing.Point(4, 24);
+            ScriptsTab.Name = "ScriptsTab";
+            ScriptsTab.Size = new System.Drawing.Size(910, 600);
+            ScriptsTab.TabIndex = 3;
+            ScriptsTab.Text = "Scripts";
             // 
             // PlaceholderLblThird
             // 
-            this.PlaceholderLblThird.BackColor = System.Drawing.Color.Transparent;
-            this.PlaceholderLblThird.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PlaceholderLblThird.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PlaceholderLblThird.Location = new System.Drawing.Point(0, 0);
-            this.PlaceholderLblThird.Name = "PlaceholderLblThird";
-            this.PlaceholderLblThird.Size = new System.Drawing.Size(910, 600);
-            this.PlaceholderLblThird.TabIndex = 4;
-            this.PlaceholderLblThird.Text = "Coming soon!";
-            this.PlaceholderLblThird.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            PlaceholderLblThird.BackColor = System.Drawing.Color.Transparent;
+            PlaceholderLblThird.Dock = System.Windows.Forms.DockStyle.Fill;
+            PlaceholderLblThird.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            PlaceholderLblThird.Location = new System.Drawing.Point(0, 0);
+            PlaceholderLblThird.Name = "PlaceholderLblThird";
+            PlaceholderLblThird.Size = new System.Drawing.Size(910, 600);
+            PlaceholderLblThird.TabIndex = 4;
+            PlaceholderLblThird.Text = "Coming soon!";
+            PlaceholderLblThird.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SettingsTab
             // 
-            this.SettingsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.SettingsTab.Controls.Add(this.InstallPathBtn);
-            this.SettingsTab.Controls.Add(this.InstallPathBx);
-            this.SettingsTab.Controls.Add(this.InstallPathImg);
-            this.SettingsTab.Controls.Add(this.InstallPathLbl);
-            this.SettingsTab.Controls.Add(this.InjectionTimeoutBx);
-            this.SettingsTab.Controls.Add(this.InjectionTimeoutImg);
-            this.SettingsTab.Controls.Add(this.InjectionTimeoutLbl);
-            this.SettingsTab.Controls.Add(this.OpenFolderBtn);
-            this.SettingsTab.Controls.Add(this.ExportLogsBtn);
-            this.SettingsTab.Controls.Add(this.InjectAllInstancesBx);
-            this.SettingsTab.Controls.Add(this.HideWhenMinimizedBx);
-            this.SettingsTab.Controls.Add(this.MinimizeOnStartupBx);
-            this.SettingsTab.Controls.Add(this.RunOnStartupBx);
-            this.SettingsTab.Controls.Add(this.PreventInjectionBx);
-            this.SettingsTab.Controls.Add(this.AutoCheckUpdatesBx);
-            this.SettingsTab.Controls.Add(this.ManualRadioBtn);
-            this.SettingsTab.Controls.Add(this.TimeoutRadioBtn);
-            this.SettingsTab.Controls.Add(this.ManualRadioImg);
-            this.SettingsTab.Controls.Add(this.TimeoutRadioImg);
-            this.SettingsTab.Controls.Add(this.AlwaysRadioBtn);
-            this.SettingsTab.Controls.Add(this.AlwaysRadioImg);
-            this.SettingsTab.Location = new System.Drawing.Point(4, 24);
-            this.SettingsTab.Name = "SettingsTab";
-            this.SettingsTab.Size = new System.Drawing.Size(910, 600);
-            this.SettingsTab.TabIndex = 4;
-            this.SettingsTab.Text = "Settings";
+            SettingsTab.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            SettingsTab.Controls.Add(InstallPathBtn);
+            SettingsTab.Controls.Add(InstallPathBx);
+            SettingsTab.Controls.Add(InstallPathImg);
+            SettingsTab.Controls.Add(InstallPathLbl);
+            SettingsTab.Controls.Add(InjectionTimeoutBx);
+            SettingsTab.Controls.Add(InjectionTimeoutImg);
+            SettingsTab.Controls.Add(InjectionTimeoutLbl);
+            SettingsTab.Controls.Add(OpenFolderBtn);
+            SettingsTab.Controls.Add(ExportLogsBtn);
+            SettingsTab.Controls.Add(InjectAllInstancesBx);
+            SettingsTab.Controls.Add(HideWhenMinimizedBx);
+            SettingsTab.Controls.Add(MinimizeOnStartupBx);
+            SettingsTab.Controls.Add(RunOnStartupBx);
+            SettingsTab.Controls.Add(PreventInjectionBx);
+            SettingsTab.Controls.Add(AutoCheckUpdatesBx);
+            SettingsTab.Controls.Add(ManualRadioBtn);
+            SettingsTab.Controls.Add(TimeoutRadioBtn);
+            SettingsTab.Controls.Add(ManualRadioImg);
+            SettingsTab.Controls.Add(TimeoutRadioImg);
+            SettingsTab.Controls.Add(AlwaysRadioBtn);
+            SettingsTab.Controls.Add(AlwaysRadioImg);
+            SettingsTab.Location = new System.Drawing.Point(4, 24);
+            SettingsTab.Name = "SettingsTab";
+            SettingsTab.Size = new System.Drawing.Size(910, 600);
+            SettingsTab.TabIndex = 4;
+            SettingsTab.Text = "Settings";
             // 
             // InstallPathBtn
             // 
-            this.InstallPathBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InstallPathBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.InstallPathBtn.ButtonEnabled = true;
-            this.InstallPathBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InstallPathBtn.DisplayImage = null;
-            this.InstallPathBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_DARK;
-            this.InstallPathBtn.DisplayText = "Change";
-            this.InstallPathBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InstallPathBtn.Location = new System.Drawing.Point(384, 440);
-            this.InstallPathBtn.Name = "InstallPathBtn";
-            this.InstallPathBtn.Size = new System.Drawing.Size(71, 30);
-            this.InstallPathBtn.TabIndex = 68;
-            this.InstallPathBtn.OnButtonClick += new System.EventHandler(this.InstallPathBtn_OnButtonClick);
+            InstallPathBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            InstallPathBtn.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            InstallPathBtn.ButtonEnabled = true;
+            InstallPathBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            InstallPathBtn.DisplayImage = null;
+            InstallPathBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_DARK;
+            InstallPathBtn.DisplayText = "Change";
+            InstallPathBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InstallPathBtn.Location = new System.Drawing.Point(384, 440);
+            InstallPathBtn.Name = "InstallPathBtn";
+            InstallPathBtn.Size = new System.Drawing.Size(71, 30);
+            InstallPathBtn.TabIndex = 68;
+            InstallPathBtn.OnButtonClick += InstallPathBtn_OnButtonClick;
             // 
             // InstallPathBx
             // 
-            this.InstallPathBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InstallPathBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.InstallPathBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InstallPathBx.DisplayText = "";
-            this.InstallPathBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InstallPathBx.Location = new System.Drawing.Point(162, 440);
-            this.InstallPathBx.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.InstallPathBx.Name = "InstallPathBx";
-            this.InstallPathBx.ReadOnly = true;
-            this.InstallPathBx.Size = new System.Drawing.Size(215, 30);
-            this.InstallPathBx.TabIndex = 67;
-            this.InstallPathBx.TextFilter = CodeRedLauncher.Controls.CRTextbox.FilterTypes.TYPE_NONE;
+            InstallPathBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            InstallPathBx.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            InstallPathBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            InstallPathBx.DisplayText = "";
+            InstallPathBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InstallPathBx.Location = new System.Drawing.Point(162, 440);
+            InstallPathBx.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            InstallPathBx.Name = "InstallPathBx";
+            InstallPathBx.ReadOnly = true;
+            InstallPathBx.Size = new System.Drawing.Size(215, 30);
+            InstallPathBx.TabIndex = 67;
+            InstallPathBx.TextFilter = CodeRedLauncher.Controls.CRTextbox.FilterTypes.TYPE_NONE;
             // 
             // InstallPathImg
             // 
-            this.InstallPathImg.BackColor = System.Drawing.Color.Transparent;
-            this.InstallPathImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
-            this.InstallPathImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.InstallPathImg.Location = new System.Drawing.Point(35, 440);
-            this.InstallPathImg.Name = "InstallPathImg";
-            this.InstallPathImg.Size = new System.Drawing.Size(30, 30);
-            this.InstallPathImg.TabIndex = 66;
-            this.InstallPathImg.TabStop = false;
+            InstallPathImg.BackColor = System.Drawing.Color.Transparent;
+            InstallPathImg.BackgroundImage = Properties.Resources.Folder_White;
+            InstallPathImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            InstallPathImg.Location = new System.Drawing.Point(35, 440);
+            InstallPathImg.Name = "InstallPathImg";
+            InstallPathImg.Size = new System.Drawing.Size(30, 30);
+            InstallPathImg.TabIndex = 66;
+            InstallPathImg.TabStop = false;
             // 
             // InstallPathLbl
             // 
-            this.InstallPathLbl.BackColor = System.Drawing.Color.Transparent;
-            this.InstallPathLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InstallPathLbl.Location = new System.Drawing.Point(71, 440);
-            this.InstallPathLbl.Name = "InstallPathLbl";
-            this.InstallPathLbl.Size = new System.Drawing.Size(85, 30);
-            this.InstallPathLbl.TabIndex = 65;
-            this.InstallPathLbl.Text = "Install path:";
-            this.InstallPathLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            InstallPathLbl.BackColor = System.Drawing.Color.Transparent;
+            InstallPathLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            InstallPathLbl.Location = new System.Drawing.Point(71, 440);
+            InstallPathLbl.Name = "InstallPathLbl";
+            InstallPathLbl.Size = new System.Drawing.Size(85, 30);
+            InstallPathLbl.TabIndex = 65;
+            InstallPathLbl.Text = "Install path:";
+            InstallPathLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // InjectionTimeoutBx
             // 
-            this.InjectionTimeoutBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InjectionTimeoutBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.InjectionTimeoutBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InjectionTimeoutBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InjectionTimeoutBx.Hexadecimal = false;
-            this.InjectionTimeoutBx.Increment = 1;
-            this.InjectionTimeoutBx.Location = new System.Drawing.Point(202, 396);
-            this.InjectionTimeoutBx.MaximumValue = 300000;
-            this.InjectionTimeoutBx.MinimumValue = 5000;
-            this.InjectionTimeoutBx.Name = "InjectionTimeoutBx";
-            this.InjectionTimeoutBx.ReadOnly = false;
-            this.InjectionTimeoutBx.Size = new System.Drawing.Size(175, 29);
-            this.InjectionTimeoutBx.TabIndex = 64;
-            this.InjectionTimeoutBx.Value = 20000;
-            this.InjectionTimeoutBx.OnValueChanged += new System.EventHandler(this.InjectionTimeoutBx_OnValueChanged);
+            InjectionTimeoutBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            InjectionTimeoutBx.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            InjectionTimeoutBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            InjectionTimeoutBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InjectionTimeoutBx.Hexadecimal = false;
+            InjectionTimeoutBx.Increment = 1;
+            InjectionTimeoutBx.Location = new System.Drawing.Point(202, 396);
+            InjectionTimeoutBx.MaximumValue = 300000;
+            InjectionTimeoutBx.MinimumValue = 5000;
+            InjectionTimeoutBx.Name = "InjectionTimeoutBx";
+            InjectionTimeoutBx.ReadOnly = false;
+            InjectionTimeoutBx.Size = new System.Drawing.Size(175, 29);
+            InjectionTimeoutBx.TabIndex = 64;
+            InjectionTimeoutBx.Value = 20000;
+            InjectionTimeoutBx.OnValueChanged += InjectionTimeoutBx_OnValueChanged;
             // 
             // InjectionTimeoutImg
             // 
-            this.InjectionTimeoutImg.BackColor = System.Drawing.Color.Transparent;
-            this.InjectionTimeoutImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Hourglass_White;
-            this.InjectionTimeoutImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.InjectionTimeoutImg.Location = new System.Drawing.Point(35, 395);
-            this.InjectionTimeoutImg.Name = "InjectionTimeoutImg";
-            this.InjectionTimeoutImg.Size = new System.Drawing.Size(30, 30);
-            this.InjectionTimeoutImg.TabIndex = 40;
-            this.InjectionTimeoutImg.TabStop = false;
+            InjectionTimeoutImg.BackColor = System.Drawing.Color.Transparent;
+            InjectionTimeoutImg.BackgroundImage = Properties.Resources.Hourglass_White;
+            InjectionTimeoutImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            InjectionTimeoutImg.Location = new System.Drawing.Point(35, 395);
+            InjectionTimeoutImg.Name = "InjectionTimeoutImg";
+            InjectionTimeoutImg.Size = new System.Drawing.Size(30, 30);
+            InjectionTimeoutImg.TabIndex = 40;
+            InjectionTimeoutImg.TabStop = false;
             // 
             // InjectionTimeoutLbl
             // 
-            this.InjectionTimeoutLbl.BackColor = System.Drawing.Color.Transparent;
-            this.InjectionTimeoutLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InjectionTimeoutLbl.Location = new System.Drawing.Point(71, 395);
-            this.InjectionTimeoutLbl.Name = "InjectionTimeoutLbl";
-            this.InjectionTimeoutLbl.Size = new System.Drawing.Size(125, 30);
-            this.InjectionTimeoutLbl.TabIndex = 39;
-            this.InjectionTimeoutLbl.Text = "Injection timeout: ";
-            this.InjectionTimeoutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            InjectionTimeoutLbl.BackColor = System.Drawing.Color.Transparent;
+            InjectionTimeoutLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            InjectionTimeoutLbl.Location = new System.Drawing.Point(71, 395);
+            InjectionTimeoutLbl.Name = "InjectionTimeoutLbl";
+            InjectionTimeoutLbl.Size = new System.Drawing.Size(125, 30);
+            InjectionTimeoutLbl.TabIndex = 39;
+            InjectionTimeoutLbl.Text = "Injection timeout: ";
+            InjectionTimeoutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // OpenFolderBtn
             // 
-            this.OpenFolderBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.OpenFolderBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.OpenFolderBtn.ButtonEnabled = true;
-            this.OpenFolderBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.OpenFolderBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Folder_White;
-            this.OpenFolderBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.OpenFolderBtn.DisplayText = "Open CodeRed Folder";
-            this.OpenFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.OpenFolderBtn.Location = new System.Drawing.Point(135, 540);
-            this.OpenFolderBtn.Name = "OpenFolderBtn";
-            this.OpenFolderBtn.Size = new System.Drawing.Size(320, 35);
-            this.OpenFolderBtn.TabIndex = 63;
-            this.OpenFolderBtn.OnButtonClick += new System.EventHandler(this.OpenFolderBtn_OnButtonClick);
+            OpenFolderBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            OpenFolderBtn.BackColor = System.Drawing.Color.FromArgb(175, 0, 0);
+            OpenFolderBtn.ButtonEnabled = true;
+            OpenFolderBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            OpenFolderBtn.DisplayImage = Properties.Resources.Folder_White;
+            OpenFolderBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            OpenFolderBtn.DisplayText = "Open CodeRed Folder";
+            OpenFolderBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            OpenFolderBtn.Location = new System.Drawing.Point(135, 540);
+            OpenFolderBtn.Name = "OpenFolderBtn";
+            OpenFolderBtn.Size = new System.Drawing.Size(320, 35);
+            OpenFolderBtn.TabIndex = 63;
+            OpenFolderBtn.OnButtonClick += OpenFolderBtn_OnButtonClick;
             // 
             // ExportLogsBtn
             // 
-            this.ExportLogsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ExportLogsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ExportLogsBtn.ButtonEnabled = true;
-            this.ExportLogsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ExportLogsBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Archive_White;
-            this.ExportLogsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.ExportLogsBtn.DisplayText = "Export Crash Logs";
-            this.ExportLogsBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.ExportLogsBtn.Location = new System.Drawing.Point(467, 540);
-            this.ExportLogsBtn.Name = "ExportLogsBtn";
-            this.ExportLogsBtn.Size = new System.Drawing.Size(320, 35);
-            this.ExportLogsBtn.TabIndex = 62;
-            this.ExportLogsBtn.OnButtonClick += new System.EventHandler(this.ExportLogsBtn_OnButtonClick);
+            ExportLogsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            ExportLogsBtn.BackColor = System.Drawing.Color.FromArgb(175, 0, 0);
+            ExportLogsBtn.ButtonEnabled = true;
+            ExportLogsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ExportLogsBtn.DisplayImage = Properties.Resources.Archive_White;
+            ExportLogsBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            ExportLogsBtn.DisplayText = "Export Crash Logs";
+            ExportLogsBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            ExportLogsBtn.Location = new System.Drawing.Point(467, 540);
+            ExportLogsBtn.Name = "ExportLogsBtn";
+            ExportLogsBtn.Size = new System.Drawing.Size(320, 35);
+            ExportLogsBtn.TabIndex = 62;
+            ExportLogsBtn.OnButtonClick += ExportLogsBtn_OnButtonClick;
             // 
             // InjectAllInstancesBx
             // 
-            this.InjectAllInstancesBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InjectAllInstancesBx.BackColor = System.Drawing.Color.Transparent;
-            this.InjectAllInstancesBx.Checked = true;
-            this.InjectAllInstancesBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Inject_White;
-            this.InjectAllInstancesBx.DisplayText = "Inject into all game instances";
-            this.InjectAllInstancesBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InjectAllInstancesBx.Location = new System.Drawing.Point(35, 260);
-            this.InjectAllInstancesBx.Name = "InjectAllInstancesBx";
-            this.InjectAllInstancesBx.Size = new System.Drawing.Size(300, 30);
-            this.InjectAllInstancesBx.TabIndex = 60;
-            this.InjectAllInstancesBx.OnCheckChanged += new System.EventHandler(this.InjectAllInstancesBx_OnCheckChanged);
+            InjectAllInstancesBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            InjectAllInstancesBx.BackColor = System.Drawing.Color.Transparent;
+            InjectAllInstancesBx.Checked = true;
+            InjectAllInstancesBx.DisplayImage = Properties.Resources.Inject_White;
+            InjectAllInstancesBx.DisplayText = "Inject into all game instances";
+            InjectAllInstancesBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InjectAllInstancesBx.Location = new System.Drawing.Point(35, 260);
+            InjectAllInstancesBx.Name = "InjectAllInstancesBx";
+            InjectAllInstancesBx.Size = new System.Drawing.Size(300, 30);
+            InjectAllInstancesBx.TabIndex = 60;
+            InjectAllInstancesBx.OnCheckChanged += InjectAllInstancesBx_OnCheckChanged;
             // 
             // HideWhenMinimizedBx
             // 
-            this.HideWhenMinimizedBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HideWhenMinimizedBx.BackColor = System.Drawing.Color.Transparent;
-            this.HideWhenMinimizedBx.Checked = false;
-            this.HideWhenMinimizedBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Hide_White;
-            this.HideWhenMinimizedBx.DisplayText = "Hide when minimized";
-            this.HideWhenMinimizedBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.HideWhenMinimizedBx.Location = new System.Drawing.Point(35, 215);
-            this.HideWhenMinimizedBx.Name = "HideWhenMinimizedBx";
-            this.HideWhenMinimizedBx.Size = new System.Drawing.Size(300, 30);
-            this.HideWhenMinimizedBx.TabIndex = 59;
-            this.HideWhenMinimizedBx.OnCheckChanged += new System.EventHandler(this.HideWhenMinimizedBx_OnCheckChanged);
+            HideWhenMinimizedBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            HideWhenMinimizedBx.BackColor = System.Drawing.Color.Transparent;
+            HideWhenMinimizedBx.Checked = false;
+            HideWhenMinimizedBx.DisplayImage = Properties.Resources.Hide_White;
+            HideWhenMinimizedBx.DisplayText = "Hide when minimized";
+            HideWhenMinimizedBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            HideWhenMinimizedBx.Location = new System.Drawing.Point(35, 215);
+            HideWhenMinimizedBx.Name = "HideWhenMinimizedBx";
+            HideWhenMinimizedBx.Size = new System.Drawing.Size(300, 30);
+            HideWhenMinimizedBx.TabIndex = 59;
+            HideWhenMinimizedBx.OnCheckChanged += HideWhenMinimizedBx_OnCheckChanged;
             // 
             // MinimizeOnStartupBx
             // 
-            this.MinimizeOnStartupBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MinimizeOnStartupBx.BackColor = System.Drawing.Color.Transparent;
-            this.MinimizeOnStartupBx.Checked = false;
-            this.MinimizeOnStartupBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Minimize_White;
-            this.MinimizeOnStartupBx.DisplayText = "Minimize on startup";
-            this.MinimizeOnStartupBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.MinimizeOnStartupBx.Location = new System.Drawing.Point(35, 170);
-            this.MinimizeOnStartupBx.Name = "MinimizeOnStartupBx";
-            this.MinimizeOnStartupBx.Size = new System.Drawing.Size(300, 30);
-            this.MinimizeOnStartupBx.TabIndex = 58;
-            this.MinimizeOnStartupBx.OnCheckChanged += new System.EventHandler(this.MinimizeOnStartupBx_OnCheckChanged);
+            MinimizeOnStartupBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            MinimizeOnStartupBx.BackColor = System.Drawing.Color.Transparent;
+            MinimizeOnStartupBx.Checked = false;
+            MinimizeOnStartupBx.DisplayImage = Properties.Resources.Minimize_White;
+            MinimizeOnStartupBx.DisplayText = "Minimize on startup";
+            MinimizeOnStartupBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            MinimizeOnStartupBx.Location = new System.Drawing.Point(35, 170);
+            MinimizeOnStartupBx.Name = "MinimizeOnStartupBx";
+            MinimizeOnStartupBx.Size = new System.Drawing.Size(300, 30);
+            MinimizeOnStartupBx.TabIndex = 58;
+            MinimizeOnStartupBx.OnCheckChanged += MinimizeOnStartupBx_OnCheckChanged;
             // 
             // RunOnStartupBx
             // 
-            this.RunOnStartupBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RunOnStartupBx.BackColor = System.Drawing.Color.Transparent;
-            this.RunOnStartupBx.Checked = false;
-            this.RunOnStartupBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Windows_White;
-            this.RunOnStartupBx.DisplayText = "Run on windows startup";
-            this.RunOnStartupBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.RunOnStartupBx.Location = new System.Drawing.Point(35, 125);
-            this.RunOnStartupBx.Name = "RunOnStartupBx";
-            this.RunOnStartupBx.Size = new System.Drawing.Size(300, 30);
-            this.RunOnStartupBx.TabIndex = 57;
-            this.RunOnStartupBx.OnCheckChanged += new System.EventHandler(this.RunOnStartupBx_OnCheckChanged);
+            RunOnStartupBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            RunOnStartupBx.BackColor = System.Drawing.Color.Transparent;
+            RunOnStartupBx.Checked = false;
+            RunOnStartupBx.DisplayImage = Properties.Resources.Windows_White;
+            RunOnStartupBx.DisplayText = "Run on windows startup";
+            RunOnStartupBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            RunOnStartupBx.Location = new System.Drawing.Point(35, 125);
+            RunOnStartupBx.Name = "RunOnStartupBx";
+            RunOnStartupBx.Size = new System.Drawing.Size(300, 30);
+            RunOnStartupBx.TabIndex = 57;
+            RunOnStartupBx.OnCheckChanged += RunOnStartupBx_OnCheckChanged;
             // 
             // PreventInjectionBx
             // 
-            this.PreventInjectionBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PreventInjectionBx.BackColor = System.Drawing.Color.Transparent;
-            this.PreventInjectionBx.Checked = true;
-            this.PreventInjectionBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Lock_White;
-            this.PreventInjectionBx.DisplayText = "Prevent injection when out of date";
-            this.PreventInjectionBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.PreventInjectionBx.Location = new System.Drawing.Point(35, 80);
-            this.PreventInjectionBx.Name = "PreventInjectionBx";
-            this.PreventInjectionBx.Size = new System.Drawing.Size(300, 30);
-            this.PreventInjectionBx.TabIndex = 56;
-            this.PreventInjectionBx.OnCheckChanged += new System.EventHandler(this.PreventInjectionBx_OnCheckChanged);
+            PreventInjectionBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            PreventInjectionBx.BackColor = System.Drawing.Color.Transparent;
+            PreventInjectionBx.Checked = true;
+            PreventInjectionBx.DisplayImage = Properties.Resources.Lock_White;
+            PreventInjectionBx.DisplayText = "Prevent injection when out of date";
+            PreventInjectionBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            PreventInjectionBx.Location = new System.Drawing.Point(35, 80);
+            PreventInjectionBx.Name = "PreventInjectionBx";
+            PreventInjectionBx.Size = new System.Drawing.Size(300, 30);
+            PreventInjectionBx.TabIndex = 56;
+            PreventInjectionBx.OnCheckChanged += PreventInjectionBx_OnCheckChanged;
             // 
             // AutoCheckUpdatesBx
             // 
-            this.AutoCheckUpdatesBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AutoCheckUpdatesBx.BackColor = System.Drawing.Color.Transparent;
-            this.AutoCheckUpdatesBx.Checked = true;
-            this.AutoCheckUpdatesBx.DisplayImage = global::CodeRedLauncher.Properties.Resources.Download_White;
-            this.AutoCheckUpdatesBx.DisplayText = "Automatically check for updates";
-            this.AutoCheckUpdatesBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.AutoCheckUpdatesBx.Location = new System.Drawing.Point(35, 35);
-            this.AutoCheckUpdatesBx.Name = "AutoCheckUpdatesBx";
-            this.AutoCheckUpdatesBx.Size = new System.Drawing.Size(300, 30);
-            this.AutoCheckUpdatesBx.TabIndex = 55;
-            this.AutoCheckUpdatesBx.OnCheckChanged += new System.EventHandler(this.AutoCheckUpdatesBx_OnCheckChanged);
+            AutoCheckUpdatesBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            AutoCheckUpdatesBx.BackColor = System.Drawing.Color.Transparent;
+            AutoCheckUpdatesBx.Checked = true;
+            AutoCheckUpdatesBx.DisplayImage = Properties.Resources.Download_White;
+            AutoCheckUpdatesBx.DisplayText = "Automatically check for updates";
+            AutoCheckUpdatesBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            AutoCheckUpdatesBx.Location = new System.Drawing.Point(35, 35);
+            AutoCheckUpdatesBx.Name = "AutoCheckUpdatesBx";
+            AutoCheckUpdatesBx.Size = new System.Drawing.Size(300, 30);
+            AutoCheckUpdatesBx.TabIndex = 55;
+            AutoCheckUpdatesBx.OnCheckChanged += AutoCheckUpdatesBx_OnCheckChanged;
             // 
             // ManualRadioBtn
             // 
-            this.ManualRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ManualRadioBtn.BackColor = System.Drawing.Color.Transparent;
-            this.ManualRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ManualRadioBtn.Location = new System.Drawing.Point(71, 350);
-            this.ManualRadioBtn.Name = "ManualRadioBtn";
-            this.ManualRadioBtn.Size = new System.Drawing.Size(250, 30);
-            this.ManualRadioBtn.TabIndex = 51;
-            this.ManualRadioBtn.Text = "Manual injection";
-            this.ManualRadioBtn.UseVisualStyleBackColor = false;
-            this.ManualRadioBtn.CheckedChanged += new System.EventHandler(this.ManualRadioBtn_CheckedChanged);
+            ManualRadioBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ManualRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            ManualRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ManualRadioBtn.Location = new System.Drawing.Point(71, 350);
+            ManualRadioBtn.Name = "ManualRadioBtn";
+            ManualRadioBtn.Size = new System.Drawing.Size(250, 30);
+            ManualRadioBtn.TabIndex = 51;
+            ManualRadioBtn.Text = "Manual injection";
+            ManualRadioBtn.UseVisualStyleBackColor = false;
+            ManualRadioBtn.CheckedChanged += ManualRadioBtn_CheckedChanged;
             // 
             // TimeoutRadioBtn
             // 
-            this.TimeoutRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TimeoutRadioBtn.BackColor = System.Drawing.Color.Transparent;
-            this.TimeoutRadioBtn.Checked = true;
-            this.TimeoutRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.TimeoutRadioBtn.Location = new System.Drawing.Point(71, 305);
-            this.TimeoutRadioBtn.Name = "TimeoutRadioBtn";
-            this.TimeoutRadioBtn.Size = new System.Drawing.Size(250, 30);
-            this.TimeoutRadioBtn.TabIndex = 50;
-            this.TimeoutRadioBtn.TabStop = true;
-            this.TimeoutRadioBtn.Text = "Timeout injection";
-            this.TimeoutRadioBtn.UseVisualStyleBackColor = false;
-            this.TimeoutRadioBtn.CheckedChanged += new System.EventHandler(this.TimeoutRadioBtn_CheckedChanged);
+            TimeoutRadioBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            TimeoutRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            TimeoutRadioBtn.Checked = true;
+            TimeoutRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            TimeoutRadioBtn.Location = new System.Drawing.Point(71, 305);
+            TimeoutRadioBtn.Name = "TimeoutRadioBtn";
+            TimeoutRadioBtn.Size = new System.Drawing.Size(250, 30);
+            TimeoutRadioBtn.TabIndex = 50;
+            TimeoutRadioBtn.TabStop = true;
+            TimeoutRadioBtn.Text = "Timeout injection";
+            TimeoutRadioBtn.UseVisualStyleBackColor = false;
+            TimeoutRadioBtn.CheckedChanged += TimeoutRadioBtn_CheckedChanged;
             // 
             // ManualRadioImg
             // 
-            this.ManualRadioImg.BackColor = System.Drawing.Color.Transparent;
-            this.ManualRadioImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Hand_White;
-            this.ManualRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ManualRadioImg.Location = new System.Drawing.Point(35, 350);
-            this.ManualRadioImg.Name = "ManualRadioImg";
-            this.ManualRadioImg.Size = new System.Drawing.Size(30, 30);
-            this.ManualRadioImg.TabIndex = 27;
-            this.ManualRadioImg.TabStop = false;
+            ManualRadioImg.BackColor = System.Drawing.Color.Transparent;
+            ManualRadioImg.BackgroundImage = Properties.Resources.Hand_White;
+            ManualRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            ManualRadioImg.Location = new System.Drawing.Point(35, 350);
+            ManualRadioImg.Name = "ManualRadioImg";
+            ManualRadioImg.Size = new System.Drawing.Size(30, 30);
+            ManualRadioImg.TabIndex = 27;
+            ManualRadioImg.TabStop = false;
             // 
             // TimeoutRadioImg
             // 
-            this.TimeoutRadioImg.BackColor = System.Drawing.Color.Transparent;
-            this.TimeoutRadioImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Stopwatch_White;
-            this.TimeoutRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.TimeoutRadioImg.Location = new System.Drawing.Point(35, 305);
-            this.TimeoutRadioImg.Name = "TimeoutRadioImg";
-            this.TimeoutRadioImg.Size = new System.Drawing.Size(30, 30);
-            this.TimeoutRadioImg.TabIndex = 26;
-            this.TimeoutRadioImg.TabStop = false;
+            TimeoutRadioImg.BackColor = System.Drawing.Color.Transparent;
+            TimeoutRadioImg.BackgroundImage = Properties.Resources.Stopwatch_White;
+            TimeoutRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            TimeoutRadioImg.Location = new System.Drawing.Point(35, 305);
+            TimeoutRadioImg.Name = "TimeoutRadioImg";
+            TimeoutRadioImg.Size = new System.Drawing.Size(30, 30);
+            TimeoutRadioImg.TabIndex = 26;
+            TimeoutRadioImg.TabStop = false;
             // 
             // AlwaysRadioBtn
             // 
-            this.AlwaysRadioBtn.BackColor = System.Drawing.Color.Transparent;
-            this.AlwaysRadioBtn.Enabled = false;
-            this.AlwaysRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.AlwaysRadioBtn.Location = new System.Drawing.Point(71, 395);
-            this.AlwaysRadioBtn.Name = "AlwaysRadioBtn";
-            this.AlwaysRadioBtn.Size = new System.Drawing.Size(250, 30);
-            this.AlwaysRadioBtn.TabIndex = 52;
-            this.AlwaysRadioBtn.Text = "Always injected (Disabled for alpha)";
-            this.AlwaysRadioBtn.UseVisualStyleBackColor = false;
-            this.AlwaysRadioBtn.Visible = false;
-            this.AlwaysRadioBtn.CheckedChanged += new System.EventHandler(this.AlwaysRadioBtn_CheckedChanged);
+            AlwaysRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            AlwaysRadioBtn.Enabled = false;
+            AlwaysRadioBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            AlwaysRadioBtn.Location = new System.Drawing.Point(71, 395);
+            AlwaysRadioBtn.Name = "AlwaysRadioBtn";
+            AlwaysRadioBtn.Size = new System.Drawing.Size(250, 30);
+            AlwaysRadioBtn.TabIndex = 52;
+            AlwaysRadioBtn.Text = "Always injected (Disabled for alpha)";
+            AlwaysRadioBtn.UseVisualStyleBackColor = false;
+            AlwaysRadioBtn.Visible = false;
+            AlwaysRadioBtn.CheckedChanged += AlwaysRadioBtn_CheckedChanged;
             // 
             // AlwaysRadioImg
             // 
-            this.AlwaysRadioImg.BackColor = System.Drawing.Color.Transparent;
-            this.AlwaysRadioImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Library_White;
-            this.AlwaysRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.AlwaysRadioImg.Location = new System.Drawing.Point(35, 395);
-            this.AlwaysRadioImg.Name = "AlwaysRadioImg";
-            this.AlwaysRadioImg.Size = new System.Drawing.Size(30, 30);
-            this.AlwaysRadioImg.TabIndex = 38;
-            this.AlwaysRadioImg.TabStop = false;
-            this.AlwaysRadioImg.Visible = false;
+            AlwaysRadioImg.BackColor = System.Drawing.Color.Transparent;
+            AlwaysRadioImg.BackgroundImage = Properties.Resources.Library_White;
+            AlwaysRadioImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            AlwaysRadioImg.Location = new System.Drawing.Point(35, 395);
+            AlwaysRadioImg.Name = "AlwaysRadioImg";
+            AlwaysRadioImg.Size = new System.Drawing.Size(30, 30);
+            AlwaysRadioImg.TabIndex = 38;
+            AlwaysRadioImg.TabStop = false;
+            AlwaysRadioImg.Visible = false;
             // 
             // AboutTab
             // 
-            this.AboutTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.AboutTab.Controls.Add(this.CheckUpdatesBtn);
-            this.AboutTab.Controls.Add(this.Icons8Link);
-            this.AboutTab.Controls.Add(this.KofiLink);
-            this.AboutTab.Controls.Add(this.DiscordLink);
-            this.AboutTab.Controls.Add(this.WebsiteLink);
-            this.AboutTab.Controls.Add(this.PlatformText);
-            this.AboutTab.Controls.Add(this.NetBuildText);
-            this.AboutTab.Controls.Add(this.PsyonixVersionText);
-            this.AboutTab.Controls.Add(this.ModuleVersionText);
-            this.AboutTab.Controls.Add(this.LauncherVersionText);
-            this.AboutTab.Controls.Add(this.CreditsLbl);
-            this.AboutTab.Controls.Add(this.Icons8Img);
-            this.AboutTab.Controls.Add(this.IconsLbl);
-            this.AboutTab.Controls.Add(this.KofiImg);
-            this.AboutTab.Controls.Add(this.KofiLbl);
-            this.AboutTab.Controls.Add(this.DiscordImg);
-            this.AboutTab.Controls.Add(this.DiscordLbl);
-            this.AboutTab.Controls.Add(this.WebsiteImg);
-            this.AboutTab.Controls.Add(this.WebsiteLbl);
-            this.AboutTab.Controls.Add(this.PlatformImg);
-            this.AboutTab.Controls.Add(this.PlatformLbl);
-            this.AboutTab.Controls.Add(this.NetBuildImg);
-            this.AboutTab.Controls.Add(this.NetBuildLbl);
-            this.AboutTab.Controls.Add(this.PsyonixVersionImg);
-            this.AboutTab.Controls.Add(this.PsyonixVersionLbl);
-            this.AboutTab.Controls.Add(this.ModVersionImg);
-            this.AboutTab.Controls.Add(this.ModuleVersionLbl);
-            this.AboutTab.Controls.Add(this.LauncherVersionImg);
-            this.AboutTab.Controls.Add(this.LauncherVersionLbl);
-            this.AboutTab.Location = new System.Drawing.Point(4, 24);
-            this.AboutTab.Name = "AboutTab";
-            this.AboutTab.Size = new System.Drawing.Size(910, 600);
-            this.AboutTab.TabIndex = 5;
-            this.AboutTab.Text = "About";
+            AboutTab.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            AboutTab.Controls.Add(CheckUpdatesBtn);
+            AboutTab.Controls.Add(Icons8Link);
+            AboutTab.Controls.Add(KofiLink);
+            AboutTab.Controls.Add(DiscordLink);
+            AboutTab.Controls.Add(WebsiteLink);
+            AboutTab.Controls.Add(PlatformText);
+            AboutTab.Controls.Add(NetBuildText);
+            AboutTab.Controls.Add(PsyonixVersionText);
+            AboutTab.Controls.Add(ModuleVersionText);
+            AboutTab.Controls.Add(LauncherVersionText);
+            AboutTab.Controls.Add(CreditsLbl);
+            AboutTab.Controls.Add(Icons8Img);
+            AboutTab.Controls.Add(IconsLbl);
+            AboutTab.Controls.Add(KofiImg);
+            AboutTab.Controls.Add(KofiLbl);
+            AboutTab.Controls.Add(DiscordImg);
+            AboutTab.Controls.Add(DiscordLbl);
+            AboutTab.Controls.Add(WebsiteImg);
+            AboutTab.Controls.Add(WebsiteLbl);
+            AboutTab.Controls.Add(PlatformImg);
+            AboutTab.Controls.Add(PlatformLbl);
+            AboutTab.Controls.Add(NetBuildImg);
+            AboutTab.Controls.Add(NetBuildLbl);
+            AboutTab.Controls.Add(PsyonixVersionImg);
+            AboutTab.Controls.Add(PsyonixVersionLbl);
+            AboutTab.Controls.Add(ModVersionImg);
+            AboutTab.Controls.Add(ModuleVersionLbl);
+            AboutTab.Controls.Add(LauncherVersionImg);
+            AboutTab.Controls.Add(LauncherVersionLbl);
+            AboutTab.Location = new System.Drawing.Point(4, 24);
+            AboutTab.Name = "AboutTab";
+            AboutTab.Size = new System.Drawing.Size(910, 600);
+            AboutTab.TabIndex = 5;
+            AboutTab.Text = "About";
             // 
             // CheckUpdatesBtn
             // 
-            this.CheckUpdatesBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.CheckUpdatesBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CheckUpdatesBtn.ButtonEnabled = true;
-            this.CheckUpdatesBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.CheckUpdatesBtn.DisplayImage = global::CodeRedLauncher.Properties.Resources.Refresh_White;
-            this.CheckUpdatesBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
-            this.CheckUpdatesBtn.DisplayText = "Check for Updates";
-            this.CheckUpdatesBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.CheckUpdatesBtn.Location = new System.Drawing.Point(235, 529);
-            this.CheckUpdatesBtn.Name = "CheckUpdatesBtn";
-            this.CheckUpdatesBtn.Size = new System.Drawing.Size(440, 35);
-            this.CheckUpdatesBtn.TabIndex = 31;
-            this.CheckUpdatesBtn.OnButtonClick += new System.EventHandler(this.CheckUpdatesBtn_OnButtonClick);
+            CheckUpdatesBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            CheckUpdatesBtn.BackColor = System.Drawing.Color.FromArgb(175, 0, 0);
+            CheckUpdatesBtn.ButtonEnabled = true;
+            CheckUpdatesBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            CheckUpdatesBtn.DisplayImage = Properties.Resources.Refresh_White;
+            CheckUpdatesBtn.DisplayStyle = CodeRedLauncher.Controls.CRButton.ButtonStyles.STYLE_COLORED;
+            CheckUpdatesBtn.DisplayText = "Check for Updates";
+            CheckUpdatesBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            CheckUpdatesBtn.Location = new System.Drawing.Point(235, 529);
+            CheckUpdatesBtn.Name = "CheckUpdatesBtn";
+            CheckUpdatesBtn.Size = new System.Drawing.Size(440, 35);
+            CheckUpdatesBtn.TabIndex = 31;
+            CheckUpdatesBtn.OnButtonClick += CheckUpdatesBtn_OnButtonClick;
             // 
             // Icons8Link
             // 
-            this.Icons8Link.BackColor = System.Drawing.Color.Transparent;
-            this.Icons8Link.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Icons8Link.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Icons8Link.ForeColor = System.Drawing.Color.Red;
-            this.Icons8Link.Location = new System.Drawing.Point(207, 395);
-            this.Icons8Link.Name = "Icons8Link";
-            this.Icons8Link.Size = new System.Drawing.Size(275, 30);
-            this.Icons8Link.TabIndex = 30;
-            this.Icons8Link.Text = "https://icons8.com/";
-            this.Icons8Link.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Icons8Link.Click += new System.EventHandler(this.Icons8Link_Click);
+            Icons8Link.BackColor = System.Drawing.Color.Transparent;
+            Icons8Link.Cursor = System.Windows.Forms.Cursors.Hand;
+            Icons8Link.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Icons8Link.ForeColor = System.Drawing.Color.Red;
+            Icons8Link.Location = new System.Drawing.Point(207, 395);
+            Icons8Link.Name = "Icons8Link";
+            Icons8Link.Size = new System.Drawing.Size(275, 30);
+            Icons8Link.TabIndex = 30;
+            Icons8Link.Text = "https://icons8.com/";
+            Icons8Link.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            Icons8Link.Click += Icons8Link_Click;
             // 
             // KofiLink
             // 
-            this.KofiLink.BackColor = System.Drawing.Color.Transparent;
-            this.KofiLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.KofiLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.KofiLink.ForeColor = System.Drawing.Color.Red;
-            this.KofiLink.Location = new System.Drawing.Point(207, 350);
-            this.KofiLink.Name = "KofiLink";
-            this.KofiLink.Size = new System.Drawing.Size(275, 30);
-            this.KofiLink.TabIndex = 29;
-            this.KofiLink.Text = "https://ko-fi.com/coderedmodding/";
-            this.KofiLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.KofiLink.Click += new System.EventHandler(this.KofiLink_Click);
+            KofiLink.BackColor = System.Drawing.Color.Transparent;
+            KofiLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            KofiLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            KofiLink.ForeColor = System.Drawing.Color.Red;
+            KofiLink.Location = new System.Drawing.Point(207, 350);
+            KofiLink.Name = "KofiLink";
+            KofiLink.Size = new System.Drawing.Size(275, 30);
+            KofiLink.TabIndex = 29;
+            KofiLink.Text = "https://ko-fi.com/coderedmodding/";
+            KofiLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            KofiLink.Click += KofiLink_Click;
             // 
             // DiscordLink
             // 
-            this.DiscordLink.BackColor = System.Drawing.Color.Transparent;
-            this.DiscordLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DiscordLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.DiscordLink.ForeColor = System.Drawing.Color.Red;
-            this.DiscordLink.Location = new System.Drawing.Point(207, 305);
-            this.DiscordLink.Name = "DiscordLink";
-            this.DiscordLink.Size = new System.Drawing.Size(275, 30);
-            this.DiscordLink.TabIndex = 28;
-            this.DiscordLink.Text = "Loading...";
-            this.DiscordLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DiscordLink.Click += new System.EventHandler(this.DiscordLink_Click);
+            DiscordLink.BackColor = System.Drawing.Color.Transparent;
+            DiscordLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            DiscordLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            DiscordLink.ForeColor = System.Drawing.Color.Red;
+            DiscordLink.Location = new System.Drawing.Point(207, 305);
+            DiscordLink.Name = "DiscordLink";
+            DiscordLink.Size = new System.Drawing.Size(275, 30);
+            DiscordLink.TabIndex = 28;
+            DiscordLink.Text = "Loading...";
+            DiscordLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            DiscordLink.Click += DiscordLink_Click;
             // 
             // WebsiteLink
             // 
-            this.WebsiteLink.BackColor = System.Drawing.Color.Transparent;
-            this.WebsiteLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.WebsiteLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.WebsiteLink.ForeColor = System.Drawing.Color.Red;
-            this.WebsiteLink.Location = new System.Drawing.Point(207, 260);
-            this.WebsiteLink.Name = "WebsiteLink";
-            this.WebsiteLink.Size = new System.Drawing.Size(275, 30);
-            this.WebsiteLink.TabIndex = 27;
-            this.WebsiteLink.Text = "https://coderedmodding.github.io/";
-            this.WebsiteLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.WebsiteLink.Click += new System.EventHandler(this.WebsiteLink_Click);
+            WebsiteLink.BackColor = System.Drawing.Color.Transparent;
+            WebsiteLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            WebsiteLink.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            WebsiteLink.ForeColor = System.Drawing.Color.Red;
+            WebsiteLink.Location = new System.Drawing.Point(207, 260);
+            WebsiteLink.Name = "WebsiteLink";
+            WebsiteLink.Size = new System.Drawing.Size(275, 30);
+            WebsiteLink.TabIndex = 27;
+            WebsiteLink.Text = "https://coderedmodding.github.io/";
+            WebsiteLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            WebsiteLink.Click += WebsiteLink_Click;
             // 
             // PlatformText
             // 
-            this.PlatformText.BackColor = System.Drawing.Color.Transparent;
-            this.PlatformText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PlatformText.Location = new System.Drawing.Point(207, 215);
-            this.PlatformText.Name = "PlatformText";
-            this.PlatformText.Size = new System.Drawing.Size(275, 30);
-            this.PlatformText.TabIndex = 26;
-            this.PlatformText.Text = "Loading...";
-            this.PlatformText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            PlatformText.BackColor = System.Drawing.Color.Transparent;
+            PlatformText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            PlatformText.Location = new System.Drawing.Point(207, 215);
+            PlatformText.Name = "PlatformText";
+            PlatformText.Size = new System.Drawing.Size(275, 30);
+            PlatformText.TabIndex = 26;
+            PlatformText.Text = "Loading...";
+            PlatformText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NetBuildText
             // 
-            this.NetBuildText.BackColor = System.Drawing.Color.Transparent;
-            this.NetBuildText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NetBuildText.Location = new System.Drawing.Point(207, 170);
-            this.NetBuildText.Name = "NetBuildText";
-            this.NetBuildText.Size = new System.Drawing.Size(275, 30);
-            this.NetBuildText.TabIndex = 25;
-            this.NetBuildText.Text = "Loading...";
-            this.NetBuildText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            NetBuildText.BackColor = System.Drawing.Color.Transparent;
+            NetBuildText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            NetBuildText.Location = new System.Drawing.Point(207, 170);
+            NetBuildText.Name = "NetBuildText";
+            NetBuildText.Size = new System.Drawing.Size(275, 30);
+            NetBuildText.TabIndex = 25;
+            NetBuildText.Text = "Loading...";
+            NetBuildText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PsyonixVersionText
             // 
-            this.PsyonixVersionText.BackColor = System.Drawing.Color.Transparent;
-            this.PsyonixVersionText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PsyonixVersionText.Location = new System.Drawing.Point(207, 125);
-            this.PsyonixVersionText.Name = "PsyonixVersionText";
-            this.PsyonixVersionText.Size = new System.Drawing.Size(275, 30);
-            this.PsyonixVersionText.TabIndex = 24;
-            this.PsyonixVersionText.Text = "Loading...";
-            this.PsyonixVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            PsyonixVersionText.BackColor = System.Drawing.Color.Transparent;
+            PsyonixVersionText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            PsyonixVersionText.Location = new System.Drawing.Point(207, 125);
+            PsyonixVersionText.Name = "PsyonixVersionText";
+            PsyonixVersionText.Size = new System.Drawing.Size(275, 30);
+            PsyonixVersionText.TabIndex = 24;
+            PsyonixVersionText.Text = "Loading...";
+            PsyonixVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ModuleVersionText
             // 
-            this.ModuleVersionText.BackColor = System.Drawing.Color.Transparent;
-            this.ModuleVersionText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ModuleVersionText.Location = new System.Drawing.Point(207, 80);
-            this.ModuleVersionText.Name = "ModuleVersionText";
-            this.ModuleVersionText.Size = new System.Drawing.Size(275, 30);
-            this.ModuleVersionText.TabIndex = 23;
-            this.ModuleVersionText.Text = "Loading...";
-            this.ModuleVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            ModuleVersionText.BackColor = System.Drawing.Color.Transparent;
+            ModuleVersionText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ModuleVersionText.Location = new System.Drawing.Point(207, 80);
+            ModuleVersionText.Name = "ModuleVersionText";
+            ModuleVersionText.Size = new System.Drawing.Size(275, 30);
+            ModuleVersionText.TabIndex = 23;
+            ModuleVersionText.Text = "Loading...";
+            ModuleVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // LauncherVersionText
             // 
-            this.LauncherVersionText.BackColor = System.Drawing.Color.Transparent;
-            this.LauncherVersionText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LauncherVersionText.Location = new System.Drawing.Point(207, 35);
-            this.LauncherVersionText.Name = "LauncherVersionText";
-            this.LauncherVersionText.Size = new System.Drawing.Size(275, 30);
-            this.LauncherVersionText.TabIndex = 22;
-            this.LauncherVersionText.Text = "Loading...";
-            this.LauncherVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            LauncherVersionText.BackColor = System.Drawing.Color.Transparent;
+            LauncherVersionText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            LauncherVersionText.Location = new System.Drawing.Point(207, 35);
+            LauncherVersionText.Name = "LauncherVersionText";
+            LauncherVersionText.Size = new System.Drawing.Size(275, 30);
+            LauncherVersionText.TabIndex = 22;
+            LauncherVersionText.Text = "Loading...";
+            LauncherVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CreditsLbl
             // 
-            this.CreditsLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CreditsLbl.BackColor = System.Drawing.Color.Transparent;
-            this.CreditsLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CreditsLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(165)))), ((int)(((byte)(165)))));
-            this.CreditsLbl.Location = new System.Drawing.Point(35, 440);
-            this.CreditsLbl.Name = "CreditsLbl";
-            this.CreditsLbl.Size = new System.Drawing.Size(840, 64);
-            this.CreditsLbl.TabIndex = 21;
-            this.CreditsLbl.Text = resources.GetString("CreditsLbl.Text");
-            this.CreditsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            CreditsLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            CreditsLbl.BackColor = System.Drawing.Color.Transparent;
+            CreditsLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            CreditsLbl.ForeColor = System.Drawing.Color.FromArgb(165, 165, 165);
+            CreditsLbl.Location = new System.Drawing.Point(35, 440);
+            CreditsLbl.Name = "CreditsLbl";
+            CreditsLbl.Size = new System.Drawing.Size(840, 64);
+            CreditsLbl.TabIndex = 21;
+            CreditsLbl.Text = resources.GetString("CreditsLbl.Text");
+            CreditsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Icons8Img
             // 
-            this.Icons8Img.BackColor = System.Drawing.Color.Transparent;
-            this.Icons8Img.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Icons8_White;
-            this.Icons8Img.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Icons8Img.Location = new System.Drawing.Point(35, 395);
-            this.Icons8Img.Name = "Icons8Img";
-            this.Icons8Img.Size = new System.Drawing.Size(30, 30);
-            this.Icons8Img.TabIndex = 19;
-            this.Icons8Img.TabStop = false;
+            Icons8Img.BackColor = System.Drawing.Color.Transparent;
+            Icons8Img.BackgroundImage = Properties.Resources.Icons8_White;
+            Icons8Img.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            Icons8Img.Location = new System.Drawing.Point(35, 395);
+            Icons8Img.Name = "Icons8Img";
+            Icons8Img.Size = new System.Drawing.Size(30, 30);
+            Icons8Img.TabIndex = 19;
+            Icons8Img.TabStop = false;
             // 
             // IconsLbl
             // 
-            this.IconsLbl.BackColor = System.Drawing.Color.Transparent;
-            this.IconsLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.IconsLbl.Location = new System.Drawing.Point(71, 395);
-            this.IconsLbl.Name = "IconsLbl";
-            this.IconsLbl.Size = new System.Drawing.Size(130, 30);
-            this.IconsLbl.TabIndex = 18;
-            this.IconsLbl.Text = "Icons provided by:";
-            this.IconsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            IconsLbl.BackColor = System.Drawing.Color.Transparent;
+            IconsLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            IconsLbl.Location = new System.Drawing.Point(71, 395);
+            IconsLbl.Name = "IconsLbl";
+            IconsLbl.Size = new System.Drawing.Size(130, 30);
+            IconsLbl.TabIndex = 18;
+            IconsLbl.Text = "Icons provided by:";
+            IconsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // KofiImg
             // 
-            this.KofiImg.BackColor = System.Drawing.Color.Transparent;
-            this.KofiImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Coffee_White;
-            this.KofiImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.KofiImg.Location = new System.Drawing.Point(35, 350);
-            this.KofiImg.Name = "KofiImg";
-            this.KofiImg.Size = new System.Drawing.Size(30, 30);
-            this.KofiImg.TabIndex = 17;
-            this.KofiImg.TabStop = false;
+            KofiImg.BackColor = System.Drawing.Color.Transparent;
+            KofiImg.BackgroundImage = Properties.Resources.Coffee_White;
+            KofiImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            KofiImg.Location = new System.Drawing.Point(35, 350);
+            KofiImg.Name = "KofiImg";
+            KofiImg.Size = new System.Drawing.Size(30, 30);
+            KofiImg.TabIndex = 17;
+            KofiImg.TabStop = false;
             // 
             // KofiLbl
             // 
-            this.KofiLbl.BackColor = System.Drawing.Color.Transparent;
-            this.KofiLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.KofiLbl.Location = new System.Drawing.Point(71, 350);
-            this.KofiLbl.Name = "KofiLbl";
-            this.KofiLbl.Size = new System.Drawing.Size(130, 30);
-            this.KofiLbl.TabIndex = 16;
-            this.KofiLbl.Text = "Ko-fi:";
-            this.KofiLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            KofiLbl.BackColor = System.Drawing.Color.Transparent;
+            KofiLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            KofiLbl.Location = new System.Drawing.Point(71, 350);
+            KofiLbl.Name = "KofiLbl";
+            KofiLbl.Size = new System.Drawing.Size(130, 30);
+            KofiLbl.TabIndex = 16;
+            KofiLbl.Text = "Ko-fi:";
+            KofiLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DiscordImg
             // 
-            this.DiscordImg.BackColor = System.Drawing.Color.Transparent;
-            this.DiscordImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Discord_White;
-            this.DiscordImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.DiscordImg.Location = new System.Drawing.Point(35, 305);
-            this.DiscordImg.Name = "DiscordImg";
-            this.DiscordImg.Size = new System.Drawing.Size(30, 30);
-            this.DiscordImg.TabIndex = 15;
-            this.DiscordImg.TabStop = false;
+            DiscordImg.BackColor = System.Drawing.Color.Transparent;
+            DiscordImg.BackgroundImage = Properties.Resources.Discord_White;
+            DiscordImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            DiscordImg.Location = new System.Drawing.Point(35, 305);
+            DiscordImg.Name = "DiscordImg";
+            DiscordImg.Size = new System.Drawing.Size(30, 30);
+            DiscordImg.TabIndex = 15;
+            DiscordImg.TabStop = false;
             // 
             // DiscordLbl
             // 
-            this.DiscordLbl.BackColor = System.Drawing.Color.Transparent;
-            this.DiscordLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.DiscordLbl.Location = new System.Drawing.Point(71, 305);
-            this.DiscordLbl.Name = "DiscordLbl";
-            this.DiscordLbl.Size = new System.Drawing.Size(130, 30);
-            this.DiscordLbl.TabIndex = 14;
-            this.DiscordLbl.Text = "Discord:";
-            this.DiscordLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            DiscordLbl.BackColor = System.Drawing.Color.Transparent;
+            DiscordLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            DiscordLbl.Location = new System.Drawing.Point(71, 305);
+            DiscordLbl.Name = "DiscordLbl";
+            DiscordLbl.Size = new System.Drawing.Size(130, 30);
+            DiscordLbl.TabIndex = 14;
+            DiscordLbl.Text = "Discord:";
+            DiscordLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // WebsiteImg
             // 
-            this.WebsiteImg.BackColor = System.Drawing.Color.Transparent;
-            this.WebsiteImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Box_White;
-            this.WebsiteImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.WebsiteImg.Location = new System.Drawing.Point(35, 260);
-            this.WebsiteImg.Name = "WebsiteImg";
-            this.WebsiteImg.Size = new System.Drawing.Size(30, 30);
-            this.WebsiteImg.TabIndex = 13;
-            this.WebsiteImg.TabStop = false;
+            WebsiteImg.BackColor = System.Drawing.Color.Transparent;
+            WebsiteImg.BackgroundImage = Properties.Resources.Box_White;
+            WebsiteImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            WebsiteImg.Location = new System.Drawing.Point(35, 260);
+            WebsiteImg.Name = "WebsiteImg";
+            WebsiteImg.Size = new System.Drawing.Size(30, 30);
+            WebsiteImg.TabIndex = 13;
+            WebsiteImg.TabStop = false;
             // 
             // WebsiteLbl
             // 
-            this.WebsiteLbl.BackColor = System.Drawing.Color.Transparent;
-            this.WebsiteLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.WebsiteLbl.Location = new System.Drawing.Point(71, 260);
-            this.WebsiteLbl.Name = "WebsiteLbl";
-            this.WebsiteLbl.Size = new System.Drawing.Size(130, 30);
-            this.WebsiteLbl.TabIndex = 12;
-            this.WebsiteLbl.Text = "Website:";
-            this.WebsiteLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            WebsiteLbl.BackColor = System.Drawing.Color.Transparent;
+            WebsiteLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            WebsiteLbl.Location = new System.Drawing.Point(71, 260);
+            WebsiteLbl.Name = "WebsiteLbl";
+            WebsiteLbl.Size = new System.Drawing.Size(130, 30);
+            WebsiteLbl.TabIndex = 12;
+            WebsiteLbl.Text = "Website:";
+            WebsiteLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PlatformImg
             // 
-            this.PlatformImg.BackColor = System.Drawing.Color.Transparent;
-            this.PlatformImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Question_White;
-            this.PlatformImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PlatformImg.Location = new System.Drawing.Point(35, 215);
-            this.PlatformImg.Name = "PlatformImg";
-            this.PlatformImg.Size = new System.Drawing.Size(30, 30);
-            this.PlatformImg.TabIndex = 11;
-            this.PlatformImg.TabStop = false;
+            PlatformImg.BackColor = System.Drawing.Color.Transparent;
+            PlatformImg.BackgroundImage = Properties.Resources.Question_White;
+            PlatformImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            PlatformImg.Location = new System.Drawing.Point(35, 215);
+            PlatformImg.Name = "PlatformImg";
+            PlatformImg.Size = new System.Drawing.Size(30, 30);
+            PlatformImg.TabIndex = 11;
+            PlatformImg.TabStop = false;
             // 
             // PlatformLbl
             // 
-            this.PlatformLbl.BackColor = System.Drawing.Color.Transparent;
-            this.PlatformLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PlatformLbl.Location = new System.Drawing.Point(71, 215);
-            this.PlatformLbl.Name = "PlatformLbl";
-            this.PlatformLbl.Size = new System.Drawing.Size(130, 30);
-            this.PlatformLbl.TabIndex = 10;
-            this.PlatformLbl.Text = "Active Platform:";
-            this.PlatformLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            PlatformLbl.BackColor = System.Drawing.Color.Transparent;
+            PlatformLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            PlatformLbl.Location = new System.Drawing.Point(71, 215);
+            PlatformLbl.Name = "PlatformLbl";
+            PlatformLbl.Size = new System.Drawing.Size(130, 30);
+            PlatformLbl.TabIndex = 10;
+            PlatformLbl.Text = "Active Platform:";
+            PlatformLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NetBuildImg
             // 
-            this.NetBuildImg.BackColor = System.Drawing.Color.Transparent;
-            this.NetBuildImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Circuit_White;
-            this.NetBuildImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.NetBuildImg.Location = new System.Drawing.Point(35, 170);
-            this.NetBuildImg.Name = "NetBuildImg";
-            this.NetBuildImg.Size = new System.Drawing.Size(30, 30);
-            this.NetBuildImg.TabIndex = 9;
-            this.NetBuildImg.TabStop = false;
+            NetBuildImg.BackColor = System.Drawing.Color.Transparent;
+            NetBuildImg.BackgroundImage = Properties.Resources.Circuit_White;
+            NetBuildImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            NetBuildImg.Location = new System.Drawing.Point(35, 170);
+            NetBuildImg.Name = "NetBuildImg";
+            NetBuildImg.Size = new System.Drawing.Size(30, 30);
+            NetBuildImg.TabIndex = 9;
+            NetBuildImg.TabStop = false;
             // 
             // NetBuildLbl
             // 
-            this.NetBuildLbl.BackColor = System.Drawing.Color.Transparent;
-            this.NetBuildLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.NetBuildLbl.Location = new System.Drawing.Point(71, 170);
-            this.NetBuildLbl.Name = "NetBuildLbl";
-            this.NetBuildLbl.Size = new System.Drawing.Size(130, 30);
-            this.NetBuildLbl.TabIndex = 8;
-            this.NetBuildLbl.Text = "Net Build:";
-            this.NetBuildLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            NetBuildLbl.BackColor = System.Drawing.Color.Transparent;
+            NetBuildLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            NetBuildLbl.Location = new System.Drawing.Point(71, 170);
+            NetBuildLbl.Name = "NetBuildLbl";
+            NetBuildLbl.Size = new System.Drawing.Size(130, 30);
+            NetBuildLbl.TabIndex = 8;
+            NetBuildLbl.Text = "Net Build:";
+            NetBuildLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PsyonixVersionImg
             // 
-            this.PsyonixVersionImg.BackColor = System.Drawing.Color.Transparent;
-            this.PsyonixVersionImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Server_White;
-            this.PsyonixVersionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PsyonixVersionImg.Location = new System.Drawing.Point(35, 125);
-            this.PsyonixVersionImg.Name = "PsyonixVersionImg";
-            this.PsyonixVersionImg.Size = new System.Drawing.Size(30, 30);
-            this.PsyonixVersionImg.TabIndex = 7;
-            this.PsyonixVersionImg.TabStop = false;
+            PsyonixVersionImg.BackColor = System.Drawing.Color.Transparent;
+            PsyonixVersionImg.BackgroundImage = Properties.Resources.Server_White;
+            PsyonixVersionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            PsyonixVersionImg.Location = new System.Drawing.Point(35, 125);
+            PsyonixVersionImg.Name = "PsyonixVersionImg";
+            PsyonixVersionImg.Size = new System.Drawing.Size(30, 30);
+            PsyonixVersionImg.TabIndex = 7;
+            PsyonixVersionImg.TabStop = false;
             // 
             // PsyonixVersionLbl
             // 
-            this.PsyonixVersionLbl.BackColor = System.Drawing.Color.Transparent;
-            this.PsyonixVersionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PsyonixVersionLbl.Location = new System.Drawing.Point(71, 125);
-            this.PsyonixVersionLbl.Name = "PsyonixVersionLbl";
-            this.PsyonixVersionLbl.Size = new System.Drawing.Size(130, 30);
-            this.PsyonixVersionLbl.TabIndex = 6;
-            this.PsyonixVersionLbl.Text = "Psyonix Version:";
-            this.PsyonixVersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            PsyonixVersionLbl.BackColor = System.Drawing.Color.Transparent;
+            PsyonixVersionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            PsyonixVersionLbl.Location = new System.Drawing.Point(71, 125);
+            PsyonixVersionLbl.Name = "PsyonixVersionLbl";
+            PsyonixVersionLbl.Size = new System.Drawing.Size(130, 30);
+            PsyonixVersionLbl.TabIndex = 6;
+            PsyonixVersionLbl.Text = "Psyonix Version:";
+            PsyonixVersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ModVersionImg
             // 
-            this.ModVersionImg.BackColor = System.Drawing.Color.Transparent;
-            this.ModVersionImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Chip_White;
-            this.ModVersionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ModVersionImg.Location = new System.Drawing.Point(35, 80);
-            this.ModVersionImg.Name = "ModVersionImg";
-            this.ModVersionImg.Size = new System.Drawing.Size(30, 30);
-            this.ModVersionImg.TabIndex = 5;
-            this.ModVersionImg.TabStop = false;
+            ModVersionImg.BackColor = System.Drawing.Color.Transparent;
+            ModVersionImg.BackgroundImage = Properties.Resources.Chip_White;
+            ModVersionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            ModVersionImg.Location = new System.Drawing.Point(35, 80);
+            ModVersionImg.Name = "ModVersionImg";
+            ModVersionImg.Size = new System.Drawing.Size(30, 30);
+            ModVersionImg.TabIndex = 5;
+            ModVersionImg.TabStop = false;
             // 
             // ModuleVersionLbl
             // 
-            this.ModuleVersionLbl.BackColor = System.Drawing.Color.Transparent;
-            this.ModuleVersionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ModuleVersionLbl.Location = new System.Drawing.Point(71, 80);
-            this.ModuleVersionLbl.Name = "ModuleVersionLbl";
-            this.ModuleVersionLbl.Size = new System.Drawing.Size(130, 30);
-            this.ModuleVersionLbl.TabIndex = 4;
-            this.ModuleVersionLbl.Text = "Module Version:";
-            this.ModuleVersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            ModuleVersionLbl.BackColor = System.Drawing.Color.Transparent;
+            ModuleVersionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ModuleVersionLbl.Location = new System.Drawing.Point(71, 80);
+            ModuleVersionLbl.Name = "ModuleVersionLbl";
+            ModuleVersionLbl.Size = new System.Drawing.Size(130, 30);
+            ModuleVersionLbl.TabIndex = 4;
+            ModuleVersionLbl.Text = "Module Version:";
+            ModuleVersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // LauncherVersionImg
             // 
-            this.LauncherVersionImg.BackColor = System.Drawing.Color.Transparent;
-            this.LauncherVersionImg.BackgroundImage = global::CodeRedLauncher.Properties.Resources.Software_White;
-            this.LauncherVersionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.LauncherVersionImg.Location = new System.Drawing.Point(35, 35);
-            this.LauncherVersionImg.Name = "LauncherVersionImg";
-            this.LauncherVersionImg.Size = new System.Drawing.Size(30, 30);
-            this.LauncherVersionImg.TabIndex = 3;
-            this.LauncherVersionImg.TabStop = false;
+            LauncherVersionImg.BackColor = System.Drawing.Color.Transparent;
+            LauncherVersionImg.BackgroundImage = Properties.Resources.Software_White;
+            LauncherVersionImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            LauncherVersionImg.Location = new System.Drawing.Point(35, 35);
+            LauncherVersionImg.Name = "LauncherVersionImg";
+            LauncherVersionImg.Size = new System.Drawing.Size(30, 30);
+            LauncherVersionImg.TabIndex = 3;
+            LauncherVersionImg.TabStop = false;
             // 
             // LauncherVersionLbl
             // 
-            this.LauncherVersionLbl.BackColor = System.Drawing.Color.Transparent;
-            this.LauncherVersionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LauncherVersionLbl.Location = new System.Drawing.Point(71, 35);
-            this.LauncherVersionLbl.Name = "LauncherVersionLbl";
-            this.LauncherVersionLbl.Size = new System.Drawing.Size(130, 30);
-            this.LauncherVersionLbl.TabIndex = 2;
-            this.LauncherVersionLbl.Text = "Launcher Version:";
-            this.LauncherVersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            LauncherVersionLbl.BackColor = System.Drawing.Color.Transparent;
+            LauncherVersionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            LauncherVersionLbl.Location = new System.Drawing.Point(71, 35);
+            LauncherVersionLbl.Name = "LauncherVersionLbl";
+            LauncherVersionLbl.Size = new System.Drawing.Size(130, 30);
+            LauncherVersionLbl.TabIndex = 2;
+            LauncherVersionLbl.Text = "Launcher Version:";
+            LauncherVersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BackgroundPnl
             // 
-            this.BackgroundPnl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.BackgroundPnl.Controls.Add(this.TabPnl);
-            this.BackgroundPnl.Controls.Add(this.TitleBar);
-            this.BackgroundPnl.Controls.Add(this.TabCtrl);
-            this.BackgroundPnl.Controls.Add(this.InstallOfflinePopupCtrl);
-            this.BackgroundPnl.Controls.Add(this.OfflinePopupCtrl);
-            this.BackgroundPnl.Controls.Add(this.UpdatePopupCtrl);
-            this.BackgroundPnl.Controls.Add(this.InstallPopupCtrl);
-            this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
-            this.BackgroundPnl.Name = "BackgroundPnl";
-            this.BackgroundPnl.Size = new System.Drawing.Size(970, 630);
-            this.BackgroundPnl.TabIndex = 4;
+            BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            BackgroundPnl.Controls.Add(TabPnl);
+            BackgroundPnl.Controls.Add(TitleBar);
+            BackgroundPnl.Controls.Add(TabCtrl);
+            BackgroundPnl.Controls.Add(InstallOfflinePopupCtrl);
+            BackgroundPnl.Controls.Add(OfflinePopupCtrl);
+            BackgroundPnl.Controls.Add(UpdatePopupCtrl);
+            BackgroundPnl.Controls.Add(InstallPopupCtrl);
+            BackgroundPnl.Location = new System.Drawing.Point(1, 1);
+            BackgroundPnl.Name = "BackgroundPnl";
+            BackgroundPnl.Size = new System.Drawing.Size(970, 630);
+            BackgroundPnl.TabIndex = 4;
             // 
             // TabPnl
             // 
-            this.TabPnl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.TabPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.TabPnl.Controls.Add(this.AboutTabBtn);
-            this.TabPnl.Controls.Add(this.SettingsTabBtn);
-            this.TabPnl.Controls.Add(this.ExitTabBtn);
-            this.TabPnl.Controls.Add(this.ScriptsTabBtn);
-            this.TabPnl.Controls.Add(this.TexturesTabBtn);
-            this.TabPnl.Controls.Add(this.SessionsTabBtn);
-            this.TabPnl.Controls.Add(this.NewsTabBtn);
-            this.TabPnl.Controls.Add(this.DashboardTabBtn);
-            this.TabPnl.Location = new System.Drawing.Point(0, 30);
-            this.TabPnl.Name = "TabPnl";
-            this.TabPnl.Size = new System.Drawing.Size(60, 600);
-            this.TabPnl.TabIndex = 2;
+            TabPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            TabPnl.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            TabPnl.Controls.Add(AboutTabBtn);
+            TabPnl.Controls.Add(SettingsTabBtn);
+            TabPnl.Controls.Add(ExitTabBtn);
+            TabPnl.Controls.Add(ScriptsTabBtn);
+            TabPnl.Controls.Add(TexturesTabBtn);
+            TabPnl.Controls.Add(SessionsTabBtn);
+            TabPnl.Controls.Add(NewsTabBtn);
+            TabPnl.Controls.Add(DashboardTabBtn);
+            TabPnl.Location = new System.Drawing.Point(0, 30);
+            TabPnl.Name = "TabPnl";
+            TabPnl.Size = new System.Drawing.Size(60, 600);
+            TabPnl.TabIndex = 2;
             // 
             // AboutTabBtn
             // 
-            this.AboutTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AboutTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.AboutTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.About_Red;
-            this.AboutTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.About_White;
-            this.AboutTabBtn.Location = new System.Drawing.Point(0, 500);
-            this.AboutTabBtn.Name = "AboutTabBtn";
-            this.AboutTabBtn.Selected = false;
-            this.AboutTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.AboutTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.AboutTabBtn.TabIndex = 7;
-            this.AboutTabBtn.OnTabClick += new System.EventHandler(this.AboutTabBtn_OnTabClick);
+            AboutTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            AboutTabBtn.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            AboutTabBtn.ImageSelected = Properties.Resources.About_Red;
+            AboutTabBtn.ImageUnselected = Properties.Resources.About_White;
+            AboutTabBtn.Location = new System.Drawing.Point(0, 500);
+            AboutTabBtn.Name = "AboutTabBtn";
+            AboutTabBtn.Selected = false;
+            AboutTabBtn.SelectedColor = System.Drawing.Color.Red;
+            AboutTabBtn.Size = new System.Drawing.Size(60, 50);
+            AboutTabBtn.TabIndex = 7;
+            AboutTabBtn.OnTabClick += AboutTabBtn_OnTabClick;
             // 
             // SettingsTabBtn
             // 
-            this.SettingsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SettingsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.SettingsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Settings_Red;
-            this.SettingsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Settings_White;
-            this.SettingsTabBtn.Location = new System.Drawing.Point(0, 450);
-            this.SettingsTabBtn.Name = "SettingsTabBtn";
-            this.SettingsTabBtn.Selected = false;
-            this.SettingsTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.SettingsTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.SettingsTabBtn.TabIndex = 6;
-            this.SettingsTabBtn.OnTabClick += new System.EventHandler(this.SettingsTabBtn_OnTabClick);
+            SettingsTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SettingsTabBtn.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            SettingsTabBtn.ImageSelected = Properties.Resources.Settings_Red;
+            SettingsTabBtn.ImageUnselected = Properties.Resources.Settings_White;
+            SettingsTabBtn.Location = new System.Drawing.Point(0, 450);
+            SettingsTabBtn.Name = "SettingsTabBtn";
+            SettingsTabBtn.Selected = false;
+            SettingsTabBtn.SelectedColor = System.Drawing.Color.Red;
+            SettingsTabBtn.Size = new System.Drawing.Size(60, 50);
+            SettingsTabBtn.TabIndex = 6;
+            SettingsTabBtn.OnTabClick += SettingsTabBtn_OnTabClick;
             // 
             // ExitTabBtn
             // 
-            this.ExitTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExitTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ExitTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Exit_Red;
-            this.ExitTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Exit_White;
-            this.ExitTabBtn.Location = new System.Drawing.Point(0, 550);
-            this.ExitTabBtn.Name = "ExitTabBtn";
-            this.ExitTabBtn.Selected = false;
-            this.ExitTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.ExitTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.ExitTabBtn.TabIndex = 5;
-            this.ExitTabBtn.OnTabClick += new System.EventHandler(this.ExitTabBtn_OnTabClick);
+            ExitTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ExitTabBtn.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            ExitTabBtn.ImageSelected = Properties.Resources.Exit_Red;
+            ExitTabBtn.ImageUnselected = Properties.Resources.Exit_White;
+            ExitTabBtn.Location = new System.Drawing.Point(0, 550);
+            ExitTabBtn.Name = "ExitTabBtn";
+            ExitTabBtn.Selected = false;
+            ExitTabBtn.SelectedColor = System.Drawing.Color.Red;
+            ExitTabBtn.Size = new System.Drawing.Size(60, 50);
+            ExitTabBtn.TabIndex = 5;
+            ExitTabBtn.OnTabClick += ExitTabBtn_OnTabClick;
             // 
             // ScriptsTabBtn
             // 
-            this.ScriptsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScriptsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ScriptsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Paper_Red;
-            this.ScriptsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Paper_White;
-            this.ScriptsTabBtn.Location = new System.Drawing.Point(0, 200);
-            this.ScriptsTabBtn.Name = "ScriptsTabBtn";
-            this.ScriptsTabBtn.Selected = false;
-            this.ScriptsTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.ScriptsTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.ScriptsTabBtn.TabIndex = 4;
-            this.ScriptsTabBtn.Visible = false;
-            this.ScriptsTabBtn.OnTabClick += new System.EventHandler(this.ScriptsTabBtn_OnTabClick);
+            ScriptsTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ScriptsTabBtn.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            ScriptsTabBtn.ImageSelected = Properties.Resources.Paper_Red;
+            ScriptsTabBtn.ImageUnselected = Properties.Resources.Paper_White;
+            ScriptsTabBtn.Location = new System.Drawing.Point(0, 200);
+            ScriptsTabBtn.Name = "ScriptsTabBtn";
+            ScriptsTabBtn.Selected = false;
+            ScriptsTabBtn.SelectedColor = System.Drawing.Color.Red;
+            ScriptsTabBtn.Size = new System.Drawing.Size(60, 50);
+            ScriptsTabBtn.TabIndex = 4;
+            ScriptsTabBtn.Visible = false;
+            ScriptsTabBtn.OnTabClick += ScriptsTabBtn_OnTabClick;
             // 
             // TexturesTabBtn
             // 
-            this.TexturesTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TexturesTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.TexturesTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Texture_Red;
-            this.TexturesTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Texture_White;
-            this.TexturesTabBtn.Location = new System.Drawing.Point(0, 150);
-            this.TexturesTabBtn.Name = "TexturesTabBtn";
-            this.TexturesTabBtn.Selected = false;
-            this.TexturesTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.TexturesTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.TexturesTabBtn.TabIndex = 3;
-            this.TexturesTabBtn.Visible = false;
-            this.TexturesTabBtn.OnTabClick += new System.EventHandler(this.TexturesTabBtn_OnTabClick);
+            TexturesTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            TexturesTabBtn.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            TexturesTabBtn.ImageSelected = Properties.Resources.Texture_Red;
+            TexturesTabBtn.ImageUnselected = Properties.Resources.Texture_White;
+            TexturesTabBtn.Location = new System.Drawing.Point(0, 150);
+            TexturesTabBtn.Name = "TexturesTabBtn";
+            TexturesTabBtn.Selected = false;
+            TexturesTabBtn.SelectedColor = System.Drawing.Color.Red;
+            TexturesTabBtn.Size = new System.Drawing.Size(60, 50);
+            TexturesTabBtn.TabIndex = 3;
+            TexturesTabBtn.Visible = false;
+            TexturesTabBtn.OnTabClick += TexturesTabBtn_OnTabClick;
             // 
             // SessionsTabBtn
             // 
-            this.SessionsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SessionsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.SessionsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Chart_Red;
-            this.SessionsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Chart_White;
-            this.SessionsTabBtn.Location = new System.Drawing.Point(0, 100);
-            this.SessionsTabBtn.Name = "SessionsTabBtn";
-            this.SessionsTabBtn.Selected = false;
-            this.SessionsTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.SessionsTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.SessionsTabBtn.TabIndex = 2;
-            this.SessionsTabBtn.Visible = false;
-            this.SessionsTabBtn.OnTabClick += new System.EventHandler(this.SessionsTabBtn_OnTabClick);
+            SessionsTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            SessionsTabBtn.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            SessionsTabBtn.ImageSelected = Properties.Resources.Chart_Red;
+            SessionsTabBtn.ImageUnselected = Properties.Resources.Chart_White;
+            SessionsTabBtn.Location = new System.Drawing.Point(0, 100);
+            SessionsTabBtn.Name = "SessionsTabBtn";
+            SessionsTabBtn.Selected = false;
+            SessionsTabBtn.SelectedColor = System.Drawing.Color.Red;
+            SessionsTabBtn.Size = new System.Drawing.Size(60, 50);
+            SessionsTabBtn.TabIndex = 2;
+            SessionsTabBtn.Visible = false;
+            SessionsTabBtn.OnTabClick += SessionsTabBtn_OnTabClick;
             // 
             // NewsTabBtn
             // 
-            this.NewsTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewsTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.NewsTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Newspaper_Red;
-            this.NewsTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Newspaper_White;
-            this.NewsTabBtn.Location = new System.Drawing.Point(0, 50);
-            this.NewsTabBtn.Name = "NewsTabBtn";
-            this.NewsTabBtn.Selected = false;
-            this.NewsTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.NewsTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.NewsTabBtn.TabIndex = 1;
-            this.NewsTabBtn.OnTabClick += new System.EventHandler(this.NewsTabBtn_OnTabClick);
+            NewsTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            NewsTabBtn.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            NewsTabBtn.ImageSelected = Properties.Resources.Newspaper_Red;
+            NewsTabBtn.ImageUnselected = Properties.Resources.Newspaper_White;
+            NewsTabBtn.Location = new System.Drawing.Point(0, 50);
+            NewsTabBtn.Name = "NewsTabBtn";
+            NewsTabBtn.Selected = false;
+            NewsTabBtn.SelectedColor = System.Drawing.Color.Red;
+            NewsTabBtn.Size = new System.Drawing.Size(60, 50);
+            NewsTabBtn.TabIndex = 1;
+            NewsTabBtn.OnTabClick += NewsTabBtn_OnTabClick;
             // 
             // DashboardTabBtn
             // 
-            this.DashboardTabBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DashboardTabBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.DashboardTabBtn.ImageSelected = global::CodeRedLauncher.Properties.Resources.Dashboard_Red;
-            this.DashboardTabBtn.ImageUnselected = global::CodeRedLauncher.Properties.Resources.Dashboard_White;
-            this.DashboardTabBtn.Location = new System.Drawing.Point(0, 0);
-            this.DashboardTabBtn.Name = "DashboardTabBtn";
-            this.DashboardTabBtn.Selected = true;
-            this.DashboardTabBtn.SelectedColor = System.Drawing.Color.Red;
-            this.DashboardTabBtn.Size = new System.Drawing.Size(60, 50);
-            this.DashboardTabBtn.TabIndex = 0;
-            this.DashboardTabBtn.OnTabClick += new System.EventHandler(this.DashboardTabBtn_OnTabClick);
+            DashboardTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            DashboardTabBtn.BackColor = System.Drawing.Color.FromArgb(24, 24, 24);
+            DashboardTabBtn.ImageSelected = Properties.Resources.Dashboard_Red;
+            DashboardTabBtn.ImageUnselected = Properties.Resources.Dashboard_White;
+            DashboardTabBtn.Location = new System.Drawing.Point(0, 0);
+            DashboardTabBtn.Name = "DashboardTabBtn";
+            DashboardTabBtn.Selected = true;
+            DashboardTabBtn.SelectedColor = System.Drawing.Color.Red;
+            DashboardTabBtn.Size = new System.Drawing.Size(60, 50);
+            DashboardTabBtn.TabIndex = 0;
+            DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
             // 
             // TitleBar
             // 
-            this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(22)))));
-            this.TitleBar.BoundForm = null;
-            this.TitleBar.DisplayText = "CODERED LAUNCHER";
-            this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TitleBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.TitleBar.Location = new System.Drawing.Point(0, 0);
-            this.TitleBar.Name = "TitleBar";
-            this.TitleBar.Size = new System.Drawing.Size(970, 30);
-            this.TitleBar.TabIndex = 2;
-            this.TitleBar.OnMinimized += new System.EventHandler(this.TitleBar_OnMinimized);
-            this.TitleBar.OnExit += new System.EventHandler(this.TitleBar_OnExit);
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(22, 22, 22);
+            TitleBar.BoundForm = null;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // InstallOfflinePopupCtrl
             // 
-            this.InstallOfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.InstallOfflinePopupCtrl.BoundForm = null;
-            this.InstallOfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_SINGLE;
-            this.InstallOfflinePopupCtrl.ButtonsEnabled = true;
-            this.InstallOfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, an active internet connection is required" +
-    " to install CodeRed! Please connect to the internet and try again";
-            this.InstallOfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
-            this.InstallOfflinePopupCtrl.DoubleFirstImage = null;
-            this.InstallOfflinePopupCtrl.DoubleFirstText = "First Option";
-            this.InstallOfflinePopupCtrl.DoubleSecondImage = null;
-            this.InstallOfflinePopupCtrl.DoubleSecondText = "Second Option";
-            this.InstallOfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InstallOfflinePopupCtrl.Location = new System.Drawing.Point(0, 0);
-            this.InstallOfflinePopupCtrl.Name = "InstallOfflinePopupCtrl";
-            this.InstallOfflinePopupCtrl.SingleButtonImage = null;
-            this.InstallOfflinePopupCtrl.SingleButtonText = "Ok fine, I\'ll go do that";
-            this.InstallOfflinePopupCtrl.Size = new System.Drawing.Size(970, 630);
-            this.InstallOfflinePopupCtrl.TabIndex = 38;
-            this.InstallOfflinePopupCtrl.Visible = false;
-            this.InstallOfflinePopupCtrl.SingleButtonClick += new System.EventHandler(this.InstallOfflinePopupCtrl_SingleButtonClick);
+            InstallOfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            InstallOfflinePopupCtrl.BoundForm = null;
+            InstallOfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_SINGLE;
+            InstallOfflinePopupCtrl.ButtonsEnabled = true;
+            InstallOfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, an active internet connection is required to install CodeRed! Please connect to the internet and try again";
+            InstallOfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
+            InstallOfflinePopupCtrl.DoubleFirstImage = null;
+            InstallOfflinePopupCtrl.DoubleFirstText = "First Option";
+            InstallOfflinePopupCtrl.DoubleSecondImage = null;
+            InstallOfflinePopupCtrl.DoubleSecondText = "Second Option";
+            InstallOfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InstallOfflinePopupCtrl.Location = new System.Drawing.Point(0, 0);
+            InstallOfflinePopupCtrl.Name = "InstallOfflinePopupCtrl";
+            InstallOfflinePopupCtrl.SingleButtonImage = null;
+            InstallOfflinePopupCtrl.SingleButtonText = "Ok fine, I'll go do that";
+            InstallOfflinePopupCtrl.Size = new System.Drawing.Size(970, 630);
+            InstallOfflinePopupCtrl.TabIndex = 38;
+            InstallOfflinePopupCtrl.Visible = false;
+            InstallOfflinePopupCtrl.SingleButtonClick += InstallOfflinePopupCtrl_SingleButtonClick;
             // 
             // OfflinePopupCtrl
             // 
-            this.OfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.OfflinePopupCtrl.BoundForm = null;
-            this.OfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
-            this.OfflinePopupCtrl.ButtonsEnabled = true;
-            this.OfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, would you like to start in offline mode? " +
-    "Version checking, news, changelog, and remote information will all be disabled.";
-            this.OfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
-            this.OfflinePopupCtrl.DoubleFirstImage = null;
-            this.OfflinePopupCtrl.DoubleFirstText = "No thanks, let\'s try again";
-            this.OfflinePopupCtrl.DoubleSecondImage = null;
-            this.OfflinePopupCtrl.DoubleSecondText = "Sure, sounds good to me";
-            this.OfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.OfflinePopupCtrl.Location = new System.Drawing.Point(0, 0);
-            this.OfflinePopupCtrl.Name = "OfflinePopupCtrl";
-            this.OfflinePopupCtrl.SingleButtonImage = null;
-            this.OfflinePopupCtrl.SingleButtonText = "Single Option";
-            this.OfflinePopupCtrl.Size = new System.Drawing.Size(970, 630);
-            this.OfflinePopupCtrl.TabIndex = 36;
-            this.OfflinePopupCtrl.Visible = false;
-            this.OfflinePopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.OfflinePopupCtrl_DoubleFirstButtonClick);
-            this.OfflinePopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.OfflinePopupCtrl_DoubleSecondButtonClick);
+            OfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            OfflinePopupCtrl.BoundForm = null;
+            OfflinePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            OfflinePopupCtrl.ButtonsEnabled = true;
+            OfflinePopupCtrl.DisplayDescription = "Failed to connect to the remote server, would you like to start in offline mode? Version checking, news, changelog, and remote information will all be disabled.";
+            OfflinePopupCtrl.DisplayTitle = "NO CONNECTION";
+            OfflinePopupCtrl.DoubleFirstImage = null;
+            OfflinePopupCtrl.DoubleFirstText = "No thanks, let's try again";
+            OfflinePopupCtrl.DoubleSecondImage = null;
+            OfflinePopupCtrl.DoubleSecondText = "Sure, sounds good to me";
+            OfflinePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            OfflinePopupCtrl.Location = new System.Drawing.Point(0, 0);
+            OfflinePopupCtrl.Name = "OfflinePopupCtrl";
+            OfflinePopupCtrl.SingleButtonImage = null;
+            OfflinePopupCtrl.SingleButtonText = "Single Option";
+            OfflinePopupCtrl.Size = new System.Drawing.Size(970, 630);
+            OfflinePopupCtrl.TabIndex = 36;
+            OfflinePopupCtrl.Visible = false;
+            OfflinePopupCtrl.DoubleFirstButtonClick += OfflinePopupCtrl_DoubleFirstButtonClick;
+            OfflinePopupCtrl.DoubleSecondButtonClick += OfflinePopupCtrl_DoubleSecondButtonClick;
             // 
             // UpdatePopupCtrl
             // 
-            this.UpdatePopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.UpdatePopupCtrl.BoundForm = null;
-            this.UpdatePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
-            this.UpdatePopupCtrl.ButtonsEnabled = true;
-            this.UpdatePopupCtrl.DisplayDescription = "A new version was found, would you like to automatically install it now?";
-            this.UpdatePopupCtrl.DisplayTitle = "UPDATE AVAILABLE";
-            this.UpdatePopupCtrl.DoubleFirstImage = null;
-            this.UpdatePopupCtrl.DoubleFirstText = "No thanks, I\'ll update later";
-            this.UpdatePopupCtrl.DoubleSecondImage = null;
-            this.UpdatePopupCtrl.DoubleSecondText = "Yes please, show me what you got";
-            this.UpdatePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.UpdatePopupCtrl.Location = new System.Drawing.Point(0, 0);
-            this.UpdatePopupCtrl.Name = "UpdatePopupCtrl";
-            this.UpdatePopupCtrl.SingleButtonImage = null;
-            this.UpdatePopupCtrl.SingleButtonText = "Ok fine, I\'ll close the game";
-            this.UpdatePopupCtrl.Size = new System.Drawing.Size(970, 630);
-            this.UpdatePopupCtrl.TabIndex = 35;
-            this.UpdatePopupCtrl.Visible = false;
-            this.UpdatePopupCtrl.SingleButtonClick += new System.EventHandler(this.UpdatePopupCtrl_SingleButtonClick);
-            this.UpdatePopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleFirstButtonClick);
-            this.UpdatePopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.UpdatePopupCtrl_DoubleSecondButtonClick);
+            UpdatePopupCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            UpdatePopupCtrl.BoundForm = null;
+            UpdatePopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            UpdatePopupCtrl.ButtonsEnabled = true;
+            UpdatePopupCtrl.DisplayDescription = "A new version was found, would you like to automatically install it now?";
+            UpdatePopupCtrl.DisplayTitle = "UPDATE AVAILABLE";
+            UpdatePopupCtrl.DoubleFirstImage = null;
+            UpdatePopupCtrl.DoubleFirstText = "No thanks, I'll update later";
+            UpdatePopupCtrl.DoubleSecondImage = null;
+            UpdatePopupCtrl.DoubleSecondText = "Yes please, show me what you got";
+            UpdatePopupCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            UpdatePopupCtrl.Location = new System.Drawing.Point(0, 0);
+            UpdatePopupCtrl.Name = "UpdatePopupCtrl";
+            UpdatePopupCtrl.SingleButtonImage = null;
+            UpdatePopupCtrl.SingleButtonText = "Ok fine, I'll close the game";
+            UpdatePopupCtrl.Size = new System.Drawing.Size(970, 630);
+            UpdatePopupCtrl.TabIndex = 35;
+            UpdatePopupCtrl.Visible = false;
+            UpdatePopupCtrl.SingleButtonClick += UpdatePopupCtrl_SingleButtonClick;
+            UpdatePopupCtrl.DoubleFirstButtonClick += UpdatePopupCtrl_DoubleFirstButtonClick;
+            UpdatePopupCtrl.DoubleSecondButtonClick += UpdatePopupCtrl_DoubleSecondButtonClick;
             // 
             // InstallPopupCtrl
             // 
-            this.InstallPopupCtrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.InstallPopupCtrl.BoundForm = null;
-            this.InstallPopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
-            this.InstallPopupCtrl.ButtonsEnabled = true;
-            this.InstallPopupCtrl.DisplayDescription = "It looks like this if your first time using CodeRed, we need to download and setu" +
-    "p a few things first before we can get started. First, would you like to customi" +
-    "ze your install path?";
-            this.InstallPopupCtrl.DisplayTitle = "WELCOME TO CODERED";
-            this.InstallPopupCtrl.DoubleFirstImage = null;
-            this.InstallPopupCtrl.DoubleFirstText = "Sure, let me pick a folder";
-            this.InstallPopupCtrl.DoubleSecondImage = null;
-            this.InstallPopupCtrl.DoubleSecondText = "Nah, do everything for me";
-            this.InstallPopupCtrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InstallPopupCtrl.Location = new System.Drawing.Point(0, 0);
-            this.InstallPopupCtrl.Name = "InstallPopupCtrl";
-            this.InstallPopupCtrl.SingleButtonImage = null;
-            this.InstallPopupCtrl.SingleButtonText = "Single Option";
-            this.InstallPopupCtrl.Size = new System.Drawing.Size(970, 630);
-            this.InstallPopupCtrl.TabIndex = 37;
-            this.InstallPopupCtrl.Visible = false;
-            this.InstallPopupCtrl.DoubleFirstButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleFirstButtonClick);
-            this.InstallPopupCtrl.DoubleSecondButtonClick += new System.EventHandler(this.InstallPopupCtrl_DoubleSecondButtonClick);
+            InstallPopupCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            InstallPopupCtrl.BoundForm = null;
+            InstallPopupCtrl.ButtonLayout = CodeRedLauncher.Controls.CRPopup.ButtonLayouts.TYPE_DOUBLE;
+            InstallPopupCtrl.ButtonsEnabled = true;
+            InstallPopupCtrl.DisplayDescription = "It looks like this if your first time using CodeRed, we need to download and setup a few things first before we can get started. First, would you like to customize your install path?";
+            InstallPopupCtrl.DisplayTitle = "WELCOME TO CODERED";
+            InstallPopupCtrl.DoubleFirstImage = null;
+            InstallPopupCtrl.DoubleFirstText = "Sure, let me pick a folder";
+            InstallPopupCtrl.DoubleSecondImage = null;
+            InstallPopupCtrl.DoubleSecondText = "Nah, do everything for me";
+            InstallPopupCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InstallPopupCtrl.Location = new System.Drawing.Point(0, 0);
+            InstallPopupCtrl.Name = "InstallPopupCtrl";
+            InstallPopupCtrl.SingleButtonImage = null;
+            InstallPopupCtrl.SingleButtonText = "Single Option";
+            InstallPopupCtrl.Size = new System.Drawing.Size(970, 630);
+            InstallPopupCtrl.TabIndex = 37;
+            InstallPopupCtrl.Visible = false;
+            InstallPopupCtrl.DoubleFirstButtonClick += InstallPopupCtrl_DoubleFirstButtonClick;
+            InstallPopupCtrl.DoubleSecondButtonClick += InstallPopupCtrl_DoubleSecondButtonClick;
             // 
             // ProcessTmr
             // 
-            this.ProcessTmr.Interval = 250;
-            this.ProcessTmr.Tick += new System.EventHandler(this.ProcessTmr_Tick);
+            ProcessTmr.Interval = 250;
+            ProcessTmr.Tick += ProcessTmr_Tick;
             // 
             // InjectTmr
             // 
-            this.InjectTmr.Interval = 5000;
-            this.InjectTmr.Tick += new System.EventHandler(this.InjectTmr_Tick);
+            InjectTmr.Interval = 5000;
+            InjectTmr.Tick += InjectTmr_Tick;
             // 
             // TrayIcon
             // 
-            this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
-            this.TrayIcon.Text = "CodeRed Launcher";
-            this.TrayIcon.Visible = true;
-            this.TrayIcon.Click += new System.EventHandler(this.TrayIcon_Click);
+            TrayIcon.Icon = (System.Drawing.Icon)resources.GetObject("TrayIcon.Icon");
+            TrayIcon.Text = "CodeRed Launcher";
+            TrayIcon.Visible = true;
+            TrayIcon.Click += TrayIcon_Click;
             // 
             // UpdateTmr
             // 
-            this.UpdateTmr.Interval = 150000;
-            this.UpdateTmr.Tick += new System.EventHandler(this.UpdateTmr_Tick);
+            UpdateTmr.Interval = 150000;
+            UpdateTmr.Tick += UpdateTmr_Tick;
             // 
             // MainFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
-            this.ClientSize = new System.Drawing.Size(972, 632);
-            this.Controls.Add(this.BackgroundPnl);
-            this.DoubleBuffered = true;
-            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.Name = "MainFrm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.MainFrm_Load);
-            this.Resize += new System.EventHandler(this.MainFrm_Resize);
-            this.TabCtrl.ResumeLayout(false);
-            this.DashboardTab.ResumeLayout(false);
-            this.NewsTab.ResumeLayout(false);
-            this.SessionsTab.ResumeLayout(false);
-            this.TexturesTab.ResumeLayout(false);
-            this.ScriptsTab.ResumeLayout(false);
-            this.SettingsTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.InstallPathImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InjectionTimeoutImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ManualRadioImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TimeoutRadioImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlwaysRadioImg)).EndInit();
-            this.AboutTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Icons8Img)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.KofiImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DiscordImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WebsiteImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PlatformImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NetBuildImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PsyonixVersionImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ModVersionImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LauncherVersionImg)).EndInit();
-            this.BackgroundPnl.ResumeLayout(false);
-            this.TabPnl.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(26, 26, 26);
+            ClientSize = new System.Drawing.Size(972, 632);
+            Controls.Add(BackgroundPnl);
+            DoubleBuffered = true;
+            ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            Name = "MainFrm";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Load += MainFrm_Load;
+            Resize += MainFrm_Resize;
+            TabCtrl.ResumeLayout(false);
+            DashboardTab.ResumeLayout(false);
+            NewsTab.ResumeLayout(false);
+            SessionsTab.ResumeLayout(false);
+            TexturesTab.ResumeLayout(false);
+            ScriptsTab.ResumeLayout(false);
+            SettingsTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)InstallPathImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)InjectionTimeoutImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ManualRadioImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TimeoutRadioImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)AlwaysRadioImg).EndInit();
+            AboutTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)Icons8Img).EndInit();
+            ((System.ComponentModel.ISupportInitialize)KofiImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DiscordImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)WebsiteImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PlatformImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NetBuildImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PsyonixVersionImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ModVersionImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)LauncherVersionImg).EndInit();
+            BackgroundPnl.ResumeLayout(false);
+            TabPnl.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

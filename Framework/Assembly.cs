@@ -4,14 +4,14 @@ namespace CodeRedLauncher
 {
     public static class Assembly
     {
-        private static readonly string Title = "CodeRedLauncher";
-        private static readonly string Description = "Manages CodeRed for Rocket League.";
+        private static readonly string Title = "CodeRed Launcher";
+        private static readonly string Description = "Manages the CodeRed Module for Rocket League.";
         private static readonly string Company = "https://github.com/CodeRedModding/";
-        private static readonly string Repository = Company + "CodeRed-Launcher/";
-        private static readonly string Product = "CodeRedLauncher";
-        private static readonly string Copyright = "Copyright © CodeRedModding 2022";
+        private static readonly string Repository = (Company + "CodeRed-Launcher/");
+        private static readonly string Product = "CodeRed Launcher";
+        private static readonly string Copyright = "Rocket Planet Services Inc.";
         private static readonly string License = "MIT License";
-        private static readonly string Version = "1.1.3";
+        private static readonly string Version = "1.1.4";
 
         public static string GetTitle() { return Title; }
         public static string GetDescription() { return Description; }

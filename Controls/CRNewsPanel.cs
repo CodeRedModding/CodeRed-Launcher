@@ -76,7 +76,7 @@ namespace CodeRedLauncher.Controls
                 if (!String.IsNullOrEmpty(pageBody))
                 {
                     Match titleMatch = Regex.Match(pageBody, "page-title\">(.*)<", RegexOptions.RightToLeft);
-                    Match calendarMatch = Regex.Match(pageBody, "fa fa-calendar\"><\\/i> (.*)",RegexOptions.RightToLeft);
+                    Match calendarMatch = Regex.Match(pageBody, "fa fa-calendar\"><\\/i> (.*)", RegexOptions.RightToLeft);
                     Match userMatch = Regex.Match(pageBody, "fa fa-user\"><\\/i>(.*) ", RegexOptions.RightToLeft);
                     Match categoryMatch = Regex.Match(pageBody, "category tag\">(.*)<", RegexOptions.RightToLeft);
 
@@ -123,7 +123,7 @@ namespace CodeRedLauncher.Controls
                         if (thumbnailMatch.Success && thumbnailMatch.Groups[1].Success)
                         {
                             newsStorage.ThumbnailUrl_Main = thumbnailMatch.Groups[1].Value;
-                            newsStorage.ThumbnailUrl_Main = (newsStorage.ThumbnailUrl_Main.Substring(0, newsStorage.ThumbnailUrl_Main.IndexOf(".jpg")) +".jpg");
+                            newsStorage.ThumbnailUrl_Main = (newsStorage.ThumbnailUrl_Main.Substring(0, newsStorage.ThumbnailUrl_Main.IndexOf(".jpg")) + ".jpg");
                         }
 
                         Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"");
@@ -153,8 +153,10 @@ namespace CodeRedLauncher.Controls
             IndexLbl.Text = ((CurrentIndex + 1).ToString() + "/" + NewsArticles.Count.ToString());
             Title = "Loading...";
             ThumbnailImg.BackgroundImage = null;
-            PreviousBtn.Visible = false;
-            NextBtn.Visible = false;
+            PreviousBtn.BackgroundImage = null;
+            NextBtn.BackgroundImage = null;
+            //PreviousBtn.Visible = false;
+            //NextBtn.Visible = false;
         }
 
         // The commented out stuff in this function works fine, just the image links it retrieves are super low quality.
@@ -284,18 +286,24 @@ namespace CodeRedLauncher.Controls
 
                     if (CurrentIndex == 0)
                     {
-                        PreviousBtn.Visible = false;
-                        NextBtn.Visible = true;
+                        PreviousBtn.BackgroundImage = null;
+                        NextBtn.BackgroundImage = Properties.Resources.Forward_White;
+                        //PreviousBtn.Visible = false;
+                        //NextBtn.Visible = true;
                     }
                     else if (CurrentIndex < (NewsArticles.Count - 1))
                     {
-                        PreviousBtn.Visible = true;
-                        NextBtn.Visible = true;
+                        PreviousBtn.BackgroundImage = Properties.Resources.Back_White;
+                        NextBtn.BackgroundImage = Properties.Resources.Forward_White;
+                        //PreviousBtn.Visible = true;
+                        //NextBtn.Visible = true;
                     }
                     else
                     {
-                        PreviousBtn.Visible = true;
-                        NextBtn.Visible = false;
+                        PreviousBtn.BackgroundImage = Properties.Resources.Back_White;
+                        NextBtn.BackgroundImage = null;
+                        //PreviousBtn.Visible = true;
+                        //NextBtn.Visible = false;
                     }
                 }
             }
@@ -383,22 +391,22 @@ namespace CodeRedLauncher.Controls
 
         private void PreviousBtn_MouseEnter(object sender, EventArgs e)
         {
-            PreviousBtn.BackColor = Color.FromArgb(20, 20, 20);
+            PreviousBtn.BackColor = Color.FromArgb(24, 24, 24);
         }
 
         private void PreviousBtn_MouseLeave(object sender, EventArgs e)
         {
-            PreviousBtn.BackColor = Color.FromArgb(18, 18, 18);
+            PreviousBtn.BackColor = Color.FromArgb(22, 22, 22);
         }
 
         private void NextBtn_MouseEnter(object sender, EventArgs e)
         {
-            NextBtn.BackColor = Color.FromArgb(20, 20, 20);
+            NextBtn.BackColor = Color.FromArgb(24, 24, 24); // 20
         }
 
         private void NextBtn_MouseLeave(object sender, EventArgs e)
         {
-            NextBtn.BackColor = Color.FromArgb(18, 18, 18);
+            NextBtn.BackColor = Color.FromArgb(22, 22, 22); // 18
         }
     }
 }

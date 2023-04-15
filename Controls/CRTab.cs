@@ -80,6 +80,16 @@ namespace CodeRedLauncher.Controls
             CRTab_OnClick(e);
         }
 
+        private void CRTab_Click(object sender, EventArgs e)
+        {
+            CRTab_OnClick(e);
+        }
+
+        private void CRTab_DoubleClick(object sender, EventArgs e)
+        {
+            CRTab_OnClick(e);
+        }
+
         public event EventHandler OnTabClick;
         protected void CRTab_OnClick(EventArgs e)
         {

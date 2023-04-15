@@ -157,7 +157,8 @@ namespace CodeRedLauncher
             new InternalSetting(null, "NewsUrl"),
             new InternalSetting("No changelog provided for the most recent update.", "LauncherChangelog"),
             new InternalSetting("No changelog provided for the most recent update.", "ModuleChangelog"),
-            new InternalSetting("Bakkes, Martinn, TaylorSasser, ButternCream, GlenHumphrey, ToolB0x, BeardedOranges, Megasplat/Aberinkula/FrancesElMute, and Stev.", "Credits"),
+            new InternalSetting("Bakkes, Martinn, TaylorSasser, ButternCream, GlenHumphrey, ToolB0x, BeardedOranges, and Megasplat/Aberinkula/FrancesElMute.", "Credits"),
+            new InternalSetting("false", "AltEndpoint"),
         };
 
         private static InternalSetting? GetStoredSetting(string name)

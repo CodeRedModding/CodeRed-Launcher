@@ -832,7 +832,7 @@ namespace CodeRedLauncher
         {
             if (Storage.CheckInitialized())
             {
-                LauncherVersionText.Text =  Assembly.GetVersion();
+                LauncherVersionText.Text = Assembly.GetVersion();
                 ModuleVersionText.Text = Storage.GetModuleVersion();
                 PsyonixVersionText.Text = Storage.GetPsyonixVersion();
                 NetBuildText.Text = Storage.GetNetBuild().ToString();
