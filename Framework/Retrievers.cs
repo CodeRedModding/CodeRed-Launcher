@@ -141,7 +141,7 @@ namespace CodeRedLauncher
     public static class Retrievers
     {
         private static bool Initialized = false;
-        private static readonly string RemoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Launcher.json";
+        private static string RemoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/Launcher.json";
 
         private static List<InternalSetting> RemoteSettings = new List<InternalSetting>()
         {
@@ -155,6 +155,7 @@ namespace CodeRedLauncher
             new InternalSetting(null, "DiscordUrl"),
             new InternalSetting(null, "KofiUrl"),
             new InternalSetting(null, "NewsUrl"),
+            new InternalSetting(null, "LauncherAlt"),
             new InternalSetting("No changelog provided for the most recent update.", "LauncherChangelog"),
             new InternalSetting("No changelog provided for the most recent update.", "ModuleChangelog"),
             new InternalSetting("Bakkes, Martinn, TaylorSasser, ButternCream, GlenHumphrey, ToolB0x, BeardedOranges, and Megasplat/Aberinkula/FrancesElMute.", "Credits"),
@@ -190,6 +191,11 @@ namespace CodeRedLauncher
                         {
                             RemoteSettings[i].SetValue(mappedBody[RemoteSettings[i].Name]);
                             Logger.Write("Retrieved remote value: " + RemoteSettings[i].GetStringValue());
+
+                            if ((RemoteSettings[i].Name == "LauncherAlt") && (RemoteSettings[i].GetStringValue() != "null"))
+                            {
+                                RemoteUrl = RemoteSettings[i].GetStringValue();
+                            }
                         }
                     }
 

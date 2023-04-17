@@ -477,6 +477,7 @@ namespace CodeRedLauncher
 
         private void CheckUpdatesBtn_OnButtonClick(object sender, EventArgs e)
         {
+            CheckUpdatesBtn.ButtonEnabled = false;
             CheckForUpdates(true);
         }
 
@@ -992,6 +993,7 @@ namespace CodeRedLauncher
 
             ConfigToInterface(); // Retrieves the users configuration settings and assigns it to the UI.
             StorageToInterface(); // Retrieves Rocket League paths, version, and platform info to then assign to the UI.
+            CheckUpdatesBtn.ButtonEnabled = true;
             return true;
         }
 
