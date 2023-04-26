@@ -58,7 +58,7 @@
             BackgroundPnl.Controls.Add(DetailsPnl);
             BackgroundPnl.Location = new System.Drawing.Point(30, 0);
             BackgroundPnl.Name = "BackgroundPnl";
-            BackgroundPnl.Size = new System.Drawing.Size(810, 550);
+            BackgroundPnl.Size = new System.Drawing.Size(815, 550);
             BackgroundPnl.TabIndex = 1;
             // 
             // DetailsPnl
@@ -74,9 +74,9 @@
             DetailsPnl.Controls.Add(CalendarLbl);
             DetailsPnl.Controls.Add(CalendarImg);
             DetailsPnl.Controls.Add(ThumbnailImg);
-            DetailsPnl.Location = new System.Drawing.Point(1, 1);
+            DetailsPnl.Location = new System.Drawing.Point(5, 1);
             DetailsPnl.Name = "DetailsPnl";
-            DetailsPnl.Size = new System.Drawing.Size(803, 548);
+            DetailsPnl.Size = new System.Drawing.Size(808, 548);
             DetailsPnl.TabIndex = 2;
             // 
             // IndexLbl
@@ -85,7 +85,7 @@
             IndexLbl.BackColor = System.Drawing.Color.Transparent;
             IndexLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             IndexLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            IndexLbl.Location = new System.Drawing.Point(749, 0);
+            IndexLbl.Location = new System.Drawing.Point(755, 0);
             IndexLbl.Name = "IndexLbl";
             IndexLbl.Size = new System.Drawing.Size(50, 40);
             IndexLbl.TabIndex = 10;
@@ -100,7 +100,7 @@
             TitleLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             TitleLbl.Location = new System.Drawing.Point(0, 497);
             TitleLbl.Name = "TitleLbl";
-            TitleLbl.Size = new System.Drawing.Size(802, 50);
+            TitleLbl.Size = new System.Drawing.Size(805, 50);
             TitleLbl.TabIndex = 8;
             TitleLbl.Text = "Loading...";
             TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -112,7 +112,7 @@
             CategoryLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             CategoryLbl.Location = new System.Drawing.Point(572, 0);
             CategoryLbl.Name = "CategoryLbl";
-            CategoryLbl.Size = new System.Drawing.Size(226, 40);
+            CategoryLbl.Size = new System.Drawing.Size(233, 40);
             CategoryLbl.TabIndex = 9;
             CategoryLbl.Text = "Loading...";
             CategoryLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -182,7 +182,7 @@
             ThumbnailImg.Cursor = System.Windows.Forms.Cursors.Hand;
             ThumbnailImg.Location = new System.Drawing.Point(0, 40);
             ThumbnailImg.Name = "ThumbnailImg";
-            ThumbnailImg.Size = new System.Drawing.Size(802, 457);
+            ThumbnailImg.Size = new System.Drawing.Size(805, 457);
             ThumbnailImg.TabIndex = 3;
             ThumbnailImg.TabStop = false;
             ThumbnailImg.Click += ThumbnailImg_Click;
@@ -193,7 +193,7 @@
             NextBtn.BackgroundImage = Properties.Resources.Forward_White;
             NextBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             NextBtn.Dock = System.Windows.Forms.DockStyle.Right;
-            NextBtn.Location = new System.Drawing.Point(835, 0);
+            NextBtn.Location = new System.Drawing.Point(840, 0);
             NextBtn.Name = "NextBtn";
             NextBtn.Size = new System.Drawing.Size(35, 550);
             NextBtn.TabIndex = 2;
@@ -224,11 +224,11 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Transparent;
+            Controls.Add(PreviousBtn);
             Controls.Add(NextBtn);
             Controls.Add(BackgroundPnl);
-            Controls.Add(PreviousBtn);
             Name = "CRNewsPanel";
-            Size = new System.Drawing.Size(870, 550);
+            Size = new System.Drawing.Size(875, 550);
             BackgroundPnl.ResumeLayout(false);
             DetailsPnl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)CategoryImg).EndInit();

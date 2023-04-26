@@ -141,7 +141,7 @@ namespace CodeRedLauncher
     public static class Retrievers
     {
         private static bool Initialized = false;
-        private static string RemoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/Launcher.json";
+        private static string RemoteUrl = "https://codered.rocketplanet.gg/public/Launcher.json";
 
         private static List<InternalSetting> RemoteSettings = new List<InternalSetting>()
         {

@@ -109,11 +109,11 @@ namespace CodeRedLauncher
             SessionsTabBtn = new Controls.CRTab();
             NewsTabBtn = new Controls.CRTab();
             DashboardTabBtn = new Controls.CRTab();
-            TitleBar = new Controls.CRTitleBar();
             InstallOfflinePopupCtrl = new Controls.CRPopup();
             OfflinePopupCtrl = new Controls.CRPopup();
             UpdatePopupCtrl = new Controls.CRPopup();
             InstallPopupCtrl = new Controls.CRPopup();
+            TitleBar = new Controls.CRTitleBar();
             ProcessTmr = new System.Windows.Forms.Timer(components);
             InjectTmr = new System.Windows.Forms.Timer(components);
             TrayIcon = new System.Windows.Forms.NotifyIcon(components);
@@ -260,14 +260,14 @@ namespace CodeRedLauncher
             // 
             // NewsCtrl
             // 
+            NewsCtrl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             NewsCtrl.BackColor = System.Drawing.Color.Transparent;
-            NewsCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            NewsCtrl.Location = new System.Drawing.Point(3, 3);
+            NewsCtrl.Location = new System.Drawing.Point(6, 15);
             NewsCtrl.Name = "NewsCtrl";
             NewsCtrl.NewsCategory = "Loading...";
             NewsCtrl.PublishAuthor = "Loading...";
             NewsCtrl.PublishDate = "Loading...";
-            NewsCtrl.Size = new System.Drawing.Size(904, 594);
+            NewsCtrl.Size = new System.Drawing.Size(893, 571);
             NewsCtrl.TabIndex = 0;
             NewsCtrl.Thumbnail = null;
             NewsCtrl.Title = "Loading...";
@@ -1049,13 +1049,13 @@ namespace CodeRedLauncher
             // 
             BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
-            BackgroundPnl.Controls.Add(TabPnl);
             BackgroundPnl.Controls.Add(TitleBar);
+            BackgroundPnl.Controls.Add(TabPnl);
             BackgroundPnl.Controls.Add(TabCtrl);
-            BackgroundPnl.Controls.Add(InstallOfflinePopupCtrl);
-            BackgroundPnl.Controls.Add(OfflinePopupCtrl);
             BackgroundPnl.Controls.Add(UpdatePopupCtrl);
             BackgroundPnl.Controls.Add(InstallPopupCtrl);
+            BackgroundPnl.Controls.Add(InstallOfflinePopupCtrl);
+            BackgroundPnl.Controls.Add(OfflinePopupCtrl);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1193,20 +1193,6 @@ namespace CodeRedLauncher
             DashboardTabBtn.TabIndex = 0;
             DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
             // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(22, 22, 22);
-            TitleBar.BoundForm = null;
-            TitleBar.DisplayText = "CODERED LAUNCHER";
-            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            TitleBar.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            TitleBar.Location = new System.Drawing.Point(0, 0);
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new System.Drawing.Size(970, 30);
-            TitleBar.TabIndex = 2;
-            TitleBar.OnMinimized += TitleBar_OnMinimized;
-            TitleBar.OnExit += TitleBar_OnExit;
-            // 
             // InstallOfflinePopupCtrl
             // 
             InstallOfflinePopupCtrl.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
@@ -1298,6 +1284,20 @@ namespace CodeRedLauncher
             InstallPopupCtrl.Visible = false;
             InstallPopupCtrl.DoubleFirstButtonClick += InstallPopupCtrl_DoubleFirstButtonClick;
             InstallPopupCtrl.DoubleSecondButtonClick += InstallPopupCtrl_DoubleSecondButtonClick;
+            // 
+            // TitleBar
+            // 
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(22, 22, 22);
+            TitleBar.BoundForm = null;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // ProcessTmr
             // 
