@@ -50,31 +50,28 @@ namespace CodeRedLauncher
 
             if (!String.IsNullOrEmpty(url))
             {
-                if (await WebsiteOnline(url))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpClient client = new HttpClient())
+                    client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
-                        HttpResponseMessage response = await client.GetAsync(url);
+                        Stream stream = await response.Content.ReadAsStreamAsync();
 
-                        if (response.IsSuccessStatusCode)
+                        try
                         {
-                            Stream stream = await response.Content.ReadAsStreamAsync();
-
-                            try
-                            {
-                                image = Image.FromStream(stream);
-                            }
-                            catch (Exception ex)
-                            {
-                                image = null;
-                            }
+                            image = Image.FromStream(stream);
+                        }
+                        catch (Exception ex)
+                        {
+                            image = null;
                         }
                     }
-                }
-                else
-                {
-                    Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                    else
+                    {
+                        Logger.Write("Website is offline, failed to download image for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                    }
                 }
             }
 
@@ -87,22 +84,19 @@ namespace CodeRedLauncher
 
             if (!String.IsNullOrEmpty(url))
             {
-                if (await WebsiteOnline(url))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
-                        HttpResponseMessage response = await client.GetAsync(url);
+                    client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                    HttpResponseMessage response = await client.GetAsync(url);
 
-                        if (response.IsSuccessStatusCode)
-                        {
-                            pageContent = await response.Content.ReadAsStringAsync();
-                        }
+                    if (response.IsSuccessStatusCode)
+                    {
+                        pageContent = await response.Content.ReadAsStringAsync();
                     }
-                }
-                else
-                {
-                    Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                    else
+                    {
+                        Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                    }
                 }
             }
 

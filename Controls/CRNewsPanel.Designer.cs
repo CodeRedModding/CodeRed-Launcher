@@ -104,6 +104,8 @@
             TitleLbl.TabIndex = 8;
             TitleLbl.Text = "Loading...";
             TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            TitleLbl.Click += TitleLbl_Click;
+            TitleLbl.DoubleClick += TitleLbl_DoubleClick;
             // 
             // CategoryLbl
             // 
@@ -186,6 +188,7 @@
             ThumbnailImg.TabIndex = 3;
             ThumbnailImg.TabStop = false;
             ThumbnailImg.Click += ThumbnailImg_Click;
+            ThumbnailImg.DoubleClick += ThumbnailImg_DoubleClick;
             // 
             // NextBtn
             // 

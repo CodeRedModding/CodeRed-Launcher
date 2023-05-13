@@ -378,15 +378,35 @@ namespace CodeRedLauncher.Controls
             LoadNextArticle();
         }
 
-        private void ThumbnailImg_Click(object sender, EventArgs e)
+        private void OpenCurrentArticle()
         {
-            if ((CurrentIndex > 0) && (CurrentIndex < NewsArticles.Count))
+            if ((CurrentIndex > -1) && (CurrentIndex < NewsArticles.Count))
             {
                 if (!String.IsNullOrEmpty(NewsArticles[CurrentIndex].NewsUrl))
                 {
                     Process.Start(new ProcessStartInfo(NewsArticles[CurrentIndex].NewsUrl) { UseShellExecute = true });
                 }
             }
+        }
+
+        private void ThumbnailImg_Click(object sender, EventArgs e)
+        {
+            OpenCurrentArticle();
+        }
+
+        private void ThumbnailImg_DoubleClick(object sender, EventArgs e)
+        {
+            OpenCurrentArticle();
+        }
+
+        private void TitleLbl_Click(object sender, EventArgs e)
+        {
+            OpenCurrentArticle();
+        }
+
+        private void TitleLbl_DoubleClick(object sender, EventArgs e)
+        {
+            OpenCurrentArticle();
         }
 
         private void PreviousBtn_MouseEnter(object sender, EventArgs e)
