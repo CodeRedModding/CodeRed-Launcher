@@ -123,7 +123,17 @@ namespace CodeRedLauncher.Controls
                         if (thumbnailMatch.Success && thumbnailMatch.Groups[1].Success)
                         {
                             newsStorage.ThumbnailUrl_Main = thumbnailMatch.Groups[1].Value;
-                            newsStorage.ThumbnailUrl_Main = (newsStorage.ThumbnailUrl_Main.Substring(0, newsStorage.ThumbnailUrl_Main.IndexOf(".jpg")) + ".jpg");
+                            Int32 jpg = newsStorage.ThumbnailUrl_Main.IndexOf(".jpg");
+                            Int32 png = newsStorage.ThumbnailUrl_Main.IndexOf(".png");
+
+                            if (jpg != -1)
+                            {
+                                newsStorage.ThumbnailUrl_Main = (newsStorage.ThumbnailUrl_Main.Substring(0, jpg) + ".jpg");
+                            }
+                            else if (png != -1)
+                            {
+                                newsStorage.ThumbnailUrl_Main = (newsStorage.ThumbnailUrl_Main.Substring(0, png) + ".png");
+                            }                
                         }
 
                         Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"");

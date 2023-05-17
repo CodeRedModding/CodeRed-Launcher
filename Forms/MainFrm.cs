@@ -261,6 +261,19 @@ namespace CodeRedLauncher
                 Configuration.InjectionType.ResetToDefault().Save();
                 Logger.Write("Unknown injection type detected, resetting value to default!", LogLevel.LEVEL_WARN);
             }
+
+            if (ManualRadioBtn.Checked)
+            {
+                if (LibraryManager.AnyProcessRunning() && (ProcessCtrl.Status != CRProcessPanel.StatusTypes.TYPE_MANUAL))
+                {
+                    if (InjectTmr.Enabled)
+                    {
+                        InjectTmr.Stop();
+                    }
+
+                    ProcessCtrl.Status = CRProcessPanel.StatusTypes.TYPE_LOADING;
+                }
+            }
         }
 
         private void TimeoutRadioBtn_CheckedChanged(object sender, EventArgs e)
