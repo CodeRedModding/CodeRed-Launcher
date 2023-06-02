@@ -133,7 +133,7 @@ namespace CodeRedLauncher.Controls
                             else if (png != -1)
                             {
                                 newsStorage.ThumbnailUrl_Main = (newsStorage.ThumbnailUrl_Main.Substring(0, png) + ".png");
-                            }                
+                            }
                         }
 
                         Match thumbnailMatchAlt = Regex.Match(pageBody, "<p dir=\"ltr\"><img src=\"(.*)\" data-id=\"");

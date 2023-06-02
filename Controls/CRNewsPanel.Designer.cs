@@ -96,6 +96,7 @@
             // 
             TitleLbl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TitleLbl.BackColor = System.Drawing.Color.Transparent;
+            TitleLbl.Cursor = System.Windows.Forms.Cursors.Hand;
             TitleLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             TitleLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             TitleLbl.Location = new System.Drawing.Point(0, 497);
