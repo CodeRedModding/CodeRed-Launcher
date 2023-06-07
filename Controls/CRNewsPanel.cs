@@ -75,10 +75,11 @@ namespace CodeRedLauncher.Controls
 
                 if (!String.IsNullOrEmpty(pageBody))
                 {
-                    Match titleMatch = Regex.Match(pageBody, "page-title\">(.*)<", RegexOptions.RightToLeft);
-                    Match calendarMatch = Regex.Match(pageBody, "fa fa-calendar\"><\\/i> (.*)", RegexOptions.RightToLeft);
-                    Match userMatch = Regex.Match(pageBody, "fa fa-user\"><\\/i>(.*) ", RegexOptions.RightToLeft);
-                    Match categoryMatch = Regex.Match(pageBody, "category tag\">(.*)<", RegexOptions.RightToLeft);
+                    Match titleMatch = Regex.Match(pageBody, "\"headline\": \"(.*)\"");
+                    Match calendarMatch = Regex.Match(pageBody.Replace("\r", "").Replace("  ", "").Replace("\n", ""), "<p class=\"is-5 is-uppercase\">(.*?)<");
+                    Match userMatch = Regex.Match(pageBody, "\"author\": \"(.*)\"");
+                    Match categoryMatch = Regex.Match(pageBody, "\"category tag\">(.*)<\\/a><\\/p>");
+                    Clipboard.SetText(pageBody.Replace("\r", "").Replace("  ", "").Replace("\n", ""));
 
                     if (titleMatch.Success && titleMatch.Groups[1].Success)
                     {
@@ -141,6 +142,15 @@ namespace CodeRedLauncher.Controls
                         if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
                         {
                             newsStorage.ThumbnailUrl_Alt = thumbnailMatchAlt.Groups[1].Value;
+                        }
+                        else
+                        {
+                            thumbnailMatchAlt = Regex.Match(pageBody, "\"image\": \"(.*)\"");
+
+                            if (thumbnailMatchAlt.Success && thumbnailMatchAlt.Groups[1].Success)
+                            {
+                                newsStorage.ThumbnailUrl_Alt = thumbnailMatchAlt.Groups[1].Value;
+                            }
                         }
                     }
 
