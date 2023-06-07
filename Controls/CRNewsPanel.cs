@@ -79,7 +79,6 @@ namespace CodeRedLauncher.Controls
                     Match calendarMatch = Regex.Match(pageBody.Replace("\r", "").Replace("  ", "").Replace("\n", ""), "<p class=\"is-5 is-uppercase\">(.*?)<");
                     Match userMatch = Regex.Match(pageBody, "\"author\": \"(.*)\"");
                     Match categoryMatch = Regex.Match(pageBody, "\"category tag\">(.*)<\\/a><\\/p>");
-                    Clipboard.SetText(pageBody.Replace("\r", "").Replace("  ", "").Replace("\n", ""));
 
                     if (titleMatch.Success && titleMatch.Groups[1].Success)
                     {
