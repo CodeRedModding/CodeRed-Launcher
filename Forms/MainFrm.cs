@@ -1072,13 +1072,13 @@ namespace CodeRedLauncher
 
         private void UpdatePopupCtrl_DoubleFirstButtonClick(object sender, EventArgs e)
         {
-            this.TopMost = false;
             ProcessTmr.Start();
             UpdatePopupCtrl.Hide();
         }
 
         private async void UpdatePopupCtrl_DoubleSecondButtonClick(object sender, EventArgs e)
         {
+            this.TopMost = false;
             UpdatePopupCtrl.ButtonsEnabled = false;
             UpdatePopupCtrl.DisplayDescription = "Downloading and installing update...";
 
@@ -1097,7 +1097,6 @@ namespace CodeRedLauncher
             {
                 Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
             }
-
         }
 
         private void UpdatePopupCtrl_SingleButtonClick(object sender, EventArgs e)

@@ -11,7 +11,7 @@ namespace CodeRedLauncher
         private static readonly string Product = "CodeRed Launcher";
         private static readonly string Copyright = "Rocket Planet Services Inc.";
         private static readonly string License = "MIT License";
-        private static readonly string Version = "1.2.0";
+        private static readonly string Version = "1.2.1";
 
         public static string GetTitle() { return Title; }
         public static string GetDescription() { return Description; }
