@@ -28,53 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.InputBx = new System.Windows.Forms.TextBox();
-            this.BackgroundPnl = new System.Windows.Forms.Panel();
-            this.BackgroundPnl.SuspendLayout();
-            this.SuspendLayout();
+            InputBx = new System.Windows.Forms.TextBox();
+            BackgroundPnl = new System.Windows.Forms.Panel();
+            BackgroundPnl.SuspendLayout();
+            SuspendLayout();
             // 
             // InputBx
             // 
-            this.InputBx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InputBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.InputBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InputBx.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InputBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InputBx.Location = new System.Drawing.Point(3, 5);
-            this.InputBx.Name = "InputBx";
-            this.InputBx.Size = new System.Drawing.Size(167, 18);
-            this.InputBx.TabIndex = 0;
-            this.InputBx.Text = "Textbox";
-            this.InputBx.WordWrap = false;
-            this.InputBx.TextChanged += new System.EventHandler(this.InputBx_TextChanged);
+            InputBx.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            InputBx.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            InputBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            InputBx.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            InputBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InputBx.Location = new System.Drawing.Point(4, 8);
+            InputBx.Name = "InputBx";
+            InputBx.Size = new System.Drawing.Size(190, 18);
+            InputBx.TabIndex = 0;
+            InputBx.Text = "textbox";
+            InputBx.WordWrap = false;
+            InputBx.TextChanged += InputBx_TextChanged;
             // 
             // BackgroundPnl
             // 
-            this.BackgroundPnl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.BackgroundPnl.Controls.Add(this.InputBx);
-            this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
-            this.BackgroundPnl.Name = "BackgroundPnl";
-            this.BackgroundPnl.Size = new System.Drawing.Size(173, 28);
-            this.BackgroundPnl.TabIndex = 0;
+            BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            BackgroundPnl.Controls.Add(InputBx);
+            BackgroundPnl.Location = new System.Drawing.Point(1, 1);
+            BackgroundPnl.Name = "BackgroundPnl";
+            BackgroundPnl.Size = new System.Drawing.Size(198, 33);
+            BackgroundPnl.TabIndex = 0;
             // 
             // CRTextbox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Controls.Add(this.BackgroundPnl);
-            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.Name = "CRTextbox";
-            this.Size = new System.Drawing.Size(175, 30);
-            this.SizeChanged += new System.EventHandler(this.CRTextbox_SizeChanged);
-            this.BackgroundPnl.ResumeLayout(false);
-            this.BackgroundPnl.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(128, 132, 142);
+            Controls.Add(BackgroundPnl);
+            ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            Name = "CRTextbox";
+            Size = new System.Drawing.Size(200, 35);
+            SizeChanged += CRTextbox_SizeChanged;
+            BackgroundPnl.ResumeLayout(false);
+            BackgroundPnl.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

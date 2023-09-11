@@ -28,101 +28,95 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ControlPnl = new System.Windows.Forms.Panel();
-            this.DecrementBtn = new System.Windows.Forms.Label();
-            this.IncrementBtn = new System.Windows.Forms.Label();
-            this.BackgroundPnl = new System.Windows.Forms.Panel();
-            this.InputBx = new System.Windows.Forms.NumericUpDown();
-            this.ControlPnl.SuspendLayout();
-            this.BackgroundPnl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InputBx)).BeginInit();
-            this.SuspendLayout();
+            ControlPnl = new System.Windows.Forms.Panel();
+            DecrementBtn = new System.Windows.Forms.Label();
+            IncrementBtn = new System.Windows.Forms.Label();
+            BackgroundPnl = new System.Windows.Forms.Panel();
+            InputBx = new System.Windows.Forms.NumericUpDown();
+            ControlPnl.SuspendLayout();
+            BackgroundPnl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)InputBx).BeginInit();
+            SuspendLayout();
             // 
             // ControlPnl
             // 
-            this.ControlPnl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ControlPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ControlPnl.Controls.Add(this.DecrementBtn);
-            this.ControlPnl.Controls.Add(this.IncrementBtn);
-            this.ControlPnl.Location = new System.Drawing.Point(146, 1);
-            this.ControlPnl.Name = "ControlPnl";
-            this.ControlPnl.Size = new System.Drawing.Size(28, 27);
-            this.ControlPnl.TabIndex = 2;
+            ControlPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            ControlPnl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            ControlPnl.Controls.Add(DecrementBtn);
+            ControlPnl.Controls.Add(IncrementBtn);
+            ControlPnl.Location = new System.Drawing.Point(171, 1);
+            ControlPnl.Name = "ControlPnl";
+            ControlPnl.Size = new System.Drawing.Size(28, 33);
+            ControlPnl.TabIndex = 2;
             // 
             // DecrementBtn
             // 
-            this.DecrementBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.DecrementBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.DecrementBtn.Location = new System.Drawing.Point(1, 14);
-            this.DecrementBtn.Name = "DecrementBtn";
-            this.DecrementBtn.Size = new System.Drawing.Size(26, 12);
-            this.DecrementBtn.TabIndex = 1;
-            this.DecrementBtn.Text = "-";
-            this.DecrementBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.DecrementBtn.Click += new System.EventHandler(this.DecrementBtn_Click);
-            this.DecrementBtn.DoubleClick += new System.EventHandler(this.DecrementBtn_DoubleClick);
-            this.DecrementBtn.MouseEnter += new System.EventHandler(this.DecrementBtn_MouseEnter);
-            this.DecrementBtn.MouseLeave += new System.EventHandler(this.DecrementBtn_MouseLeave);
+            DecrementBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            DecrementBtn.BackColor = System.Drawing.Color.Transparent;
+            DecrementBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            DecrementBtn.Font = new System.Drawing.Font("Segoe UI Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            DecrementBtn.Location = new System.Drawing.Point(0, 16);
+            DecrementBtn.Name = "DecrementBtn";
+            DecrementBtn.Size = new System.Drawing.Size(29, 16);
+            DecrementBtn.TabIndex = 1;
+            DecrementBtn.Text = "-";
+            DecrementBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            DecrementBtn.Click += DecrementBtn_Click;
+            DecrementBtn.DoubleClick += DecrementBtn_DoubleClick;
             // 
             // IncrementBtn
             // 
-            this.IncrementBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.IncrementBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.IncrementBtn.Location = new System.Drawing.Point(1, 1);
-            this.IncrementBtn.Name = "IncrementBtn";
-            this.IncrementBtn.Size = new System.Drawing.Size(26, 12);
-            this.IncrementBtn.TabIndex = 0;
-            this.IncrementBtn.Text = "+";
-            this.IncrementBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.IncrementBtn.Click += new System.EventHandler(this.IncrementBtn_Click);
-            this.IncrementBtn.DoubleClick += new System.EventHandler(this.IncrementBtn_DoubleClick);
-            this.IncrementBtn.MouseEnter += new System.EventHandler(this.IncrementBtn_MouseEnter);
-            this.IncrementBtn.MouseLeave += new System.EventHandler(this.IncrementBtn_MouseLeave);
+            IncrementBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            IncrementBtn.BackColor = System.Drawing.Color.Transparent;
+            IncrementBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            IncrementBtn.Font = new System.Drawing.Font("Segoe UI Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            IncrementBtn.Location = new System.Drawing.Point(0, 0);
+            IncrementBtn.Name = "IncrementBtn";
+            IncrementBtn.Size = new System.Drawing.Size(29, 16);
+            IncrementBtn.TabIndex = 0;
+            IncrementBtn.Text = "+";
+            IncrementBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            IncrementBtn.Click += IncrementBtn_Click;
+            IncrementBtn.DoubleClick += IncrementBtn_DoubleClick;
             // 
             // BackgroundPnl
             // 
-            this.BackgroundPnl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.BackgroundPnl.Controls.Add(this.InputBx);
-            this.BackgroundPnl.Location = new System.Drawing.Point(1, 1);
-            this.BackgroundPnl.Name = "BackgroundPnl";
-            this.BackgroundPnl.Size = new System.Drawing.Size(144, 27);
-            this.BackgroundPnl.TabIndex = 1;
+            BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            BackgroundPnl.Controls.Add(InputBx);
+            BackgroundPnl.Location = new System.Drawing.Point(1, 1);
+            BackgroundPnl.Name = "BackgroundPnl";
+            BackgroundPnl.Size = new System.Drawing.Size(169, 33);
+            BackgroundPnl.TabIndex = 1;
             // 
             // InputBx
             // 
-            this.InputBx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InputBx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.InputBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InputBx.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InputBx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.InputBx.Location = new System.Drawing.Point(8, 5);
-            this.InputBx.Name = "InputBx";
-            this.InputBx.Size = new System.Drawing.Size(152, 21);
-            this.InputBx.TabIndex = 2;
-            this.InputBx.ValueChanged += new System.EventHandler(this.InputBx_ValueChanged);
+            InputBx.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            InputBx.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            InputBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            InputBx.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            InputBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            InputBx.Location = new System.Drawing.Point(3, 8);
+            InputBx.Name = "InputBx";
+            InputBx.Size = new System.Drawing.Size(192, 21);
+            InputBx.TabIndex = 2;
+            InputBx.ValueChanged += InputBx_ValueChanged;
             // 
             // CRNumberbox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Controls.Add(this.ControlPnl);
-            this.Controls.Add(this.BackgroundPnl);
-            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.Name = "CRNumberbox";
-            this.Size = new System.Drawing.Size(175, 29);
-            this.SizeChanged += new System.EventHandler(this.CRNumberbox_SizeChanged);
-            this.ControlPnl.ResumeLayout(false);
-            this.BackgroundPnl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.InputBx)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(128, 132, 142);
+            Controls.Add(ControlPnl);
+            Controls.Add(BackgroundPnl);
+            ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            Name = "CRNumberbox";
+            Size = new System.Drawing.Size(200, 35);
+            SizeChanged += CRNumberbox_SizeChanged;
+            ControlPnl.ResumeLayout(false);
+            BackgroundPnl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)InputBx).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

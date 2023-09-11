@@ -1,70 +1,95 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Windows.Devices.Sms;
 
 namespace CodeRedLauncher.Controls
 {
     public partial class CRButton : UserControl
     {
-        private struct Palette
+        private IconStore _icons = new IconStore();
+        private bool _syncColor = false;
+        private bool _enabled = true;
+
+        public ControlTheme ControlType
         {
-            public static readonly Color FontLight = Color.FromArgb(235, 235, 235);
-            public static readonly Color FontDark = Color.FromArgb(22, 22, 22);
-            // Colored
-            public static readonly Color BorderColor0 = Color.FromArgb(175, 0, 0);
-            public static readonly Color BackgroundColor0 = Color.FromArgb(255, 0, 0);
-            public static readonly Color HoverColor0 = Color.FromArgb(255, 50, 50);
-            public static readonly Color ClickColor0 = Color.FromArgb(200, 20, 0);
-            // Light
-            public static readonly Color BorderColor1 = Color.FromArgb(185, 185, 185);
-            public static readonly Color BackgroundColor1 = Color.FromArgb(235, 235, 235);
-            public static readonly Color HoverColor1 = Color.FromArgb(245, 245, 245);
-            public static readonly Color ClickColor1 = Color.FromArgb(215, 215, 215);
-            // Dark
-            public static readonly Color BorderColor2 = Color.FromArgb(30, 30, 30);
-            public static readonly Color BackgroundColor2 = Color.FromArgb(26, 26, 26);
-            public static readonly Color HoverColor2 = Color.FromArgb(28, 28, 28);
-            public static readonly Color ClickColor2 = Color.FromArgb(24, 24, 24);
+            get { return _icons.Control; }
+            set { _icons.Control = value; UpdateTheme(); }
         }
 
-        public enum ButtonStyles : byte
+        public IconTheme IconType
         {
-            STYLE_COLORED,
-            STYLE_LIGHT,
-            STYLE_DARK
+            get { return _icons.Theme; }
+            set { _icons.Theme = value; UpdateTheme(); }
         }
 
-        private bool IsEnabled = true;
-        private ButtonStyles ButtonStyle = ButtonStyles.STYLE_COLORED;
-
-        public bool ButtonEnabled
+        public bool IconSync
         {
-            get { return IsEnabled; }
-            set { IsEnabled = value; }
+            get { return _syncColor; }
+            set { _syncColor = value; UpdateTheme(); }
         }
 
-        public ButtonStyles DisplayStyle
+        public Image IconWhite
         {
-            get { return ButtonStyle; }
-            set { ButtonStyle = value; UpdateStyle(); Invalidate(); }
+            get { return _icons.GetIcon(IconTheme.White); }
+            set { _icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
-        public Image DisplayImage
+        public Image IconBlack
         {
-            get { return ButtonImg.BackgroundImage; }
-            set { ButtonImg.BackgroundImage = value; ButtonImg.Visible = (value != null); Invalidate(); }
+            get { return _icons.GetIcon(IconTheme.Black); }
+            set { _icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+        }
+
+        public Image IconRed
+        {
+            get { return _icons.GetIcon(IconTheme.Red); }
+            set { _icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+        }
+
+        public Image IconPurple
+        {
+            get { return _icons.GetIcon(IconTheme.Purple); }
+            set { _icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+        }
+
+        public Image IconBlue
+        {
+            get { return _icons.GetIcon(IconTheme.Blue); }
+            set { _icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+        }
+
+        public Image GetThemeIcon()
+        {
+            return _icons.GetThemeIcon();
+        }
+
+        public Image GetIcon(IconTheme type)
+        {
+            return _icons.GetIcon(type);
+        }
+
+        public void SetIcon(IconTheme type, Image icon)
+        {
+            _icons.SetIcon(type, icon);
         }
 
         public Font DisplayFont
         {
             get { return TextLbl.Font; }
-            set { TextLbl.Font = value; Invalidate(); }
+            set { TextLbl.Font = value; UpdateTheme(); }
         }
 
         public string DisplayText
         {
             get { return TextLbl.Text; }
-            set { TextLbl.Text = value; Invalidate(); }
+            set { TextLbl.Text = value; UpdateTheme(); }
+        }
+
+        public bool ButtonEnabled
+        {
+            get { return _enabled; }
+            set { _enabled = value; UpdateTheme(); }
         }
 
         public CRButton()
@@ -72,152 +97,56 @@ namespace CodeRedLauncher.Controls
             InitializeComponent();
         }
 
-        private void UpdateStyle()
+        public void SetTheme(ControlTheme control, IconTheme icon)
         {
-            if (ButtonStyle == ButtonStyles.STYLE_COLORED)
+            ControlType = control;
+            IconType = icon;
+        }
+
+        private void UpdateTheme()
+        {
+            ButtonImg.BackgroundImage = _icons.GetThemeIcon();
+            ButtonImg.Visible = (ButtonImg.BackgroundImage != null);
+
+            if (ControlType == ControlTheme.Dark)
             {
-                this.BackColor = Palette.BorderColor0;
-                BackgroundPnl.BackColor = Palette.BackgroundColor0;
-                TextLbl.ForeColor = Palette.FontLight;
+                this.BackColor = GPalette.CodeRed;
+                TextLbl.ForeColor = (IconSync ? _icons.GetColor() : GPalette.White);
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
+            else if (ControlType == ControlTheme.Light)
             {
-                this.BackColor = Palette.BorderColor1;
-                BackgroundPnl.BackColor = Palette.BackgroundColor1;
-                TextLbl.ForeColor = Palette.FontDark;
+                this.BackColor = GPalette.CodePurple;
+                TextLbl.ForeColor = (IconSync ? _icons.GetColor() : GPalette.White);
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
+
+            Invalidate();
+        }
+
+        private void OnMouseEnter()
+        {
+            if (ButtonEnabled)
             {
-                this.BackColor = Palette.BorderColor2;
-                BackgroundPnl.BackColor = Palette.BackgroundColor2;
-                TextLbl.ForeColor = Palette.FontLight;
+                if (ControlType == ControlTheme.Dark)
+                {
+                    this.BackColor = GPalette.CodeRed_Highlight;
+                }
+                else if (ControlType == ControlTheme.Light)
+                {
+                    this.BackColor = GPalette.CodePurple_Highlight;
+                }
             }
         }
 
-        private void GlobalMouseEnter()
+        private void OnMouseLeave()
         {
-            if (ButtonStyle == ButtonStyles.STYLE_COLORED)
+            if (ControlType == ControlTheme.Dark)
             {
-                BackgroundPnl.BackColor = Palette.HoverColor0;
+                this.BackColor = GPalette.CodeRed;
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
+            else if (ControlType == ControlTheme.Light)
             {
-                BackgroundPnl.BackColor = Palette.HoverColor1;
+                this.BackColor = GPalette.CodePurple;
             }
-            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
-            {
-                BackgroundPnl.BackColor = Palette.HoverColor2;
-            }
-        }
-
-        private void GlobalMouseDown()
-        {
-            if (ButtonStyle == ButtonStyles.STYLE_COLORED)
-            {
-                BackgroundPnl.BackColor = Palette.ClickColor0;
-            }
-            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
-            {
-                BackgroundPnl.BackColor = Palette.ClickColor1;
-            }
-            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
-            {
-                BackgroundPnl.BackColor = Palette.ClickColor2;
-            }
-        }
-
-        private void GlobalMouseUp()
-        {
-            if (ButtonStyle == ButtonStyles.STYLE_COLORED)
-            {
-                BackgroundPnl.BackColor = Palette.HoverColor0;
-            }
-            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
-            {
-                BackgroundPnl.BackColor = Palette.HoverColor1;
-            }
-            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
-            {
-                BackgroundPnl.BackColor = Palette.HoverColor2;
-            }
-        }
-
-        private void GlobalMouseLeave()
-        {
-            if (ButtonStyle == ButtonStyles.STYLE_COLORED)
-            {
-                BackgroundPnl.BackColor = Palette.BackgroundColor0;
-            }
-            else if (ButtonStyle == ButtonStyles.STYLE_LIGHT)
-            {
-                BackgroundPnl.BackColor = Palette.BackgroundColor1;
-            }
-            else if (ButtonStyle == ButtonStyles.STYLE_DARK)
-            {
-                BackgroundPnl.BackColor = Palette.BackgroundColor2;
-            }
-        }
-
-        private void TextLbl_MouseEnter(object sender, EventArgs e)
-        {
-            base.OnMouseEnter(e);
-            GlobalMouseEnter();
-        }
-
-        private void TextLbl_MouseDown(object sender, MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            GlobalMouseDown();
-        }
-
-        private void TextLbl_MouseUp(object sender, MouseEventArgs e)
-        {
-            base.OnMouseUp(e);
-            GlobalMouseUp();
-        }
-
-        private void TextLbl_MouseLeave(object sender, EventArgs e)
-        {
-            base.OnMouseLeave(e);
-            GlobalMouseLeave();
-        }
-
-        private void TextLbl_Click(object sender, EventArgs e)
-        {
-            base.OnClick(e);
-            CRButton_OnClick(e);
-            GlobalMouseDown();
-        }
-
-        private void ButtonImg_MouseEnter(object sender, EventArgs e)
-        {
-            base.OnMouseEnter(e);
-            GlobalMouseEnter();
-        }
-
-        private void ButtonImg_MouseDown(object sender, MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            GlobalMouseDown();
-        }
-
-        private void ButtonImg_MouseUp(object sender, MouseEventArgs e)
-        {
-            base.OnMouseUp(e);
-            GlobalMouseUp();
-        }
-
-        private void ButtonImg_MouseLeave(object sender, EventArgs e)
-        {
-            base.OnMouseLeave(e);
-            GlobalMouseLeave();
-        }
-
-        private void ButtonImg_Click(object sender, EventArgs e)
-        {
-            base.OnClick(e);
-            CRButton_OnClick(e);
-            GlobalMouseDown();
         }
 
         public event EventHandler OnButtonClick;
@@ -229,10 +158,45 @@ namespace CodeRedLauncher.Controls
             }
         }
 
-        private void BackgroundPnl_SizeChanged(object sender, EventArgs e)
+        private void ButtonImg_MouseEnter(object sender, EventArgs e)
+        {
+            OnMouseEnter();
+        }
+
+        private void ButtonImg_Click(object sender, EventArgs e)
+        {
+            CRButton_OnClick(e);
+        }
+
+        private void ButtonImg_DoubleClick(object sender, EventArgs e)
+        {
+            CRButton_OnClick(e);
+        }
+
+        private void TextLbl_MouseEnter(object sender, EventArgs e)
+        {
+            OnMouseEnter();
+        }
+
+        private void TextLbl_MouseLeave(object sender, EventArgs e)
+        {
+            OnMouseLeave();
+        }
+
+        private void TextLbl_Click(object sender, EventArgs e)
+        {
+            CRButton_OnClick(e);
+        }
+
+        private void TextLbl_DoubleClick(object sender, EventArgs e)
+        {
+            CRButton_OnClick(e);
+        }
+
+        private void TextLbl_SizeChanged(object sender, EventArgs e)
         {
             ButtonImg.Width = ButtonImg.Height;
-            Invalidate();
+            UpdateTheme();
         }
     }
 }

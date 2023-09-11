@@ -6,39 +6,36 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRTextbox : UserControl
     {
-        public enum FilterTypes : byte
-        {
-            TYPE_NONE,
-            TYPE_NO_SYMBOLS,
-            TYPE_ALPHABET_ONLY,
-            TYPE_DECIMAL_ONLY,
-            TYPE_HEXADECIMAL_ONLY
-        }
+        private ControlTheme _controlTheme = ControlTheme.Dark;
 
-        private FilterTypes Filter = FilterTypes.TYPE_NONE;
-
-        public FilterTypes TextFilter
+        public ControlTheme ControlType
         {
-            get { return Filter;  }
-            set { Filter = value; }
+            get { return _controlTheme; }
+            set { _controlTheme = value; UpdateTheme(); }
         }
 
         public Font DisplayFont
         {
             get { return InputBx.Font; }
-            set { InputBx.Font = value; }
+            set { InputBx.Font = value; UpdateTheme(); }
         }
 
         public string DisplayText
         {
             get { return InputBx.Text; }
-            set { InputBx.Text = value; }
+            set { InputBx.Text = value; UpdateTheme(); }
+        }
+
+        public bool BoxEnabled
+        {
+            get { return InputBx.Enabled; }
+            set { InputBx.Enabled = value; UpdateTheme(); }
         }
 
         public bool ReadOnly
         {
             get { return InputBx.ReadOnly; }
-            set { InputBx.ReadOnly = value; }
+            set { InputBx.ReadOnly = value; UpdateTheme(); }
         }
 
         public CRTextbox()
@@ -46,62 +43,28 @@ namespace CodeRedLauncher.Controls
             InitializeComponent();
         }
 
-        private string FilterText(string inputText)
+        private void UpdateTheme()
         {
-            string filteredText = "";
-
-            if (Filter == FilterTypes.TYPE_NO_SYMBOLS)
+            if (ControlType == ControlTheme.Dark)
             {
-                foreach (char c in inputText)
-                {
-                    if (Extensions.Strings.IsCharAlphabet(c) || Extensions.Strings.IsCharDecimal(c))
-                    {
-                        filteredText += c;
-                    }
-                }
+                this.BackColor = GPalette.LightGrey;
+                BackgroundPnl.BackColor = GPalette.DarkGrey;
+                InputBx.BackColor = GPalette.DarkGrey;
+                InputBx.ForeColor = GPalette.White;
             }
-            else if (Filter == FilterTypes.TYPE_ALPHABET_ONLY)
+            else if (ControlType == ControlTheme.Light)
             {
-                foreach (char c in inputText)
-                {
-                    if (Extensions.Strings.IsCharAlphabet(c))
-                    {
-                        filteredText += c;
-                    }
-                }
-            }
-            else if (Filter == FilterTypes.TYPE_DECIMAL_ONLY)
-            {
-                foreach (char c in inputText)
-                {
-                    if (Extensions.Strings.IsCharDecimal(c))
-                    {
-                        filteredText += c;
-                    }
-                }
-            }
-            else if (Filter == FilterTypes.TYPE_HEXADECIMAL_ONLY)
-            {
-                foreach (char c in inputText)
-                {
-                    if (Extensions.Strings.IsCharHexadecimal(c))
-                    {
-                        filteredText += c;
-                    }
-                }
+                this.BackColor = GPalette.LightGrey;
+                BackgroundPnl.BackColor = GPalette.Grey;
+                InputBx.BackColor = GPalette.Grey;
+                InputBx.ForeColor = GPalette.Black;
             }
 
-            return filteredText;
+            Invalidate();
         }
 
         private void InputBx_TextChanged(object sender, EventArgs e)
         {
-            if (Filter != FilterTypes.TYPE_NONE)
-            {
-                DisplayText = FilterText(InputBx.Text);
-            }
-
-            base.OnTextChanged(e);
             CRTextbox_InputChanged(e);
         }
 
@@ -113,8 +76,8 @@ namespace CodeRedLauncher.Controls
 
         private void CRTextbox_SizeChanged(object sender, EventArgs e)
         {
-            InputBx.Location = new Point(InputBx.Location.X, (BackgroundPnl.Height / 2) - (Int32)InputBx.Font.Size);
-            Invalidate();
+            InputBx.Location = new Point(InputBx.Location.X, (BackgroundPnl.Height / 2) - (InputBx.Font.Height - (Int32)InputBx.Font.Size));
+            UpdateTheme();
         }
     }
 }

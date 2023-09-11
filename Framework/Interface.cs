@@ -8,47 +8,87 @@ namespace CodeRedLauncher
 {
     public enum Tabs : byte
     {
-        TAB_DASHBOARD,
-        TAB_NEWS,
-        TAB_SESSIONS,
-        TAB_TEXTURES,
-        TAB_SCRIPTS,
-        TAB_SETTINGS,
-        TAB_ABOUT
+        Dashboard,
+        News,
+        Sessions,
+        Settings,
+        About,
+        Exit
     }
 
     // Helper class for managing tabs and their buttons outside of custom controls.
-    public static class Interface
+    public static class TabManager
     {
-        private static TabControl ControlTab = null;
-        private static Dictionary<Tabs, Pair<CRTab, TabPage>> TabCache = new Dictionary<Tabs, Pair<CRTab, TabPage>>();
+        private static ControlTheme _theme = ControlTheme.Dark;
+        private static IconTheme _icon = IconTheme.Red;
+        private static TabControl _controlTab = null;
+        private static Dictionary<Tabs, Pair<CRTab, TabPage>> _boundTabs = new Dictionary<Tabs, Pair<CRTab, TabPage>>();
+
+        public static ControlTheme ControlType
+        {
+            get { return _theme; }
+            set { _theme = value; UpdateTheme(); }
+        }
+
+        public static IconTheme IconType
+        {
+            get { return _icon; }
+            set { _icon = value; UpdateTheme(); }
+        }
+
+        public static void SetTheme(ControlTheme control, IconTheme icon)
+        {
+            ControlType = control;
+            IconType = icon;
+        }
+
+        private static void UpdateTheme()
+        {
+            bool darkMode = (ControlType == ControlTheme.Dark);
+
+            foreach (var tab in _boundTabs)
+            {
+                if (tab.Value.Second != null)
+                {
+                    tab.Value.Second.BackColor = (darkMode ? GPalette.Black : GPalette.GreyWhite);
+                }
+
+                if (tab.Value.First != null)
+                {
+                    tab.Value.First.SetTheme(ControlType, IconType);
+                }
+            }
+        }
 
         public static void BindControl(TabControl control)
         {
-            ControlTab = control;
+            _controlTab = control;
         }
 
         public static void BindTab(Tabs id, CRTab tab, TabPage page)
         {
-            TabCache[id] = new Pair<CRTab, TabPage>(tab, page);
+            _boundTabs[id] = new Pair<CRTab, TabPage>(tab, page);
         }
 
         private static void ResetTabs()
         {
-            foreach (var tab in TabCache)
+            foreach (var tab in _boundTabs)
             {
-                tab.Value.First.Selected = false;
+                if (tab.Value.First != null)
+                {
+                    tab.Value.First.TabSelected = false;
+                }
             }
         }
 
         public static void SelectTab(Tabs id)
         {
-            if (TabCache.ContainsKey(id))
+            if ((_controlTab != null) && _boundTabs.ContainsKey(id))
             {
                 ResetTabs();
-                Pair<CRTab, TabPage> tabPair = TabCache[id];
-                tabPair.First.Selected = true;
-                ControlTab.SelectedTab = tabPair.Second;
+                Pair<CRTab, TabPage> tabPair = _boundTabs[id];
+                tabPair.First.TabSelected = true;
+                _controlTab.SelectedTab = tabPair.Second;
             }
         }
     }

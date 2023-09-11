@@ -14,16 +14,16 @@ namespace CodeRedLauncher
 
     public static class Logger
     {
-        private static bool Initialized = false;
-        private static Architecture.Path LogFile = new Architecture.Path();
+        private static bool _initialized = false;
+        private static Architecture.Path _logFile = new Architecture.Path();
 
         public static bool CheckInitialized()
         {
-            if (!Initialized || !LogFile.Exists())
+            if (!_initialized || !_logFile.Exists())
             {
                 CreateLogFile();
 
-                if (Initialized)
+                if (_initialized)
                 {
                     Write("Log file created successfully.");
                     return true;
@@ -39,21 +39,21 @@ namespace CodeRedLauncher
 
         private async static void CreateLogFile()
         {
-            if (!Initialized || !LogFile.Exists())
+            if (!_initialized || !_logFile.Exists())
             {
                 Architecture.Path modPath = Storage.GetModulePath();
                 
                 if (modPath.Exists())
                 {
-                    LogFile.Set(modPath / "Launcher.log");
+                    _logFile.Set(modPath / "Launcher.log");
 
-                    if (!LogFile.Exists())
+                    if (!_logFile.Exists())
                     {
-                        await File.Create(LogFile.GetPath()).DisposeAsync();
+                        await File.Create(_logFile.GetPath()).DisposeAsync();
                     }
 
-                    File.WriteAllText(LogFile.GetPath(), string.Empty); // "Truncuating" the log file without needing to open it in a stream.
-                    Initialized = true;
+                    File.WriteAllText(_logFile.GetPath(), string.Empty); // "Truncuating" the log file without needing to open it in a stream.
+                    _initialized = true;
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace CodeRedLauncher
                 }
 
                 newLine += (str + Environment.NewLine);
-                File.AppendAllText(LogFile.GetPath(), newLine);
+                File.AppendAllText(_logFile.GetPath(), newLine);
             }
         }
     }

@@ -61,7 +61,7 @@ namespace CodeRedLauncher
             {
                 ParsedSessions.Clear();
                 List<Architecture.Path> sessionsFiles = sessionsFolder.GetFiles(true);
-                Logger.Write("Found \"" + sessionsFiles.Count + "\" session files.");
+                Logger.Write("Found \"" + sessionsFiles.Count.ToString() + "\" session files.");
 
                 foreach (Architecture.Path sessionsFile in sessionsFiles)
                 {

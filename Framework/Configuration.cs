@@ -1,24 +1,51 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace CodeRedLauncher
 {
     public enum InjectionTypes : byte
     {
-        TYPE_UNKNOWN,
-        TYPE_TIMEOUT,
-        TYPE_MANUAL,
-        TYPE_ALWAYS
+        Timeout,
+        Manual
     }
 
     // Stores and manages all user modifiable settings in the launcher, as well as saving them offline.
     public static class Configuration
     {
-        private static bool Initialized = false;
-        private static Architecture.Path StorageFile = new Architecture.Path();
+        private static bool _initialized = false;
+        private static Architecture.Path _storageFile = new Architecture.Path();
+
+        public static PublicSetting PrivacyPolicy = new PublicSetting(
+           "False",
+           "PrivacyPolicy",
+           "Agree to the private policy.",
+           "If the user has argeed to use the private policy or not."
+        );
+
+        public static PublicSetting TermsOfUse = new PublicSetting(
+           "False",
+           "TermsOfUse",
+           "Agree to the terms of use.",
+           "If the user has argeed to use the terms of use or not."
+        );
+
+        public static PublicSetting PrivacyHash = new PublicSetting(
+          "0",
+          "PrivacyHash",
+          "The current privacy policy hash.",
+          "The last known hash of the privacy policy the user agreed to"
+        );
+
+        public static PublicSetting TermsHash = new PublicSetting(
+          "0",
+          "TermsHash",
+          "The current terms of use hash.",
+          "The last known hash of the terms of use the user agreed to"
+        );
 
         public static PublicSetting OfflineMode = new PublicSetting(
-            "false",
+            "False",
             "OfflineMode",
             "Run the launcher in offline mode.",
             "Disables update and version checks when not connected to the internet."
@@ -73,7 +100,7 @@ namespace CodeRedLauncher
         );
 
         public static PublicSetting InjectionType = new PublicSetting(
-            "TYPE_TIMEOUT",
+            "Timeout",
             "InjectionType",
             "Module injection type",
             "Injection method to use by the launcher when injecting modules.",
@@ -88,28 +115,40 @@ namespace CodeRedLauncher
             SaveChanges
         );
 
+        public static PublicSetting LightMode = new PublicSetting(
+            "False",
+            "LightMode",
+            "Interface light mode",
+            "Use light mode for all user interface elements.",
+            SaveChanges
+        );
+
         public static Architecture.Range32 InjectionTimeoutRange = new Architecture.Range32(5000, 300000); // Five seconds to five minutes.
 
         private static bool PhraseConfigFile()
         {
-            if (StorageFile.Exists())
+            if (_storageFile.Exists())
             {
-                string[] fileLines = File.ReadAllLines(StorageFile.GetPath());
+                string[] fileLines = File.ReadAllLines(_storageFile.GetPath());
 
                 if (fileLines.Length > 0)
                 {
                     foreach (string line in fileLines)
                     {
+                        if (line.Contains(PrivacyPolicy.Name)) { PrivacyPolicy.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                        if (line.Contains(TermsOfUse.Name)) { TermsOfUse.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                        if (line.Contains(PrivacyHash.Name)) { PrivacyHash.SetValue(line.Substring((PrivacyHash.Name.Length + 1), 32)); continue; }
+                        if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), 32)); continue; }
                         if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(PreventInjection.Name)) { PreventInjection.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(RunOnStartup.Name)) { RunOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(MinimizeOnStartup.Name)) { MinimizeOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(HideWhenMinimized.Name)) { HideWhenMinimized.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(InjectAllInstances.Name)) { InjectAllInstances.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(InjectionTypes.TYPE_TIMEOUT.ToString())) { InjectionType.SetValue(InjectionTypes.TYPE_TIMEOUT.ToString()); continue; }
-                        if (line.Contains(InjectionTypes.TYPE_MANUAL.ToString())) { InjectionType.SetValue(InjectionTypes.TYPE_MANUAL.ToString()); continue; }
-                        if (line.Contains(InjectionTypes.TYPE_ALWAYS.ToString())) { InjectionType.SetValue(InjectionTypes.TYPE_ALWAYS.ToString()); continue; }
+                        if (line.Contains("Timeout")) { InjectionType.SetValue(InjectionTypes.Timeout.ToString()); continue; }
+                        if (line.Contains("Manual")) { InjectionType.SetValue(InjectionTypes.Manual.ToString()); continue; }
                         if (line.Contains(InjectionTimeout.Name)) { InjectionTimeout.SetValue(line.Substring(17, line.Length - 17)); continue; }
+                        if (line.Contains(LightMode.Name)) { LightMode.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                     }
 
                     return true;
@@ -131,7 +170,7 @@ namespace CodeRedLauncher
         {
             if (bForceReset)
             {
-                Initialized = false;
+                _initialized = false;
             }
 
             CheckInitialized();
@@ -139,15 +178,15 @@ namespace CodeRedLauncher
 
         public static bool CheckInitialized()
         {
-            if (!Initialized)
+            if (!_initialized)
             {
-                StorageFile = Storage.GetModulePath() / "Settings" / "Injector.cr";
+                _storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr");
 
-                if (StorageFile.Exists())
+                if (_storageFile.Exists())
                 {
                     if (PhraseConfigFile())
                     {
-                        Initialized = true;
+                        _initialized = true;
                     }
                 }
                 else
@@ -156,7 +195,7 @@ namespace CodeRedLauncher
                 }
             }
 
-            return Initialized;
+            return _initialized;
         }
 
         public static void SetDefaultSettings(bool bSaveChanges = false)
@@ -169,6 +208,7 @@ namespace CodeRedLauncher
             InjectAllInstances.ResetToDefault();
             InjectionType.ResetToDefault();
             InjectionTimeout.ResetToDefault();
+            LightMode.ResetToDefault();
 
             if (bSaveChanges)
             {
@@ -178,16 +218,20 @@ namespace CodeRedLauncher
 
         public async static void SaveChanges()
         {
-            if (StorageFile.Parent().Exists())
+            if (_storageFile.Parent().Exists())
             {
-                string file = StorageFile.GetPath();
+                string file = _storageFile.GetPath();
 
-                if (!StorageFile.Exists())
+                if (!_storageFile.Exists())
                 {
-                    await File.Create(StorageFile.GetPath()).DisposeAsync();
+                    await File.Create(_storageFile.GetPath()).DisposeAsync();
                 }
 
                 File.WriteAllText(file, string.Empty); // "Truncuating" the file without needing to open it in a stream.
+                File.AppendAllText(file, PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + "\n");
+                File.AppendAllText(file, TermsOfUse.Name + " " + TermsOfUse.GetStringValue() + "\n");
+                File.AppendAllText(file, PrivacyHash.Name + " " + PrivacyHash.GetStringValue() + "\n");
+                File.AppendAllText(file, TermsHash.Name + " " + TermsHash.GetStringValue() + "\n");
                 File.AppendAllText(file, AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + "\n");
                 File.AppendAllText(file, PreventInjection.Name + " " + PreventInjection.GetStringValue() + "\n");
                 File.AppendAllText(file, RunOnStartup.Name + " " + RunOnStartup.GetStringValue() + "\n");
@@ -195,8 +239,43 @@ namespace CodeRedLauncher
                 File.AppendAllText(file, HideWhenMinimized.Name + " " + HideWhenMinimized.GetStringValue() + "\n");
                 File.AppendAllText(file, InjectAllInstances.Name + " " + InjectAllInstances.GetStringValue() + "\n");
                 File.AppendAllText(file, InjectionType.Name + " " + InjectionType.GetStringValue() + "\n");
-                File.AppendAllText(file, InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue());
+                File.AppendAllText(file, InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue() + "\n");
+                File.AppendAllText(file, LightMode.Name + " " + LightMode.GetStringValue());
             }
+        }
+
+        public static string HashMD5(string str)
+        {
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(str);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                return Convert.ToHexString(hashBytes);
+            }
+        }
+
+        public static bool AgreedToPolicy()
+        {
+            if (CheckInitialized()) { return PrivacyPolicy.GetBoolValue(); }
+            return PrivacyPolicy.GetBoolValue(true);
+        }
+
+        public static bool AgreedToTerms()
+        {
+            if (CheckInitialized()) { return TermsOfUse.GetBoolValue(); }
+            return TermsOfUse.GetBoolValue(true);
+        }
+
+        public static string GetPrivacyHash()
+        {
+            if (CheckInitialized()) { return PrivacyHash.GetStringValue(); }
+            return PrivacyHash.GetStringValue(true);
+        }
+
+        public static string GetTermsHash()
+        {
+            if (CheckInitialized()) { return TermsHash.GetStringValue(); }
+            return TermsHash.GetStringValue(true);
         }
 
         public static bool ShouldCheckForUpdates()
@@ -245,6 +324,12 @@ namespace CodeRedLauncher
         {
             if (CheckInitialized()) { return InjectionTimeout.GetInt32Value(); }
             return InjectionTimeout.GetInt32Value(true);
+        }
+
+        public static bool ShouldUseLightMode()
+        {
+            if (CheckInitialized()) { return LightMode.GetBoolValue(); }
+            return LightMode.GetBoolValue(true);
         }
     }
 }

@@ -8,30 +8,30 @@ namespace CodeRedLauncher
 {
     public static class Installer
     {
-        private static readonly string SubKey = "CodeRedModding";
-        private static readonly string KeyName = "InstallPath";
+        private static readonly string _subKey = "CodeRedModding";
+        private static readonly string _keyName = "InstallPath";
 
         public static void ModifyRegistry(bool bDeleteKey, Architecture.Path installPath)
         {
             if (bDeleteKey)
             {
-                RegistryKey coderedKey = Registry.CurrentUser.OpenSubKey(SubKey);
+                RegistryKey coderedKey = Registry.CurrentUser.OpenSubKey(_subKey);
 
                 if (coderedKey != null)
                 {
                     Logger.Write("Deleting install path registry key...");
-                    coderedKey.DeleteValue(KeyName, false);
+                    coderedKey.DeleteValue(_keyName, false);
                     coderedKey.Close();
-                    Registry.CurrentUser.DeleteSubKey(SubKey);
+                    Registry.CurrentUser.DeleteSubKey(_subKey);
                 }
             }
             else
             {
-                RegistryKey coderedKey = Registry.CurrentUser.CreateSubKey(SubKey);
+                RegistryKey coderedKey = Registry.CurrentUser.CreateSubKey(_subKey);
 
                 if (coderedKey != null)
                 {
-                    coderedKey.SetValue(KeyName, installPath.GetPath());
+                    coderedKey.SetValue(_keyName, installPath.GetPath());
                     coderedKey.Close();
                 }
             }

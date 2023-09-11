@@ -9,35 +9,34 @@ namespace CodeRedLauncher
 {
     public enum PlatformTypes : byte
     {
-        TYPE_UNKNOWN,
-        TYPE_STEAM,
-        TYPE_EPIC
+        Unknown,
+        Steam,
+        Epic
     }
 
     public static class Storage
     {
-        private static bool Initialized = false;
-        private static bool VersionsValid = false;
-
-        private static PrivateSetting EmptySetting = new PrivateSetting();
-        private static PrivateSetting GamesFolder = new PrivateSetting();
-        private static PrivateSetting LogFile = new PrivateSetting();
-        private static PrivateSetting ModuleFolder = new PrivateSetting();
-        private static PrivateSetting LibraryFile = new PrivateSetting();
-        private static PrivateSetting SteamFolder = new PrivateSetting();
-        private static PrivateSetting EpicFolder = new PrivateSetting();
-        private static PrivateSetting CurrentPlatform = new PrivateSetting(PlatformTypes.TYPE_UNKNOWN.ToString());
-        private static PrivateSetting PsyonixVersion = new PrivateSetting("000000.000000.000000");
-        private static PrivateSetting NetBuild = new PrivateSetting("0");
-        private static PrivateSetting ModuleVersion = new PrivateSetting("0.0.0");
+        private static bool _initialized = false;
+        private static bool _versionsValid = false;
+        private static PrivateSetting _emptySetting = new PrivateSetting();
+        private static PrivateSetting _gamesFolder = new PrivateSetting();
+        private static PrivateSetting _logFile = new PrivateSetting();
+        private static PrivateSetting _moduleFolder = new PrivateSetting();
+        private static PrivateSetting _libraryFile = new PrivateSetting();
+        private static PrivateSetting _steamFolder = new PrivateSetting();
+        private static PrivateSetting _epicFolder = new PrivateSetting();
+        private static PrivateSetting _currentPlatform = new PrivateSetting(PlatformTypes.Unknown.ToString());
+        private static PrivateSetting _psyonixVersion = new PrivateSetting("000000.000000.000000");
+        private static PrivateSetting _netBuild = new PrivateSetting("0");
+        private static PrivateSetting _moduleVersion = new PrivateSetting("0.0.0");
 
         public static void Invalidate(bool bForceReset = false)
         {
-            VersionsValid = false;
+            _versionsValid = false;
 
             if (bForceReset)
             {
-                Initialized = false;
+                _initialized = false;
             }
 
             CheckInitialized();
@@ -45,7 +44,7 @@ namespace CodeRedLauncher
 
         public static bool CheckInitialized()
         {
-            if (!Initialized)
+            if (!_initialized)
             {
                 if (!FindDirectories())
                 {
@@ -54,26 +53,26 @@ namespace CodeRedLauncher
                 }
             }
 
-            if (!VersionsValid)
+            if (!_versionsValid)
             {
                 ParseLogFile();
                 ParseVersionFile();
             }
 
-            return Initialized;
+            return _initialized;
         }
 
         private static void ParseLogFile()
         {
-            Architecture.Path gamesPath = GamesFolder.GetPathValue();
+            Architecture.Path gamesPath = _gamesFolder.GetPathValue();
 
             if (gamesPath.Exists())
             {
-                Architecture.Path logFile = gamesPath / "TAGame" / "Logs" / "Launch.log";
+                Architecture.Path logFile = (gamesPath / "TAGame" / "Logs" / "Launch.log");
 
                 if (logFile.Exists())
                 {
-                    LogFile.SetValue(logFile);
+                    _logFile.SetValue(logFile);
                     
                     // Opening with "FileShare.ReadWrite" is important here because RocketLeague.exe locks the log file when the game is running, without it you wouldn't be able to read its contents.
                     FileStream logStream = File.Open(logFile.GetPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -90,17 +89,17 @@ namespace CodeRedLauncher
 
                     if (psyMatch.Groups[1].Success)
                     {
-                        PsyonixVersion.SetValue(psyMatch.Groups[1].Value);
-                        VersionsValid = true;
+                        _psyonixVersion.SetValue(psyMatch.Groups[1].Value);
+                        _versionsValid = true;
                     }
                     else
                     {
-                        VersionsValid = false;
+                        _versionsValid = false;
                     }
 
                     if (netMatch.Groups[1].Success)
                     {
-                        NetBuild.SetValue(netMatch.Groups[1].Value);
+                        _netBuild.SetValue(netMatch.Groups[1].Value);
                     }
 
                     if (directoryMatch.Groups[1].Success)
@@ -109,39 +108,39 @@ namespace CodeRedLauncher
 
                         if (baseDirectory.Contains("steamapps"))
                         {
-                            SteamFolder.SetValue(baseDirectory);
-                            CurrentPlatform.SetValue(PlatformTypes.TYPE_STEAM.ToString());
+                            _steamFolder.SetValue(baseDirectory);
+                            _currentPlatform.SetValue(PlatformTypes.Steam.ToString());
                         }
                         else if (baseDirectory.Contains("Epic Games"))
                         {
-                            EpicFolder.SetValue(baseDirectory);
-                            CurrentPlatform.SetValue(PlatformTypes.TYPE_EPIC.ToString());
+                            _epicFolder.SetValue(baseDirectory);
+                            _currentPlatform.SetValue(PlatformTypes.Epic.ToString());
                         }
                         else
                         {
-                            CurrentPlatform.SetValue(PlatformTypes.TYPE_UNKNOWN.ToString());
+                            _currentPlatform.SetValue(PlatformTypes.Unknown.ToString());
                         }
                     }
                 }
                 else
                 {
-                    VersionsValid = false;
+                    _versionsValid = false;
                 }
             }
             else
             {
-                VersionsValid = false;
+                _versionsValid = false;
             }
         }
 
         private static void ParseVersionFile()
         {
-            VersionsValid = false;
-            Architecture.Path moduleFolder = ModuleFolder.GetPathValue();
+            _versionsValid = false;
+            Architecture.Path moduleFolder = _moduleFolder.GetPathValue();
 
             if (moduleFolder.Exists())
             {
-                Architecture.Path versionFile = moduleFolder / "DLL" / "Version.txt";
+                Architecture.Path versionFile = (moduleFolder / "DLL" / "Version.txt");
 
                 if (versionFile.Exists())
                 {
@@ -155,11 +154,11 @@ namespace CodeRedLauncher
 
                     if (!String.IsNullOrEmpty(versionContents))
                     {
-                        ModuleVersion.SetValue(versionContents);
+                        _moduleVersion.SetValue(versionContents);
 
-                        if (ModuleVersion.GetFloatValue() != ModuleVersion.GetFloatValue(true))
+                        if (_moduleVersion.GetFloatValue() != _moduleVersion.GetFloatValue(true))
                         {
-                            VersionsValid = true;
+                            _versionsValid = true;
                         }
                     }
                 }
@@ -182,8 +181,8 @@ namespace CodeRedLauncher
 
                     if (moduleFolder.Exists())
                     {
-                        ModuleFolder.SetValue(moduleFolder);
-                        LibraryFile.SetValue(moduleFolder / "DLL" / "CodeRed.dll");
+                        _moduleFolder.SetValue(moduleFolder);
+                        _libraryFile.SetValue(moduleFolder / "DLL" / "CodeRed.dll");
                         foundInstallDir = true;
                     }
                 }
@@ -191,7 +190,7 @@ namespace CodeRedLauncher
                 coderedKey.Close();
             }
 
-            if (SteamFolder.IsNull())
+            if (_steamFolder.IsNull())
             {
                 try
                 {
@@ -222,13 +221,13 @@ namespace CodeRedLauncher
 
                                         if (steamFolder.Exists())
                                         {
-                                            SteamFolder.SetValue(steamFolder);
+                                            _steamFolder.SetValue(steamFolder);
                                             foundAtLeastOnePath = true;
                                             break;
                                         }
                                         else
                                         {
-                                            SteamFolder.SetValue("");
+                                            _steamFolder.SetValue("");
                                             continue;
                                         }
                                     }
@@ -247,11 +246,11 @@ namespace CodeRedLauncher
                 foundAtLeastOnePath = true;
             }
 
-            if (EpicFolder.IsNull())
+            if (_epicFolder.IsNull())
             {
                 try
                 {
-                    // This appears to be broken at the moment, if anyone has any ideas on how to get epic's install path please let me know.
+                    // This appears to be broken at the moment, if anyone has any ideas on how to get the install path on the EGS please let me know.
 
                     RegistryKey epicKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\EpicGames\\Unreal Engine");
 
@@ -265,12 +264,12 @@ namespace CodeRedLauncher
 
                             if (epicFolder.Exists())
                             {
-                                EpicFolder.SetValue(epicFolder);
+                                _epicFolder.SetValue(epicFolder);
                                 foundAtLeastOnePath = true;
                             }
                             else
                             {
-                                EpicFolder.SetValue("");
+                                _epicFolder.SetValue("");
                             }
                         }
                     }
@@ -316,30 +315,30 @@ namespace CodeRedLauncher
 
         public static bool FindDirectories()
         {
-            if (!Initialized)
+            if (!_initialized)
             {
                 Architecture.Path gamesFolder = (new Architecture.Path(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) / "My Games" / "Rocket League");
 
                 if (gamesFolder.Exists())
                 {
-                    GamesFolder.SetValue(gamesFolder);
+                    _gamesFolder.SetValue(gamesFolder);
                     ParseLogFile();
                     ParseVersionFile();
 
                     if (!ParseRegistryKeys())
                     {
-                        if (!ModuleFolder.IsNull())
+                        if (!_moduleFolder.IsNull())
                         {
                             MessageBox.Show("Error: Failed to locate the needed registry keys!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
-                            Initialized = true;
+                            _initialized = true;
                         }
                     }
                     else
                     {
-                        Initialized = true;
+                        _initialized = true;
                     }
                 }
                 else
@@ -348,43 +347,43 @@ namespace CodeRedLauncher
                 }
             }
 
-            return Initialized;
+            return _initialized;
         }
 
         public static Architecture.Path GetGamesPath()
         {
-            if (CheckInitialized()) { return GamesFolder.GetPathValue(); }
-            return EmptySetting.GetPathValue();
+            if (CheckInitialized()) { return _gamesFolder.GetPathValue(); }
+            return _emptySetting.GetPathValue();
         }
 
         public static Architecture.Path GetLogFile()
         {
-            if (CheckInitialized()) { return LogFile.GetPathValue(); }
-            return EmptySetting.GetPathValue();
+            if (CheckInitialized()) { return _logFile.GetPathValue(); }
+            return _emptySetting.GetPathValue();
         }
 
         public static Architecture.Path GetModulePath()
         {
-            if (CheckInitialized()) { return ModuleFolder.GetPathValue(); }
-            return EmptySetting.GetPathValue();
+            if (CheckInitialized()) { return _moduleFolder.GetPathValue(); }
+            return _emptySetting.GetPathValue();
         }
 
         public static Architecture.Path GetLibraryFile()
         {
-            if (CheckInitialized()) { return LibraryFile.GetPathValue(); }
-            return EmptySetting.GetPathValue();
+            if (CheckInitialized()) { return _libraryFile.GetPathValue(); }
+            return _emptySetting.GetPathValue();
         }
 
         public static Architecture.Path GetSteamPath()
         {
-            if (CheckInitialized()) { return SteamFolder.GetPathValue(); }
-            return EmptySetting.GetPathValue();
+            if (CheckInitialized()) { return _steamFolder.GetPathValue(); }
+            return _emptySetting.GetPathValue();
         }
 
         public static Architecture.Path GetEpicPath()
         {
-            if (CheckInitialized()) { return EpicFolder.GetPathValue(); }
-            return EmptySetting.GetPathValue();
+            if (CheckInitialized()) { return _epicFolder.GetPathValue(); }
+            return _emptySetting.GetPathValue();
         }
 
         public static PlatformTypes GetCurrentPlatform(bool bInvalidate)
@@ -394,8 +393,8 @@ namespace CodeRedLauncher
                 Invalidate();
             }
 
-            if (CheckInitialized()) { return CurrentPlatform.GetEnumValue<PlatformTypes>(); }
-            return CurrentPlatform.GetEnumValue<PlatformTypes>(true);
+            if (CheckInitialized()) { return _currentPlatform.GetEnumValue<PlatformTypes>(); }
+            return _currentPlatform.GetEnumValue<PlatformTypes>(true);
         }
 
         public static string GetPlatformString(bool bInvalidate)
@@ -404,9 +403,9 @@ namespace CodeRedLauncher
 
             switch (platformType)
             {
-                case PlatformTypes.TYPE_STEAM:
+                case PlatformTypes.Steam:
                     return "Steam";
-                case PlatformTypes.TYPE_EPIC:
+                case PlatformTypes.Epic:
                     return "Epic Games";
                 default:
                     return "Unknown";
@@ -415,8 +414,8 @@ namespace CodeRedLauncher
 
         public static string GetPsyonixVersion()
         {
-            if (CheckInitialized()) { return PsyonixVersion.GetStringValue(); }
-            return PsyonixVersion.GetStringValue(true);
+            if (CheckInitialized()) { return _psyonixVersion.GetStringValue(); }
+            return _psyonixVersion.GetStringValue(true);
         }
 
         // The first six numbers in the Psyonix version string is actually a date timestamp.
@@ -425,7 +424,7 @@ namespace CodeRedLauncher
         {
             if (CheckInitialized())
             {
-                string psyonixVersion = PsyonixVersion.GetStringValue();
+                string psyonixVersion = _psyonixVersion.GetStringValue();
                 string buildDate = psyonixVersion.Substring(0, psyonixVersion.IndexOf("."));
 
                 if (Extensions.Strings.IsStringDecimal(buildDate))
@@ -439,14 +438,14 @@ namespace CodeRedLauncher
 
         public static Int32 GetNetBuild()
         {
-            if (CheckInitialized()) { return NetBuild.GetInt32Value(); }
-            return NetBuild.GetInt32Value(true);
+            if (CheckInitialized()) { return _netBuild.GetInt32Value(); }
+            return _netBuild.GetInt32Value(true);
         }
 
         public static string GetModuleVersion()
         {
-            if (CheckInitialized()) { return ModuleVersion.GetStringValue(); }
-            return ModuleVersion.GetStringValue(true);
+            if (CheckInitialized()) { return _moduleVersion.GetStringValue(); }
+            return _moduleVersion.GetStringValue(true);
         }
     }
 }

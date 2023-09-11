@@ -11,20 +11,20 @@ namespace CodeRedLauncher
     [Flags]
     public enum UpdatorStatus : UInt32
     {
-        STATUS_NONE = 0,
-        STATUS_LAUNCHER = 1 << 0,
-        STATUS_MODULE = 1 << 1,
-        STATUS_OVERRIDE = 1 << 2,
+        None = 0,
+        Launcher = 1 << 0,
+        Module = 1 << 1,
+        Override = 1 << 2,
     }
 
     public static class Updator
     {
-        private static UpdatorStatus Status { get; set; } = UpdatorStatus.STATUS_NONE;
+        private static UpdatorStatus Status = UpdatorStatus.None;
         private static List<string> ExcludedFiles = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" };
 
         public static bool IsOutdated()
         {
-            return (Status != UpdatorStatus.STATUS_NONE);
+            return (Status != UpdatorStatus.None);
         }
 
         public static void OverrideStatus(UpdatorStatus status)
@@ -45,13 +45,13 @@ namespace CodeRedLauncher
                 if (Storage.GetModuleVersion() != await Retrievers.GetModuleVersion())
                 {
                     Logger.Write("Module detected as outdated!");
-                    Status |= UpdatorStatus.STATUS_MODULE;
+                    Status |= UpdatorStatus.Module;
                     return true;
                 }
             }
 
             Logger.Write("Module is up to date!");
-            Status &= ~UpdatorStatus.STATUS_MODULE;
+            Status &= ~UpdatorStatus.Module;
             return false;
         }
 
@@ -68,13 +68,13 @@ namespace CodeRedLauncher
                 if (Assembly.GetVersion() != await Retrievers.GetLauncherVersion())
                 {
                     Logger.Write("Launcher detected as outdated!");
-                    Status |= UpdatorStatus.STATUS_LAUNCHER;
+                    Status |= UpdatorStatus.Launcher;
                     return true;
                 }
             }
 
             Logger.Write("Launcher is up to date!");
-            Status &= ~UpdatorStatus.STATUS_LAUNCHER;
+            Status &= ~UpdatorStatus.Launcher;
             return false;
         }
 
@@ -159,7 +159,7 @@ namespace CodeRedLauncher
                             }
 
                             report.Succeeded = true;
-                            Status &= ~UpdatorStatus.STATUS_MODULE;
+                            Status &= ~UpdatorStatus.Module;
                             Configuration.SaveChanges();
                         }
                     }
@@ -254,10 +254,11 @@ namespace CodeRedLauncher
                                         if (dropperExe.Exists())
                                         {
                                             report.Succeeded = true;
-                                            Status &= ~UpdatorStatus.STATUS_LAUNCHER;
+                                            Status &= ~UpdatorStatus.Launcher;
 
                                             // Since the launcher is "half portable", the user can place the exe wherever they want and move it around.
                                             // This text file is just super simple dynamic way to insure the dropper can always find it.
+
                                             Architecture.Path launcherPath = (tempFolder / "LauncherPath.txt");
                                             File.WriteAllText(launcherPath.GetPath(), Application.ExecutablePath);
 
@@ -319,7 +320,7 @@ namespace CodeRedLauncher
 
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                if ((Status & UpdatorStatus.STATUS_MODULE) != 0)
+                if ((Status & UpdatorStatus.Module) != 0)
                 {
                     Result moduleReport = await InstallModule(false);
 
@@ -330,7 +331,7 @@ namespace CodeRedLauncher
                     }
                 }
 
-                if ((Status & UpdatorStatus.STATUS_LAUNCHER) != 0)
+                if ((Status & UpdatorStatus.Launcher) != 0)
                 {
                     Result launcherReport = await InstallLauncher(false);
 

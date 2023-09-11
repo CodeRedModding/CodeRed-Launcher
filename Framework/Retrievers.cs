@@ -9,21 +9,19 @@ using System.Net.NetworkInformation;
 using System.Net.Http.Headers;
 using System.Drawing;
 
-// https://zetcode.com/csharp/json/
-
 namespace CodeRedLauncher
 {
     public static class Downloaders
     {
         public static async Task<bool> WebsiteOnline(string url)
         {
-            if (!String.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(url))
             {
                 Ping newPing = new Ping();
 
                 try
                 {
-                    PingReply pingReply = await newPing.SendPingAsync(new Uri(url).Host, 10000);
+                    PingReply pingReply = await newPing.SendPingAsync(new Uri(url).Host, 2500);
 
                     if (pingReply.Status == IPStatus.Success)
                     {
@@ -48,7 +46,7 @@ namespace CodeRedLauncher
         {
             Image image = null;
 
-            if (!String.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(url))
             {
                 using (HttpClient client = new HttpClient())
                 {
@@ -82,7 +80,7 @@ namespace CodeRedLauncher
         {
             string pageContent = "";
 
-            if (!String.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(url))
             {
                 using (HttpClient client = new HttpClient())
                 {
@@ -134,10 +132,14 @@ namespace CodeRedLauncher
 
     public static class Retrievers
     {
-        private static bool Initialized = false;
-        private static string RemoteUrl = "https://mod.rocketplanet.gg/public/Launcher.json";
+        private static bool _initialized = false;
+        private static string _remoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/Launcher.cr";
+        private static string _privacyUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Private/PrivacyPolicy.cr";
+        private static string _tosUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Private/TermsOfService.cr";
+        private static string _privacyContent = "";
+        private static string _tosContent = "";
 
-        private static List<InternalSetting> RemoteSettings = new List<InternalSetting>()
+        private static List<InternalSetting> _remoteSettings = new List<InternalSetting>()
         {
             new InternalSetting("000000.000000.000000", "PsyonixVersion"),
             new InternalSetting("0.0.0", "LauncherVersion"),
@@ -158,7 +160,7 @@ namespace CodeRedLauncher
 
         private static InternalSetting? GetStoredSetting(string name)
         {
-            foreach (InternalSetting setting in RemoteSettings)
+            foreach (InternalSetting setting in _remoteSettings)
             {
                 if (setting.Name == name)
                 {
@@ -171,58 +173,67 @@ namespace CodeRedLauncher
 
         private static async Task<bool> DownloadRemote()
         {
-            if (!Initialized)
+            if (!_initialized && (await Downloaders.WebsiteOnline(GetRemoteURL())))
             {
-                string pageBody = await Downloaders.DownloadPage(RemoteUrl);
+                string pageBody = await Downloaders.DownloadPage(GetRemoteURL());
 
-                if (!String.IsNullOrEmpty(pageBody))
+                if (!string.IsNullOrEmpty(pageBody))
                 {
                     Dictionary<string, string> mappedBody = Extensions.Json.MapValuesToKeys(pageBody);
 
-                    for (Int32 i = 0; i < RemoteSettings.Count; i++)
+                    for (Int32 i = 0; i < _remoteSettings.Count; i++)
                     {
-                        if (mappedBody.ContainsKey(RemoteSettings[i].Name))
+                        if (mappedBody.ContainsKey(_remoteSettings[i].Name))
                         {
-                            RemoteSettings[i].SetValue(mappedBody[RemoteSettings[i].Name]);
-                            Logger.Write("Retrieved remote value: " + RemoteSettings[i].GetStringValue());
+                            _remoteSettings[i].SetValue(mappedBody[_remoteSettings[i].Name]);
+                            Logger.Write("Retrieved remote value: " + _remoteSettings[i].GetStringValue());
 
-                            if ((RemoteSettings[i].Name == "LauncherAlt") && (RemoteSettings[i].GetStringValue() != "null"))
+                            if ((_remoteSettings[i].Name == "LauncherAlt") && (_remoteSettings[i].GetStringValue() != "null"))
                             {
-                                RemoteUrl = RemoteSettings[i].GetStringValue();
+                                _remoteUrl = _remoteSettings[i].GetStringValue();
                             }
                         }
                     }
 
-                    Initialized = true;
+                    _initialized = true;
                 }
             }
 
-            return Initialized;
+            return _initialized;
         }
 
         public static async void Invalidate()
         {
-            Initialized = false;
+            _initialized = false;
             await CheckInitialized();
         }
 
         public static async Task<bool> CheckInitialized()
         {
-            if (!Initialized)
+            if (!_initialized)
             {
                 if (await DownloadRemote() == false)
                 {
                     Logger.Write("Failed to download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
-                    MessageBox.Show("Warning: Failed to download remote information, cannot check for updates or verify installed version!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
-            return Initialized;
+            return _initialized;
         }
 
         public static string GetRemoteURL()
         {
-            return RemoteUrl;
+            return _remoteUrl;
+        }
+
+        public static string GetPrivacyURL()
+        {
+            return _privacyUrl;
+        }
+
+        public static string GetTermsURL()
+        {
+            return _tosUrl;
         }
 
         public static async Task<string> GetPsyonixVersion()
@@ -319,6 +330,18 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return GetStoredSetting("Credits").GetStringValue(); }
             return GetStoredSetting("Credits").GetStringValue(true);
+        }
+
+        public static async Task<string> GetPrivacyPolicy()
+        {
+            if (string.IsNullOrEmpty(_privacyContent)) { _privacyContent = await Downloaders.DownloadPage(GetPrivacyURL()); }
+            return _privacyContent;
+        }
+
+        public static async Task<string> GetTermsOfUse()
+        {
+            if (string.IsNullOrEmpty(_tosContent)) { _tosContent = await Downloaders.DownloadPage(GetTermsURL()); }
+            return _tosContent;
         }
     }
 }

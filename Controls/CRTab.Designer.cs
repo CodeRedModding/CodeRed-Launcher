@@ -28,57 +28,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TintPnl = new System.Windows.Forms.PictureBox();
+            SelectedBox = new System.Windows.Forms.PictureBox();
             TabImg = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)TintPnl).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)SelectedBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TabImg).BeginInit();
             SuspendLayout();
             // 
-            // TintPnl
+            // SelectedBox
             // 
-            TintPnl.BackColor = System.Drawing.Color.Red;
-            TintPnl.Dock = System.Windows.Forms.DockStyle.Left;
-            TintPnl.Location = new System.Drawing.Point(0, 0);
-            TintPnl.Name = "TintPnl";
-            TintPnl.Size = new System.Drawing.Size(2, 50);
-            TintPnl.TabIndex = 0;
-            TintPnl.TabStop = false;
-            TintPnl.Visible = false;
+            SelectedBox.BackColor = System.Drawing.Color.FromArgb(239, 48, 36);
+            SelectedBox.Dock = System.Windows.Forms.DockStyle.Left;
+            SelectedBox.Location = new System.Drawing.Point(0, 0);
+            SelectedBox.Name = "SelectedBox";
+            SelectedBox.Size = new System.Drawing.Size(2, 50);
+            SelectedBox.TabIndex = 0;
+            SelectedBox.TabStop = false;
+            SelectedBox.Visible = false;
             // 
             // TabImg
             // 
             TabImg.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TabImg.BackColor = System.Drawing.Color.Transparent;
             TabImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            TabImg.Location = new System.Drawing.Point(16, 13);
+            TabImg.Location = new System.Drawing.Point(16, 11);
             TabImg.Name = "TabImg";
-            TabImg.Size = new System.Drawing.Size(24, 24);
+            TabImg.Size = new System.Drawing.Size(28, 28);
             TabImg.TabIndex = 1;
             TabImg.TabStop = false;
             TabImg.Click += TabImg_Click;
             TabImg.DoubleClick += TabImg_DoubleClick;
-            TabImg.MouseEnter += TabImg_MouseEnter;
-            TabImg.MouseLeave += TabImg_MouseLeave;
             // 
             // CRTab
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
-            Controls.Add(TintPnl);
+            BackColor = System.Drawing.Color.Transparent;
+            Controls.Add(SelectedBox);
             Controls.Add(TabImg);
             Name = "CRTab";
             Size = new System.Drawing.Size(60, 50);
             Click += CRTab_Click;
             DoubleClick += CRTab_DoubleClick;
-            ((System.ComponentModel.ISupportInitialize)TintPnl).EndInit();
+            ((System.ComponentModel.ISupportInitialize)SelectedBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)TabImg).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox TintPnl;
+        private System.Windows.Forms.PictureBox SelectedBox;
         private System.Windows.Forms.PictureBox TabImg;
     }
 }

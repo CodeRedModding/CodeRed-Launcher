@@ -4,22 +4,24 @@ namespace CodeRedLauncher
 {
     public static class Assembly
     {
-        private static readonly string Title = "CodeRed Launcher";
-        private static readonly string Description = "Manages the CodeRed Module for Rocket League.";
-        private static readonly string Company = "https://github.com/CodeRedModding/";
-        private static readonly string Repository = (Company + "CodeRed-Launcher/");
-        private static readonly string Product = "CodeRed Launcher";
-        private static readonly string Copyright = "Rocket Planet Services Inc.";
-        private static readonly string License = "MIT License";
-        private static readonly string Version = "1.2.1";
+        private static readonly string _title = "CodeRed Launcher";
+        private static readonly string _description = "Manages the CodeRed Module for Rocket League.";
+        private static readonly string _company = "CodeRedModding";
+        private static readonly string _product = "CodeRed Launcher";
+        private static readonly string _copyright = "CodeRedModding 2023";
+        private static readonly string _license = "MIT License";
+        private static readonly string _version = "1.2.2";
+        private static readonly bool _termsOfUse = false;
+        private static readonly bool _privatePolicy = false;
 
-        public static string GetTitle() { return Title; }
-        public static string GetDescription() { return Description; }
-        public static string GetCompany() { return Company; }
-        public static string GetRepository() { return Repository; }
-        public static string GetProduct() { return Product; }
-        public static string GetCopyright() { return Copyright; }
-        public static string GetLicense() { return License; }
-        public static string GetVersion() { return Version; }
+        public static string GetTitle() { return _title; }
+        public static string GetDescription() { return _description; }
+        public static string GetCompany() { return _company; }
+        public static string GetProduct() { return _product; }
+        public static string GetCopyright() { return _copyright; }
+        public static string GetLicense() { return _license; }
+        public static string GetVersion() { return _version; }
+        public static bool UsingTerms() { return _termsOfUse; }
+        public static bool UsingPrivacy() { return _privatePolicy; }
     }
 }

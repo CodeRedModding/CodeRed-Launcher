@@ -71,28 +71,6 @@ namespace CodeRedLauncher.Extensions
             return true;
         }
 
-        private static bool StringSequenceMatches(string baseStr, string matchStr, Int32 startOffset)
-        {
-            Int32 matches = 0;
-
-            if ((baseStr.Length - startOffset) + matchStr.Length <= baseStr.Length)
-            {
-                for (Int32 i = 0; i < matchStr.Length; i++)
-                {
-                    if (baseStr[startOffset + i] == matchStr[i])
-                    {
-                        matches++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-
-            return (matches == matchStr.Length);
-        }
-
         public static List<string> SplitRange(string str, char from, char to, bool bIncludeChar)
         {
             List<string> splitStrings = new List<string>();
@@ -143,7 +121,9 @@ namespace CodeRedLauncher.Extensions
         public static Dictionary<string, string> MapValuesToKeys(string jsonStr)
         {
             // Remove simple pretty print characters.
+            jsonStr = jsonStr.Replace("\r", "");
             jsonStr = jsonStr.Replace("\n", "");
+            jsonStr = jsonStr.Replace("\b", "");
             jsonStr = jsonStr.Replace("\t", " ");
 
             Dictionary<string, string> returnMap = new Dictionary<string, string>();
@@ -179,7 +159,9 @@ namespace CodeRedLauncher.Extensions
             if (!String.IsNullOrEmpty(jsonStr))
             {
                 // Remove simple pretty print characters.
+                jsonStr = jsonStr.Replace("\r", "");
                 jsonStr = jsonStr.Replace("\n", "");
+                jsonStr = jsonStr.Replace("\b", "");
                 jsonStr = jsonStr.Replace("\t", " ");
 
                 JsonDocument parsedBody = JsonDocument.Parse(jsonStr);
