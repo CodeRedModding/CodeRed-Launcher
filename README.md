@@ -1,5 +1,5 @@
 ## 🚀 CodeRed Launcher
-The CodeRed Launcher is used to inject CodeRed into Rocket League, it also manages and installs updates for you automatically.
+The CodeRed Launcher is used to inject CodeRed into Rocket League, view news about the game, and also automatically install updates for you.
 
 ## 📌 System Requirements
 - Must be on Windows 10 (x64) or greater.
