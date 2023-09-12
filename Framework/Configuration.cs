@@ -125,7 +125,7 @@ namespace CodeRedLauncher
 
         public static Architecture.Range32 InjectionTimeoutRange = new Architecture.Range32(5000, 300000); // Five seconds to five minutes.
 
-        private static bool PhraseConfigFile()
+        private static bool ParseConfigFile()
         {
             if (_storageFile.Exists())
             {
@@ -184,7 +184,7 @@ namespace CodeRedLauncher
 
                 if (_storageFile.Exists())
                 {
-                    if (PhraseConfigFile())
+                    if (ParseConfigFile())
                     {
                         _initialized = true;
                     }
