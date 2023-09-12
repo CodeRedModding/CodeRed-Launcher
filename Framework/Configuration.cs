@@ -137,8 +137,8 @@ namespace CodeRedLauncher
                     {
                         if (line.Contains(PrivacyPolicy.Name)) { PrivacyPolicy.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(TermsOfUse.Name)) { TermsOfUse.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(PrivacyHash.Name)) { PrivacyHash.SetValue(line.Substring((PrivacyHash.Name.Length + 1), 32)); continue; }
-                        if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), 32)); continue; }
+                        if (line.Contains(PrivacyHash.Name)) { PrivacyHash.SetValue(line.Substring((PrivacyHash.Name.Length + 1), (line.Length - (PrivacyHash.Name.Length + 1)))); continue; }
+                        if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), (line.Length - (TermsHash.Name.Length + 1)))); continue; }
                         if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(PreventInjection.Name)) { PreventInjection.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         if (line.Contains(RunOnStartup.Name)) { RunOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
