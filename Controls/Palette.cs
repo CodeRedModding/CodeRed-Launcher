@@ -75,21 +75,21 @@ namespace CodeRedLauncher.Controls
     public class GPalette
     {
         // Primary Colors
-        public static readonly Color CodeRed = Color.FromArgb(255, 50, 37);
-        public static readonly Color CodeRed_Highlight = Color.FromArgb(252, 82, 71);
-        public static readonly Color CodePurple = Color.FromArgb(209, 44, 107);
-        public static readonly Color CodePurple_Highlight = Color.FromArgb(217, 63, 122);
-        public static readonly Color CodeBlue = Color.FromArgb(64, 64, 173);
-        public static readonly Color CodeBlue_Highlight = Color.FromArgb(80, 80, 191);
-        // Greyscales
-        public static readonly Color Black = Color.FromArgb(30, 31, 34);
-        public static readonly Color PureBlack = Color.FromArgb(20, 21, 24);
-        public static readonly Color LightBlack = Color.FromArgb(42, 45, 49);
-        public static readonly Color DarkGrey = Color.FromArgb(50, 51, 56);
-        public static readonly Color LightGrey = Color.FromArgb(128, 132, 142);
-        public static readonly Color Grey = Color.FromArgb(193, 198, 204);
-        public static readonly Color GreyWhite = Color.FromArgb(226, 226, 226);
-        public static readonly Color White = Color.FromArgb(242, 243, 245);
-        public static readonly Color PureWhite = Color.FromArgb(255, 255, 255);
+        public static readonly Color CodeRed = Color.FromArgb(255, 50, 37);                 // #ff3225
+        public static readonly Color CodeRed_Highlight = Color.FromArgb(252, 82, 71);       // #fc5247
+        public static readonly Color CodePurple = Color.FromArgb(209, 44, 107);             // #d12c6b
+        public static readonly Color CodePurple_Highlight = Color.FromArgb(217, 63, 122);   // #d93f7a
+        public static readonly Color CodeBlue = Color.FromArgb(64, 64, 173);                // #4040ad
+        public static readonly Color CodeBlue_Highlight = Color.FromArgb(80, 80, 191);      // #5050bf
+        // Greyscale
+        public static readonly Color PureBlack = Color.FromArgb(20, 22, 24);                // #141618
+        public static readonly Color Black = Color.FromArgb(30, 30, 32);                    // #1e1e20
+        public static readonly Color LightBlack = Color.FromArgb(40, 42, 45);               // #282a2d
+        public static readonly Color DarkGrey = Color.FromArgb(50, 50, 55);                 // #323237
+        public static readonly Color LightGrey = Color.FromArgb(128, 128, 130);             // #808082
+        public static readonly Color Grey = Color.FromArgb(194, 194, 198);                  // #c2c2c6
+        public static readonly Color GreyWhite = Color.FromArgb(226, 224, 224);             // #e2e0f4
+        public static readonly Color White = Color.FromArgb(242, 242, 242);                 // #f2f2f2
+        public static readonly Color PureWhite = Color.FromArgb(255, 255, 255);             // #ffffff
     }
 }
