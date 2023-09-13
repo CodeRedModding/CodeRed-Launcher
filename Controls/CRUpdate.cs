@@ -175,7 +175,7 @@ namespace CodeRedLauncher.Controls
         {
             if (UpdateType == UpdateLayouts.Running)
             {
-                DescriptionLbl.Text = "a new version of the codered was found but Rocket League needs to be closed first in order to install!";
+                DescriptionLbl.Text = "A new version of the codered was found but Rocket League needs to be closed first in order to install!";
                 _buttonsEnabled = true;
                 AcceptBtn.Visible = false;
                 DenyBtn.Visible = false;
@@ -183,7 +183,7 @@ namespace CodeRedLauncher.Controls
             }
             else if (UpdateType == UpdateLayouts.Downloading)
             {
-                DescriptionLbl.Text = "downloading and installing updates, please wait...";
+                DescriptionLbl.Text = "Downloading and installing updates, please wait...";
                 _buttonsEnabled = false;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
@@ -191,7 +191,7 @@ namespace CodeRedLauncher.Controls
             }
             else if (UpdateType == UpdateLayouts.Module)
             {
-                DescriptionLbl.Text = "a new version of the module was found, would you like to automatically install it now?";
+                DescriptionLbl.Text = "A new version of the module was found, would you like to automatically install it now?";
                 _buttonsEnabled = true;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
@@ -199,7 +199,7 @@ namespace CodeRedLauncher.Controls
             }
             else if (UpdateType == UpdateLayouts.Launcher)
             {
-                DescriptionLbl.Text = "a new version of the launcher was found, would you like to automatically install it now?";
+                DescriptionLbl.Text = "A new version of the launcher was found, would you like to automatically install it now?";
                 _buttonsEnabled = true;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
@@ -207,7 +207,7 @@ namespace CodeRedLauncher.Controls
             }
             else if (UpdateType == UpdateLayouts.Both)
             {
-                DescriptionLbl.Text = "a new version both the launcher and module were found, would you like to automatically install it now?";
+                DescriptionLbl.Text = "A new version both the launcher and module were found, would you like to automatically install it now?";
                 _buttonsEnabled = true;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;

@@ -135,20 +135,28 @@ namespace CodeRedLauncher
                 {
                     foreach (string line in fileLines)
                     {
-                        if (line.Contains(PrivacyPolicy.Name)) { PrivacyPolicy.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(TermsOfUse.Name)) { TermsOfUse.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(PrivacyHash.Name)) { PrivacyHash.SetValue(line.Substring((PrivacyHash.Name.Length + 1), (line.Length - (PrivacyHash.Name.Length + 1)))); continue; }
-                        if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), (line.Length - (TermsHash.Name.Length + 1)))); continue; }
-                        if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(PreventInjection.Name)) { PreventInjection.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(RunOnStartup.Name)) { RunOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(MinimizeOnStartup.Name)) { MinimizeOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(HideWhenMinimized.Name)) { HideWhenMinimized.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains(InjectAllInstances.Name)) { InjectAllInstances.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                        if (line.Contains("Timeout")) { InjectionType.SetValue(InjectionTypes.Timeout.ToString()); continue; }
-                        if (line.Contains("Manual")) { InjectionType.SetValue(InjectionTypes.Manual.ToString()); continue; }
-                        if (line.Contains(InjectionTimeout.Name)) { InjectionTimeout.SetValue(line.Substring(17, line.Length - 17)); continue; }
-                        if (line.Contains(LightMode.Name)) { LightMode.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                        try
+                        {
+                            if (line.Contains(PrivacyPolicy.Name)) { PrivacyPolicy.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(TermsOfUse.Name)) { TermsOfUse.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(PrivacyHash.Name)) { PrivacyHash.SetValue(line.Substring((PrivacyHash.Name.Length + 1), (line.Length - (PrivacyHash.Name.Length + 1)))); continue; }
+                            if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), (line.Length - (TermsHash.Name.Length + 1)))); continue; }
+                            if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(PreventInjection.Name)) { PreventInjection.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(RunOnStartup.Name)) { RunOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(MinimizeOnStartup.Name)) { MinimizeOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(HideWhenMinimized.Name)) { HideWhenMinimized.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(InjectAllInstances.Name)) { InjectAllInstances.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains("Timeout")) { InjectionType.SetValue(InjectionTypes.Timeout.ToString()); continue; }
+                            if (line.Contains("Manual")) { InjectionType.SetValue(InjectionTypes.Manual.ToString()); continue; }
+                            if (line.Contains(InjectionTimeout.Name)) { InjectionTimeout.SetValue(line.Substring(17, line.Length - 17)); continue; }
+                            if (line.Contains(LightMode.Name)) { LightMode.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                        }
+                        catch (Exception ex)
+                        {
+                            SetDefaultSettings(true);
+                            return true;
+                        }
                     }
 
                     return true;
@@ -180,7 +188,12 @@ namespace CodeRedLauncher
         {
             if (!_initialized)
             {
-                _storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr");
+                _storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
+
+                if (!_storageFile.Exists())
+                {
+                    _storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr");
+                }
 
                 if (_storageFile.Exists())
                 {
@@ -200,6 +213,10 @@ namespace CodeRedLauncher
 
         public static void SetDefaultSettings(bool bSaveChanges = false)
         {
+            PrivacyPolicy.ResetToDefault();
+            TermsOfUse.ResetToDefault();
+            PrivacyHash.ResetToDefault();
+            TermsHash.ResetToDefault();
             AutoCheckUpdates.ResetToDefault();
             PreventInjection.ResetToDefault();
             RunOnStartup.ResetToDefault();
@@ -220,12 +237,20 @@ namespace CodeRedLauncher
         {
             if (_storageFile.Parent().Exists())
             {
-                string file = _storageFile.GetPath();
+                Architecture.Path oldFile = (Storage.GetModulePath() / "Settings" / "Injector.cr");
+
+                if (oldFile.Exists())
+                {
+                    oldFile.DeleteFile();
+                }
 
                 if (!_storageFile.Exists())
                 {
+                    _storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
                     await File.Create(_storageFile.GetPath()).DisposeAsync();
                 }
+
+                string file = _storageFile.GetPath();
 
                 File.WriteAllText(file, string.Empty); // "Truncuating" the file without needing to open it in a stream.
                 File.AppendAllText(file, PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + "\n");

@@ -61,6 +61,14 @@ namespace CodeRedLauncher.Architecture
             return this;
         }
 
+        public void DeleteFile()
+        {
+            if (IsFile() && Exists())
+            {
+                File.Delete(GetPath());
+            }
+        }
+
         // Modifies the current path with the given string. If you wish to return/add on to the path by creating a new one instead of modifying it, see down below for the divide operator overload.
         public Path Append(string str)
         {

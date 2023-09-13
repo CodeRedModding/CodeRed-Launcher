@@ -99,7 +99,9 @@ namespace CodeRedLauncher.Controls
 
         private string Format(string str)
         {
-            return ("- " + str.Replace("\\n", "\n- "));
+            str = ("- " + str.Replace("\\n", "\n- "));
+            str = str.Replace("`", "\"");
+            return str;
         }
 
         public void SetTheme(ControlTheme control, IconTheme icon)

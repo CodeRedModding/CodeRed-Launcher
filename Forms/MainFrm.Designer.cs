@@ -472,7 +472,7 @@ namespace CodeRedLauncher
             // 
             // UpdateStatusCtrl
             // 
-            UpdateStatusCtrl.BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
+            UpdateStatusCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
             UpdateStatusCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             UpdateStatusCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             UpdateStatusCtrl.DisplayType = CodeRedLauncher.Controls.StatusTypes.Version_Checking;
@@ -508,7 +508,7 @@ namespace CodeRedLauncher
             // 
             // ProcessStatusCtrl
             // 
-            ProcessStatusCtrl.BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
+            ProcessStatusCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
             ProcessStatusCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             ProcessStatusCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ProcessStatusCtrl.DisplayType = CodeRedLauncher.Controls.StatusTypes.Process_Idle;
@@ -545,7 +545,7 @@ namespace CodeRedLauncher
             // ChangelogCtrl
             // 
             ChangelogCtrl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
+            ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
             ChangelogCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             ChangelogCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ChangelogCtrl.DisplayType = CodeRedLauncher.Controls.ChangelogViews.Module;
@@ -955,7 +955,7 @@ namespace CodeRedLauncher
             // InstallPathBx
             // 
             InstallPathBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            InstallPathBx.BackColor = System.Drawing.Color.FromArgb(128, 132, 142);
+            InstallPathBx.BackColor = System.Drawing.Color.FromArgb(128, 128, 130);
             InstallPathBx.BoxEnabled = true;
             InstallPathBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             InstallPathBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -1147,7 +1147,7 @@ namespace CodeRedLauncher
             // InjectionTimeoutBx
             // 
             InjectionTimeoutBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            InjectionTimeoutBx.BackColor = System.Drawing.Color.FromArgb(128, 132, 142);
+            InjectionTimeoutBx.BackColor = System.Drawing.Color.FromArgb(128, 128, 130);
             InjectionTimeoutBx.BoxEnabled = true;
             InjectionTimeoutBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             InjectionTimeoutBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -1169,13 +1169,13 @@ namespace CodeRedLauncher
             BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
-            BackgroundPnl.Controls.Add(TabCtrl);
-            BackgroundPnl.Controls.Add(TermsPopup);
-            BackgroundPnl.Controls.Add(PolicyPopup);
             BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Controls.Add(OfflinePopup);
             BackgroundPnl.Controls.Add(InstallPopup);
             BackgroundPnl.Controls.Add(UpdatePopup);
+            BackgroundPnl.Controls.Add(TermsPopup);
+            BackgroundPnl.Controls.Add(TabCtrl);
+            BackgroundPnl.Controls.Add(PolicyPopup);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1323,7 +1323,7 @@ namespace CodeRedLauncher
             TermsPopup.AltPurple = Properties.Resources.Yes_Purple;
             TermsPopup.AltRed = Properties.Resources.Yes_Red;
             TermsPopup.AltWhite = Properties.Resources.Yes_White;
-            TermsPopup.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
+            TermsPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
             TermsPopup.BoundForm = null;
             TermsPopup.BoundTitle = null;
             TermsPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
@@ -1356,7 +1356,7 @@ namespace CodeRedLauncher
             PolicyPopup.AltPurple = Properties.Resources.Yes_Purple;
             PolicyPopup.AltRed = Properties.Resources.Yes_Red;
             PolicyPopup.AltWhite = Properties.Resources.Yes_White;
-            PolicyPopup.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
+            PolicyPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
             PolicyPopup.BoundForm = null;
             PolicyPopup.BoundTitle = null;
             PolicyPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
@@ -1379,7 +1379,7 @@ namespace CodeRedLauncher
             // 
             // TitleBar
             // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
             TitleBar.BoundForm = null;
             TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             TitleBar.DisplayText = "CODERED LAUNCHER";
@@ -1406,7 +1406,7 @@ namespace CodeRedLauncher
             OfflinePopup.AltPurple = Properties.Resources.Offline_Purple;
             OfflinePopup.AltRed = Properties.Resources.Offline_Red;
             OfflinePopup.AltWhite = Properties.Resources.Offline_White;
-            OfflinePopup.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
+            OfflinePopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
             OfflinePopup.BoundForm = null;
             OfflinePopup.BoundTitle = null;
             OfflinePopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
@@ -1433,7 +1433,7 @@ namespace CodeRedLauncher
             InstallPopup.AcceptPurple = Properties.Resources.Download_Purple;
             InstallPopup.AcceptRed = Properties.Resources.Download_Red;
             InstallPopup.AcceptWhite = Properties.Resources.Download_White;
-            InstallPopup.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
+            InstallPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
             InstallPopup.BoundForm = null;
             InstallPopup.BoundTitle = null;
             InstallPopup.ButtonsEnabled = true;
@@ -1465,7 +1465,7 @@ namespace CodeRedLauncher
             UpdatePopup.AltPurple = Properties.Resources.Rocket_Purple;
             UpdatePopup.AltRed = Properties.Resources.Rocket_Red;
             UpdatePopup.AltWhite = Properties.Resources.Rocket_White;
-            UpdatePopup.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
+            UpdatePopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
             UpdatePopup.BoundForm = null;
             UpdatePopup.BoundTitle = null;
             UpdatePopup.ButtonsEnabled = true;

@@ -164,16 +164,16 @@ namespace CodeRedLauncher.Controls
         {
             if (OfflineType == OfflineLayouts.Default)
             {
-                TitleLbl.Text = "no connection";
-                DescriptionLbl.Text = "failed to connect to the remote server, would you like to start in offline mode? version checking, changelog info, and news will all be disabled.";
+                TitleLbl.Text = "No Connection";
+                DescriptionLbl.Text = "Failed to connect to the remote server, would you like to start in offline mode? version checking, changelog info, and news will all be disabled.";
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
                 AltBtn.Visible = false;
             }
             else if (OfflineType == OfflineLayouts.Installer)
             {
-                TitleLbl.Text = "no connection";
-                DescriptionLbl.Text = "an active internet connection is required to install codered, please try again later";
+                TitleLbl.Text = "No Connection";
+                DescriptionLbl.Text = "An active internet connection is required to install codered, please try again!";
                 AcceptBtn.Visible = false;
                 DenyBtn.Visible = false;
                 AltBtn.Visible = true;
