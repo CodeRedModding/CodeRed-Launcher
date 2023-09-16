@@ -109,6 +109,7 @@
             BackColor = System.Drawing.Color.FromArgb(128, 132, 142);
             Controls.Add(ControlPnl);
             Controls.Add(BackgroundPnl);
+            DoubleBuffered = true;
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             Name = "CRNumberbox";
             Size = new System.Drawing.Size(200, 35);

@@ -65,6 +65,7 @@
             BackColor = System.Drawing.Color.Transparent;
             Controls.Add(SelectedBox);
             Controls.Add(TabImg);
+            DoubleBuffered = true;
             Name = "CRTab";
             Size = new System.Drawing.Size(60, 50);
             Click += CRTab_Click;

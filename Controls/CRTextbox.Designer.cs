@@ -64,6 +64,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(128, 132, 142);
             Controls.Add(BackgroundPnl);
+            DoubleBuffered = true;
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             Name = "CRTextbox";
             Size = new System.Drawing.Size(200, 35);

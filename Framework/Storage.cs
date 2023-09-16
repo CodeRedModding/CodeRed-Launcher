@@ -73,8 +73,8 @@ namespace CodeRedLauncher
                 if (logFile.Exists())
                 {
                     _logFile.SetValue(logFile);
-                    
-                    // Opening with "FileShare.ReadWrite" is important here because RocketLeague.exe locks the log file when the game is running, without it you wouldn't be able to read its contents.
+
+                    // Opening with "FileAccess.Read + FileShare.ReadWrite" is important here because RocketLeague.exe locks the log file when the game is running, without it you wouldn't be able to read its contents.
                     FileStream logStream = File.Open(logFile.GetPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     string logContents;
 
@@ -82,6 +82,8 @@ namespace CodeRedLauncher
                     {
                         logContents = sr.ReadToEnd();
                     }
+
+                    logStream.Close();
 
                     Match psyMatch = Regex.Match(logContents, "Log: GPsyonixBuildID (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
                     Match directoryMatch = Regex.Match(logContents, "Init: Base directory: (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);

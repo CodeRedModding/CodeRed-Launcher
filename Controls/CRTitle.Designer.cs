@@ -79,7 +79,7 @@
             MinimizeBtn.Click += MinimizeBtn_Click;
             MinimizeBtn.DoubleClick += MinimizeBtn_DoubleClick;
             // 
-            // CRTitleBar
+            // CRTitle
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -87,8 +87,9 @@
             Controls.Add(MinimizeBtn);
             Controls.Add(ExitBtn);
             Controls.Add(TitleLbl);
+            DoubleBuffered = true;
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            Name = "CRTitleBar";
+            Name = "CRTitle";
             Size = new System.Drawing.Size(970, 30);
             ResumeLayout(false);
         }

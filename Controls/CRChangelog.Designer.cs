@@ -67,7 +67,7 @@
             // 
             DescriptionLbl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             DescriptionLbl.BackColor = System.Drawing.Color.Transparent;
-            DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             DescriptionLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             DescriptionLbl.Location = new System.Drawing.Point(19, 55);
             DescriptionLbl.Name = "DescriptionLbl";
@@ -84,6 +84,7 @@
             Controls.Add(TitleLbl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleImg);
+            DoubleBuffered = true;
             Name = "CRChangelog";
             Size = new System.Drawing.Size(860, 315);
             ((System.ComponentModel.ISupportInitialize)TitleImg).EndInit();

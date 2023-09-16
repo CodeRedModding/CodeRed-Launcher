@@ -11,24 +11,10 @@ using Windows.Gaming.UI;
 
 namespace CodeRedLauncher.Controls
 {
-    public partial class CRInstall : UserControl
+    public partial class CRDuplicate : UserControl
     {
-        public enum InstallLayouts : byte
-        {
-            None,
-            Downloading
-        }
-
-        private InstallLayouts _layout = InstallLayouts.None;
         private Form _boundForm = null;
         private CRTitle _boundTitle = null;
-        private bool _buttonsEnabled = true;
-
-        public InstallLayouts DisplayType
-        {
-            get { return _layout; }
-            set { _layout = value; UpdateTheme(); }
-        }
 
         public ControlTheme ControlType
         {
@@ -52,12 +38,6 @@ namespace CodeRedLauncher.Controls
         {
             get { return _boundTitle; }
             set { _boundTitle = value; UpdateTheme(); }
-        }
-
-        public bool ButtonsEnabled
-        {
-            get { return _buttonsEnabled; }
-            set { _buttonsEnabled = value; UpdateTheme(); }
         }
 
         public Image AcceptWhite
@@ -120,7 +100,7 @@ namespace CodeRedLauncher.Controls
             set { DenyBtn.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
-        public CRInstall()
+        public CRDuplicate()
         {
             InitializeComponent();
         }
@@ -139,15 +119,6 @@ namespace CodeRedLauncher.Controls
 
         public void UpdateTheme()
         {
-            if (DisplayType == InstallLayouts.None)
-            {
-                DescriptionLbl.Text = "it looks like this is your first time using codered, we need to download and install a few things first. would you like to customize your install path?";
-            }
-            else if (DisplayType == InstallLayouts.Downloading)
-            {
-                DescriptionLbl.Text = "downloading and installing files, please wait...";
-            }
-
             if (ControlType == ControlTheme.Dark)
             {
                 this.BackColor = GPalette.Black;
@@ -165,8 +136,6 @@ namespace CodeRedLauncher.Controls
                 ArtImage.BackgroundImage = Properties.Resources.TL1_Light;
             }
 
-            AcceptBtn.ButtonEnabled = ButtonsEnabled;
-            DenyBtn.ButtonEnabled = ButtonsEnabled;
             AcceptBtn.SetTheme(ControlType, IconType);
             DenyBtn.SetTheme(ControlType, IconType);
             Invalidate();
@@ -188,8 +157,6 @@ namespace CodeRedLauncher.Controls
                 BoundTitle.MaximizeButton = true;
                 BoundTitle.BringToFront();
             }
-
-            ButtonsEnabled = true;
         }
 
         public void ShowPopup()
@@ -207,14 +174,12 @@ namespace CodeRedLauncher.Controls
             {
                 BoundTitle.BringToFront();
             }
-
-            ButtonsEnabled = true;
         }
 
         public event EventHandler ButtonClickAccept = null;
         private void AcceptBtn_OnButtonClick(object sender, EventArgs e)
         {
-            if (ButtonsEnabled && (ButtonClickAccept != null))
+            if (ButtonClickAccept != null)
             {
                 ButtonClickAccept.Invoke(this, e);
             }
@@ -223,7 +188,7 @@ namespace CodeRedLauncher.Controls
         public event EventHandler ButtonClickDeny = null;
         private void DenyBtn_OnButtonClick(object sender, EventArgs e)
         {
-            if (ButtonsEnabled && (ButtonClickDeny != null))
+            if (ButtonClickDeny != null)
             {
                 ButtonClickDeny.Invoke(this, e);
             }

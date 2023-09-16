@@ -157,6 +157,7 @@
             Controls.Add(PreviousBtn);
             Controls.Add(NextBtn);
             Controls.Add(CalendarLbl);
+            DoubleBuffered = true;
             Name = "CRNews";
             Size = new System.Drawing.Size(865, 550);
             ((System.ComponentModel.ISupportInitialize)ThumbnailImg).EndInit();

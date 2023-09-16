@@ -84,7 +84,7 @@
             AltBtn.ButtonEnabled = true;
             AltBtn.ControlType = ControlTheme.Dark;
             AltBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            AltBtn.DisplayText = "alright then, i'll try again";
+            AltBtn.DisplayText = "Alright then, I'll try again";
             AltBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             AltBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             AltBtn.IconBlack = null;
@@ -108,7 +108,7 @@
             DenyBtn.ButtonEnabled = true;
             DenyBtn.ControlType = ControlTheme.Dark;
             DenyBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            DenyBtn.DisplayText = "nope, try again please";
+            DenyBtn.DisplayText = "Nope, try again please";
             DenyBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             DenyBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             DenyBtn.IconBlack = null;
@@ -131,7 +131,7 @@
             AcceptBtn.ButtonEnabled = true;
             AcceptBtn.ControlType = ControlTheme.Dark;
             AcceptBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            AcceptBtn.DisplayText = "sure, who needs those anyway";
+            AcceptBtn.DisplayText = "Sure, who needs those anyway";
             AcceptBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             AcceptBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             AcceptBtn.IconBlack = null;
@@ -167,6 +167,7 @@
             Controls.Add(BackgroundPnl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleLbl);
+            DoubleBuffered = true;
             Name = "CROffline";
             Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.ResumeLayout(false);

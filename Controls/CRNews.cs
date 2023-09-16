@@ -285,10 +285,10 @@ namespace CodeRedLauncher.Controls
 
         private void ResetArticles()
         {
-            PublishDate = "loading...";
-            PublishAuthor = "loading...";
-            NewsCategory = "loading...";
-            Title = "loading...";
+            PublishDate = "Loading...";
+            PublishAuthor = "Loading...";
+            NewsCategory = "Loading...";
+            Title = "Loading...";
             ThumbnailImg.BackgroundImage = null;
             PreviousBtn.BackgroundImage = null;
             NextBtn.BackgroundImage = null;
@@ -450,7 +450,7 @@ namespace CodeRedLauncher.Controls
                     }
 
                     LoadAllIndexes(); // Parse and download everything in the background.
-                    LoadNextArticle();
+                    LoadPreviousArticle();
                 }
                 else
                 {

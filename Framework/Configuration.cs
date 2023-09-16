@@ -192,7 +192,7 @@ namespace CodeRedLauncher
 
                 if (!_storageFile.Exists())
                 {
-                    _storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr");
+                    _storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr"); // Old file name, have to keep for backwards compatibility.
                 }
 
                 if (_storageFile.Exists())
@@ -237,6 +237,7 @@ namespace CodeRedLauncher
         {
             if (_storageFile.Parent().Exists())
             {
+                _storageFile.Set(Storage.GetModulePath() / "Settings" / "Launcher.cr");
                 Architecture.Path oldFile = (Storage.GetModulePath() / "Settings" / "Injector.cr");
 
                 if (oldFile.Exists())
@@ -246,7 +247,6 @@ namespace CodeRedLauncher
 
                 if (!_storageFile.Exists())
                 {
-                    _storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
                     await File.Create(_storageFile.GetPath()).DisposeAsync();
                 }
 

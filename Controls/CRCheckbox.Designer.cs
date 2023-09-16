@@ -81,6 +81,7 @@
             Controls.Add(CheckImg);
             Controls.Add(TextLbl);
             Controls.Add(IconImg);
+            DoubleBuffered = true;
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             Name = "CRCheckbox";
             Size = new System.Drawing.Size(318, 37);

@@ -58,7 +58,7 @@
             AcceptBtn.ButtonEnabled = true;
             AcceptBtn.ControlType = ControlTheme.Dark;
             AcceptBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            AcceptBtn.DisplayText = "i agree";
+            AcceptBtn.DisplayText = "I agree";
             AcceptBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             AcceptBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             AcceptBtn.IconBlack = null;
@@ -81,7 +81,7 @@
             DenyBtn.ButtonEnabled = true;
             DenyBtn.ControlType = ControlTheme.Dark;
             DenyBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            DenyBtn.DisplayText = "i do not agree";
+            DenyBtn.DisplayText = "I do not agree";
             DenyBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             DenyBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             DenyBtn.IconBlack = null;
@@ -104,7 +104,7 @@
             AltBtn.ButtonEnabled = true;
             AltBtn.ControlType = ControlTheme.Dark;
             AltBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            AltBtn.DisplayText = "yeah cool i'm done reading";
+            AltBtn.DisplayText = "Yeah cool I'm done reading";
             AltBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             AltBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             AltBtn.IconBlack = null;
@@ -165,6 +165,7 @@
             Controls.Add(TitleLbl);
             Controls.Add(BackgroundPnl);
             Controls.Add(ArtImage);
+            DoubleBuffered = true;
             Name = "CRPolicy";
             Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.ResumeLayout(false);

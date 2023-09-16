@@ -90,12 +90,13 @@ namespace CodeRedLauncher
             SessionsTabBtn = new Controls.CRTab();
             NewsTabBtn = new Controls.CRTab();
             DashboardTabBtn = new Controls.CRTab();
-            TermsPopup = new Controls.CRPolicy();
-            PolicyPopup = new Controls.CRPolicy();
-            TitleBar = new Controls.CRTitle();
-            OfflinePopup = new Controls.CROffline();
+            DuplicatePopup = new Controls.CRDuplicate();
             InstallPopup = new Controls.CRInstall();
             UpdatePopup = new Controls.CRUpdate();
+            TermsPopup = new Controls.CRPolicy();
+            TitleBar = new Controls.CRTitle();
+            PolicyPopup = new Controls.CRPolicy();
+            OfflinePopup = new Controls.CROffline();
             ProcessTmr = new System.Windows.Forms.Timer(components);
             InjectTmr = new System.Windows.Forms.Timer(components);
             TrayIcon = new System.Windows.Forms.NotifyIcon(components);
@@ -547,7 +548,7 @@ namespace CodeRedLauncher
             ChangelogCtrl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
             ChangelogCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            ChangelogCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ChangelogCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ChangelogCtrl.DisplayType = CodeRedLauncher.Controls.ChangelogViews.Module;
             ChangelogCtrl.IconBlack = Properties.Resources.Changelog_Black;
             ChangelogCtrl.IconBlue = Properties.Resources.Changelog_Blue;
@@ -1169,13 +1170,14 @@ namespace CodeRedLauncher
             BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
-            BackgroundPnl.Controls.Add(TitleBar);
-            BackgroundPnl.Controls.Add(OfflinePopup);
+            BackgroundPnl.Controls.Add(TabCtrl);
+            BackgroundPnl.Controls.Add(DuplicatePopup);
             BackgroundPnl.Controls.Add(InstallPopup);
             BackgroundPnl.Controls.Add(UpdatePopup);
             BackgroundPnl.Controls.Add(TermsPopup);
-            BackgroundPnl.Controls.Add(TabCtrl);
+            BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Controls.Add(PolicyPopup);
+            BackgroundPnl.Controls.Add(OfflinePopup);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1311,120 +1313,30 @@ namespace CodeRedLauncher
             DashboardTabBtn.TabSelected = true;
             DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
             // 
-            // TermsPopup
+            // DuplicatePopup
             // 
-            TermsPopup.AcceptBlack = Properties.Resources.Yes_Black;
-            TermsPopup.AcceptBlue = Properties.Resources.Yes_Blue;
-            TermsPopup.AcceptPurple = Properties.Resources.Yes_Purple;
-            TermsPopup.AcceptRed = Properties.Resources.Yes_Red;
-            TermsPopup.AcceptWhite = Properties.Resources.Yes_White;
-            TermsPopup.AltBlack = Properties.Resources.Yes_Black;
-            TermsPopup.AltBlue = Properties.Resources.Yes_Blue;
-            TermsPopup.AltPurple = Properties.Resources.Yes_Purple;
-            TermsPopup.AltRed = Properties.Resources.Yes_Red;
-            TermsPopup.AltWhite = Properties.Resources.Yes_White;
-            TermsPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
-            TermsPopup.BoundForm = null;
-            TermsPopup.BoundTitle = null;
-            TermsPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            TermsPopup.DenyBlack = Properties.Resources.No_Black;
-            TermsPopup.DenyBlue = Properties.Resources.No_Blue;
-            TermsPopup.DenyPurple = Properties.Resources.No_Purple;
-            TermsPopup.DenyRed = Properties.Resources.No_Red;
-            TermsPopup.DenyWhite = Properties.Resources.No_White;
-            TermsPopup.DescriptionText = "";
-            TermsPopup.DisplayTitle = "Terms Of Use";
-            TermsPopup.DisplayType = CodeRedLauncher.Controls.CRPolicy.PolicyView.Register;
-            TermsPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            TermsPopup.Location = new System.Drawing.Point(0, 0);
-            TermsPopup.Name = "TermsPopup";
-            TermsPopup.Size = new System.Drawing.Size(970, 630);
-            TermsPopup.TabIndex = 9;
-            TermsPopup.Visible = false;
-            TermsPopup.ButtonClickAccept += TermsPopup_ButtonClickAccept;
-            TermsPopup.ButtonClickDeny += TermsPopup_ButtonClickDeny;
-            // 
-            // PolicyPopup
-            // 
-            PolicyPopup.AcceptBlack = Properties.Resources.Yes_Black;
-            PolicyPopup.AcceptBlue = Properties.Resources.Yes_Blue;
-            PolicyPopup.AcceptPurple = Properties.Resources.Yes_Purple;
-            PolicyPopup.AcceptRed = Properties.Resources.Yes_Red;
-            PolicyPopup.AcceptWhite = Properties.Resources.Yes_White;
-            PolicyPopup.AltBlack = Properties.Resources.Yes_Black;
-            PolicyPopup.AltBlue = Properties.Resources.Yes_Blue;
-            PolicyPopup.AltPurple = Properties.Resources.Yes_Purple;
-            PolicyPopup.AltRed = Properties.Resources.Yes_Red;
-            PolicyPopup.AltWhite = Properties.Resources.Yes_White;
-            PolicyPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
-            PolicyPopup.BoundForm = null;
-            PolicyPopup.BoundTitle = null;
-            PolicyPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            PolicyPopup.DenyBlack = Properties.Resources.No_Black;
-            PolicyPopup.DenyBlue = Properties.Resources.No_Blue;
-            PolicyPopup.DenyPurple = Properties.Resources.No_Purple;
-            PolicyPopup.DenyRed = Properties.Resources.No_Red;
-            PolicyPopup.DenyWhite = Properties.Resources.No_White;
-            PolicyPopup.DescriptionText = "";
-            PolicyPopup.DisplayTitle = "Privacy Policy";
-            PolicyPopup.DisplayType = CodeRedLauncher.Controls.CRPolicy.PolicyView.Register;
-            PolicyPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            PolicyPopup.Location = new System.Drawing.Point(0, 0);
-            PolicyPopup.Name = "PolicyPopup";
-            PolicyPopup.Size = new System.Drawing.Size(970, 630);
-            PolicyPopup.TabIndex = 8;
-            PolicyPopup.Visible = false;
-            PolicyPopup.ButtonClickAccept += PolicyPopup_ButtonClickAccept;
-            PolicyPopup.ButtonClickDeny += PolicyPopup_ButtonClickDeny;
-            // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
-            TitleBar.BoundForm = null;
-            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            TitleBar.DisplayText = "CODERED LAUNCHER";
-            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            TitleBar.Location = new System.Drawing.Point(0, 0);
-            TitleBar.MaximizeButton = true;
-            TitleBar.MinimizeButton = true;
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new System.Drawing.Size(970, 30);
-            TitleBar.TabIndex = 2;
-            TitleBar.OnMinimized += TitleBar_OnMinimized;
-            TitleBar.OnExit += TitleBar_OnExit;
-            // 
-            // OfflinePopup
-            // 
-            OfflinePopup.AcceptBlack = Properties.Resources.Yes_Black;
-            OfflinePopup.AcceptBlue = Properties.Resources.Yes_Blue;
-            OfflinePopup.AcceptPurple = Properties.Resources.Yes_Purple;
-            OfflinePopup.AcceptRed = Properties.Resources.Yes_Red;
-            OfflinePopup.AcceptWhite = Properties.Resources.Yes_White;
-            OfflinePopup.AltBlack = Properties.Resources.Offline_Black;
-            OfflinePopup.AltBlue = Properties.Resources.Offline_Blue;
-            OfflinePopup.AltPurple = Properties.Resources.Offline_Purple;
-            OfflinePopup.AltRed = Properties.Resources.Offline_Red;
-            OfflinePopup.AltWhite = Properties.Resources.Offline_White;
-            OfflinePopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
-            OfflinePopup.BoundForm = null;
-            OfflinePopup.BoundTitle = null;
-            OfflinePopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            OfflinePopup.DenyBlack = Properties.Resources.No_Black;
-            OfflinePopup.DenyBlue = Properties.Resources.No_Blue;
-            OfflinePopup.DenyPurple = Properties.Resources.No_Purple;
-            OfflinePopup.DenyRed = Properties.Resources.No_Red;
-            OfflinePopup.DenyWhite = Properties.Resources.No_White;
-            OfflinePopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            OfflinePopup.Location = new System.Drawing.Point(0, 0);
-            OfflinePopup.Name = "OfflinePopup";
-            OfflinePopup.OfflineType = CodeRedLauncher.Controls.CROffline.OfflineLayouts.Default;
-            OfflinePopup.Size = new System.Drawing.Size(970, 630);
-            OfflinePopup.TabIndex = 8;
-            OfflinePopup.Visible = false;
-            OfflinePopup.ButtonClickAccept += OfflinePopup_ButtonClickAccept;
-            OfflinePopup.ButtonClickDeny += OfflinePopup_ButtonClickDeny;
-            OfflinePopup.ButtonClickAlt += OfflinePopup_ButtonClickAlt;
+            DuplicatePopup.AcceptBlack = Properties.Resources.Yes_Black;
+            DuplicatePopup.AcceptBlue = Properties.Resources.Yes_Blue;
+            DuplicatePopup.AcceptPurple = Properties.Resources.Yes_Purple;
+            DuplicatePopup.AcceptRed = Properties.Resources.Yes_Red;
+            DuplicatePopup.AcceptWhite = Properties.Resources.Yes_White;
+            DuplicatePopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
+            DuplicatePopup.BoundForm = null;
+            DuplicatePopup.BoundTitle = null;
+            DuplicatePopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            DuplicatePopup.DenyBlack = Properties.Resources.No_Black;
+            DuplicatePopup.DenyBlue = Properties.Resources.No_Blue;
+            DuplicatePopup.DenyPurple = Properties.Resources.No_Purple;
+            DuplicatePopup.DenyRed = Properties.Resources.No_Red;
+            DuplicatePopup.DenyWhite = Properties.Resources.No_White;
+            DuplicatePopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            DuplicatePopup.Location = new System.Drawing.Point(0, 0);
+            DuplicatePopup.Name = "DuplicatePopup";
+            DuplicatePopup.Size = new System.Drawing.Size(970, 630);
+            DuplicatePopup.TabIndex = 8;
+            DuplicatePopup.Visible = false;
+            DuplicatePopup.ButtonClickAccept += DuplicatePopup_ButtonClickAccept;
+            DuplicatePopup.ButtonClickDeny += DuplicatePopup_ButtonClickDeny;
             // 
             // InstallPopup
             // 
@@ -1483,6 +1395,121 @@ namespace CodeRedLauncher
             UpdatePopup.UpdateType = CodeRedLauncher.Controls.CRUpdate.UpdateLayouts.Module;
             UpdatePopup.Visible = false;
             UpdatePopup.ButtonClickAccept += UpdatePopup_ButtonClickAccept;
+            // 
+            // TermsPopup
+            // 
+            TermsPopup.AcceptBlack = Properties.Resources.Yes_Black;
+            TermsPopup.AcceptBlue = Properties.Resources.Yes_Blue;
+            TermsPopup.AcceptPurple = Properties.Resources.Yes_Purple;
+            TermsPopup.AcceptRed = Properties.Resources.Yes_Red;
+            TermsPopup.AcceptWhite = Properties.Resources.Yes_White;
+            TermsPopup.AltBlack = Properties.Resources.Yes_Black;
+            TermsPopup.AltBlue = Properties.Resources.Yes_Blue;
+            TermsPopup.AltPurple = Properties.Resources.Yes_Purple;
+            TermsPopup.AltRed = Properties.Resources.Yes_Red;
+            TermsPopup.AltWhite = Properties.Resources.Yes_White;
+            TermsPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
+            TermsPopup.BoundForm = null;
+            TermsPopup.BoundTitle = null;
+            TermsPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            TermsPopup.DenyBlack = Properties.Resources.No_Black;
+            TermsPopup.DenyBlue = Properties.Resources.No_Blue;
+            TermsPopup.DenyPurple = Properties.Resources.No_Purple;
+            TermsPopup.DenyRed = Properties.Resources.No_Red;
+            TermsPopup.DenyWhite = Properties.Resources.No_White;
+            TermsPopup.DescriptionText = "";
+            TermsPopup.DisplayTitle = "Terms Of Use";
+            TermsPopup.DisplayType = CodeRedLauncher.Controls.CRPolicy.PolicyView.Register;
+            TermsPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            TermsPopup.Location = new System.Drawing.Point(0, 0);
+            TermsPopup.Name = "TermsPopup";
+            TermsPopup.Size = new System.Drawing.Size(970, 630);
+            TermsPopup.TabIndex = 9;
+            TermsPopup.Visible = false;
+            TermsPopup.ButtonClickAccept += TermsPopup_ButtonClickAccept;
+            TermsPopup.ButtonClickDeny += TermsPopup_ButtonClickDeny;
+            // 
+            // TitleBar
+            // 
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
+            TitleBar.BoundForm = null;
+            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.MaximizeButton = true;
+            TitleBar.MinimizeButton = true;
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
+            // 
+            // PolicyPopup
+            // 
+            PolicyPopup.AcceptBlack = Properties.Resources.Yes_Black;
+            PolicyPopup.AcceptBlue = Properties.Resources.Yes_Blue;
+            PolicyPopup.AcceptPurple = Properties.Resources.Yes_Purple;
+            PolicyPopup.AcceptRed = Properties.Resources.Yes_Red;
+            PolicyPopup.AcceptWhite = Properties.Resources.Yes_White;
+            PolicyPopup.AltBlack = Properties.Resources.Yes_Black;
+            PolicyPopup.AltBlue = Properties.Resources.Yes_Blue;
+            PolicyPopup.AltPurple = Properties.Resources.Yes_Purple;
+            PolicyPopup.AltRed = Properties.Resources.Yes_Red;
+            PolicyPopup.AltWhite = Properties.Resources.Yes_White;
+            PolicyPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
+            PolicyPopup.BoundForm = null;
+            PolicyPopup.BoundTitle = null;
+            PolicyPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            PolicyPopup.DenyBlack = Properties.Resources.No_Black;
+            PolicyPopup.DenyBlue = Properties.Resources.No_Blue;
+            PolicyPopup.DenyPurple = Properties.Resources.No_Purple;
+            PolicyPopup.DenyRed = Properties.Resources.No_Red;
+            PolicyPopup.DenyWhite = Properties.Resources.No_White;
+            PolicyPopup.DescriptionText = "";
+            PolicyPopup.DisplayTitle = "Privacy Policy";
+            PolicyPopup.DisplayType = CodeRedLauncher.Controls.CRPolicy.PolicyView.Register;
+            PolicyPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            PolicyPopup.Location = new System.Drawing.Point(0, 0);
+            PolicyPopup.Name = "PolicyPopup";
+            PolicyPopup.Size = new System.Drawing.Size(970, 630);
+            PolicyPopup.TabIndex = 8;
+            PolicyPopup.Visible = false;
+            PolicyPopup.ButtonClickAccept += PolicyPopup_ButtonClickAccept;
+            PolicyPopup.ButtonClickDeny += PolicyPopup_ButtonClickDeny;
+            // 
+            // OfflinePopup
+            // 
+            OfflinePopup.AcceptBlack = Properties.Resources.Yes_Black;
+            OfflinePopup.AcceptBlue = Properties.Resources.Yes_Blue;
+            OfflinePopup.AcceptPurple = Properties.Resources.Yes_Purple;
+            OfflinePopup.AcceptRed = Properties.Resources.Yes_Red;
+            OfflinePopup.AcceptWhite = Properties.Resources.Yes_White;
+            OfflinePopup.AltBlack = Properties.Resources.Offline_Black;
+            OfflinePopup.AltBlue = Properties.Resources.Offline_Blue;
+            OfflinePopup.AltPurple = Properties.Resources.Offline_Purple;
+            OfflinePopup.AltRed = Properties.Resources.Offline_Red;
+            OfflinePopup.AltWhite = Properties.Resources.Offline_White;
+            OfflinePopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
+            OfflinePopup.BoundForm = null;
+            OfflinePopup.BoundTitle = null;
+            OfflinePopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            OfflinePopup.DenyBlack = Properties.Resources.No_Black;
+            OfflinePopup.DenyBlue = Properties.Resources.No_Blue;
+            OfflinePopup.DenyPurple = Properties.Resources.No_Purple;
+            OfflinePopup.DenyRed = Properties.Resources.No_Red;
+            OfflinePopup.DenyWhite = Properties.Resources.No_White;
+            OfflinePopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            OfflinePopup.Location = new System.Drawing.Point(0, 0);
+            OfflinePopup.Name = "OfflinePopup";
+            OfflinePopup.OfflineType = CodeRedLauncher.Controls.CROffline.OfflineLayouts.Default;
+            OfflinePopup.Size = new System.Drawing.Size(970, 630);
+            OfflinePopup.TabIndex = 8;
+            OfflinePopup.Visible = false;
+            OfflinePopup.ButtonClickAccept += OfflinePopup_ButtonClickAccept;
+            OfflinePopup.ButtonClickDeny += OfflinePopup_ButtonClickDeny;
+            OfflinePopup.ButtonClickAlt += OfflinePopup_ButtonClickAlt;
             // 
             // ProcessTmr
             // 
@@ -1613,5 +1640,6 @@ namespace CodeRedLauncher
         private System.Windows.Forms.PictureBox SettingsArtOne;
         private System.Windows.Forms.PictureBox AboutArtOne;
         private System.Windows.Forms.PictureBox SettingsArtTwo;
+        private Controls.CRDuplicate DuplicatePopup;
     }
 }

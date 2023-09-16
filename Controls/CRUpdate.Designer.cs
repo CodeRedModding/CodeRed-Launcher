@@ -84,7 +84,7 @@
             DenyBtn.ButtonEnabled = true;
             DenyBtn.ControlType = ControlTheme.Dark;
             DenyBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            DenyBtn.DisplayText = "nah, i'm not really feeling it";
+            DenyBtn.DisplayText = "Nah, I'm not really feeling it";
             DenyBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             DenyBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             DenyBtn.IconBlack = null;
@@ -107,7 +107,7 @@
             AcceptBtn.ButtonEnabled = true;
             AcceptBtn.ControlType = ControlTheme.Dark;
             AcceptBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            AcceptBtn.DisplayText = "yeah sure, sounds good";
+            AcceptBtn.DisplayText = "Yeah sure, sounds good";
             AcceptBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             AcceptBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             AcceptBtn.IconBlack = null;
@@ -130,7 +130,7 @@
             GameBtn.ButtonEnabled = true;
             GameBtn.ControlType = ControlTheme.Dark;
             GameBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            GameBtn.DisplayText = "okay fine, i'll close the game";
+            GameBtn.DisplayText = "Okay fine, I'll close the game";
             GameBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             GameBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             GameBtn.IconBlack = null;
@@ -167,6 +167,7 @@
             Controls.Add(BackgroundPnl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleLbl);
+            DoubleBuffered = true;
             Name = "CRUpdate";
             Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.ResumeLayout(false);

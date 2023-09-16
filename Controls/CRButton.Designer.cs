@@ -72,6 +72,7 @@
             BackColor = System.Drawing.Color.FromArgb(239, 48, 36);
             Controls.Add(ButtonImg);
             Controls.Add(TextLbl);
+            DoubleBuffered = true;
             Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             Name = "CRButton";

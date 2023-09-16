@@ -91,6 +91,7 @@
             Controls.Add(TitleImg);
             Controls.Add(TitleLbl);
             Controls.Add(DescriptionLbl);
+            DoubleBuffered = true;
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             Name = "CRStatus";
             Size = new System.Drawing.Size(485, 130);

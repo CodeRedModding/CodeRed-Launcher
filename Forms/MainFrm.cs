@@ -21,7 +21,8 @@ namespace CodeRedLauncher
 
         private void MainFrm_Load(object sender, EventArgs e)
         {
-            StartupRoutine();
+            SetupUserInterface();
+            CheckForInstances();
         }
 
         private void MainFrm_Resize(object sender, EventArgs e)
@@ -617,49 +618,76 @@ namespace CodeRedLauncher
             }
         }
 
+        private void CheckForInstances()
+        {
+            List<Process> launchers = new List<Process>();
+            Process[] processList = Process.GetProcessesByName("CodeRedLauncher");
+
+            foreach (Process process in processList)
+            {
+                if (process.ProcessName.Contains("CodeRedLauncher") || process.MainWindowTitle.Contains("CodeRed Launcher"))
+                {
+                    launchers.Add(process);
+                }
+            }
+
+            if (launchers.Count > 1)
+            {
+                DuplicatePopup.Bind(this, TitleBar);
+                DuplicatePopup.ShowPopup();
+            }
+            else
+            {
+                DuplicatePopup.HidePopup();
+                StartupRoutine();
+            }
+        }
+
+        private void SetupUserInterface()
+        {
+            this.Text = Assembly.GetTitle();
+            TabPnl.BringToFront();
+            TitleBar.BringToFront();
+            TitleBar.BoundForm = this;
+            TitleBar.DisplayText = Assembly.GetTitle().ToUpper();
+
+            DuplicatePopup.Bind(this, TitleBar);
+            PolicyPopup.Bind(this, TitleBar);
+            TermsPopup.Bind(this, TitleBar);
+            InstallPopup.Bind(this, TitleBar);
+            OfflinePopup.Bind(this, TitleBar);
+            UpdatePopup.Bind(this, TitleBar);
+
+            TabManager.BindControl(TabCtrl);
+            TabManager.BindTab(Tabs.Dashboard, DashboardTabBtn, DashboardTab);
+            TabManager.BindTab(Tabs.News, NewsTabBtn, NewsTab);
+            TabManager.BindTab(Tabs.Sessions, SessionsTabBtn, SessionsTab);
+            TabManager.BindTab(Tabs.Settings, SettingsTabBtn, SettingsTab);
+            TabManager.BindTab(Tabs.About, AboutTabBtn, AboutTab);
+            TabManager.BindTab(Tabs.Exit, ExitTabBtn, null);
+            TabManager.SelectTab(Tabs.Dashboard);
+
+            TermsBtn.Visible = Assembly.UsingTerms();
+            PolicyBtn.Visible = Assembly.UsingPrivacy();
+            UpdateTheme();
+        }
+
         private async void StartupRoutine(bool bInvalidate = false)
         {
-            // Setup UI and Tabs
+            if (!Assembly.UsingTerms() && !Assembly.UsingPrivacy())
             {
-                this.Text = Assembly.GetTitle();
-                TabPnl.BringToFront();
-                TitleBar.BringToFront();
-                TitleBar.BoundForm = this;
-                TitleBar.DisplayText = Assembly.GetTitle().ToUpper();
-
-                PolicyPopup.Bind(this, TitleBar);
-                TermsPopup.Bind(this, TitleBar);
-                InstallPopup.Bind(this, TitleBar);
-                OfflinePopup.Bind(this, TitleBar);
-                UpdatePopup.Bind(this, TitleBar);
-
-                TabManager.BindControl(TabCtrl);
-                TabManager.BindTab(Tabs.Dashboard, DashboardTabBtn, DashboardTab);
-                TabManager.BindTab(Tabs.News, NewsTabBtn, NewsTab);
-                TabManager.BindTab(Tabs.Sessions, SessionsTabBtn, SessionsTab);
-                TabManager.BindTab(Tabs.Settings, SettingsTabBtn, SettingsTab);
-                TabManager.BindTab(Tabs.About, AboutTabBtn, AboutTab);
-                TabManager.BindTab(Tabs.Exit, ExitTabBtn, null);
-                TabManager.SelectTab(Tabs.Dashboard);
-
-                TermsBtn.Visible = Assembly.UsingTerms();
-                PolicyBtn.Visible = Assembly.UsingPrivacy();
-
-                if (!Assembly.UsingTerms() && !Assembly.UsingPrivacy())
-                {
-                    Point updateLoc = CheckUpdatesBtn.Location;
-                    updateLoc.Y += 22;
-                    CheckUpdatesBtn.Location = updateLoc;
-                }
-                else if (Assembly.UsingTerms() && !Assembly.UsingPrivacy())
-                {
-                    TermsBtn.Width = CheckUpdatesBtn.Width;
-                }
-                else if (Assembly.UsingPrivacy() && !Assembly.UsingTerms())
-                {
-                    PolicyBtn.Width = CheckUpdatesBtn.Width;
-                    PolicyBtn.Location = TermsBtn.Location;
-                }
+                Point updateLoc = CheckUpdatesBtn.Location;
+                updateLoc.Y += 22;
+                CheckUpdatesBtn.Location = updateLoc;
+            }
+            else if (Assembly.UsingTerms() && !Assembly.UsingPrivacy())
+            {
+                TermsBtn.Width = CheckUpdatesBtn.Width;
+            }
+            else if (Assembly.UsingPrivacy() && !Assembly.UsingTerms())
+            {
+                PolicyBtn.Width = CheckUpdatesBtn.Width;
+                PolicyBtn.Location = TermsBtn.Location;
             }
 
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
@@ -905,7 +933,9 @@ namespace CodeRedLauncher
                 TabManager.SetTheme(control, icon);
                 TitleBar.ControlType = control;
                 TabPnl.BackColor = (lightMode ? GPalette.White : GPalette.LightBlack);
+                DuplicatePopup.SetTheme(control, iconAlt);
                 PolicyPopup.SetTheme(control, iconAlt);
+                TermsPopup.SetTheme(control, iconAlt);
                 InstallPopup.SetTheme(control, iconAlt);
                 OfflinePopup.SetTheme(control, iconAlt);
                 UpdatePopup.SetTheme(control, iconAlt);
@@ -1137,6 +1167,17 @@ namespace CodeRedLauncher
             }
 
             InstallPopup.ButtonsEnabled = true;
+        }
+
+        private void DuplicatePopup_ButtonClickAccept(object sender, EventArgs e)
+        {
+            DuplicatePopup.HidePopup();
+            StartupRoutine();
+        }
+
+        private void DuplicatePopup_ButtonClickDeny(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
 
         private void InstallPopup_ButtonClickAccept(object sender, EventArgs e)

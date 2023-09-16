@@ -81,6 +81,7 @@
             Controls.Add(InfoTitleLbl);
             Controls.Add(InfoDescriptionLbl);
             Controls.Add(InfoImg);
+            DoubleBuffered = true;
             Name = "CRInfo";
             Size = new System.Drawing.Size(435, 35);
             ((System.ComponentModel.ISupportInitialize)InfoImg).EndInit();
