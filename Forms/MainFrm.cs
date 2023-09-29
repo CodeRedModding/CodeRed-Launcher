@@ -167,6 +167,11 @@ namespace CodeRedLauncher
             }
         }
 
+        private void AutoInstallBx_OnCheckChanged(object sender, EventArgs e)
+        {
+            Configuration.AutoInstallUpdates.SetValue(AutoInstallBx.BoxChecked).Save();
+        }
+
         private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.PreventInjection.SetValue(PreventInjectionBx.BoxChecked).Save();
@@ -453,7 +458,7 @@ namespace CodeRedLauncher
         {
             if (LibraryManager.AnyProcessRunning())
             {
-                LaunchBtn.DisplayText = "launch (already running)";
+                LaunchBtn.DisplayText = "Launch (Already running)";
 
                 if ((ProcessStatusCtrl.DisplayType != StatusTypes.Process_Injecting) && (ProcessStatusCtrl.DisplayType != StatusTypes.Process_Manual))
                 {
@@ -498,7 +503,7 @@ namespace CodeRedLauncher
             else
             {
                 InjectTmr.Stop();
-                LaunchBtn.DisplayText = "launch rocket league";
+                LaunchBtn.DisplayText = "Launch Rocket League";
                 ManualInjectBtn.SendToBack();
                 ManualInjectBtn.Visible = false;
                 LaunchBtn.BringToFront();
@@ -885,6 +890,7 @@ namespace CodeRedLauncher
             if (Configuration.CheckInitialized())
             {
                 AutoCheckUpdatesBx.BoxChecked = Configuration.ShouldCheckForUpdates();
+                AutoInstallBx.BoxChecked = Configuration.ShouldAutoInstall();
                 PreventInjectionBx.BoxChecked = Configuration.ShouldPreventInjection();
                 RunOnStartupBx.BoxChecked = Configuration.ShouldRunOnStartup();
                 MinimizeOnStartupBx.BoxChecked = Configuration.ShouldMinimizeOnStartup();
@@ -969,6 +975,7 @@ namespace CodeRedLauncher
                 SettingsArtOne.BackgroundImage = (lightMode ? Properties.Resources.TR3_Light : Properties.Resources.TR3_Dark);
                 SettingsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.BR3_Light : Properties.Resources.BR3_Dark);
                 AutoCheckUpdatesBx.SetTheme(control, icon);
+                AutoInstallBx.SetTheme(control, icon);
                 PreventInjectionBx.SetTheme(control, icon);
                 RunOnStartupBx.SetTheme(control, icon);
                 MinimizeOnStartupBx.SetTheme(control, icon);
@@ -1068,7 +1075,14 @@ namespace CodeRedLauncher
 
                             if (bShowPrompt)
                             {
-                                UpdatePopup.ShowPopup();
+                                if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                {
+                                    UpdatePopup_ButtonClickAccept(null, null);
+                                }
+                                else
+                                {
+                                    UpdatePopup.ShowPopup();
+                                }
                             }
                         }
                         else if (!ignoreModule && moduleOutdated)
@@ -1096,7 +1110,14 @@ namespace CodeRedLauncher
 
                             if (bShowPrompt)
                             {
-                                UpdatePopup.ShowPopup();
+                                if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                {
+                                    UpdatePopup_ButtonClickAccept(null, null);
+                                }
+                                else
+                                {
+                                    UpdatePopup.ShowPopup();
+                                }
                             }
                         }
                         else if (launcherOutdated)
@@ -1109,14 +1130,31 @@ namespace CodeRedLauncher
                             if (bShowPrompt)
                             {
                                 UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Launcher;
-                                UpdatePopup.ShowPopup();
+
+                                if (Configuration.ShouldAutoInstall())
+                                {
+                                    UpdatePopup_ButtonClickAccept(null, null);
+                                }
+                                else
+                                {
+                                    UpdatePopup.ShowPopup();
+                                }
                             }
                         }
                         else
                         {
                             UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
                             UpdateStatusCtrl.ViewType = StatusViews.Two;
-                            UpdatePopup.ShowPopup();
+
+                            if (Configuration.ShouldAutoInstall())
+                            {
+                                UpdatePopup_ButtonClickAccept(null, null);
+                            }
+                            else
+                            {
+                                UpdatePopup.ShowPopup();
+                            }
+
                             ProcessTmr.Start();
                         }
                     }

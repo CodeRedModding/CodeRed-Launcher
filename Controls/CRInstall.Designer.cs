@@ -138,9 +138,9 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
             Controls.Add(ArtImage);
+            Controls.Add(BackgroundPnl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleLbl);
-            Controls.Add(BackgroundPnl);
             DoubleBuffered = true;
             Name = "CRInstall";
             Size = new System.Drawing.Size(970, 630);

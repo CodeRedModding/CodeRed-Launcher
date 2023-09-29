@@ -141,11 +141,11 @@ namespace CodeRedLauncher.Controls
         {
             if (DisplayType == InstallLayouts.None)
             {
-                DescriptionLbl.Text = "it looks like this is your first time using codered, we need to download and install a few things first. would you like to customize your install path?";
+                DescriptionLbl.Text = "It looks like this is your first time using codered, we need to download and install a few things first. Would you like to customize your install path?";
             }
             else if (DisplayType == InstallLayouts.Downloading)
             {
-                DescriptionLbl.Text = "downloading and installing files, please wait...";
+                DescriptionLbl.Text = "Downloading and installing files, please wait...";
             }
 
             if (ControlType == ControlTheme.Dark)

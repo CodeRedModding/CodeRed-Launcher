@@ -8,6 +8,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <StartupObject>CodeRedLauncher.Program</StartupObject>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

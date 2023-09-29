@@ -183,7 +183,7 @@ namespace CodeRedLauncher.Controls
             }
             else if (UpdateType == UpdateLayouts.Downloading)
             {
-                DescriptionLbl.Text = "Downloading and installing updates, please wait...";
+                DescriptionLbl.Text = "Downloading and installing files, please wait...";
                 _buttonsEnabled = false;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
@@ -260,7 +260,7 @@ namespace CodeRedLauncher.Controls
             ButtonsEnabled = true;
         }
 
-        public void ShowPopup()
+        public void ShowPopup(bool bNoTopmost = false)
         {
             this.Visible = true;
             this.BringToFront();
@@ -268,7 +268,11 @@ namespace CodeRedLauncher.Controls
             if (BoundForm != null)
             {
                 BoundForm.Show();
-                BoundForm.TopMost = true;
+
+                if (!bNoTopmost)
+                {
+                    BoundForm.TopMost = true;
+                }
             }
 
             if (BoundTitle != null)

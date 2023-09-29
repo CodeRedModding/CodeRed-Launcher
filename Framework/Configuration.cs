@@ -59,6 +59,14 @@ namespace CodeRedLauncher
             SaveChanges
         );
 
+        public static PublicSetting AutoInstallUpdates = new PublicSetting(
+            "False",
+            "AutoInstallUpdates",
+            "Automatically install updates in the background",
+            "Automatically installs updates for you in the background if a new version is found.",
+            SaveChanges
+        );
+
         public static PublicSetting PreventInjection = new PublicSetting(
             "True",
             "PreventInjection",
@@ -142,6 +150,7 @@ namespace CodeRedLauncher
                             if (line.Contains(PrivacyHash.Name)) { PrivacyHash.SetValue(line.Substring((PrivacyHash.Name.Length + 1), (line.Length - (PrivacyHash.Name.Length + 1)))); continue; }
                             if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), (line.Length - (TermsHash.Name.Length + 1)))); continue; }
                             if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(AutoInstallUpdates.Name)) { AutoInstallUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(PreventInjection.Name)) { PreventInjection.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(RunOnStartup.Name)) { RunOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(MinimizeOnStartup.Name)) { MinimizeOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
@@ -218,6 +227,7 @@ namespace CodeRedLauncher
             PrivacyHash.ResetToDefault();
             TermsHash.ResetToDefault();
             AutoCheckUpdates.ResetToDefault();
+            AutoInstallUpdates.ResetToDefault();
             PreventInjection.ResetToDefault();
             RunOnStartup.ResetToDefault();
             MinimizeOnStartup.ResetToDefault();
@@ -258,6 +268,7 @@ namespace CodeRedLauncher
                 File.AppendAllText(file, PrivacyHash.Name + " " + PrivacyHash.GetStringValue() + "\n");
                 File.AppendAllText(file, TermsHash.Name + " " + TermsHash.GetStringValue() + "\n");
                 File.AppendAllText(file, AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + "\n");
+                File.AppendAllText(file, AutoInstallUpdates.Name + " " + AutoInstallUpdates.GetStringValue() + "\n");
                 File.AppendAllText(file, PreventInjection.Name + " " + PreventInjection.GetStringValue() + "\n");
                 File.AppendAllText(file, RunOnStartup.Name + " " + RunOnStartup.GetStringValue() + "\n");
                 File.AppendAllText(file, MinimizeOnStartup.Name + " " + MinimizeOnStartup.GetStringValue() + "\n");
@@ -307,6 +318,12 @@ namespace CodeRedLauncher
         {
             if (CheckInitialized()) { return AutoCheckUpdates.GetBoolValue(); }
             return AutoCheckUpdates.GetBoolValue(true);
+        }
+
+        public static bool ShouldAutoInstall()
+        {
+            if (CheckInitialized()) { return AutoInstallUpdates.GetBoolValue(); }
+            return AutoInstallUpdates.GetBoolValue(true);
         }
 
         public static bool ShouldPreventInjection()
