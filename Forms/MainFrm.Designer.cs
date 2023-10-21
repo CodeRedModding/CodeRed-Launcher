@@ -235,8 +235,8 @@ namespace CodeRedLauncher
             PlatformInfoCtrl.BackColor = System.Drawing.Color.Transparent;
             PlatformInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             PlatformInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            PlatformInfoCtrl.DisplayDescription = "loading...";
-            PlatformInfoCtrl.DisplayTitle = "platform";
+            PlatformInfoCtrl.DisplayDescription = "Loading...";
+            PlatformInfoCtrl.DisplayTitle = "Platform";
             PlatformInfoCtrl.Hyperlink = false;
             PlatformInfoCtrl.IconBlack = Properties.Resources.Rocket_Black;
             PlatformInfoCtrl.IconBlue = Properties.Resources.Rocket_Blue;
@@ -256,8 +256,8 @@ namespace CodeRedLauncher
             BuildInfoCtrl.BackColor = System.Drawing.Color.Transparent;
             BuildInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             BuildInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            BuildInfoCtrl.DisplayDescription = "loading...";
-            BuildInfoCtrl.DisplayTitle = "build version";
+            BuildInfoCtrl.DisplayDescription = "Loading...";
+            BuildInfoCtrl.DisplayTitle = "Build Version";
             BuildInfoCtrl.Hyperlink = false;
             BuildInfoCtrl.IconBlack = Properties.Resources.Drive_Black;
             BuildInfoCtrl.IconBlue = Properties.Resources.Drive_Blue;
@@ -277,8 +277,8 @@ namespace CodeRedLauncher
             PsyonixInfoCtrl.BackColor = System.Drawing.Color.Transparent;
             PsyonixInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             PsyonixInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            PsyonixInfoCtrl.DisplayDescription = "loading...";
-            PsyonixInfoCtrl.DisplayTitle = "psyonix version";
+            PsyonixInfoCtrl.DisplayDescription = "Loading...";
+            PsyonixInfoCtrl.DisplayTitle = "Psyonix Version";
             PsyonixInfoCtrl.Hyperlink = false;
             PsyonixInfoCtrl.IconBlack = Properties.Resources.Server_Black;
             PsyonixInfoCtrl.IconBlue = Properties.Resources.Server_Blue;
@@ -298,8 +298,8 @@ namespace CodeRedLauncher
             ModuleInfoCtrl.BackColor = System.Drawing.Color.Transparent;
             ModuleInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             ModuleInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            ModuleInfoCtrl.DisplayDescription = "loading...";
-            ModuleInfoCtrl.DisplayTitle = "module version";
+            ModuleInfoCtrl.DisplayDescription = "Loading...";
+            ModuleInfoCtrl.DisplayTitle = "Module Version";
             ModuleInfoCtrl.Hyperlink = false;
             ModuleInfoCtrl.IconBlack = null;
             ModuleInfoCtrl.IconBlue = Properties.Resources.Database_Blue;
@@ -319,8 +319,8 @@ namespace CodeRedLauncher
             LauncherInfoCtrl.BackColor = System.Drawing.Color.Transparent;
             LauncherInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             LauncherInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            LauncherInfoCtrl.DisplayDescription = "loading...";
-            LauncherInfoCtrl.DisplayTitle = "launcher version";
+            LauncherInfoCtrl.DisplayDescription = "Loading...";
+            LauncherInfoCtrl.DisplayTitle = "Launcher Version";
             LauncherInfoCtrl.Hyperlink = false;
             LauncherInfoCtrl.IconBlack = Properties.Resources.Box_Black;
             LauncherInfoCtrl.IconBlue = Properties.Resources.Box_Blue;
@@ -341,7 +341,7 @@ namespace CodeRedLauncher
             WebsiteInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             WebsiteInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             WebsiteInfoCtrl.DisplayDescription = "https://coderedmodding.github.io/";
-            WebsiteInfoCtrl.DisplayTitle = "website";
+            WebsiteInfoCtrl.DisplayTitle = "Website";
             WebsiteInfoCtrl.Hyperlink = true;
             WebsiteInfoCtrl.IconBlack = Properties.Resources.Website_Black;
             WebsiteInfoCtrl.IconBlue = Properties.Resources.Website_Blue;
@@ -362,7 +362,7 @@ namespace CodeRedLauncher
             DiscordInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             DiscordInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             DiscordInfoCtrl.DisplayDescription = "https://discord.gg/";
-            DiscordInfoCtrl.DisplayTitle = "discord";
+            DiscordInfoCtrl.DisplayTitle = "Discord";
             DiscordInfoCtrl.Hyperlink = true;
             DiscordInfoCtrl.IconBlack = Properties.Resources.Discord_Black;
             DiscordInfoCtrl.IconBlue = Properties.Resources.Discord_Blue;
@@ -383,7 +383,7 @@ namespace CodeRedLauncher
             DonateInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             DonateInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             DonateInfoCtrl.DisplayDescription = "https://ko-fi.com/coderedmodding/";
-            DonateInfoCtrl.DisplayTitle = "donate";
+            DonateInfoCtrl.DisplayTitle = "Donate";
             DonateInfoCtrl.Hyperlink = true;
             DonateInfoCtrl.IconBlack = Properties.Resources.Coffee_Black;
             DonateInfoCtrl.IconBlue = Properties.Resources.Coffee_Blue;
@@ -404,7 +404,7 @@ namespace CodeRedLauncher
             RemixInfoCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             RemixInfoCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             RemixInfoCtrl.DisplayDescription = "https://remixicon.com/";
-            RemixInfoCtrl.DisplayTitle = "icons by";
+            RemixInfoCtrl.DisplayTitle = "Icons By";
             RemixInfoCtrl.Hyperlink = true;
             RemixInfoCtrl.IconBlack = Properties.Resources.Remix_Black;
             RemixInfoCtrl.IconBlue = Properties.Resources.Remix_Blue;
@@ -426,7 +426,7 @@ namespace CodeRedLauncher
             CheckUpdatesBtn.ButtonEnabled = true;
             CheckUpdatesBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             CheckUpdatesBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            CheckUpdatesBtn.DisplayText = "Check for updates";
+            CheckUpdatesBtn.DisplayText = "Check for Updates";
             CheckUpdatesBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             CheckUpdatesBtn.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             CheckUpdatesBtn.IconBlack = Properties.Resources.Refresh_Black;
@@ -676,9 +676,9 @@ namespace CodeRedLauncher
             NewsCtrl.LeftWhite = Properties.Resources.Left_White;
             NewsCtrl.Location = new System.Drawing.Point(23, 25);
             NewsCtrl.Name = "NewsCtrl";
-            NewsCtrl.NewsCategory = "loading...";
-            NewsCtrl.PublishAuthor = "loading...";
-            NewsCtrl.PublishDate = "loading...";
+            NewsCtrl.NewsCategory = "Loading...";
+            NewsCtrl.PublishAuthor = "Loading...";
+            NewsCtrl.PublishDate = "Loading...";
             NewsCtrl.RightBlack = Properties.Resources.Right_Black;
             NewsCtrl.RightBlue = Properties.Resources.Right_Blue;
             NewsCtrl.RightPurple = Properties.Resources.Right_Purple;
@@ -687,7 +687,7 @@ namespace CodeRedLauncher
             NewsCtrl.Size = new System.Drawing.Size(865, 550);
             NewsCtrl.TabIndex = 0;
             NewsCtrl.Thumbnail = null;
-            NewsCtrl.Title = "loading...";
+            NewsCtrl.Title = "Loading...";
             // 
             // NewsArtOne
             // 
@@ -807,7 +807,7 @@ namespace CodeRedLauncher
             AutoInstallBx.CheckWhite = Properties.Resources.Checkbox_White;
             AutoInstallBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             AutoInstallBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            AutoInstallBx.DisplayText = "automatically install updates";
+            AutoInstallBx.DisplayText = "Automatically install updates";
             AutoInstallBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             AutoInstallBx.IconBlack = Properties.Resources.Install_Black;
             AutoInstallBx.IconBlue = Properties.Resources.Install_Blue;
@@ -856,7 +856,7 @@ namespace CodeRedLauncher
             HideWhenMinimizedBx.CheckWhite = Properties.Resources.Checkbox_White;
             HideWhenMinimizedBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             HideWhenMinimizedBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            HideWhenMinimizedBx.DisplayText = "hide when minimized";
+            HideWhenMinimizedBx.DisplayText = "Hide when minimized";
             HideWhenMinimizedBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             HideWhenMinimizedBx.IconBlack = Properties.Resources.Spy_Black;
             HideWhenMinimizedBx.IconBlue = Properties.Resources.Spy_Blue;
@@ -877,7 +877,7 @@ namespace CodeRedLauncher
             InstallPathLbl.BackColor = System.Drawing.Color.Transparent;
             InstallPathLbl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             InstallPathLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            InstallPathLbl.DisplayText = "install path";
+            InstallPathLbl.DisplayText = "Install path";
             InstallPathLbl.IconBlack = Properties.Resources.Folder_Black;
             InstallPathLbl.IconBlue = Properties.Resources.Folder_Blue;
             InstallPathLbl.IconPurple = Properties.Resources.Folder_Purple;
@@ -894,7 +894,7 @@ namespace CodeRedLauncher
             InjectionTimeoutLbl.BackColor = System.Drawing.Color.Transparent;
             InjectionTimeoutLbl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             InjectionTimeoutLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            InjectionTimeoutLbl.DisplayText = "injection delay";
+            InjectionTimeoutLbl.DisplayText = "Injection delay";
             InjectionTimeoutLbl.IconBlack = Properties.Resources.Hourglass_Black;
             InjectionTimeoutLbl.IconBlue = Properties.Resources.Hourglass_Blue;
             InjectionTimeoutLbl.IconPurple = Properties.Resources.Hourglass_Purple;
@@ -916,7 +916,7 @@ namespace CodeRedLauncher
             LightModeBx.CheckWhite = Properties.Resources.Checkbox_White;
             LightModeBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             LightModeBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            LightModeBx.DisplayText = "blind me with the power of the sun";
+            LightModeBx.DisplayText = "Blind me with the power of the sun";
             LightModeBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             LightModeBx.IconBlack = Properties.Resources.Sun_Black;
             LightModeBx.IconBlue = Properties.Resources.Sun_Blue;
@@ -942,7 +942,7 @@ namespace CodeRedLauncher
             ManualInjectBx.CheckWhite = Properties.Resources.Checkbox_White;
             ManualInjectBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             ManualInjectBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            ManualInjectBx.DisplayText = "manually inject instead of delay";
+            ManualInjectBx.DisplayText = "Manually inject instead of delay";
             ManualInjectBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             ManualInjectBx.IconBlack = Properties.Resources.Mouse_Black;
             ManualInjectBx.IconBlue = Properties.Resources.Mouse_Blue;
@@ -988,7 +988,7 @@ namespace CodeRedLauncher
             InstallPathBx.BoxEnabled = true;
             InstallPathBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             InstallPathBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            InstallPathBx.DisplayText = "loading...";
+            InstallPathBx.DisplayText = "Loading...";
             InstallPathBx.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             InstallPathBx.Location = new System.Drawing.Point(192, 490);
             InstallPathBx.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -1004,7 +1004,7 @@ namespace CodeRedLauncher
             OpenFolderBtn.ButtonEnabled = true;
             OpenFolderBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             OpenFolderBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            OpenFolderBtn.DisplayText = "Open install path";
+            OpenFolderBtn.DisplayText = "Open Install Path";
             OpenFolderBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             OpenFolderBtn.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             OpenFolderBtn.IconBlack = Properties.Resources.Open_Black;
@@ -1027,7 +1027,7 @@ namespace CodeRedLauncher
             ExportLogsBtn.ButtonEnabled = true;
             ExportLogsBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             ExportLogsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            ExportLogsBtn.DisplayText = "Export crash logs";
+            ExportLogsBtn.DisplayText = "Export Crash Logs";
             ExportLogsBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ExportLogsBtn.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             ExportLogsBtn.IconBlack = Properties.Resources.Zip_Black;
@@ -1053,7 +1053,7 @@ namespace CodeRedLauncher
             InjectAllInstancesBx.CheckWhite = Properties.Resources.Checkbox_White;
             InjectAllInstancesBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             InjectAllInstancesBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            InjectAllInstancesBx.DisplayText = "inject into all game instances";
+            InjectAllInstancesBx.DisplayText = "Inject into all game instances";
             InjectAllInstancesBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             InjectAllInstancesBx.IconBlack = Properties.Resources.Stack_Black;
             InjectAllInstancesBx.IconBlue = Properties.Resources.Stack_Blue;
@@ -1079,7 +1079,7 @@ namespace CodeRedLauncher
             MinimizeOnStartupBx.CheckWhite = Properties.Resources.Checkbox_White;
             MinimizeOnStartupBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             MinimizeOnStartupBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            MinimizeOnStartupBx.DisplayText = "minimize on startup";
+            MinimizeOnStartupBx.DisplayText = "Minimize on startup";
             MinimizeOnStartupBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             MinimizeOnStartupBx.IconBlack = Properties.Resources.Eye_Black;
             MinimizeOnStartupBx.IconBlue = Properties.Resources.Eye_Blue;
@@ -1105,7 +1105,7 @@ namespace CodeRedLauncher
             RunOnStartupBx.CheckWhite = Properties.Resources.Checkbox_White;
             RunOnStartupBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             RunOnStartupBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            RunOnStartupBx.DisplayText = "run on windows startup";
+            RunOnStartupBx.DisplayText = "Run on windows startup";
             RunOnStartupBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             RunOnStartupBx.IconBlack = Properties.Resources.Windows_Black;
             RunOnStartupBx.IconBlue = Properties.Resources.Windows_Blue;
@@ -1131,7 +1131,7 @@ namespace CodeRedLauncher
             PreventInjectionBx.CheckWhite = Properties.Resources.Checkbox_White;
             PreventInjectionBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             PreventInjectionBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            PreventInjectionBx.DisplayText = "prevent injection when out of date";
+            PreventInjectionBx.DisplayText = "Prevent injection when out of date";
             PreventInjectionBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             PreventInjectionBx.IconBlack = Properties.Resources.Lock_Black;
             PreventInjectionBx.IconBlue = Properties.Resources.Lock_Blue;
@@ -1157,7 +1157,7 @@ namespace CodeRedLauncher
             AutoCheckUpdatesBx.CheckWhite = Properties.Resources.Checkbox_White;
             AutoCheckUpdatesBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             AutoCheckUpdatesBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            AutoCheckUpdatesBx.DisplayText = "automatically check for updates";
+            AutoCheckUpdatesBx.DisplayText = "Automatically check for updates";
             AutoCheckUpdatesBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             AutoCheckUpdatesBx.IconBlack = Properties.Resources.Download_Black;
             AutoCheckUpdatesBx.IconBlue = Properties.Resources.Download_Blue;

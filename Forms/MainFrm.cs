@@ -838,8 +838,6 @@ namespace CodeRedLauncher
                     Retrievers.Invalidate();
                 }
 
-                RetrieversToInterface();
-
                 if (Configuration.ShouldCheckForUpdates())
                 {
                     await CheckForUpdates(false);
@@ -847,6 +845,7 @@ namespace CodeRedLauncher
                 else
                 {
                     UpdateStatusCtrl.DisplayType = StatusTypes.Version_Idle;
+                    RetrieversToInterface();
                 }
             }
             else
@@ -869,8 +868,6 @@ namespace CodeRedLauncher
                 NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                 ChangelogCtrl.ModuleText = await Retrievers.GetModuleChangelog();
                 ChangelogCtrl.LauncherText = await Retrievers.GetLauncherChangelog();
-                //ChangelogCtrl.ModuleText = "Remade the launchers UI with a new color scheme, new icons, and added a light mode.\nThe export crash logs file now also adds your variables file from CodeRed to the zip.\nFixed the launcher not loading at all if you tried to run it while not connected to the internet.\nFixed the launcher not auto-checking for updates when you enabled it through the checkbox.\nFixed the previous and next buttons in the news tab in the launcher having the wrong icons.";
-                //ChangelogCtrl.LauncherText = "Remade the launchers UI with a new color scheme, new icons, and added a light mode.\nThe export crash logs file now also adds your variables file from CodeRed to the zip.\nFixed the launcher not loading at all if you tried to run it while not connected to the internet.\nFixed the launcher not auto-checking for updates when you enabled it through the checkbox.\nFixed the previous and next buttons in the news tab in the launcher having the wrong icons.";
                 DiscordInfoCtrl.DisplayDescription = await Retrievers.GetDiscordUrl();
                 DonateInfoCtrl.DisplayDescription = await Retrievers.GetKofiUrl();
 
@@ -1171,9 +1168,9 @@ namespace CodeRedLauncher
                 Logger.Write("Could not check for updates, launcher is running in offline mode!");
             }
 
-            RetrieversToInterface(); // Retrieves news and changelog info and assigns it to the UI.
-            ConfigToInterface(); // Retrieves the users configuration settings and assigns it to the UI.
-            StorageToInterface(); // Retrieves Rocket League paths, version, and platform info to then assign to the UI.
+            RetrieversToInterface();
+            ConfigToInterface();
+            StorageToInterface();
             CheckUpdatesBtn.ButtonEnabled = true;
             return true;
         }

@@ -388,14 +388,19 @@ namespace CodeRedLauncher.Controls
                             newsStorage.ThumbnailUrl = thumbnailMatch.Groups[1].Value;
                             Int32 jpg = newsStorage.ThumbnailUrl.IndexOf(".jpg");
                             Int32 png = newsStorage.ThumbnailUrl.IndexOf(".png");
+                            Int32 webp = newsStorage.ThumbnailUrl.IndexOf(".webp");
 
-                            if (jpg != -1)
+                            if (jpg > 0)
                             {
                                 newsStorage.ThumbnailUrl = (newsStorage.ThumbnailUrl.Substring(0, jpg) + ".jpg");
                             }
-                            else if (png != -1)
+                            else if (png > 0)
                             {
                                 newsStorage.ThumbnailUrl = (newsStorage.ThumbnailUrl.Substring(0, png) + ".png");
+                            }
+                            else if (webp > 0)
+                            {
+                                newsStorage.ThumbnailUrl = (newsStorage.ThumbnailUrl.Substring(0, webp) + ".webp"); // .NET doesn't support webp, so this doesn't work for now. Would need a third party library.
                             }
                         }
 
@@ -486,9 +491,9 @@ namespace CodeRedLauncher.Controls
 
                         if (newsStorage.ThumbnailImage == null)
                         {
-                            newsStorage.ThumbnailUrl = "https://i.imgur.com/dmpY0zQ.png";
-                            newsStorage.ThumbnailUrlAlt = "";
-                            newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl);
+                            newsStorage.ThumbnailUrl = "";
+                            newsStorage.ThumbnailUrlAlt = "https://i.imgur.com/dmpY0zQ.png";
+                            newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrlAlt);
                         }
                     }
                 }
@@ -532,9 +537,9 @@ namespace CodeRedLauncher.Controls
 
                             if (newsStorage.ThumbnailImage == null)
                             {
-                                newsStorage.ThumbnailUrl = "https://i.imgur.com/dmpY0zQ.png";
-                                newsStorage.ThumbnailUrlAlt = "";
-                                newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrl);
+                                newsStorage.ThumbnailUrl = "";
+                                newsStorage.ThumbnailUrlAlt = "https://i.imgur.com/dmpY0zQ.png";
+                                newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrlAlt);
                             }
 
                             _articles[_index] = newsStorage;

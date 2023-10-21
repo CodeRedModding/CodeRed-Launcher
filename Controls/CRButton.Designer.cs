@@ -43,7 +43,7 @@
             TextLbl.Name = "TextLbl";
             TextLbl.Size = new System.Drawing.Size(229, 40);
             TextLbl.TabIndex = 0;
-            TextLbl.Text = "button";
+            TextLbl.Text = "Button";
             TextLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             TextLbl.Click += TextLbl_Click;
             TextLbl.DoubleClick += TextLbl_DoubleClick;

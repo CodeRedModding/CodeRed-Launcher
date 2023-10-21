@@ -44,7 +44,7 @@
             InfoDescriptionLbl.Name = "InfoDescriptionLbl";
             InfoDescriptionLbl.Size = new System.Drawing.Size(269, 32);
             InfoDescriptionLbl.TabIndex = 25;
-            InfoDescriptionLbl.Text = "description";
+            InfoDescriptionLbl.Text = "Description";
             InfoDescriptionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             InfoDescriptionLbl.Click += InfoDescriptionLbl_Click;
             InfoDescriptionLbl.DoubleClick += InfoDescriptionLbl_DoubleClick;
@@ -70,7 +70,7 @@
             InfoTitleLbl.Name = "InfoTitleLbl";
             InfoTitleLbl.Size = new System.Drawing.Size(120, 35);
             InfoTitleLbl.TabIndex = 23;
-            InfoTitleLbl.Text = "title";
+            InfoTitleLbl.Text = "Title";
             InfoTitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CRInfo

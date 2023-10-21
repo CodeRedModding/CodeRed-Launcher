@@ -54,7 +54,7 @@
             TextLbl.Name = "TextLbl";
             TextLbl.Size = new System.Drawing.Size(188, 35);
             TextLbl.TabIndex = 8;
-            TextLbl.Text = "label";
+            TextLbl.Text = "Label";
             TextLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CRLabel

@@ -44,7 +44,7 @@
             InputBx.Name = "InputBx";
             InputBx.Size = new System.Drawing.Size(190, 18);
             InputBx.TabIndex = 0;
-            InputBx.Text = "textbox";
+            InputBx.Text = "Textbox";
             InputBx.WordWrap = false;
             InputBx.TextChanged += InputBx_TextChanged;
             // 
