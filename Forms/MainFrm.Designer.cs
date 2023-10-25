@@ -91,10 +91,10 @@ namespace CodeRedLauncher
             SessionsTabBtn = new Controls.CRTab();
             NewsTabBtn = new Controls.CRTab();
             DashboardTabBtn = new Controls.CRTab();
+            TitleBar = new Controls.CRTitle();
             InstallPopup = new Controls.CRInstall();
             UpdatePopup = new Controls.CRUpdate();
             TermsPopup = new Controls.CRPolicy();
-            TitleBar = new Controls.CRTitle();
             PolicyPopup = new Controls.CRPolicy();
             OfflinePopup = new Controls.CROffline();
             DuplicatePopup = new Controls.CRDuplicate();
@@ -452,7 +452,7 @@ namespace CodeRedLauncher
             CreditsLbl.Name = "CreditsLbl";
             CreditsLbl.Size = new System.Drawing.Size(840, 60);
             CreditsLbl.TabIndex = 21;
-            CreditsLbl.Text = resources.GetString("CreditsLbl.Text");
+            CreditsLbl.Text = "CodeRed is developed by @ItsBranK, but its creation would not have been possible without the inspiration of the following people: ";
             CreditsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DashboardTab
@@ -477,7 +477,7 @@ namespace CodeRedLauncher
             UpdateStatusCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
             UpdateStatusCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             UpdateStatusCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            UpdateStatusCtrl.DisplayType = CodeRedLauncher.Controls.StatusTypes.Version_Checking;
+            UpdateStatusCtrl.DisplayType = CodeRedLauncher.Controls.StatusTypes.Version_Idle;
             UpdateStatusCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             UpdateStatusCtrl.IconDescBlack = Properties.Resources.Message_Black;
             UpdateStatusCtrl.IconDescBlue = Properties.Resources.Message_Blue;
@@ -1198,11 +1198,11 @@ namespace CodeRedLauncher
             BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
+            BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Controls.Add(TabCtrl);
             BackgroundPnl.Controls.Add(InstallPopup);
             BackgroundPnl.Controls.Add(UpdatePopup);
             BackgroundPnl.Controls.Add(TermsPopup);
-            BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Controls.Add(PolicyPopup);
             BackgroundPnl.Controls.Add(OfflinePopup);
             BackgroundPnl.Controls.Add(DuplicatePopup);
@@ -1341,6 +1341,23 @@ namespace CodeRedLauncher
             DashboardTabBtn.TabSelected = true;
             DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
             // 
+            // TitleBar
+            // 
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
+            TitleBar.BoundForm = null;
+            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.MaximizeButton = true;
+            TitleBar.MinimizeButton = true;
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
+            // 
             // InstallPopup
             // 
             InstallPopup.AcceptBlack = Properties.Resources.Download_Black;
@@ -1431,23 +1448,6 @@ namespace CodeRedLauncher
             TermsPopup.Visible = false;
             TermsPopup.ButtonClickAccept += TermsPopup_ButtonClickAccept;
             TermsPopup.ButtonClickDeny += TermsPopup_ButtonClickDeny;
-            // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
-            TitleBar.BoundForm = null;
-            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            TitleBar.DisplayText = "CODERED LAUNCHER";
-            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            TitleBar.Location = new System.Drawing.Point(0, 0);
-            TitleBar.MaximizeButton = true;
-            TitleBar.MinimizeButton = true;
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new System.Drawing.Size(970, 30);
-            TitleBar.TabIndex = 2;
-            TitleBar.OnMinimized += TitleBar_OnMinimized;
-            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // PolicyPopup
             // 

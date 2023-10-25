@@ -64,6 +64,7 @@
             BackColor = System.Drawing.Color.Transparent;
             Controls.Add(TextLbl);
             Controls.Add(IconImg);
+            DoubleBuffered = true;
             Name = "CRLabel";
             Size = new System.Drawing.Size(225, 35);
             ((System.ComponentModel.ISupportInitialize)IconImg).EndInit();

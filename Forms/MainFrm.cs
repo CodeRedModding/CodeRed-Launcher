@@ -1191,13 +1191,11 @@ namespace CodeRedLauncher
                 }
                 else if (moduleReport.FailReason != null)
                 {
-                    Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_ERROR);
                     MessageBox.Show(moduleReport.FailReason, Assembly.GetTitle());
                 }
             }
             else if (pathReport.FailReason != null)
             {
-                Logger.Write(pathReport.FailReason, LogLevel.LEVEL_ERROR);
                 MessageBox.Show(pathReport.FailReason, Assembly.GetTitle());
             }
 
@@ -1253,6 +1251,7 @@ namespace CodeRedLauncher
             this.TopMost = false;
             UpdatePopup.ButtonsEnabled = false;
             UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Downloading;
+            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Downloading;
 
             Retrievers.Invalidate();
             await Retrievers.CheckInitialized();

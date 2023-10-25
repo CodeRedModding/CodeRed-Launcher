@@ -21,6 +21,7 @@ namespace CodeRedLauncher.Controls
         Process_Outdated,
         Version_Idle,
         Version_Checking,
+        Version_Downloading,
         Version_Module,
         Version_Launcher,
         Version_Both,
@@ -277,6 +278,10 @@ namespace CodeRedLauncher.Controls
                 case StatusTypes.Version_Checking:
                     TitleLbl.Text = "Checking for Updates";
                     DescriptionLbl.Text = "Waiting for response...";
+                    break;
+                case StatusTypes.Version_Downloading:
+                    TitleLbl.Text = "Update in Progress";
+                    DescriptionLbl.Text = "Downloading and installing...";
                     break;
                 case StatusTypes.Version_Module:
                     TitleLbl.Text = "Module Out of Date";

@@ -130,7 +130,7 @@
             TitleLbl.Name = "TitleLbl";
             TitleLbl.Size = new System.Drawing.Size(550, 80);
             TitleLbl.TabIndex = 10;
-            TitleLbl.Text = "Privacy Policy";
+            TitleLbl.Text = "Policy";
             TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DescriptionBx

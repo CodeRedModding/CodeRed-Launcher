@@ -141,6 +141,7 @@
             Controls.Add(BackgroundPnl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleLbl);
+            DoubleBuffered = true;
             Name = "CRDuplicate";
             Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.ResumeLayout(false);

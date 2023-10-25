@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher
@@ -17,31 +18,31 @@ namespace CodeRedLauncher
         private static Architecture.Path _storageFile = new Architecture.Path();
 
         public static PublicSetting PrivacyPolicy = new PublicSetting(
-           "False",
-           "PrivacyPolicy",
-           "Agree to the private policy.",
-           "If the user has argeed to use the private policy or not."
+            "False",
+            "PrivacyPolicy",
+            "Agree to the private policy.",
+            "If the user has argeed to use the private policy or not."
         );
 
         public static PublicSetting TermsOfUse = new PublicSetting(
-           "False",
-           "TermsOfUse",
-           "Agree to the terms of use.",
-           "If the user has argeed to use the terms of use or not."
+            "False",
+            "TermsOfUse",
+            "Agree to the terms of use.",
+            "If the user has argeed to use the terms of use or not."
         );
 
         public static PublicSetting PrivacyHash = new PublicSetting(
-          "0",
-          "PrivacyHash",
-          "The current privacy policy hash.",
-          "The last known hash of the privacy policy the user agreed to"
+            "0",
+            "PrivacyHash",
+            "The current privacy policy hash.",
+            "The last known hash of the privacy policy the user agreed to"
         );
 
         public static PublicSetting TermsHash = new PublicSetting(
-          "0",
-          "TermsHash",
-          "The current terms of use hash.",
-          "The last known hash of the terms of use the user agreed to"
+            "0",
+            "TermsHash",
+            "The current terms of use hash.",
+            "The last known hash of the terms of use the user agreed to"
         );
 
         public static PublicSetting OfflineMode = new PublicSetting(
@@ -131,7 +132,7 @@ namespace CodeRedLauncher
             SaveChanges
         );
 
-        public static Architecture.Range32 InjectionTimeoutRange = new Architecture.Range32(5000, 300000); // Five seconds to five minutes.
+        public static Architecture.Range32 InjectionTimeoutRange = new Architecture.Range32(2500, 300000); // 2.5 seconds to 5 minutes.
 
         private static bool ParseConfigFile()
         {
@@ -156,9 +157,14 @@ namespace CodeRedLauncher
                             if (line.Contains(MinimizeOnStartup.Name)) { MinimizeOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(HideWhenMinimized.Name)) { HideWhenMinimized.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(InjectAllInstances.Name)) { InjectAllInstances.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                            if (line.Contains("Timeout")) { InjectionType.SetValue(InjectionTypes.Timeout.ToString()); continue; }
-                            if (line.Contains("Manual")) { InjectionType.SetValue(InjectionTypes.Manual.ToString()); continue; }
-                            if (line.Contains(InjectionTimeout.Name)) { InjectionTimeout.SetValue(line.Substring(17, line.Length - 17)); continue; }
+
+                            if (line.Contains(InjectionType.Name))
+                            {
+                                if (line.Contains("Timeout")) { InjectionType.SetValue(InjectionTypes.Timeout.ToString()); continue; }
+                                if (line.Contains("Manual")) { InjectionType.SetValue(InjectionTypes.Manual.ToString()); continue; }
+                            }
+
+                            if (line.Contains(InjectionTimeout.Name))  { InjectionTimeout.SetValue(line.Substring((InjectionTimeout.Name.Length + 1), (line.Length - (InjectionTimeout.Name.Length + 1)))); continue;  }
                             if (line.Contains(LightMode.Name)) { LightMode.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         }
                         catch (Exception ex)
