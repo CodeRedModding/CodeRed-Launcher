@@ -126,14 +126,23 @@ namespace CodeRedLauncher
             }
         }
 
-        private void ManualInjectBtn_Click(object sender, EventArgs e)
+        private void ManualInjectBtn_OnButtonClick(object sender, EventArgs e)
         {
+            if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
+            {
+                Logger.Write("Prevented injection, updator returned out of date!");
+                ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
+                InjectTmr.Stop();
+                return;
+            }
+
             if (!Configuration.ShouldInjectAll())
             {
                 List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
 
                 if (processes.Count > 0)
                 {
+                    Logger.Write("Process found!");
                     LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
                 }
             }
@@ -143,6 +152,8 @@ namespace CodeRedLauncher
 
                 if (results.Count > 0)
                 {
+                    Logger.Write("Process found!");
+
                     foreach (InjectionResults result in results)
                     {
                         LogInjectionResult(result);
@@ -175,6 +186,11 @@ namespace CodeRedLauncher
         private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs e)
         {
             Configuration.PreventInjection.SetValue(PreventInjectionBx.BoxChecked).Save();
+
+            if (AutoCheckUpdatesBx.BoxChecked)
+            {
+                CheckForUpdates(true);
+            }
         }
 
         private void RunOnStartupBx_OnCheckChanged(object sender, EventArgs e)
@@ -329,6 +345,7 @@ namespace CodeRedLauncher
         private void ExportLogsBtn_OnButtonClick(object sender, EventArgs e)
         {
             Architecture.Path modulePath = Storage.GetModulePath();
+            Architecture.Path launchPath = (modulePath / "Settings" / "Launcher.cr");
             Architecture.Path variablesPath = (modulePath / "Settings" / "Variables.cr");
             Architecture.Path logsPath = (Storage.GetGamesPath() / "TAGame" / "Logs");
 
@@ -355,6 +372,11 @@ namespace CodeRedLauncher
                             filesToExport.Add(filePath);
                         }
                     }
+                }
+
+                if (launchPath.Exists())
+                {
+                    filesToExport.Add(launchPath.GetPath());
                 }
 
                 if (variablesPath.Exists())
@@ -462,6 +484,8 @@ namespace CodeRedLauncher
 
                 if ((ProcessStatusCtrl.DisplayType != StatusTypes.Process_Injecting) && (ProcessStatusCtrl.DisplayType != StatusTypes.Process_Manual))
                 {
+                    Logger.Write("Process is running!");
+
                     if (!Updator.IsOutdated())
                     {
                         CheckForUpdates(true, false);
@@ -474,6 +498,7 @@ namespace CodeRedLauncher
 
                     if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
                     {
+                        Logger.Write("Prevented injection, updator returned out of date!");
                         ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                         InjectTmr.Stop();
                     }
@@ -542,6 +567,7 @@ namespace CodeRedLauncher
 
                 if (processes.Count > 0)
                 {
+                    Logger.Write("Process found!");
                     LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
                 }
 
@@ -553,6 +579,8 @@ namespace CodeRedLauncher
 
                 if (results.Count > 0)
                 {
+                    Logger.Write("Process found!");
+
                     foreach (InjectionResults result in results)
                     {
                         LogInjectionResult(result);
@@ -1091,8 +1119,9 @@ namespace CodeRedLauncher
                             {
                                 List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
 
-                                if (processes.Count > 0 && LibraryManager.IsModuleLoaded(processes[0], true))
+                                if ((processes.Count > 0) && LibraryManager.IsModuleLoaded(processes[0], true))
                                 {
+                                    Logger.Write("Process found!");
                                     UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
                                 }
                                 else

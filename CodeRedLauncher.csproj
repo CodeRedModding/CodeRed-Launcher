@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -10,6 +10,12 @@
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <NoWin32Manifest>true</NoWin32Manifest>
     <ImplicitUsings>disable</ImplicitUsings>
+    <Description>Manages the CodeRed Module for Rocket League.</Description>
+    <Copyright>CodeRedModding 2023</Copyright>
+    <PackageProjectUrl>https://coderedmodding.github.io/</PackageProjectUrl>
+    <PackageIcon>Icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/CodeRedModding/CodeRed-Launcher</RepositoryUrl>
+    <Title>CodeRedLauncher</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -53,6 +59,13 @@
 
   <ItemGroup>
     <Folder Include="Forms\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Discord\CodeRed\Logos\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

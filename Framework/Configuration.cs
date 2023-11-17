@@ -220,6 +220,7 @@ namespace CodeRedLauncher
                 else
                 {
                     SetDefaultSettings(true);
+                    _initialized = true;
                 }
             }
 
@@ -228,6 +229,7 @@ namespace CodeRedLauncher
 
         public static void SetDefaultSettings(bool bSaveChanges = false)
         {
+            _storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
             PrivacyPolicy.ResetToDefault();
             TermsOfUse.ResetToDefault();
             PrivacyHash.ResetToDefault();
@@ -283,6 +285,10 @@ namespace CodeRedLauncher
                 File.AppendAllText(file, InjectionType.Name + " " + InjectionType.GetStringValue() + "\n");
                 File.AppendAllText(file, InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue() + "\n");
                 File.AppendAllText(file, LightMode.Name + " " + LightMode.GetStringValue());
+            }
+            else
+            {
+                Logger.Write("Launcher settings folder doesn't exist, failed to save settings!");
             }
         }
 

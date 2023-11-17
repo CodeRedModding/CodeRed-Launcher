@@ -5,12 +5,12 @@ namespace CodeRedLauncher
     public static class Assembly
     {
         private static readonly string _title = "CodeRed Launcher";
-        private static readonly string _description = "Manages the CodeRed Module for Rocket League.";
+        private static readonly string _description = "Manages and injects the CodeRed module for Rocket League. ";
         private static readonly string _company = "CodeRedModding";
         private static readonly string _product = "CodeRedLauncher";
         private static readonly string _copyright = "CodeRedModding 2023";
         private static readonly string _license = "MIT License";
-        private static readonly string _version = "1.2.8";
+        private static readonly string _version = "1.2.9";
         private static readonly bool _termsOfUse = false;
         private static readonly bool _privatePolicy = false;
 
