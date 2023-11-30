@@ -3,7 +3,9 @@ The CodeRed Launcher is used to inject CodeRed into Rocket League, view news abo
 
 ## 📌 System Requirements
 **1.** Must be on Windows 10 (x64) or greater.
+
 **2.** Must have at least 4GB of vram and 8GB of system ram.
+
 **3.** Must have the [**.NET 8.0**](<https://dotnet.microsoft.com/en-us/download/dotnet/8.0>) runtime installed to use the launcher.
 
 ## 📦 Download
