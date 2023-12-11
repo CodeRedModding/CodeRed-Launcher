@@ -292,10 +292,16 @@ namespace CodeRedLauncher.Controls
             }
         }
 
+        public event EventHandler ButtonClickDeny = null;
         private void DenyBtn_OnButtonClick(object sender, EventArgs e)
         {
             if (ButtonsEnabled)
             {
+                if (ButtonClickDeny != null)
+                {
+                    ButtonClickDeny.Invoke(this, e);
+                }
+
                 HidePopup();
             }
         }

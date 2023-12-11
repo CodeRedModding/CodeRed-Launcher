@@ -92,6 +92,7 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
+                Logger.Write("Deleting temporary folder...");
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
@@ -101,9 +102,10 @@ namespace CodeRedLauncher
             {
                 string moduleUrl = await Retrievers.GetModuleUrl();
 
-                if (!String.IsNullOrEmpty(moduleUrl))
+                if (!string.IsNullOrEmpty(moduleUrl))
                 {
                     Architecture.Path downloadedFile = (tempFolder / "CodeRedModule.zip");
+                    Logger.Write("Downloading module archive...");
 
                     if (await Downloaders.DownloadFile(moduleUrl, tempFolder, "CodeRedModule.zip"))
                     {
@@ -115,6 +117,8 @@ namespace CodeRedLauncher
                             {
                                 Directory.CreateDirectory(modulePath.GetPath());
                             }
+
+                            Logger.Write("Extracting file from archive...");
 
                             using (ZipArchive zipArchive = ZipFile.OpenRead(downloadedFile.GetPath()))
                             {
@@ -158,6 +162,7 @@ namespace CodeRedLauncher
                                 }
                             }
 
+                            Logger.Write("Done!");
                             report.Succeeded = true;
                             Status &= ~UpdatorStatus.Module;
                             Configuration.SaveChanges();
@@ -198,6 +203,7 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
+                Logger.Write("Deleting temporary folder...");
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
@@ -208,17 +214,20 @@ namespace CodeRedLauncher
                 string launcherUrl = await Retrievers.GetLauncherUrl();
                 string dropperUrl = await Retrievers.GetDropperUrl();
 
-                if (!String.IsNullOrEmpty(launcherUrl) && !String.IsNullOrEmpty(dropperUrl))
+                if (!string.IsNullOrEmpty(launcherUrl) && !string.IsNullOrEmpty(dropperUrl))
                 {
                     Architecture.Path launcherArchive = (tempFolder / "CodeRedLauncher.zip");
                     Architecture.Path launcherExe = (tempFolder / "CodeRedLauncher.exe");
                     Architecture.Path dropperArchive = (tempFolder / "CodeRedDropper.zip");
                     Architecture.Path dropperExe = (tempFolder / "CodeRedDropper.exe");
+                    Logger.Write("Downloading launcher archive...");
 
                     if (await Downloaders.DownloadFile(launcherUrl, tempFolder, "CodeRedLauncher.zip"))
                     {
                         if (launcherArchive.Exists())
                         {
+                            Logger.Write("Extracting file from archive...");
+
                             using (ZipArchive zipArchive = ZipFile.OpenRead(launcherArchive.GetPath()))
                             {
                                 foreach (ZipArchiveEntry archiveEntry in zipArchive.Entries)
@@ -233,11 +242,14 @@ namespace CodeRedLauncher
                             if (launcherExe.Exists())
                             {
                                 File.Delete(launcherArchive.GetPath());
+                                Logger.Write("Downloading dropper archive...");
 
                                 if (await Downloaders.DownloadFile(dropperUrl, tempFolder, "CodeRedDropper.zip"))
                                 {
                                     if (dropperArchive.Exists())
                                     {
+                                        Logger.Write("Extracting file from archive...");
+
                                         using (ZipArchive zipArchive = ZipFile.OpenRead(dropperArchive.GetPath()))
                                         {
                                             foreach (ZipArchiveEntry archiveEntry in zipArchive.Entries)
@@ -253,6 +265,7 @@ namespace CodeRedLauncher
 
                                         if (dropperExe.Exists())
                                         {
+                                            Logger.Write("Done!");
                                             report.Succeeded = true;
                                             Status &= ~UpdatorStatus.Launcher;
 

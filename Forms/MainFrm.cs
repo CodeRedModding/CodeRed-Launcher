@@ -174,7 +174,7 @@ namespace CodeRedLauncher
 
             if (AutoCheckUpdatesBx.BoxChecked)
             {
-                CheckForUpdates(true);
+                CheckForUpdates(true, true);
             }
         }
 
@@ -189,7 +189,7 @@ namespace CodeRedLauncher
 
             if (AutoCheckUpdatesBx.BoxChecked)
             {
-                CheckForUpdates(true);
+                CheckForUpdates(true, true);
             }
         }
 
@@ -355,6 +355,7 @@ namespace CodeRedLauncher
 
                 if (tempFolder.Exists())
                 {
+                    Logger.Write("Old temporary folder found, deleting...");
                     Directory.Delete(tempFolder.GetPath(), true);
                 }
 
@@ -448,7 +449,7 @@ namespace CodeRedLauncher
         private void CheckUpdatesBtn_OnButtonClick(object sender, EventArgs e)
         {
             CheckUpdatesBtn.ButtonEnabled = false;
-            CheckForUpdates(true);
+            CheckForUpdates(true, true);
         }
 
         private void TermsBtn_OnButtonClick(object sender, EventArgs e)
@@ -596,7 +597,7 @@ namespace CodeRedLauncher
             if (!Updator.IsOutdated())
             {
                 Logger.Write("Auto checking for updates...");
-                CheckForUpdates(true);
+                CheckForUpdates(true, true);
             }
             else
             {
@@ -727,6 +728,7 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
+                Logger.Write("Old launcher folder found, deleting...");
                 Directory.Delete(tempFolder.GetPath(), true); // This is to cleanup anything left over by the auto updator/dropper program.
             }
 
@@ -868,12 +870,13 @@ namespace CodeRedLauncher
 
                 if (Configuration.ShouldCheckForUpdates())
                 {
-                    await CheckForUpdates(false);
+                    await CheckForUpdates(false, true);
                 }
                 else
                 {
                     UpdateStatusCtrl.DisplayType = StatusTypes.Version_Idle;
                     RetrieversToInterface();
+                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                 }
             }
             else
@@ -893,7 +896,6 @@ namespace CodeRedLauncher
         {
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                 ChangelogCtrl.ModuleText = await Retrievers.GetModuleChangelog();
                 ChangelogCtrl.LauncherText = await Retrievers.GetLauncherChangelog();
                 DiscordInfoCtrl.DisplayDescription = await Retrievers.GetDiscordUrl();
@@ -1036,7 +1038,7 @@ namespace CodeRedLauncher
         }
 
         // If "bInvalidate" is set to true it forces the application to retrieve all local and remote information.
-        private async Task<bool> CheckForUpdates(bool bInvalidate, bool bShowPrompt = true)
+        private async Task<bool> CheckForUpdates(bool bInvalidate, bool bShowPrompt)
         {
             if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
             {
@@ -1109,6 +1111,10 @@ namespace CodeRedLauncher
                                     UpdatePopup.ShowPopup();
                                 }
                             }
+                            else
+                            {
+                                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                            }
                         }
                         else if (!ignoreModule && moduleOutdated)
                         {
@@ -1145,6 +1151,10 @@ namespace CodeRedLauncher
                                     UpdatePopup.ShowPopup();
                                 }
                             }
+                            else
+                            {
+                                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                            }
                         }
                         else if (launcherOutdated)
                         {
@@ -1165,6 +1175,10 @@ namespace CodeRedLauncher
                                 {
                                     UpdatePopup.ShowPopup();
                                 }
+                            }
+                            else
+                            {
+                                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                             }
                         }
                         else
@@ -1214,7 +1228,7 @@ namespace CodeRedLauncher
 
                 if (moduleReport.Succeeded)
                 {
-                    await CheckForUpdates(true);
+                    await CheckForUpdates(true, false);
                     StartupRoutine(true);
                     InstallPopup.HidePopup();
                 }
@@ -1297,6 +1311,11 @@ namespace CodeRedLauncher
             {
                 Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
             }
+        }
+
+        private async void UpdatePopup_ButtonClickDeny(object sender, EventArgs e)
+        {
+            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
         }
 
         private void PolicyPopup_ButtonClickAccept(object sender, EventArgs e)

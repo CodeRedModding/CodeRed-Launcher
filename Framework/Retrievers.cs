@@ -50,25 +50,32 @@ namespace CodeRedLauncher
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
-                    HttpResponseMessage response = await client.GetAsync(url);
-
-                    if (response.IsSuccessStatusCode)
+                    try
                     {
-                        Stream stream = await response.Content.ReadAsStreamAsync();
+                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        HttpResponseMessage response = await client.GetAsync(url);
 
-                        try
+                        if (response.IsSuccessStatusCode)
                         {
-                            image = Image.FromStream(stream);
+                            Stream stream = await response.Content.ReadAsStreamAsync();
+
+                            try
+                            {
+                                image = Image.FromStream(stream);
+                            }
+                            catch (Exception)
+                            {
+                                image = null;
+                            }
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            image = null;
+                            Logger.Write("Website is offline, failed to download image for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
                         }
                     }
-                    else
+                    catch (Exception)
                     {
-                        Logger.Write("Website is offline, failed to download image for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                        image = null;
                     }
                 }
             }
@@ -84,6 +91,7 @@ namespace CodeRedLauncher
             {
                 using (HttpClient client = new HttpClient())
                 {
+                    client.Timeout = TimeSpan.FromMinutes(30);
                     client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
                     HttpResponseMessage response = await client.GetAsync(url);
 
@@ -103,24 +111,22 @@ namespace CodeRedLauncher
 
         public static async Task<bool> DownloadFile(string url, Architecture.Path folder, string fileName)
         {
-            if (folder.Exists())
+            if (folder.Exists() && !string.IsNullOrEmpty(url))
             {
-                if (!String.IsNullOrEmpty(url))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpClient client = new HttpClient())
+                    client.Timeout = TimeSpan.FromMinutes(30);
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        HttpResponseMessage response = await client.GetAsync(url);
+                        string path = (folder / fileName).GetPath();
+                        byte[] content = await response.Content.ReadAsByteArrayAsync();
 
-                        if (response.IsSuccessStatusCode)
+                        if (content.Length > 0)
                         {
-                            string path = (folder / fileName).GetPath();
-                            byte[] content = await response.Content.ReadAsByteArrayAsync();
-
-                            if (content.Length > 0)
-                            {
-                                File.WriteAllBytes(path, content);
-                                return File.Exists(path);
-                            }
+                            File.WriteAllBytes(path, content);
+                            return File.Exists(path);
                         }
                     }
                 }
