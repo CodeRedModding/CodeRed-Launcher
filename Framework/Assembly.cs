@@ -10,7 +10,7 @@ namespace CodeRedLauncher
         private static readonly string _product = "CodeRedLauncher";
         private static readonly string _copyright = "CodeRedModding 2023";
         private static readonly string _license = "MIT License";
-        private static readonly string _version = "1.2.9";
+        private static readonly string _version = "1.3.0";
         private static readonly bool _termsOfUse = false;
         private static readonly bool _privatePolicy = false;
 
