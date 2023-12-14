@@ -1040,132 +1040,153 @@ namespace CodeRedLauncher
         // If "bInvalidate" is set to true it forces the application to retrieve all local and remote information.
         private async Task<bool> CheckForUpdates(bool bInvalidate, bool bShowPrompt)
         {
-            if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
+            if (!Updator.IsUpdating())
             {
-                Logger.Write("Checking for updates...");
-                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Checking;
-                UpdateStatusCtrl.ViewType = StatusViews.One;
-
-                if (await Retrievers.CheckInitialized())
+                if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
                 {
-                    bool moduleOutdated = await Updator.IsModuleOutdated(bInvalidate);
-                    bool launcherOutdated = await Updator.IsLauncherOutdated(bInvalidate);
+                    Logger.Write("Checking for updates...");
+                    UpdateStatusCtrl.DisplayType = StatusTypes.Version_Checking;
+                    UpdateStatusCtrl.ViewType = StatusViews.One;
 
-                    UInt32 localVersion = Storage.GetPsyonixDate();
-                    UInt32 remoteVersion = await Retrievers.GetPsyonixDate();
-                    bool ignoreModule = (localVersion > remoteVersion);
-
-                    // If the installed Rocket League version is greater than the one retrieved remotely, an update for the module is not out yet.
-
-                    if (ignoreModule && !launcherOutdated)
+                    if (await Retrievers.CheckInitialized())
                     {
-                        Logger.Write("CodeRed is out of date, no new module version has been released yet!");
-                        Updator.OverrideStatus(UpdatorStatus.Override);
-                        UpdateStatusCtrl.DisplayType = StatusTypes.Version_Unsafe;
-                        UpdateStatusCtrl.ViewType = StatusViews.Three;
+                        bool moduleOutdated = await Updator.IsModuleOutdated(bInvalidate);
+                        bool launcherOutdated = await Updator.IsLauncherOutdated(bInvalidate);
 
-                        // Every sixty seconds this timer automatically checks for updates.
+                        UInt32 localVersion = Storage.GetPsyonixDate();
+                        UInt32 remoteVersion = await Retrievers.GetPsyonixDate();
+                        bool ignoreModule = (localVersion > remoteVersion);
 
-                        if (!UpdateTmr.Enabled)
+                        // If the installed Rocket League version is greater than the one retrieved remotely, an update for the module is not out yet.
+
+                        if (ignoreModule && !launcherOutdated)
                         {
-                            UpdateTmr.Start();
-                        }
-                    }
-                    else if (Updator.IsOutdated())
-                    {
-                        UpdateTmr.Stop();
-
-                        // Prioritize updating the module first, then the launcher.
-
-                        if (!ignoreModule && moduleOutdated && launcherOutdated)
-                        {
-                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Both;
+                            Logger.Write("CodeRed is out of date, no new module version has been released yet!");
+                            Updator.OverrideModule();
+                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Unsafe;
                             UpdateStatusCtrl.ViewType = StatusViews.Three;
 
-                            if (LibraryManager.AnyProcessRunning())
-                            {
-                                List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
+                            // Every sixty seconds this timer automatically checks for updates.
 
-                                if (processes.Count > 0 && LibraryManager.IsModuleLoaded(processes[0], true))
+                            if (!UpdateTmr.Enabled)
+                            {
+                                UpdateTmr.Start();
+                            }
+                        }
+                        else if (Updator.IsOutdated())
+                        {
+                            UpdateTmr.Stop();
+
+                            // Prioritize updating the module first, then the launcher.
+
+                            if (!ignoreModule && moduleOutdated && launcherOutdated)
+                            {
+                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Both;
+                                UpdateStatusCtrl.ViewType = StatusViews.Three;
+
+                                if (LibraryManager.AnyProcessRunning())
                                 {
-                                    UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
+                                    List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
+
+                                    if (processes.Count > 0 && LibraryManager.IsModuleLoaded(processes[0], true))
+                                    {
+                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
+                                    }
+                                    else
+                                    {
+                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Both;
+                                    }
                                 }
                                 else
                                 {
                                     UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Both;
                                 }
-                            }
-                            else
-                            {
-                                UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Both;
-                            }
 
-                            if (bShowPrompt)
-                            {
-                                if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                if (bShowPrompt)
                                 {
-                                    UpdatePopup_ButtonClickAccept(null, null);
+                                    if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                    {
+                                        UpdatePopup_ButtonClickAccept(null, null);
+                                    }
+                                    else
+                                    {
+                                        UpdatePopup.ShowPopup();
+                                    }
                                 }
                                 else
                                 {
-                                    UpdatePopup.ShowPopup();
+                                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                                 }
                             }
-                            else
+                            else if (!ignoreModule && moduleOutdated)
                             {
-                                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
-                            }
-                        }
-                        else if (!ignoreModule && moduleOutdated)
-                        {
-                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Module;
-                            UpdateStatusCtrl.ViewType = StatusViews.Three;
+                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Module;
+                                UpdateStatusCtrl.ViewType = StatusViews.Three;
 
-                            if (LibraryManager.AnyProcessRunning())
-                            {
-                                List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
-
-                                if ((processes.Count > 0) && LibraryManager.IsModuleLoaded(processes[0], true))
+                                if (LibraryManager.AnyProcessRunning())
                                 {
-                                    Logger.Write("Process found!");
-                                    UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
+                                    List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
+
+                                    if ((processes.Count > 0) && LibraryManager.IsModuleLoaded(processes[0], true))
+                                    {
+                                        Logger.Write("Process found!");
+                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
+                                    }
+                                    else
+                                    {
+                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Module;
+                                    }
                                 }
                                 else
                                 {
                                     UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Module;
                                 }
-                            }
-                            else
-                            {
-                                UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Module;
-                            }
 
-                            if (bShowPrompt)
-                            {
-                                if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                if (bShowPrompt)
                                 {
-                                    UpdatePopup_ButtonClickAccept(null, null);
+                                    if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                    {
+                                        UpdatePopup_ButtonClickAccept(null, null);
+                                    }
+                                    else
+                                    {
+                                        UpdatePopup.ShowPopup();
+                                    }
                                 }
                                 else
                                 {
-                                    UpdatePopup.ShowPopup();
+                                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                                }
+                            }
+                            else if (launcherOutdated)
+                            {
+                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Launcher;
+                                UpdateStatusCtrl.ViewType = StatusViews.Three;
+
+                                // Doesn't matter if Rocket League is open or not when updating the launcher, so no need to check if any processes are running.
+
+                                if (bShowPrompt)
+                                {
+                                    UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Launcher;
+
+                                    if (Configuration.ShouldAutoInstall())
+                                    {
+                                        UpdatePopup_ButtonClickAccept(null, null);
+                                    }
+                                    else
+                                    {
+                                        UpdatePopup.ShowPopup();
+                                    }
+                                }
+                                else
+                                {
+                                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                                 }
                             }
                             else
                             {
-                                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
-                            }
-                        }
-                        else if (launcherOutdated)
-                        {
-                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Launcher;
-                            UpdateStatusCtrl.ViewType = StatusViews.Three;
-
-                            // Doesn't matter if Rocket League is open or not when updating the launcher, so no need to check if any processes are running.
-
-                            if (bShowPrompt)
-                            {
-                                UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Launcher;
+                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
+                                UpdateStatusCtrl.ViewType = StatusViews.Two;
 
                                 if (Configuration.ShouldAutoInstall())
                                 {
@@ -1175,40 +1196,23 @@ namespace CodeRedLauncher
                                 {
                                     UpdatePopup.ShowPopup();
                                 }
-                            }
-                            else
-                            {
-                                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+
+                                ProcessTmr.Start();
                             }
                         }
                         else
                         {
-                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
+                            Logger.Write("No updates found!");
                             UpdateStatusCtrl.ViewType = StatusViews.Two;
-
-                            if (Configuration.ShouldAutoInstall())
-                            {
-                                UpdatePopup_ButtonClickAccept(null, null);
-                            }
-                            else
-                            {
-                                UpdatePopup.ShowPopup();
-                            }
-
-                            ProcessTmr.Start();
+                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
+                            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                         }
                     }
-                    else
-                    {
-                        Logger.Write("No updates found!");
-                        UpdateStatusCtrl.ViewType = StatusViews.Two;
-                        UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
-                    }
                 }
-            }
-            else
-            {
-                Logger.Write("Could not check for updates, launcher is running in offline mode!");
+                else
+                {
+                    Logger.Write("Could not check for updates, launcher is running in offline mode!");
+                }
             }
 
             RetrieversToInterface();
@@ -1311,6 +1315,8 @@ namespace CodeRedLauncher
             {
                 Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
             }
+
+            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
         }
 
         private async void UpdatePopup_ButtonClickDeny(object sender, EventArgs e)

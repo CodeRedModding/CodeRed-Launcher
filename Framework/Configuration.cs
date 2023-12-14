@@ -167,7 +167,7 @@ namespace CodeRedLauncher
                             if (line.Contains(InjectionTimeout.Name))  { InjectionTimeout.SetValue(line.Substring((InjectionTimeout.Name.Length + 1), (line.Length - (InjectionTimeout.Name.Length + 1)))); continue;  }
                             if (line.Contains(LightMode.Name)) { LightMode.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         }
-                        catch (Exception ex)
+                        catch
                         {
                             SetDefaultSettings(true);
                             return true;

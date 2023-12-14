@@ -1,18 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
-using System.Text.Json;
-using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Net.Http.Headers;
 using System.Drawing;
+using Windows.Media.Playback;
 
 namespace CodeRedLauncher
 {
     public static class Downloaders
     {
+        private static TimeSpan _timeout = TimeSpan.FromMinutes(15);
+
         public static async Task<bool> WebsiteOnline(string url)
         {
             if (!string.IsNullOrEmpty(url))
@@ -52,6 +53,7 @@ namespace CodeRedLauncher
                 {
                     try
                     {
+                        client.Timeout = _timeout;
                         client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
                         HttpResponseMessage response = await client.GetAsync(url);
 
@@ -89,20 +91,28 @@ namespace CodeRedLauncher
 
             if (!string.IsNullOrEmpty(url))
             {
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    client.Timeout = TimeSpan.FromMinutes(30);
-                    client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
-                    HttpResponseMessage response = await client.GetAsync(url);
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.Timeout = _timeout;
+                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        HttpResponseMessage response = await client.GetAsync(url);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        pageContent = await response.Content.ReadAsStringAsync();
+                        if (response.IsSuccessStatusCode)
+                        {
+                            pageContent = await response.Content.ReadAsStringAsync();
+                        }
+                        else
+                        {
+                            Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                        }
                     }
-                    else
-                    {
-                        Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(ex.Message, LogLevel.LEVEL_ERROR);
+                    return pageContent;
                 }
             }
 
@@ -113,22 +123,30 @@ namespace CodeRedLauncher
         {
             if (folder.Exists() && !string.IsNullOrEmpty(url))
             {
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    client.Timeout = TimeSpan.FromMinutes(30);
-                    HttpResponseMessage response = await client.GetAsync(url);
-
-                    if (response.IsSuccessStatusCode)
+                    using (HttpClient client = new HttpClient())
                     {
-                        string path = (folder / fileName).GetPath();
-                        byte[] content = await response.Content.ReadAsByteArrayAsync();
+                        client.Timeout = _timeout;
+                        HttpResponseMessage response = await client.GetAsync(url);
 
-                        if (content.Length > 0)
+                        if (response.IsSuccessStatusCode)
                         {
-                            File.WriteAllBytes(path, content);
-                            return File.Exists(path);
+                            string path = (folder / fileName).GetPath();
+                            byte[] content = await response.Content.ReadAsByteArrayAsync();
+
+                            if (content.Length > 0)
+                            {
+                                File.WriteAllBytes(path, content);
+                                return File.Exists(path);
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(ex.Message, LogLevel.LEVEL_ERROR);
+                    return false;
                 }
             }
 

@@ -278,7 +278,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-
+                    Logger.Write(ex.Message, LogLevel.LEVEL_FATAL);
                 }
             }
             else

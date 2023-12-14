@@ -8,28 +8,31 @@ using System.Collections.Generic;
 
 namespace CodeRedLauncher
 {
-    [Flags]
-    public enum UpdatorStatus : UInt32
-    {
-        None = 0,
-        Launcher = 1 << 0,
-        Module = 1 << 1,
-        Override = 1 << 2,
-    }
-
     public static class Updator
     {
-        private static UpdatorStatus Status = UpdatorStatus.None;
-        private static List<string> ExcludedFiles = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" };
+        private static bool _isUpdating = false;
+        private static bool _launcherOutdated = false;
+        private static bool _moduleOutdated = false;
+        private static List<string> _excludedExtensions = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" };
+
+        public static bool IsUpdating()
+        {
+            return _isUpdating;
+        }
 
         public static bool IsOutdated()
         {
-            return (Status != UpdatorStatus.None);
+            return (_launcherOutdated || _moduleOutdated);
         }
 
-        public static void OverrideStatus(UpdatorStatus status)
+        public static void OverrideLauncher()
         {
-            Status = status;
+            _moduleOutdated = false;
+        }
+
+        public static void OverrideModule()
+        {
+            _moduleOutdated = false;
         }
 
         public static async Task<bool> IsModuleOutdated(bool bInvalidate)
@@ -45,13 +48,13 @@ namespace CodeRedLauncher
                 if (Storage.GetModuleVersion() != await Retrievers.GetModuleVersion())
                 {
                     Logger.Write("Module detected as outdated!");
-                    Status |= UpdatorStatus.Module;
+                    _moduleOutdated = true;
                     return true;
                 }
             }
 
             Logger.Write("Module is up to date!");
-            Status &= ~UpdatorStatus.Module;
+            _moduleOutdated = false;
             return false;
         }
 
@@ -68,23 +71,25 @@ namespace CodeRedLauncher
                 if (Assembly.GetVersion() != await Retrievers.GetLauncherVersion())
                 {
                     Logger.Write("Launcher detected as outdated!");
-                    Status |= UpdatorStatus.Launcher;
+                    _launcherOutdated = true;
                     return true;
                 }
             }
 
             Logger.Write("Launcher is up to date!");
-            Status &= ~UpdatorStatus.Launcher;
+            _launcherOutdated = false;
             return false;
         }
 
         private static async Task<Result> InstallModule(bool bForceInstall)
         {
+            _isUpdating = true;
             Result report = new Result();
 
-            if (!bForceInstall && !IsOutdated())
+            if (!bForceInstall && !_moduleOutdated)
             {
                 report.FailReason = "No module update required.";
+                _isUpdating = false;
                 return report;
             }
 
@@ -145,7 +150,7 @@ namespace CodeRedLauncher
                                     {
                                         // Skip overriding existing files that may be user-specific, such as settings or scripts.
 
-                                        foreach (string file in ExcludedFiles)
+                                        foreach (string file in _excludedExtensions)
                                         {
                                             if (fileFilter.EndsWith(file))
                                             {
@@ -164,7 +169,7 @@ namespace CodeRedLauncher
 
                             Logger.Write("Done!");
                             report.Succeeded = true;
-                            Status &= ~UpdatorStatus.Module;
+                            _moduleOutdated = false;
                             Configuration.SaveChanges();
                         }
                     }
@@ -181,6 +186,7 @@ namespace CodeRedLauncher
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
+            _isUpdating = false;
             return report;
         }
 
@@ -191,11 +197,13 @@ namespace CodeRedLauncher
 
         private static async Task<Result> InstallLauncher(bool bForceInstall)
         {
+            _isUpdating = true;
             Result report = new Result();
 
-            if (!bForceInstall && !IsOutdated())
+            if (!bForceInstall && !_launcherOutdated)
             {
                 report.FailReason = "No launcher update required.";
+                _isUpdating = false;
                 return report;
             }
 
@@ -267,7 +275,7 @@ namespace CodeRedLauncher
                                         {
                                             Logger.Write("Done!");
                                             report.Succeeded = true;
-                                            Status &= ~UpdatorStatus.Launcher;
+                                            _launcherOutdated = false;
 
                                             // Since the launcher is "half portable", the user can place the exe wherever they want and move it around.
                                             // This text file is just super simple dynamic way to insure the dropper can always find it.
@@ -282,43 +290,38 @@ namespace CodeRedLauncher
                                         else
                                         {
                                             report.FailReason = "Failed to extract dropper executable from its archive.";
-                                            return report;
                                         }
                                     }
                                 }
                                 else
                                 {
                                     report.FailReason = "Failed to download dropper archive.";
-                                    return report;
                                 }
                             }
                             else
                             {
                                 report.FailReason = "Failed to extract launcher executable from its archive.";
-                                return report;
                             }
                         }
                         else
                         {
                             report.FailReason = "Failed to download launcher archive.";
-                            return report;
                         }
                     }
                     else
                     {
                         report.FailReason = "Failed to download launcher executable.";
-                        return report;
                     }
                 }
                 else
                 {
                     report.FailReason = "Failed to retrieve download links.";
-                    return report;
                 }
 
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
+            _isUpdating = false;
             return report;
         }
 
@@ -333,7 +336,7 @@ namespace CodeRedLauncher
 
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                if ((Status & UpdatorStatus.Module) != 0)
+                if (_moduleOutdated)
                 {
                     Result moduleReport = await InstallModule(false);
 
@@ -344,7 +347,7 @@ namespace CodeRedLauncher
                     }
                 }
 
-                if ((Status & UpdatorStatus.Launcher) != 0)
+                if (_launcherOutdated)
                 {
                     Result launcherReport = await InstallLauncher(false);
 
