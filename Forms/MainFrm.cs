@@ -7,7 +7,6 @@ using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using CodeRedLauncher.Controls;
-using System.Configuration;
 using System.Drawing;
 
 namespace CodeRedLauncher
@@ -292,42 +291,45 @@ namespace CodeRedLauncher
 
         private void InstallPathBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Architecture.Path modulePath = Storage.GetModulePath();
-
-            if (modulePath.Exists())
+            if (!LibraryManager.AnyProcessRunning())
             {
-                Architecture.Path newPath = new Architecture.Path();
-                FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+                Architecture.Path modulePath = Storage.GetModulePath();
 
-                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                if (modulePath.Exists())
                 {
-                    newPath = new Architecture.Path(folderBrowser.SelectedPath);
+                    Architecture.Path newPath = new Architecture.Path();
+                    FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+
+                    if (folderBrowser.ShowDialog() == DialogResult.OK)
+                    {
+                        newPath = new Architecture.Path(folderBrowser.SelectedPath);
+
+                        if (newPath.Exists())
+                        {
+                            if (!newPath.GetPath().Contains("CodeRed"))
+                            {
+                                newPath.Append("CodeRed").CreateDirectory();
+                            }
+                        }
+
+                        Logger.Write("User selected \"" + folderBrowser.SelectedPath + "\" for new install path.");
+                    }
 
                     if (newPath.Exists())
                     {
-                        if (!newPath.GetPath().Contains("CodeRed"))
-                        {
-                            newPath.Append("CodeRed").CreateDirectory();
-                        }
+                        CopyDirectory(modulePath.GetPath(), newPath.GetPath(), true);
+                        Directory.Delete(modulePath.GetPath(), true);
+
+                        Installer.ModifyRegistry(false, newPath);
+                        Configuration.Invalidate(true);
+                        Storage.Invalidate(true);
+                        ConfigToInterface();
+                        StorageToInterface();
                     }
-
-                    Logger.Write("User selected \"" + folderBrowser.SelectedPath + "\" for new install path.");
-                }
-
-                if (newPath.Exists())
-                {
-                    CopyDirectory(modulePath.GetPath(), newPath.GetPath(), true);
-                    Directory.Delete(modulePath.GetPath(), true);
-
-                    Installer.ModifyRegistry(false, newPath);
-                    Configuration.Invalidate(true);
-                    Storage.Invalidate(true);
-                    ConfigToInterface();
-                    StorageToInterface();
-                }
-                else
-                {
-                    Logger.Write("Selected path is invalid, cannot move install path!", LogLevel.LEVEL_ERROR);
+                    else
+                    {
+                        Logger.Write("Selected path is invalid, cannot move install path!", LogLevel.LEVEL_ERROR);
+                    }
                 }
             }
         }
@@ -466,6 +468,8 @@ namespace CodeRedLauncher
 
         private void EasterEggImg_Click(object sender, EventArgs e)
         {
+            // It's been over half a year and no ones found this easter egg yet, starting to think no one ever will :(
+
             if (EasterEggImg.BackgroundImage == null)
             {
                 EasterEggImg.BackgroundImage = (Configuration.ShouldUseLightMode() ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);

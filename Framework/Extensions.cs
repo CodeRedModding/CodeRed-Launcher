@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Collections.Generic;
@@ -120,31 +119,35 @@ namespace CodeRedLauncher.Extensions
     {
         public static Dictionary<string, string> MapValuesToKeys(string jsonStr)
         {
-            // Remove simple pretty print characters.
-            jsonStr = jsonStr.Replace("\r", "");
-            jsonStr = jsonStr.Replace("\n", "");
-            jsonStr = jsonStr.Replace("\b", "");
-            jsonStr = jsonStr.Replace("\t", " ");
-
             Dictionary<string, string> returnMap = new Dictionary<string, string>();
-            List<string> splitPairs = Strings.SplitRange(jsonStr, '"', '"', false);
 
-            bool swap = false;
-            string currentKey = "";
-            string currentValue = "";
-
-            foreach (string pair in splitPairs)
+            if (!string.IsNullOrEmpty(jsonStr))
             {
-                if (!swap)
+                // Remove simple pretty print characters.
+                jsonStr = jsonStr.Replace("\r", "");
+                jsonStr = jsonStr.Replace("\n", "");
+                jsonStr = jsonStr.Replace("\b", "");
+                jsonStr = jsonStr.Replace("\t", " ");
+
+                List<string> splitPairs = Strings.SplitRange(jsonStr, '"', '"', false);
+
+                bool swap = false;
+                string currentKey = "";
+                string currentValue = "";
+
+                foreach (string pair in splitPairs)
                 {
-                    currentKey = pair;
-                    swap = true;
-                }
-                else
-                {
-                    currentValue = pair;
-                    returnMap[currentKey] = currentValue;
-                    swap = false;
+                    if (!swap)
+                    {
+                        currentKey = pair;
+                        swap = true;
+                    }
+                    else
+                    {
+                        currentValue = pair;
+                        returnMap[currentKey] = currentValue;
+                        swap = false;
+                    }
                 }
             }
 
@@ -156,7 +159,7 @@ namespace CodeRedLauncher.Extensions
         {
             Dictionary<string, string> mappedJson = new Dictionary<string, string>();
 
-            if (!String.IsNullOrEmpty(jsonStr))
+            if (!string.IsNullOrEmpty(jsonStr))
             {
                 // Remove simple pretty print characters.
                 jsonStr = jsonStr.Replace("\r", "");

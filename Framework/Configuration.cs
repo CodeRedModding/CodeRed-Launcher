@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace CodeRedLauncher
 {
@@ -256,7 +254,7 @@ namespace CodeRedLauncher
             if (_storageFile.Parent().Exists())
             {
                 _storageFile.Set(Storage.GetModulePath() / "Settings" / "Launcher.cr");
-                Architecture.Path oldFile = (Storage.GetModulePath() / "Settings" / "Injector.cr");
+                Architecture.Path oldFile = (Storage.GetModulePath() / "Settings" / "Injector.cr"); // This is for backwards compatibility, file used to be called "Injector.cr".
 
                 if (oldFile.Exists())
                 {
@@ -269,7 +267,6 @@ namespace CodeRedLauncher
                 }
 
                 string file = _storageFile.GetPath();
-
                 File.WriteAllText(file, string.Empty); // "Truncuating" the file without needing to open it in a stream.
                 File.AppendAllText(file, PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + "\n");
                 File.AppendAllText(file, TermsOfUse.Name + " " + TermsOfUse.GetStringValue() + "\n");

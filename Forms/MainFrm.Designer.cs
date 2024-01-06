@@ -91,13 +91,13 @@ namespace CodeRedLauncher
             SessionsTabBtn = new Controls.CRTab();
             NewsTabBtn = new Controls.CRTab();
             DashboardTabBtn = new Controls.CRTab();
-            InstallPopup = new Controls.CRInstall();
             UpdatePopup = new Controls.CRUpdate();
             TermsPopup = new Controls.CRPolicy();
             PolicyPopup = new Controls.CRPolicy();
             OfflinePopup = new Controls.CROffline();
             DuplicatePopup = new Controls.CRDuplicate();
             TitleBar = new Controls.CRTitle();
+            InstallPopup = new Controls.CRInstall();
             ProcessTmr = new System.Windows.Forms.Timer(components);
             InjectTmr = new System.Windows.Forms.Timer(components);
             TrayIcon = new System.Windows.Forms.NotifyIcon(components);
@@ -1199,13 +1199,13 @@ namespace CodeRedLauncher
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
             BackgroundPnl.Controls.Add(TabCtrl);
+            BackgroundPnl.Controls.Add(TitleBar);
+            BackgroundPnl.Controls.Add(InstallPopup);
             BackgroundPnl.Controls.Add(UpdatePopup);
             BackgroundPnl.Controls.Add(TermsPopup);
             BackgroundPnl.Controls.Add(PolicyPopup);
             BackgroundPnl.Controls.Add(OfflinePopup);
             BackgroundPnl.Controls.Add(DuplicatePopup);
-            BackgroundPnl.Controls.Add(TitleBar);
-            BackgroundPnl.Controls.Add(InstallPopup);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1340,33 +1340,6 @@ namespace CodeRedLauncher
             DashboardTabBtn.TabIndex = 0;
             DashboardTabBtn.TabSelected = true;
             DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
-            // 
-            // InstallPopup
-            // 
-            InstallPopup.AcceptBlack = Properties.Resources.Download_Black;
-            InstallPopup.AcceptBlue = Properties.Resources.Download_Blue;
-            InstallPopup.AcceptPurple = Properties.Resources.Download_Purple;
-            InstallPopup.AcceptRed = Properties.Resources.Download_Red;
-            InstallPopup.AcceptWhite = Properties.Resources.Download_White;
-            InstallPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
-            InstallPopup.BoundForm = null;
-            InstallPopup.BoundTitle = null;
-            InstallPopup.ButtonsEnabled = true;
-            InstallPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            InstallPopup.DenyBlack = Properties.Resources.Folder_Black;
-            InstallPopup.DenyBlue = Properties.Resources.Folder_Blue;
-            InstallPopup.DenyPurple = Properties.Resources.Folder_Purple;
-            InstallPopup.DenyRed = Properties.Resources.Folder_Red;
-            InstallPopup.DenyWhite = Properties.Resources.Folder_White;
-            InstallPopup.DisplayType = CodeRedLauncher.Controls.CRInstall.InstallLayouts.None;
-            InstallPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            InstallPopup.Location = new System.Drawing.Point(0, 0);
-            InstallPopup.Name = "InstallPopup";
-            InstallPopup.Size = new System.Drawing.Size(970, 630);
-            InstallPopup.TabIndex = 8;
-            InstallPopup.Visible = false;
-            InstallPopup.ButtonClickAccept += InstallPopup_ButtonClickAccept;
-            InstallPopup.ButtonClickDeny += InstallPopup_ButtonClickDeny;
             // 
             // UpdatePopup
             // 
@@ -1539,6 +1512,33 @@ namespace CodeRedLauncher
             TitleBar.TabIndex = 2;
             TitleBar.OnMinimized += TitleBar_OnMinimized;
             TitleBar.OnExit += TitleBar_OnExit;
+            // 
+            // InstallPopup
+            // 
+            InstallPopup.AcceptBlack = Properties.Resources.Download_Black;
+            InstallPopup.AcceptBlue = Properties.Resources.Download_Blue;
+            InstallPopup.AcceptPurple = Properties.Resources.Download_Purple;
+            InstallPopup.AcceptRed = Properties.Resources.Download_Red;
+            InstallPopup.AcceptWhite = Properties.Resources.Download_White;
+            InstallPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
+            InstallPopup.BoundForm = null;
+            InstallPopup.BoundTitle = null;
+            InstallPopup.ButtonsEnabled = true;
+            InstallPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            InstallPopup.DenyBlack = Properties.Resources.Folder_Black;
+            InstallPopup.DenyBlue = Properties.Resources.Folder_Blue;
+            InstallPopup.DenyPurple = Properties.Resources.Folder_Purple;
+            InstallPopup.DenyRed = Properties.Resources.Folder_Red;
+            InstallPopup.DenyWhite = Properties.Resources.Folder_White;
+            InstallPopup.DisplayType = CodeRedLauncher.Controls.CRInstall.InstallLayouts.None;
+            InstallPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            InstallPopup.Location = new System.Drawing.Point(0, 0);
+            InstallPopup.Name = "InstallPopup";
+            InstallPopup.Size = new System.Drawing.Size(970, 630);
+            InstallPopup.TabIndex = 8;
+            InstallPopup.Visible = false;
+            InstallPopup.ButtonClickAccept += InstallPopup_ButtonClickAccept;
+            InstallPopup.ButtonClickDeny += InstallPopup_ButtonClickDeny;
             // 
             // ProcessTmr
             // 

@@ -55,7 +55,7 @@ namespace CodeRedLauncher
 
         public static void ParseSessions()
         {
-            Architecture.Path sessionsFolder = Storage.GetModulePath() / "Sessions";
+            Architecture.Path sessionsFolder = (Storage.GetModulePath() / "Sessions");
 
             if (sessionsFolder.Exists())
             {

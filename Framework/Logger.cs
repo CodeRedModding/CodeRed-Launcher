@@ -60,7 +60,6 @@ namespace CodeRedLauncher
 
         private static string CreateTimestamp(StackTrace stackTrace)
         {
-            // return "[" + DateTime.Now.ToString() + "] [" + stackTrace.GetFrame(0).GetMethod().Name + "] "; // Doesn't work for some reason, changes every single time the program is run which frame is grabbed.
             return "[" + DateTime.Now.ToString() + "] ";
         }
 

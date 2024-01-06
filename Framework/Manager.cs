@@ -26,19 +26,6 @@ namespace CodeRedLauncher
         Synchronize = 0x00100000
     }
 
-    public enum ThreadFlags : UInt32
-    {
-        TERMINATE = 0x0001,
-        SUSPEND_RESUME = 0x0002,
-        GET_CONTEXT = 0x0008,
-        SET_CONTEXT = 0x0010,
-        SET_INFORMATION = 0x0020,
-        QUERY_INFORMATION = 0x0040,
-        SET_THREAD_TOKEN = 0x0080,
-        IMPERSONATE = 0x0100,
-        DIRECT_IMPERSONATION = 0x0200
-    }
-
     public enum AllocationType : UInt32
     {
         Commit = 0x1000,
@@ -92,7 +79,7 @@ namespace CodeRedLauncher
             {
                 foreach (ProcessModule module in process.Modules)
                 {
-                    if (module != null && module.BaseAddress != IntPtr.Zero)
+                    if ((module != null) && (module.BaseAddress != IntPtr.Zero))
                     {
                         returnList.Add(module);
                     }
@@ -118,6 +105,21 @@ namespace CodeRedLauncher
             return returnList;
         }
 
+        public static Process? GetProcess(Int32 pid)
+        {
+            Process[] processList = Process.GetProcesses();
+
+            foreach (Process process in processList)
+            {
+                if (process.Id == pid)
+                {
+                    return process;
+                }
+            }
+
+            return null;
+        }
+
         public static List<Process> GetFilteredProcesses(string filter)
         {
             List<Process> returnList = new List<Process>();
@@ -139,7 +141,7 @@ namespace CodeRedLauncher
 
         public static bool CloseProcesses()
         {
-            List<Process> runningProcesses = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
+            List<Process> runningProcesses = GetFilteredProcesses(LibraryManager.Settings.ProcessName);
 
             foreach (Process process in runningProcesses)
             {
@@ -159,22 +161,6 @@ namespace CodeRedLauncher
 
             return true;
         }
-
-        public static void Suspend(Process process)
-        {
-            if (IsValidProcess(process))
-            {
-                NtSuspendProcess(process.Handle);
-            }
-        }
-
-        public static void Resume(Process process)
-        {
-            if (IsValidProcess(process))
-            {
-                NtResumeProcess(process.Handle);
-            }
-        }
     }
 
     public enum InjectionResults : byte
@@ -193,13 +179,12 @@ namespace CodeRedLauncher
 
     public static class LibraryManager
     {
-        private static List<IntPtr> _cache = new List<IntPtr>(); // Handle cache for processes we've already loaded into.
+        private static List<IntPtr> _handleCache = new List<IntPtr>(); // Handle cache for processes we've already loaded into.
 
         public static class Settings
         {
             public static readonly string ModuleName = "CodeRed.dll";
             public static readonly string ProcessName = "RocketLeague";
-            public static readonly string WindowTitle = "Rocket League (64-bit, DX11, Cooked)";
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -236,9 +221,9 @@ namespace CodeRedLauncher
                     {
                         if (module.FileName.Contains(Settings.ModuleName))
                         {
-                            if (!_cache.Contains(process.Handle))
+                            if (!_handleCache.Contains(process.Handle))
                             {
-                                _cache.Add(process.Handle);
+                                _handleCache.Add(process.Handle);
                             }
 
                             return true;
@@ -247,7 +232,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    return _cache.Contains(process.Handle);
+                    return _handleCache.Contains(process.Handle);
                 }
             }
 
@@ -261,11 +246,11 @@ namespace CodeRedLauncher
                 return true;
             }
 
-            _cache.Clear(); // If there aren't any processes running, might as well clear the handle cache here while we're at it.
+            _handleCache.Clear(); // If there aren't any processes running, might as well clear the handle cache here while we're at it.
             return false;
         }
 
-        // Attempts to dynamically load a library into all found processes (if configured as such), as well as update/clean up the "_cache" list.
+        // Attempts to dynamically load a library into all found processes (if configured as such), as well as update/clean up the "_handleCache" list.
         public static List<InjectionResults> TryLoadDynamic(Architecture.Path libraryFile)
         {
             List<InjectionResults> returnList = new List<InjectionResults>();
@@ -319,22 +304,22 @@ namespace CodeRedLauncher
                 // If our cache doesn't include the processes we've just injected into, the process closed and is no longer injected.
                 foreach (IntPtr handle in injectedHandles)
                 {
-                    if (!_cache.Contains(handle))
+                    if (!_handleCache.Contains(handle))
                     {
-                        _cache.Remove(handle);
+                        _handleCache.Remove(handle);
                     }
                 }
             }
             else
             {
-                _cache.Clear();
+                _handleCache.Clear();
                 returnList.Add(InjectionResults.ProcessNotFound);
             }
 
             return returnList;
         }
 
-        // Attempts to load a library into an individual process, adds to the "_cache" list but does NOT remove old handles.
+        // Attempts to load a library into an individual process, adds to the "_handleCache" list but does NOT remove old handles.
         public static InjectionResults TryLoadIndividual(Process process, Architecture.Path libraryFile)
         {
             if (libraryFile.Exists())
@@ -347,7 +332,7 @@ namespace CodeRedLauncher
 
                         if (result == InjectionResults.Success)
                         {
-                            _cache.Add(process.Handle);
+                            _handleCache.Add(process.Handle);
                         }
 
                         return result;
@@ -383,7 +368,7 @@ namespace CodeRedLauncher
                 return InjectionResults.KernalNotFound;
             }
 
-            IntPtr allocatedAddress = VirtualAllocEx(processHandle, IntPtr.Zero, new IntPtr(libraryFile.GetPath().Length), Convert.ToUInt32(AllocationType.Commit) | Convert.ToUInt32(AllocationType.Reserve), Convert.ToUInt32(MemoryProtection.ExecuteReadWrite));
+            IntPtr allocatedAddress = VirtualAllocEx(processHandle, IntPtr.Zero, new IntPtr(libraryFile.GetPath().Length), (Convert.ToUInt32(AllocationType.Commit) | Convert.ToUInt32(AllocationType.Reserve)), Convert.ToUInt32(MemoryProtection.ExecuteReadWrite));
 
             if (allocatedAddress == IntPtr.Zero)
             {
