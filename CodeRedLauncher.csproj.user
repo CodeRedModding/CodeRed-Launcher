@@ -31,6 +31,9 @@
     <Compile Update="Controls\CROffline.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\CRPathing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\CRPolicy.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -12,7 +12,7 @@ namespace CodeRedLauncher.Architecture
 
         private void Initialize(string str)
         {
-            if (!String.IsNullOrEmpty(str))
+            if (!string.IsNullOrEmpty(str))
             {
                 IndirectPath = str;
                 IndirectPath = IndirectPath.Replace("/", "\\");
@@ -72,7 +72,7 @@ namespace CodeRedLauncher.Architecture
         // Modifies the current path with the given string. If you wish to return/add on to the path by creating a new one instead of modifying it, see down below for the divide operator overload.
         public Path Append(string str)
         {
-            if (!String.IsNullOrEmpty(IndirectPath))
+            if (!string.IsNullOrEmpty(IndirectPath))
             {
                 if (IndirectPath[IndirectPath.Length - 1] == '\\')
                 {
@@ -111,7 +111,7 @@ namespace CodeRedLauncher.Architecture
         {
             string parentPath = IndirectPath;
 
-            if (!String.IsNullOrEmpty(parentPath))
+            if (!string.IsNullOrEmpty(parentPath))
             {
                 Int32 parentStart = parentPath.LastIndexOf("\\");
                 string tempPath = parentPath.Substring(parentStart, parentPath.Length - parentStart);
@@ -168,15 +168,24 @@ namespace CodeRedLauncher.Architecture
             return returnList;
         }
 
-        // Returns a NEW path object with a given string, unlike the "append" function this does not modify the input path in any way, example: Path newPath = givenPath / "Debug";
+        // Returns a new path object with a given string, unlike the "append" function this does not modify the input path in any way, example: Path newPath = givenPath / "Debug";
         // Let's say givenPath is equal to "C:\", this operator returns a new path which will be equal to "C:\Debug", auto-formatting the slashes for you.
-        public static Path operator /(Path a, string b)
+        public static Path operator/(Path a, string b)
         {
             Path newPath = new Path();
             newPath.Set(a);
-            //b = b.Replace("/", "\\");
             newPath.Append(b);
             return newPath;
+        }
+
+        public static bool operator==(Path a, Path b)
+        {
+            return (a.GetPath() == b.GetPath());
+        }
+
+        public static bool operator !=(Path a, Path b)
+        {
+            return (a.GetPath() != b.GetPath());
         }
     }
 }

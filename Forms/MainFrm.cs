@@ -317,14 +317,23 @@ namespace CodeRedLauncher
 
                     if (newPath.Exists())
                     {
-                        CopyDirectory(modulePath.GetPath(), newPath.GetPath(), true);
-                        Directory.Delete(modulePath.GetPath(), true);
+                        if (modulePath != newPath)
+                        {
+                            PathPopup.ShowPopup();
+                            CopyDirectory(modulePath.GetPath(), newPath.GetPath(), true);
+                            Directory.Delete(modulePath.GetPath(), true);
 
-                        Installer.ModifyRegistry(false, newPath);
-                        Configuration.Invalidate(true);
-                        Storage.Invalidate(true);
-                        ConfigToInterface();
-                        StorageToInterface();
+                            Installer.ModifyRegistry(false, newPath);
+                            Configuration.Invalidate(true);
+                            Storage.Invalidate(true);
+                            ConfigToInterface();
+                            StorageToInterface();
+                            PathPopup.HidePopup();
+                        }
+                        else
+                        {
+                            Logger.Write("Selected path is the same as the current one, cannot move install path!", LogLevel.LEVEL_WARN);
+                        }
                     }
                     else
                     {
@@ -693,6 +702,7 @@ namespace CodeRedLauncher
             PolicyPopup.Bind(this, TitleBar);
             TermsPopup.Bind(this, TitleBar);
             InstallPopup.Bind(this, TitleBar);
+            PathPopup.Bind(this, TitleBar);
             OfflinePopup.Bind(this, TitleBar);
             UpdatePopup.Bind(this, TitleBar);
 
@@ -974,6 +984,7 @@ namespace CodeRedLauncher
                 PolicyPopup.SetTheme(control, iconAlt);
                 TermsPopup.SetTheme(control, iconAlt);
                 InstallPopup.SetTheme(control, iconAlt);
+                PathPopup.SetTheme(control, iconAlt);
                 OfflinePopup.SetTheme(control, iconAlt);
                 UpdatePopup.SetTheme(control, iconAlt);
             }
