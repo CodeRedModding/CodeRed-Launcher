@@ -60,10 +60,6 @@ namespace CodeRedLauncher
             NewsCtrl = new Controls.CRNews();
             NewsArtOne = new System.Windows.Forms.PictureBox();
             NewsArtTwo = new System.Windows.Forms.PictureBox();
-            SessionsTab = new System.Windows.Forms.TabPage();
-            TotalStatesLbl = new System.Windows.Forms.Label();
-            TotalSessionsLbl = new System.Windows.Forms.Label();
-            ReloadSessionsBtn = new Controls.CRButton();
             SettingsTab = new System.Windows.Forms.TabPage();
             AutoInstallBx = new Controls.CRCheckbox();
             SettingsArtTwo = new System.Windows.Forms.PictureBox();
@@ -84,21 +80,20 @@ namespace CodeRedLauncher
             AutoCheckUpdatesBx = new Controls.CRCheckbox();
             InjectionTimeoutBx = new Controls.CRNumberbox();
             BackgroundPnl = new System.Windows.Forms.Panel();
-            PathPopup = new Controls.CRPathing();
             TabPnl = new System.Windows.Forms.Panel();
             AboutTabBtn = new Controls.CRTab();
             SettingsTabBtn = new Controls.CRTab();
             ExitTabBtn = new Controls.CRTab();
-            SessionsTabBtn = new Controls.CRTab();
             NewsTabBtn = new Controls.CRTab();
             DashboardTabBtn = new Controls.CRTab();
-            TitleBar = new Controls.CRTitle();
             InstallPopup = new Controls.CRInstall();
             UpdatePopup = new Controls.CRUpdate();
             TermsPopup = new Controls.CRPolicy();
             PolicyPopup = new Controls.CRPolicy();
             OfflinePopup = new Controls.CROffline();
             DuplicatePopup = new Controls.CRDuplicate();
+            PathPopup = new Controls.CRPathing();
+            TitleBar = new Controls.CRTitle();
             ProcessTmr = new System.Windows.Forms.Timer(components);
             InjectTmr = new System.Windows.Forms.Timer(components);
             TrayIcon = new System.Windows.Forms.NotifyIcon(components);
@@ -113,7 +108,6 @@ namespace CodeRedLauncher
             NewsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NewsArtOne).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NewsArtTwo).BeginInit();
-            SessionsTab.SuspendLayout();
             SettingsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SettingsArtTwo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SettingsArtOne).BeginInit();
@@ -127,7 +121,6 @@ namespace CodeRedLauncher
             TabCtrl.Controls.Add(AboutTab);
             TabCtrl.Controls.Add(DashboardTab);
             TabCtrl.Controls.Add(NewsTab);
-            TabCtrl.Controls.Add(SessionsTab);
             TabCtrl.Controls.Add(SettingsTab);
             TabCtrl.Location = new System.Drawing.Point(56, 6);
             TabCtrl.Name = "TabCtrl";
@@ -713,63 +706,6 @@ namespace CodeRedLauncher
             NewsArtTwo.TabIndex = 2;
             NewsArtTwo.TabStop = false;
             // 
-            // SessionsTab
-            // 
-            SessionsTab.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
-            SessionsTab.Controls.Add(TotalStatesLbl);
-            SessionsTab.Controls.Add(TotalSessionsLbl);
-            SessionsTab.Controls.Add(ReloadSessionsBtn);
-            SessionsTab.Location = new System.Drawing.Point(4, 24);
-            SessionsTab.Name = "SessionsTab";
-            SessionsTab.Size = new System.Drawing.Size(910, 600);
-            SessionsTab.TabIndex = 2;
-            SessionsTab.Text = "Sessions";
-            // 
-            // TotalStatesLbl
-            // 
-            TotalStatesLbl.BackColor = System.Drawing.Color.Transparent;
-            TotalStatesLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            TotalStatesLbl.Location = new System.Drawing.Point(35, 70);
-            TotalStatesLbl.Name = "TotalStatesLbl";
-            TotalStatesLbl.Size = new System.Drawing.Size(275, 30);
-            TotalStatesLbl.TabIndex = 66;
-            TotalStatesLbl.Text = "States Found:";
-            TotalStatesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // TotalSessionsLbl
-            // 
-            TotalSessionsLbl.BackColor = System.Drawing.Color.Transparent;
-            TotalSessionsLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            TotalSessionsLbl.Location = new System.Drawing.Point(35, 35);
-            TotalSessionsLbl.Name = "TotalSessionsLbl";
-            TotalSessionsLbl.Size = new System.Drawing.Size(275, 30);
-            TotalSessionsLbl.TabIndex = 65;
-            TotalSessionsLbl.Text = "Sessions Found: ";
-            TotalSessionsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // ReloadSessionsBtn
-            // 
-            ReloadSessionsBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            ReloadSessionsBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
-            ReloadSessionsBtn.ButtonEnabled = true;
-            ReloadSessionsBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            ReloadSessionsBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            ReloadSessionsBtn.DisplayText = "Reload Sessions";
-            ReloadSessionsBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            ReloadSessionsBtn.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            ReloadSessionsBtn.IconBlack = Properties.Resources.Refresh_Black;
-            ReloadSessionsBtn.IconBlue = Properties.Resources.Refresh_Blue;
-            ReloadSessionsBtn.IconPurple = Properties.Resources.Refresh_Purple;
-            ReloadSessionsBtn.IconRed = Properties.Resources.Refresh_Red;
-            ReloadSessionsBtn.IconSync = false;
-            ReloadSessionsBtn.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            ReloadSessionsBtn.IconWhite = Properties.Resources.Refresh_White;
-            ReloadSessionsBtn.Location = new System.Drawing.Point(315, 540);
-            ReloadSessionsBtn.Name = "ReloadSessionsBtn";
-            ReloadSessionsBtn.Size = new System.Drawing.Size(300, 35);
-            ReloadSessionsBtn.TabIndex = 64;
-            ReloadSessionsBtn.OnButtonClick += ReloadSessionsBtn_OnButtonClick;
-            // 
             // SettingsTab
             // 
             SettingsTab.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
@@ -1213,35 +1149,6 @@ namespace CodeRedLauncher
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.TabIndex = 4;
             // 
-            // PathPopup
-            // 
-            PathPopup.AcceptBlack = null;
-            PathPopup.AcceptBlue = null;
-            PathPopup.AcceptPurple = null;
-            PathPopup.AcceptRed = null;
-            PathPopup.AcceptWhite = null;
-            PathPopup.AltBlack = null;
-            PathPopup.AltBlue = null;
-            PathPopup.AltPurple = null;
-            PathPopup.AltRed = null;
-            PathPopup.AltWhite = null;
-            PathPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
-            PathPopup.BoundForm = null;
-            PathPopup.BoundTitle = null;
-            PathPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            PathPopup.DenyBlack = null;
-            PathPopup.DenyBlue = null;
-            PathPopup.DenyPurple = null;
-            PathPopup.DenyRed = null;
-            PathPopup.DenyWhite = null;
-            PathPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            PathPopup.Location = new System.Drawing.Point(0, 0);
-            PathPopup.Name = "PathPopup";
-            PathPopup.OfflineType = CodeRedLauncher.Controls.CRPathing.OfflineLayouts.Default;
-            PathPopup.Size = new System.Drawing.Size(970, 630);
-            PathPopup.TabIndex = 8;
-            PathPopup.Visible = false;
-            // 
             // TabPnl
             // 
             TabPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
@@ -1249,7 +1156,6 @@ namespace CodeRedLauncher
             TabPnl.Controls.Add(AboutTabBtn);
             TabPnl.Controls.Add(SettingsTabBtn);
             TabPnl.Controls.Add(ExitTabBtn);
-            TabPnl.Controls.Add(SessionsTabBtn);
             TabPnl.Controls.Add(NewsTabBtn);
             TabPnl.Controls.Add(DashboardTabBtn);
             TabPnl.Location = new System.Drawing.Point(0, 30);
@@ -1314,26 +1220,6 @@ namespace CodeRedLauncher
             ExitTabBtn.TabSelected = false;
             ExitTabBtn.OnTabClick += ExitTabBtn_OnTabClick;
             // 
-            // SessionsTabBtn
-            // 
-            SessionsTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            SessionsTabBtn.BackColor = System.Drawing.Color.Transparent;
-            SessionsTabBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            SessionsTabBtn.IconBlack = Properties.Resources.Sessions_Black;
-            SessionsTabBtn.IconBlue = Properties.Resources.Sessions_Blue;
-            SessionsTabBtn.IconPurple = Properties.Resources.Sessions_Purple;
-            SessionsTabBtn.IconRed = Properties.Resources.Sessions_Red;
-            SessionsTabBtn.IconType = CodeRedLauncher.Controls.IconTheme.Red;
-            SessionsTabBtn.IconWhite = Properties.Resources.Sessions_White;
-            SessionsTabBtn.Location = new System.Drawing.Point(0, 100);
-            SessionsTabBtn.Name = "SessionsTabBtn";
-            SessionsTabBtn.Size = new System.Drawing.Size(60, 50);
-            SessionsTabBtn.TabEnabled = false;
-            SessionsTabBtn.TabIndex = 2;
-            SessionsTabBtn.TabSelected = false;
-            SessionsTabBtn.Visible = false;
-            SessionsTabBtn.OnTabClick += SessionsTabBtn_OnTabClick;
-            // 
             // NewsTabBtn
             // 
             NewsTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
@@ -1371,23 +1257,6 @@ namespace CodeRedLauncher
             DashboardTabBtn.TabIndex = 0;
             DashboardTabBtn.TabSelected = true;
             DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
-            // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
-            TitleBar.BoundForm = null;
-            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            TitleBar.DisplayText = "CODERED LAUNCHER";
-            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            TitleBar.Location = new System.Drawing.Point(0, 0);
-            TitleBar.MaximizeButton = true;
-            TitleBar.MinimizeButton = true;
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new System.Drawing.Size(970, 30);
-            TitleBar.TabIndex = 2;
-            TitleBar.OnMinimized += TitleBar_OnMinimized;
-            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // InstallPopup
             // 
@@ -1571,6 +1440,52 @@ namespace CodeRedLauncher
             DuplicatePopup.ButtonClickAccept += DuplicatePopup_ButtonClickAccept;
             DuplicatePopup.ButtonClickDeny += DuplicatePopup_ButtonClickDeny;
             // 
+            // PathPopup
+            // 
+            PathPopup.AcceptBlack = null;
+            PathPopup.AcceptBlue = null;
+            PathPopup.AcceptPurple = null;
+            PathPopup.AcceptRed = null;
+            PathPopup.AcceptWhite = null;
+            PathPopup.AltBlack = null;
+            PathPopup.AltBlue = null;
+            PathPopup.AltPurple = null;
+            PathPopup.AltRed = null;
+            PathPopup.AltWhite = null;
+            PathPopup.BackColor = System.Drawing.Color.FromArgb(30, 30, 31);
+            PathPopup.BoundForm = null;
+            PathPopup.BoundTitle = null;
+            PathPopup.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            PathPopup.DenyBlack = null;
+            PathPopup.DenyBlue = null;
+            PathPopup.DenyPurple = null;
+            PathPopup.DenyRed = null;
+            PathPopup.DenyWhite = null;
+            PathPopup.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            PathPopup.Location = new System.Drawing.Point(0, 0);
+            PathPopup.Name = "PathPopup";
+            PathPopup.OfflineType = CodeRedLauncher.Controls.CRPathing.OfflineLayouts.Default;
+            PathPopup.Size = new System.Drawing.Size(970, 630);
+            PathPopup.TabIndex = 8;
+            PathPopup.Visible = false;
+            // 
+            // TitleBar
+            // 
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
+            TitleBar.BoundForm = null;
+            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.MaximizeButton = true;
+            TitleBar.MinimizeButton = true;
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
+            // 
             // ProcessTmr
             // 
             ProcessTmr.Interval = 250;
@@ -1619,7 +1534,6 @@ namespace CodeRedLauncher
             NewsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)NewsArtOne).EndInit();
             ((System.ComponentModel.ISupportInitialize)NewsArtTwo).EndInit();
-            SessionsTab.ResumeLayout(false);
             SettingsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)SettingsArtTwo).EndInit();
             ((System.ComponentModel.ISupportInitialize)SettingsArtOne).EndInit();
@@ -1632,7 +1546,6 @@ namespace CodeRedLauncher
 
         private System.Windows.Forms.TabControl TabCtrl;
         private System.Windows.Forms.TabPage NewsTab;
-        private System.Windows.Forms.TabPage SessionsTab;
         private System.Windows.Forms.TabPage SettingsTab;
         private System.Windows.Forms.TabPage AboutTab;
         private System.Windows.Forms.Panel BackgroundPnl;
@@ -1650,7 +1563,6 @@ namespace CodeRedLauncher
         private Controls.CRCheckbox InjectAllInstancesBx;
         private Controls.CRTab DashboardTabBtn;
         private Controls.CRTab NewsTabBtn;
-        private Controls.CRTab SessionsTabBtn;
         private Controls.CRTab ExitTabBtn;
         private Controls.CRTab AboutTabBtn;
         private Controls.CRTab SettingsTabBtn;
@@ -1662,9 +1574,7 @@ namespace CodeRedLauncher
         private Controls.CRButton OpenFolderBtn;
         private Controls.CRButton ExportLogsBtn;
         private Controls.CRNumberbox InjectionTimeoutBx;
-        private Controls.CRButton ReloadSessionsBtn;
         private System.Windows.Forms.Timer UpdateTmr;
-        private System.Windows.Forms.Label TotalSessionsLbl;
         private Controls.CRTextbox InstallPathBx;
         private Controls.CRButton InstallPathBtn;
         private System.Windows.Forms.PictureBox InjectionTimeoutImg;
@@ -1683,7 +1593,6 @@ namespace CodeRedLauncher
         private Controls.CRCheckbox LightModeBx;
         private Controls.CRStatus ProcessStatusCtrl;
         private Controls.CRStatus UpdateStatusCtrl;
-        private System.Windows.Forms.Label TotalStatesLbl;
         private System.Windows.Forms.PictureBox EasterEggImg;
         private Controls.CROffline OfflinePopup;
         private Controls.CRUpdate UpdatePopup;

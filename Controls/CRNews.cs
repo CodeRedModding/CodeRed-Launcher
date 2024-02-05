@@ -31,9 +31,34 @@ namespace CodeRedLauncher.Controls
             public string Category { get; set; }
             public bool Parsed { get; set; } = false;
 
-            public NewsStorage(string newsUrl)
+            public NewsStorage(string bodyContent)
             {
-                NewsUrl = newsUrl;
+                ParseJson(bodyContent);
+            }
+
+            public void ParseJson(string bodyContent)
+            {
+                if (bodyContent.Contains("slug"))
+                {
+                    Match titleMatch = Regex.Match(bodyContent, "(?<=\"title\":\")(.*?)(?=\")");
+                    Match urlMatch = Regex.Match(bodyContent, "(?<=\"slug\":\")(.*?)(?=\")");
+                    Match imageMatch = Regex.Match(bodyContent, "(?<=\"imageUrl\":\")(.*?)(?=\")");
+
+                    if (titleMatch.Success && titleMatch.Groups[1].Success)
+                    {
+                        Title = titleMatch.Groups[1].Value;
+                    }
+
+                    if (urlMatch.Success && urlMatch.Groups[1].Success)
+                    {
+                        NewsUrl = ("https://www.rocketleague.com/en/news/" + urlMatch.Groups[1].Value);
+                    }
+
+                    if (imageMatch.Success && imageMatch.Groups[1].Success)
+                    {
+                        ThumbnailUrl = imageMatch.Groups[1].Value;
+                    }
+                }
             }
         }
 
@@ -354,15 +379,19 @@ namespace CodeRedLauncher.Controls
 
                 if (!string.IsNullOrEmpty(pageBody))
                 {
-                    Match titleMatch = Regex.Match(pageBody, "\"headline\": \"(.*)\"");
+                    if (string.IsNullOrEmpty(newsStorage.Title))
+                    {
+                        Match titleMatch = Regex.Match(pageBody, "\"headline\": \"(.*)\"");
+
+                        if (titleMatch.Success && titleMatch.Groups[1].Success)
+                        {
+                            newsStorage.Title = titleMatch.Groups[1].Value;
+                        }
+                    }
+
                     Match calendarMatch = Regex.Match(pageBody.Replace("\r", "").Replace("  ", "").Replace("\n", ""), "<p class=\"is-5 is-uppercase\">(.*?)<");
                     Match userMatch = Regex.Match(pageBody, "\"author\": \"(.*)\"");
                     Match categoryMatch = Regex.Match(pageBody, "\"category tag\">(.*)<\\/a><\\/p>");
-
-                    if (titleMatch.Success && titleMatch.Groups[1].Success)
-                    {
-                        newsStorage.Title = titleMatch.Groups[1].Value;
-                    }
 
                     if (calendarMatch.Success && calendarMatch.Groups[1].Success)
                     {
@@ -388,7 +417,6 @@ namespace CodeRedLauncher.Controls
                             newsStorage.ThumbnailUrl = thumbnailMatch.Groups[1].Value;
                             Int32 jpg = newsStorage.ThumbnailUrl.IndexOf(".jpg");
                             Int32 png = newsStorage.ThumbnailUrl.IndexOf(".png");
-                            Int32 webp = newsStorage.ThumbnailUrl.IndexOf(".webp");
 
                             if (jpg > 0)
                             {
@@ -397,10 +425,6 @@ namespace CodeRedLauncher.Controls
                             else if (png > 0)
                             {
                                 newsStorage.ThumbnailUrl = (newsStorage.ThumbnailUrl.Substring(0, png) + ".png");
-                            }
-                            else if (webp > 0)
-                            {
-                                newsStorage.ThumbnailUrl = (newsStorage.ThumbnailUrl.Substring(0, webp) + ".webp"); // .NET doesn't support webp, so this doesn't work for now. Would need a third party library.
                             }
                         }
 
@@ -442,15 +466,15 @@ namespace CodeRedLauncher.Controls
                 {
                     _articles.Clear();
                     ResetArticles();
-                    MatchCollection articleLinks = Regex.Matches(pageBody, "<a class=\"news-tile-wrap\" href=\"(.*)\">");
+                    MatchCollection articleLinks = Regex.Matches(pageBody.Replace("\\", ""), "(?=\"title\")(.*?)(?=})");
 
                     for (Int32 i = 0; i < articleLinks.Count; i++)
                     {
                         Match link = articleLinks[i];
 
-                        if (link.Success && link.Groups[1].Success)
+                        if (link.Success && link.Groups[1].Success && link.Groups[1].Value.Contains("slug"))
                         {
-                            _articles.Add(new NewsStorage("https://www.rocketleague.com" + link.Groups[1].Value));
+                            _articles.Add(new NewsStorage(link.Groups[1].Value));
                         }
                     }
 

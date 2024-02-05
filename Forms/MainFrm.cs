@@ -67,11 +67,6 @@ namespace CodeRedLauncher
             TabManager.SelectTab(Tabs.News);
         }
 
-        private void SessionsTabBtn_OnTabClick(object sender, EventArgs e)
-        {
-            TabManager.SelectTab(Tabs.Sessions);
-        }
-
         private void SettingsTabBtn_OnTabClick(object sender, EventArgs e)
         {
             TabManager.SelectTab(Tabs.Settings);
@@ -159,12 +154,6 @@ namespace CodeRedLauncher
                     }
                 }
             }
-        }
-
-        private void ReloadSessionsBtn_OnButtonClick(object sender, EventArgs e)
-        {
-            Sessions.ParseSessions();
-            TotalSessionsLbl.Text = ("Sessions Found: " + Sessions.ParsedSessions.Count);
         }
 
         private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs e)
@@ -709,7 +698,6 @@ namespace CodeRedLauncher
             TabManager.BindControl(TabCtrl);
             TabManager.BindTab(Tabs.Dashboard, DashboardTabBtn, DashboardTab);
             TabManager.BindTab(Tabs.News, NewsTabBtn, NewsTab);
-            TabManager.BindTab(Tabs.Sessions, SessionsTabBtn, SessionsTab);
             TabManager.BindTab(Tabs.Settings, SettingsTabBtn, SettingsTab);
             TabManager.BindTab(Tabs.About, AboutTabBtn, AboutTab);
             TabManager.BindTab(Tabs.Exit, ExitTabBtn, null);

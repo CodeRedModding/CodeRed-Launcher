@@ -10,7 +10,6 @@ namespace CodeRedLauncher
     {
         Dashboard,
         News,
-        Sessions,
         Settings,
         About,
         Exit
