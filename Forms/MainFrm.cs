@@ -949,7 +949,7 @@ namespace CodeRedLauncher
                 ModuleInfoCtrl.DisplayDescription = Storage.GetModuleVersion();
                 PsyonixInfoCtrl.DisplayDescription = Storage.GetPsyonixVersion();
                 BuildInfoCtrl.DisplayDescription = Storage.GetNetBuild().ToString();
-                PlatformInfoCtrl.DisplayDescription = Storage.GetPlatformString(false).ToLower();
+                PlatformInfoCtrl.DisplayDescription = Storage.GetPlatformString(false);
                 CreditsLbl.Text = "CodeRed is developed by @ItsBranK, but its creation would not have been possible without the inspiration of the following people: ";
                 CreditsLbl.Text += await Retrievers.GetCredits();
             }
