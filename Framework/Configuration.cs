@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace CodeRedLauncher
 {
@@ -136,11 +137,11 @@ namespace CodeRedLauncher
         {
             if (_storageFile.Exists())
             {
-                string[] fileLines = File.ReadAllLines(_storageFile.GetPath());
-
-                if (fileLines.Length > 0)
+                using (StreamReader stream = new StreamReader(_storageFile.GetPath()))
                 {
-                    foreach (string line in fileLines)
+                    string line;
+
+                    while ((line = stream.ReadLine()) != null)
                     {
                         try
                         {
@@ -162,22 +163,18 @@ namespace CodeRedLauncher
                                 if (line.Contains("Manual")) { InjectionType.SetValue(InjectionTypes.Manual.ToString()); continue; }
                             }
 
-                            if (line.Contains(InjectionTimeout.Name))  { InjectionTimeout.SetValue(line.Substring((InjectionTimeout.Name.Length + 1), (line.Length - (InjectionTimeout.Name.Length + 1)))); continue;  }
+                            if (line.Contains(InjectionTimeout.Name)) { InjectionTimeout.SetValue(line.Substring((InjectionTimeout.Name.Length + 1), (line.Length - (InjectionTimeout.Name.Length + 1)))); continue; }
                             if (line.Contains(LightMode.Name)) { LightMode.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                         }
                         catch
                         {
                             SetDefaultSettings(true);
-                            return true;
+                            break;
                         }
                     }
+                }
 
-                    return true;
-                }
-                else
-                {
-                    SetDefaultSettings(true);
-                }
+                return true;
             }
             else
             {
@@ -266,22 +263,26 @@ namespace CodeRedLauncher
                     await File.Create(_storageFile.GetPath()).DisposeAsync();
                 }
 
-                string file = _storageFile.GetPath();
-                File.WriteAllText(file, string.Empty); // "Truncuating" the file without needing to open it in a stream.
-                File.AppendAllText(file, PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + "\n");
-                File.AppendAllText(file, TermsOfUse.Name + " " + TermsOfUse.GetStringValue() + "\n");
-                File.AppendAllText(file, PrivacyHash.Name + " " + PrivacyHash.GetStringValue() + "\n");
-                File.AppendAllText(file, TermsHash.Name + " " + TermsHash.GetStringValue() + "\n");
-                File.AppendAllText(file, AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + "\n");
-                File.AppendAllText(file, AutoInstallUpdates.Name + " " + AutoInstallUpdates.GetStringValue() + "\n");
-                File.AppendAllText(file, PreventInjection.Name + " " + PreventInjection.GetStringValue() + "\n");
-                File.AppendAllText(file, RunOnStartup.Name + " " + RunOnStartup.GetStringValue() + "\n");
-                File.AppendAllText(file, MinimizeOnStartup.Name + " " + MinimizeOnStartup.GetStringValue() + "\n");
-                File.AppendAllText(file, HideWhenMinimized.Name + " " + HideWhenMinimized.GetStringValue() + "\n");
-                File.AppendAllText(file, InjectAllInstances.Name + " " + InjectAllInstances.GetStringValue() + "\n");
-                File.AppendAllText(file, InjectionType.Name + " " + InjectionType.GetStringValue() + "\n");
-                File.AppendAllText(file, InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue() + "\n");
-                File.AppendAllText(file, LightMode.Name + " " + LightMode.GetStringValue());
+                string fileConents = "";
+                fileConents += (PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + Environment.NewLine);
+                fileConents += (TermsOfUse.Name + " " + TermsOfUse.GetStringValue() + Environment.NewLine);
+                fileConents += (PrivacyHash.Name + " " + PrivacyHash.GetStringValue() + Environment.NewLine);
+                fileConents += (TermsHash.Name + " " + TermsHash.GetStringValue() + Environment.NewLine);
+                fileConents += (AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + Environment.NewLine);
+                fileConents += (AutoInstallUpdates.Name + " " + AutoInstallUpdates.GetStringValue() + Environment.NewLine);
+                fileConents += (PreventInjection.Name + " " + PreventInjection.GetStringValue() + Environment.NewLine);
+                fileConents += (RunOnStartup.Name + " " + RunOnStartup.GetStringValue() + Environment.NewLine);
+                fileConents += (MinimizeOnStartup.Name + " " + MinimizeOnStartup.GetStringValue() + Environment.NewLine);
+                fileConents += (HideWhenMinimized.Name + " " + HideWhenMinimized.GetStringValue() + Environment.NewLine);
+                fileConents += (InjectAllInstances.Name + " " + InjectAllInstances.GetStringValue() + Environment.NewLine);
+                fileConents += (InjectionType.Name + " " + InjectionType.GetStringValue() + Environment.NewLine);
+                fileConents += (InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue() + Environment.NewLine);
+                fileConents += (LightMode.Name + " " + LightMode.GetStringValue());
+
+                using (StreamWriter stream = new StreamWriter(_storageFile.GetPath(), false))
+                {
+                    stream.Write(fileConents);
+                }
             }
             else
             {

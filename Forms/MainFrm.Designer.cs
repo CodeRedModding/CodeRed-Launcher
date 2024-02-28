@@ -1136,14 +1136,14 @@ namespace CodeRedLauncher
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
             BackgroundPnl.Controls.Add(TabCtrl);
-            BackgroundPnl.Controls.Add(InstallPopup);
-            BackgroundPnl.Controls.Add(UpdatePopup);
             BackgroundPnl.Controls.Add(TermsPopup);
             BackgroundPnl.Controls.Add(PolicyPopup);
             BackgroundPnl.Controls.Add(OfflinePopup);
             BackgroundPnl.Controls.Add(DuplicatePopup);
             BackgroundPnl.Controls.Add(PathPopup);
             BackgroundPnl.Controls.Add(TitleBar);
+            BackgroundPnl.Controls.Add(InstallPopup);
+            BackgroundPnl.Controls.Add(UpdatePopup);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);

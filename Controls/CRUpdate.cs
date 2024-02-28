@@ -310,6 +310,11 @@ namespace CodeRedLauncher.Controls
         {
             if (ButtonsEnabled)
             {
+                if (ButtonClickDeny != null)
+                {
+                    ButtonClickDeny.Invoke(this, e);
+                }
+
                 HidePopup();
             }
         }

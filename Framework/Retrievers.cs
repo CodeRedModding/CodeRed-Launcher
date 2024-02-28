@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Net.Http.Headers;
 using System.Drawing;
-using Windows.Media.Playback;
 
 namespace CodeRedLauncher
 {
@@ -35,7 +34,8 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex.ToString(), LogLevel.LEVEL_WARN);
+                    Logger.Write("Ping Fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                    return false;
                 }
 
             }
@@ -75,9 +75,10 @@ namespace CodeRedLauncher
                             Logger.Write("Website is offline, failed to download image for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        image = null;
+                        Logger.Write("Download Image Fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                        return null;
                     }
                 }
             }
@@ -111,7 +112,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex.Message, LogLevel.LEVEL_ERROR);
+                    Logger.Write("Download Page Fail: " + ex.Message, LogLevel.LEVEL_WARN);
                     return pageContent;
                 }
             }

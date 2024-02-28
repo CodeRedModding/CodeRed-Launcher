@@ -23,7 +23,7 @@ namespace CodeRedLauncher.Architecture
 
         public Path()
         {
-            IndirectPath = null;
+            IndirectPath = "";
         }
 
         public Path(string str)

@@ -26,9 +26,8 @@ namespace CodeRedLauncher.Controls
             public string ThumbnailUrlAlt { get; set; }
             public Image ThumbnailImage { get; set; } = null;
             public string Title { get; set; }
-            public string Calendar { get; set; }
+            public string Timestamp { get; set; }
             public string Author { get; set; }
-            public string Category { get; set; }
             public bool Parsed { get; set; } = false;
 
             public NewsStorage(string bodyContent)
@@ -47,6 +46,12 @@ namespace CodeRedLauncher.Controls
                     if (titleMatch.Success && titleMatch.Groups[1].Success)
                     {
                         Title = titleMatch.Groups[1].Value;
+
+                        if (Title.Length > 74) // Max length for title.
+                        {
+                            Title = Title.Substring(0, 74);
+                            Title += "...";
+                        }
                     }
 
                     if (urlMatch.Success && urlMatch.Groups[1].Success)
@@ -57,6 +62,25 @@ namespace CodeRedLauncher.Controls
                     if (imageMatch.Success && imageMatch.Groups[1].Success)
                     {
                         ThumbnailUrl = imageMatch.Groups[1].Value;
+                    }
+                }
+            }
+
+            public void ParseBody(string bodyContent)
+            {
+                if (bodyContent.Contains("author"))
+                {
+                    Match timestampMatch = Regex.Match(bodyContent.Replace("\\", ""), "(?<=\"className\":\"is-5 is-uppercase\",\"children\":\")(.*?)(?=\"})");
+                    Match authorMatch = Regex.Match(bodyContent, "(?<=\"author\" content=\")(.*?)(?=\")");
+
+                    if (timestampMatch.Success && timestampMatch.Groups[1].Success)
+                    {
+                        Timestamp = timestampMatch.Groups[1].Value;
+                    }
+
+                    if (authorMatch.Success && authorMatch.Groups[1].Success)
+                    {
+                        Author = authorMatch.Groups[1].Value;
                     }
                 }
             }
@@ -379,34 +403,7 @@ namespace CodeRedLauncher.Controls
 
                 if (!string.IsNullOrEmpty(pageBody))
                 {
-                    if (string.IsNullOrEmpty(newsStorage.Title))
-                    {
-                        Match titleMatch = Regex.Match(pageBody, "\"headline\": \"(.*)\"");
-
-                        if (titleMatch.Success && titleMatch.Groups[1].Success)
-                        {
-                            newsStorage.Title = titleMatch.Groups[1].Value;
-                        }
-                    }
-
-                    Match calendarMatch = Regex.Match(pageBody.Replace("\r", "").Replace("  ", "").Replace("\n", ""), "<p class=\"is-5 is-uppercase\">(.*?)<");
-                    Match userMatch = Regex.Match(pageBody, "\"author\": \"(.*)\"");
-                    Match categoryMatch = Regex.Match(pageBody, "\"category tag\">(.*)<\\/a><\\/p>");
-
-                    if (calendarMatch.Success && calendarMatch.Groups[1].Success)
-                    {
-                        newsStorage.Calendar = calendarMatch.Groups[1].Value;
-                    }
-
-                    if (userMatch.Success && userMatch.Groups[1].Success)
-                    {
-                        newsStorage.Author = userMatch.Groups[1].Value;
-                    }
-
-                    if (categoryMatch.Success && categoryMatch.Groups[1].Success)
-                    {
-                        newsStorage.Category = categoryMatch.Groups[1].Value;
-                    }
+                    newsStorage.ParseBody(pageBody);
 
                     if (string.IsNullOrEmpty(newsStorage.ThumbnailUrl))
                     {
@@ -541,9 +538,9 @@ namespace CodeRedLauncher.Controls
                         newsStorage = _articles[_index];
                     }
 
-                    PublishDate = newsStorage.Calendar;
+                    PublishDate = newsStorage.Timestamp;
                     PublishAuthor = newsStorage.Author;
-                    NewsCategory = newsStorage.Category;
+                    NewsCategory = "News"; // Psyonix removed category tags it seems like...have to do this for now.
                     Title = newsStorage.Title;
 
                     if (newsStorage.ThumbnailImage == null)

@@ -52,13 +52,17 @@ namespace CodeRedLauncher
                         await File.Create(_logFile.GetPath()).DisposeAsync();
                     }
 
-                    File.WriteAllText(_logFile.GetPath(), string.Empty); // "Truncuating" the log file without needing to open it in a stream.
+                    using (StreamWriter stream = new StreamWriter(_logFile.GetPath(), false))
+                    {
+                        stream.Write(""); // Clearing the old log file.
+                    }
+
                     _initialized = true;
                 }
             }
         }
 
-        private static string CreateTimestamp(StackTrace stackTrace)
+        private static string CreateTimestamp()
         {
             return "[" + DateTime.Now.ToString() + "] ";
         }
@@ -67,7 +71,7 @@ namespace CodeRedLauncher
         {
             if (CheckInitialized())
             {
-                string newLine = CreateTimestamp(new StackTrace(4));
+                string newLine = CreateTimestamp();
 
                 switch (level)
                 {
@@ -83,7 +87,11 @@ namespace CodeRedLauncher
                 }
 
                 newLine += (str + Environment.NewLine);
-                File.AppendAllText(_logFile.GetPath(), newLine);
+
+                using (StreamWriter stream = new StreamWriter(_logFile.GetPath(), true))
+                {
+                    stream.Write(newLine);
+                }
             }
         }
     }

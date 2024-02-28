@@ -4,6 +4,8 @@ using Microsoft.Win32;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using CodeRedLauncher.Architecture;
+using System.Text;
 
 namespace CodeRedLauncher
 {
@@ -78,9 +80,9 @@ namespace CodeRedLauncher
                     FileStream logStream = File.Open(logFile.GetPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     string logContents;
 
-                    using (StreamReader sr = new StreamReader(logStream))
+                    using (StreamReader stream = new StreamReader(logStream))
                     {
-                        logContents = sr.ReadToEnd();
+                        logContents = stream.ReadToEnd();
                     }
 
                     logStream.Close();
@@ -137,30 +139,32 @@ namespace CodeRedLauncher
 
         private static void ParseVersionFile()
         {
-            _versionsValid = false;
-            Architecture.Path moduleFolder = _moduleFolder.GetPathValue();
-
-            if (moduleFolder.Exists())
+            if (!Updator.IsUpdating())
             {
-                Architecture.Path versionFile = (moduleFolder / "DLL" / "Version.txt");
+                _versionsValid = false;
+                Architecture.Path moduleFolder = _moduleFolder.GetPathValue();
 
-                if (versionFile.Exists())
+                if (moduleFolder.Exists())
                 {
-                    FileStream versionStream = File.Open(versionFile.GetPath(), FileMode.Open, FileAccess.Read);
-                    string versionContents;
+                    Architecture.Path versionFile = (moduleFolder / "DLL" / "Version.txt");
 
-                    using (StreamReader sr = new StreamReader(versionStream))
+                    if (versionFile.Exists())
                     {
-                        versionContents = sr.ReadToEnd();
-                    }
+                        string versionContents;
 
-                    if (!String.IsNullOrEmpty(versionContents))
-                    {
-                        _moduleVersion.SetValue(versionContents);
-
-                        if (_moduleVersion.GetFloatValue() != _moduleVersion.GetFloatValue(true))
+                        using (StreamReader stream = new StreamReader(versionFile.GetPath()))
                         {
-                            _versionsValid = true;
+                            versionContents = stream.ReadToEnd();
+                        }
+
+                        if (!string.IsNullOrEmpty(versionContents))
+                        {
+                            _moduleVersion.SetValue(versionContents);
+
+                            if (_moduleVersion.GetFloatValue() != _moduleVersion.GetFloatValue(true))
+                            {
+                                _versionsValid = true;
+                            }
                         }
                     }
                 }
@@ -240,7 +244,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-
+                    Logger.Write("Steam Path Fail: " + ex.Message, LogLevel.LEVEL_WARN);
                 }
             }
             else
@@ -278,7 +282,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex.Message, LogLevel.LEVEL_FATAL);
+                    Logger.Write("Epic Path Fail: " + ex.Message, LogLevel.LEVEL_WARN);
                 }
             }
             else

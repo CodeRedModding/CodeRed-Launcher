@@ -44,7 +44,7 @@
             // 
             CategoryLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
             CategoryLbl.ControlType = ControlTheme.Dark;
-            CategoryLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            CategoryLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             CategoryLbl.DisplayText = "Loading...";
             CategoryLbl.IconBlack = Properties.Resources.Tag_Black;
             CategoryLbl.IconBlue = Properties.Resources.Tag_Blue;
@@ -61,7 +61,7 @@
             // 
             AuthorLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
             AuthorLbl.ControlType = ControlTheme.Dark;
-            AuthorLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            AuthorLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             AuthorLbl.DisplayText = "Loading...";
             AuthorLbl.IconBlack = Properties.Resources.Account_Black;
             AuthorLbl.IconBlue = Properties.Resources.Account_Blue;
@@ -78,7 +78,7 @@
             // 
             CalendarLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
             CalendarLbl.ControlType = ControlTheme.Dark;
-            CalendarLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            CalendarLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             CalendarLbl.DisplayText = "Loading...";
             CalendarLbl.IconBlack = Properties.Resources.Calendar_Black;
             CalendarLbl.IconBlue = Properties.Resources.Calendar_Blue;
@@ -136,7 +136,7 @@
             // TitleLbl
             // 
             TitleLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
-            TitleLbl.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            TitleLbl.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
             TitleLbl.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             TitleLbl.Location = new System.Drawing.Point(35, 490);
             TitleLbl.Name = "TitleLbl";

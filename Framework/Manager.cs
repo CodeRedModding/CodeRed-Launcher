@@ -344,6 +344,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
+                    _handleCache.Clear();
                     return InjectionResults.ProcessNotFound;
                 }
             }
