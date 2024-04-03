@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Windows.Gaming.UI;
 
 namespace CodeRedLauncher.Controls
 {
     public partial class CRDuplicate : UserControl
     {
-        private Form _boundForm = null;
-        private CRTitle _boundTitle = null;
+        private Form m_boundForm = null;
+        private CRTitle m_boundTitle = null;
 
         public ControlTheme ControlType
         {
@@ -30,14 +23,14 @@ namespace CodeRedLauncher.Controls
 
         public Form BoundForm
         {
-            get { return _boundForm; }
-            set { _boundForm = value; UpdateTheme(); }
+            get { return m_boundForm; }
+            set { m_boundForm = value; UpdateTheme(); }
         }
 
         public CRTitle BoundTitle
         {
-            get { return _boundTitle; }
-            set { _boundTitle = value; UpdateTheme(); }
+            get { return m_boundTitle; }
+            set { m_boundTitle = value; UpdateTheme(); }
         }
 
         public Image AcceptWhite

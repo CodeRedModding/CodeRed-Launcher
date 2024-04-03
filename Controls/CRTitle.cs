@@ -6,22 +6,22 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRTitle : UserControl
     {
-        private ControlTheme _theme = ControlTheme.Dark;
-        private Form _boundForm = null;
-        private Point _mousePoint = new Point(0, 0);
-        bool _minimizeButton = true;
-        bool _maximizeButton = true;
+        private ControlTheme m_theme = ControlTheme.Dark;
+        private Form m_boundForm = null;
+        private Point m_mousePoint = new Point(0, 0);
+        bool m_minimizeButton = true;
+        bool m_maximizeButton = true;
 
         public ControlTheme ControlType
         {
-            get { return _theme; }
-            set { _theme = value; UpdateTheme(); }
+            get { return m_theme; }
+            set { m_theme = value; UpdateTheme(); }
         }
 
         public Form BoundForm
         {
-            get { return _boundForm; }
-            set { _boundForm = value; UpdateTheme(); }
+            get { return m_boundForm; }
+            set { m_boundForm = value; UpdateTheme(); }
         }
 
         public string DisplayText
@@ -32,14 +32,14 @@ namespace CodeRedLauncher.Controls
 
         public bool MinimizeButton
         {
-            get { return _minimizeButton; }
-            set { _minimizeButton = value; UpdateTheme(); }
+            get { return m_minimizeButton; }
+            set { m_minimizeButton = value; UpdateTheme(); }
         }
 
         public bool MaximizeButton
         {
-            get { return _maximizeButton; }
-            set { _maximizeButton = value; UpdateTheme(); }
+            get { return m_maximizeButton; }
+            set { m_maximizeButton = value; UpdateTheme(); }
         }
 
         public CRTitle()
@@ -78,12 +78,12 @@ namespace CodeRedLauncher.Controls
         {
             if (e.Button == MouseButtons.Left)
             {
-                BoundForm?.SetDesktopLocation((MousePosition.X - _mousePoint.X), (MousePosition.Y - _mousePoint.Y));
+                BoundForm?.SetDesktopLocation((MousePosition.X - m_mousePoint.X), (MousePosition.Y - m_mousePoint.Y));
             }
             else
             {
-                _mousePoint.X = (e.X + TitleLbl.Location.X);
-                _mousePoint.Y = e.Y;
+                m_mousePoint.X = (e.X + TitleLbl.Location.X);
+                m_mousePoint.Y = e.Y;
             }
         }
 

@@ -1075,6 +1075,8 @@ namespace CodeRedLauncher
                             {
                                 UpdateTmr.Start();
                             }
+
+                            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                         }
                         else if (Updator.IsOutdated())
                         {

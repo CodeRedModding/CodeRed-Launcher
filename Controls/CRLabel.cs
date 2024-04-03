@@ -12,48 +12,48 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRLabel : UserControl
     {
-        private IconStore _icons = new IconStore();
+        private IconStore m_icons = new IconStore();
 
         public ControlTheme ControlType
         {
-            get { return _icons.Control; }
-            set { _icons.Control = value; UpdateTheme(); }
+            get { return m_icons.Control; }
+            set { m_icons.Control = value; UpdateTheme(); }
         }
 
         public IconTheme IconType
         {
-            get { return _icons.Theme; }
-            set { _icons.Theme = value; UpdateTheme(); }
+            get { return m_icons.Theme; }
+            set { m_icons.Theme = value; UpdateTheme(); }
         }
 
         public Image IconWhite
         {
-            get { return _icons.GetIcon(IconTheme.White); }
-            set { _icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.White); }
+            set { m_icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconBlack
         {
-            get { return _icons.GetIcon(IconTheme.Black); }
-            set { _icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Black); }
+            set { m_icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconRed
         {
-            get { return _icons.GetIcon(IconTheme.Red); }
-            set { _icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Red); }
+            set { m_icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconPurple
         {
-            get { return _icons.GetIcon(IconTheme.Purple); }
-            set { _icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Purple); }
+            set { m_icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconBlue
         {
-            get { return _icons.GetIcon(IconTheme.Blue); }
-            set { _icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Blue); }
+            set { m_icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Font DisplayFont
@@ -90,7 +90,7 @@ namespace CodeRedLauncher.Controls
                 TextLbl.ForeColor = GPalette.Black;
             }
 
-            IconImg.BackgroundImage = _icons.GetThemeIcon();
+            IconImg.BackgroundImage = m_icons.GetThemeIcon();
             Invalidate();
         }
     }

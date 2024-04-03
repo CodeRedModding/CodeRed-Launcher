@@ -23,15 +23,15 @@ namespace CodeRedLauncher.Controls
             Both
         }
 
-        private UpdateLayouts _updateType = UpdateLayouts.Module;
-        private Form _boundForm = null;
-        private CRTitle _boundTitle = null;
-        private bool _buttonsEnabled = true;
+        private UpdateLayouts m_updateType = UpdateLayouts.Module;
+        private Form m_boundForm = null;
+        private CRTitle m_boundTitle = null;
+        private bool m_buttonsEnabled = true;
 
         public UpdateLayouts UpdateType
         {
-            get { return _updateType; }
-            set { _updateType = value; UpdateTheme(); }
+            get { return m_updateType; }
+            set { m_updateType = value; UpdateTheme(); }
         }
 
         public ControlTheme ControlType
@@ -48,20 +48,20 @@ namespace CodeRedLauncher.Controls
 
         public Form BoundForm
         {
-            get { return _boundForm; }
-            set { _boundForm = value; UpdateTheme(); }
+            get { return m_boundForm; }
+            set { m_boundForm = value; UpdateTheme(); }
         }
 
         public CRTitle BoundTitle
         {
-            get { return _boundTitle; }
-            set { _boundTitle = value; UpdateTheme(); }
+            get { return m_boundTitle; }
+            set { m_boundTitle = value; UpdateTheme(); }
         }
 
         public bool ButtonsEnabled
         {
-            get { return _buttonsEnabled; }
-            set { _buttonsEnabled = value; UpdateTheme(); }
+            get { return m_buttonsEnabled; }
+            set { m_buttonsEnabled = value; UpdateTheme(); }
         }
 
         public Image AcceptWhite
@@ -176,7 +176,7 @@ namespace CodeRedLauncher.Controls
             if (UpdateType == UpdateLayouts.Running)
             {
                 DescriptionLbl.Text = "A new version of the codered was found but Rocket League needs to be closed first in order to install!";
-                _buttonsEnabled = true;
+                m_buttonsEnabled = true;
                 AcceptBtn.Visible = false;
                 DenyBtn.Visible = false;
                 GameBtn.Visible = true;
@@ -184,7 +184,7 @@ namespace CodeRedLauncher.Controls
             else if (UpdateType == UpdateLayouts.Downloading)
             {
                 DescriptionLbl.Text = "Downloading and installing files, please wait...";
-                _buttonsEnabled = false;
+                m_buttonsEnabled = false;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
                 GameBtn.Visible = false;
@@ -192,7 +192,7 @@ namespace CodeRedLauncher.Controls
             else if (UpdateType == UpdateLayouts.Module)
             {
                 DescriptionLbl.Text = "A new version of the module was found, would you like to automatically install it now?";
-                _buttonsEnabled = true;
+                m_buttonsEnabled = true;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
                 GameBtn.Visible = false;
@@ -200,7 +200,7 @@ namespace CodeRedLauncher.Controls
             else if (UpdateType == UpdateLayouts.Launcher)
             {
                 DescriptionLbl.Text = "A new version of the launcher was found, would you like to automatically install it now?";
-                _buttonsEnabled = true;
+                m_buttonsEnabled = true;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
                 GameBtn.Visible = false;
@@ -208,7 +208,7 @@ namespace CodeRedLauncher.Controls
             else if (UpdateType == UpdateLayouts.Both)
             {
                 DescriptionLbl.Text = "A new version both the launcher and module were found, would you like to automatically install it now?";
-                _buttonsEnabled = true;
+                m_buttonsEnabled = true;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
                 GameBtn.Visible = false;

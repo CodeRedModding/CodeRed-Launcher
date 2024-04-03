@@ -6,12 +6,12 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRNumberbox : UserControl
     {
-        private ControlTheme _controlTheme = ControlTheme.Dark;
+        private ControlTheme m_controlTheme = ControlTheme.Dark;
 
         public ControlTheme ControlType
         {
-            get { return _controlTheme; }
-            set { _controlTheme = value; UpdateTheme(); }
+            get { return m_controlTheme; }
+            set { m_controlTheme = value; UpdateTheme(); }
         }
 
         public Int32 Value

@@ -1,79 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeRedLauncher.Controls
 {
     public partial class CRInfo : UserControl
     {
-        private IconStore _icons = new IconStore();
-        private bool _syncColor = false;
-        private bool _hyperlink = false;
+        private IconStore m_icons = new IconStore();
+        private bool m_syncColor = false;
+        private bool m_hyperlink = false;
 
         public ControlTheme ControlType
         {
-            get { return _icons.Control; }
-            set { _icons.Control = value; UpdateTheme(); }
+            get { return m_icons.Control; }
+            set { m_icons.Control = value; UpdateTheme(); }
         }
 
         public IconTheme IconType
         {
-            get { return _icons.Theme; }
-            set { _icons.Theme = value; UpdateTheme(); }
+            get { return m_icons.Theme; }
+            set { m_icons.Theme = value; UpdateTheme(); }
         }
 
         public bool IconSync
         {
-            get { return _syncColor; }
-            set { _syncColor = value; UpdateTheme(); }
+            get { return m_syncColor; }
+            set { m_syncColor = value; UpdateTheme(); }
         }
 
         public Image IconWhite
         {
-            get { return _icons.GetIcon(IconTheme.White); }
-            set { _icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.White); }
+            set { m_icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconBlack
         {
-            get { return _icons.GetIcon(IconTheme.Black); }
-            set { _icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Black); }
+            set { m_icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconRed
         {
-            get { return _icons.GetIcon(IconTheme.Red); }
-            set { _icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Red); }
+            set { m_icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconPurple
         {
-            get { return _icons.GetIcon(IconTheme.Purple); }
-            set { _icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Purple); }
+            set { m_icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconBlue
         {
-            get { return _icons.GetIcon(IconTheme.Blue); }
-            set { _icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Blue); }
+            set { m_icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image GetIcon()
         {
-            return _icons.GetThemeIcon();
+            return m_icons.GetThemeIcon();
         }
 
         public bool Hyperlink
         {
-            get { return _hyperlink; }
-            set { _hyperlink = value; UpdateTheme(); }
+            get { return m_hyperlink; }
+            set { m_hyperlink = value; UpdateTheme(); }
         }
 
         public Font TitleFont
@@ -131,7 +125,7 @@ namespace CodeRedLauncher.Controls
             {
                 if (IconSync)
                 {
-                    InfoDescriptionLbl.ForeColor = _icons.GetColor();
+                    InfoDescriptionLbl.ForeColor = m_icons.GetColor();
                 }
                 else if (ControlType == ControlTheme.Dark)
                 {

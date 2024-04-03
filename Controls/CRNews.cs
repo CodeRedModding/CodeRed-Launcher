@@ -11,13 +11,14 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRNews : UserControl
     {
-        private IconStore _calendarIcons = new IconStore();
-        private IconStore _authorIcons = new IconStore();
-        private IconStore _categoryIcons = new IconStore();
-        private IconStore _leftIcons = new IconStore();
-        private IconStore _rightIcons = new IconStore();
-        private List<NewsStorage> _articles = new List<NewsStorage>();
-        private Int32 _index = -1;
+        private IconStore m_calendarIcons = new IconStore();
+        private IconStore m_authorIcons = new IconStore();
+        private IconStore m_categoryIcons = new IconStore();
+        private IconStore m_leftIcons = new IconStore();
+        private IconStore m_rightIcons = new IconStore();
+        private List<NewsStorage> m_articles = new List<NewsStorage>();
+        private Int32 m_maxIndexes = 16;
+        private Int32 m_index = -1;
 
         private class NewsStorage
         {
@@ -47,7 +48,7 @@ namespace CodeRedLauncher.Controls
                     {
                         Title = titleMatch.Groups[1].Value;
 
-                        if (Title.Length > 74) // Max length for title.
+                        if (Title.Length > 74) // Max length for title that can be displayed.
                         {
                             Title = Title.Substring(0, 74);
                             Title += "...";
@@ -88,164 +89,164 @@ namespace CodeRedLauncher.Controls
 
         public ControlTheme ControlType
         {
-            get { return _calendarIcons.Control; }
-            set { _calendarIcons.Control = value; _authorIcons.Control = value; _categoryIcons.Control = value; _leftIcons.Control = value; _rightIcons.Control = value; UpdateTheme(); }
+            get { return m_calendarIcons.Control; }
+            set { m_calendarIcons.Control = value; m_authorIcons.Control = value; m_categoryIcons.Control = value; m_leftIcons.Control = value; m_rightIcons.Control = value; UpdateTheme(); }
         }
 
         public IconTheme IconType
         {
-            get { return _calendarIcons.Theme; }
-            set { _calendarIcons.Theme = value; _authorIcons.Theme = value; _categoryIcons.Theme = value; _leftIcons.Theme = value; _rightIcons.Theme = value; UpdateTheme(); }
+            get { return m_calendarIcons.Theme; }
+            set { m_calendarIcons.Theme = value; m_authorIcons.Theme = value; m_categoryIcons.Theme = value; m_leftIcons.Theme = value; m_rightIcons.Theme = value; UpdateTheme(); }
         }
 
         public Image CalendarWhite
         {
-            get { return _calendarIcons.GetIcon(IconTheme.White); }
-            set { _calendarIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_calendarIcons.GetIcon(IconTheme.White); }
+            set { m_calendarIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image CalendarBlack
         {
-            get { return _calendarIcons.GetIcon(IconTheme.Black); }
-            set { _calendarIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_calendarIcons.GetIcon(IconTheme.Black); }
+            set { m_calendarIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image CalendarRed
         {
-            get { return _calendarIcons.GetIcon(IconTheme.Red); }
-            set { _calendarIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_calendarIcons.GetIcon(IconTheme.Red); }
+            set { m_calendarIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image CalendarPurple
         {
-            get { return _calendarIcons.GetIcon(IconTheme.Purple); }
-            set { _calendarIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_calendarIcons.GetIcon(IconTheme.Purple); }
+            set { m_calendarIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image CalendarBlue
         {
-            get { return _calendarIcons.GetIcon(IconTheme.Blue); }
-            set { _calendarIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_calendarIcons.GetIcon(IconTheme.Blue); }
+            set { m_calendarIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image AuthorWhite
         {
-            get { return _authorIcons.GetIcon(IconTheme.White); }
-            set { _authorIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_authorIcons.GetIcon(IconTheme.White); }
+            set { m_authorIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image AuthorBlack
         {
-            get { return _authorIcons.GetIcon(IconTheme.Black); }
-            set { _authorIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_authorIcons.GetIcon(IconTheme.Black); }
+            set { m_authorIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image AuthorRed
         {
-            get { return _authorIcons.GetIcon(IconTheme.Red); }
-            set { _authorIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_authorIcons.GetIcon(IconTheme.Red); }
+            set { m_authorIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image AuthorPurple
         {
-            get { return _authorIcons.GetIcon(IconTheme.Purple); }
-            set { _authorIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_authorIcons.GetIcon(IconTheme.Purple); }
+            set { m_authorIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image AuthorBlue
         {
-            get { return _authorIcons.GetIcon(IconTheme.Blue); }
-            set { _authorIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_authorIcons.GetIcon(IconTheme.Blue); }
+            set { m_authorIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image CategoryWhite
         {
-            get { return _categoryIcons.GetIcon(IconTheme.White); }
-            set { _categoryIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_categoryIcons.GetIcon(IconTheme.White); }
+            set { m_categoryIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image CategoryBlack
         {
-            get { return _categoryIcons.GetIcon(IconTheme.Black); }
-            set { _categoryIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_categoryIcons.GetIcon(IconTheme.Black); }
+            set { m_categoryIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image CategoryRed
         {
-            get { return _categoryIcons.GetIcon(IconTheme.Red); }
-            set { _categoryIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_categoryIcons.GetIcon(IconTheme.Red); }
+            set { m_categoryIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image CategoryPurple
         {
-            get { return _categoryIcons.GetIcon(IconTheme.Purple); }
-            set { _categoryIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_categoryIcons.GetIcon(IconTheme.Purple); }
+            set { m_categoryIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image CategoryBlue
         {
-            get { return _categoryIcons.GetIcon(IconTheme.Blue); }
-            set { _categoryIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_categoryIcons.GetIcon(IconTheme.Blue); }
+            set { m_categoryIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image LeftWhite
         {
-            get { return _leftIcons.GetIcon(IconTheme.White); }
-            set { _leftIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_leftIcons.GetIcon(IconTheme.White); }
+            set { m_leftIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image LeftBlack
         {
-            get { return _leftIcons.GetIcon(IconTheme.Black); }
-            set { _leftIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_leftIcons.GetIcon(IconTheme.Black); }
+            set { m_leftIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image LeftRed
         {
-            get { return _leftIcons.GetIcon(IconTheme.Red); }
-            set { _leftIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_leftIcons.GetIcon(IconTheme.Red); }
+            set { m_leftIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image LeftPurple
         {
-            get { return _leftIcons.GetIcon(IconTheme.Purple); }
-            set { _leftIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_leftIcons.GetIcon(IconTheme.Purple); }
+            set { m_leftIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image LeftBlue
         {
-            get { return _leftIcons.GetIcon(IconTheme.Blue); }
-            set { _leftIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_leftIcons.GetIcon(IconTheme.Blue); }
+            set { m_leftIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image RightWhite
         {
-            get { return _rightIcons.GetIcon(IconTheme.White); }
-            set { _rightIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_rightIcons.GetIcon(IconTheme.White); }
+            set { m_rightIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image RightBlack
         {
-            get { return _rightIcons.GetIcon(IconTheme.Black); }
-            set { _rightIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_rightIcons.GetIcon(IconTheme.Black); }
+            set { m_rightIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image RightRed
         {
-            get { return _rightIcons.GetIcon(IconTheme.Red); }
-            set { _rightIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_rightIcons.GetIcon(IconTheme.Red); }
+            set { m_rightIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image RightPurple
         {
-            get { return _rightIcons.GetIcon(IconTheme.Purple); }
-            set { _rightIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_rightIcons.GetIcon(IconTheme.Purple); }
+            set { m_rightIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image RightBlue
         {
-            get { return _rightIcons.GetIcon(IconTheme.Blue); }
-            set { _rightIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_rightIcons.GetIcon(IconTheme.Blue); }
+            set { m_rightIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public string PublishDate
@@ -321,12 +322,12 @@ namespace CodeRedLauncher.Controls
 
             if (PreviousBtn.BackgroundImage != null)
             {
-                PreviousBtn.BackgroundImage = _leftIcons.GetThemeIcon();
+                PreviousBtn.BackgroundImage = m_leftIcons.GetThemeIcon();
             }
 
             if (NextBtn.BackgroundImage != null)
             {
-                NextBtn.BackgroundImage = _rightIcons.GetThemeIcon();
+                NextBtn.BackgroundImage = m_rightIcons.GetThemeIcon();
             }
 
             Invalidate();
@@ -345,15 +346,15 @@ namespace CodeRedLauncher.Controls
 
         public void LoadPreviousArticle()
         {
-            if (_articles.Count > 0)
+            if (m_articles.Count > 0)
             {
-                if (_index > 0)
+                if (m_index > 0)
                 {
-                    _index--;
+                    m_index--;
                 }
                 else
                 {
-                    _index = 0;
+                    m_index = 0;
                 }
 
                 LoadIndex();
@@ -361,21 +362,21 @@ namespace CodeRedLauncher.Controls
             else
             {
                 ResetArticles();
-                _index = -1;
+                m_index = -1;
             }
         }
 
         public void LoadNextArticle()
         {
-            if (_articles.Count > 0)
+            if (m_articles.Count > 0)
             {
-                if (_index < _articles.Count)
+                if (m_index < m_articles.Count)
                 {
-                    _index++;
+                    m_index++;
                 }
                 else
                 {
-                    _index = (_articles.Count - 1);
+                    m_index = (m_articles.Count - 1);
                 }
 
                 LoadIndex();
@@ -383,15 +384,15 @@ namespace CodeRedLauncher.Controls
             else
             {
                 ResetArticles();
-                _index = -1;
+                m_index = -1;
             }
         }
 
         private void OpenCurrentArticle()
         {
-            if ((_index > -1) && (_index < _articles.Count) && !string.IsNullOrEmpty(_articles[_index].NewsUrl))
+            if ((m_index > -1) && (m_index < m_articles.Count) && !string.IsNullOrEmpty(m_articles[m_index].NewsUrl))
             {
-                Process.Start(new ProcessStartInfo(_articles[_index].NewsUrl) { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo(m_articles[m_index].NewsUrl) { UseShellExecute = true });
             }
         }
 
@@ -457,13 +458,17 @@ namespace CodeRedLauncher.Controls
         {
             if (!string.IsNullOrEmpty(url))
             {
+                return; // Fuck Psyonix for blocking requests to their news url, billion dollar company can't give us an actual api to use.
+
                 string pageBody = await Downloaders.DownloadPage(url);
 
                 if (!string.IsNullOrEmpty(pageBody))
                 {
-                    _articles.Clear();
+                    m_articles.Clear();
                     ResetArticles();
                     MatchCollection articleLinks = Regex.Matches(pageBody.Replace("\\", ""), "(?=\"title\")(.*?)(?=})");
+
+                    Int32 articles = 0;
 
                     for (Int32 i = 0; i < articleLinks.Count; i++)
                     {
@@ -471,7 +476,13 @@ namespace CodeRedLauncher.Controls
 
                         if (link.Success && link.Groups[1].Success && link.Groups[1].Value.Contains("slug"))
                         {
-                            _articles.Add(new NewsStorage(link.Groups[1].Value));
+                            articles++;
+                            m_articles.Add(new NewsStorage(link.Groups[1].Value));
+                        }
+
+                        if (articles >= m_maxIndexes)
+                        {
+                            break;
                         }
                     }
 
@@ -487,14 +498,14 @@ namespace CodeRedLauncher.Controls
 
         public async void LoadAllIndexes()
         {
-            for (Int32 i = 0; i < _articles.Count; i++)
+            for (Int32 i = 0; i < m_articles.Count; i++)
             {
-                NewsStorage newsStorage = _articles[i];
+                NewsStorage newsStorage = m_articles[i];
 
                 if (!newsStorage.Parsed)
                 {
-                    _articles[i] = await ParseLink(_articles[i]);
-                    newsStorage = _articles[i];
+                    m_articles[i] = await ParseLink(m_articles[i]);
+                    newsStorage = m_articles[i];
                 }
 
                 if (newsStorage.ThumbnailImage == null)
@@ -519,23 +530,23 @@ namespace CodeRedLauncher.Controls
                     }
                 }
 
-                _articles[i] = newsStorage;
+                m_articles[i] = newsStorage;
             }
         }
 
         private async void LoadIndex()
         {
-            if (_articles.Count > 0)
+            if (m_articles.Count > 0)
             {
-                if ((_index > -1) && (_index < _articles.Count))
+                if ((m_index > -1) && (m_index < m_articles.Count))
                 {
                     ResetArticles();
-                    NewsStorage newsStorage = _articles[_index];
+                    NewsStorage newsStorage = m_articles[m_index];
 
                     if (!newsStorage.Parsed)
                     {
-                        _articles[_index] = await ParseLink(_articles[_index]);
-                        newsStorage = _articles[_index];
+                        m_articles[m_index] = await ParseLink(m_articles[m_index]);
+                        newsStorage = m_articles[m_index];
                     }
 
                     PublishDate = newsStorage.Timestamp;
@@ -563,7 +574,7 @@ namespace CodeRedLauncher.Controls
                                 newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrlAlt);
                             }
 
-                            _articles[_index] = newsStorage;
+                            m_articles[m_index] = newsStorage;
                             ThumbnailImg.BackgroundImage = newsStorage.ThumbnailImage;
                             ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
                         }
@@ -574,19 +585,19 @@ namespace CodeRedLauncher.Controls
                         ThumbnailImg.BackgroundImageLayout = ImageLayout.Stretch;
                     }
 
-                    if (_index == 0)
+                    if (m_index == 0)
                     {
                         PreviousBtn.BackgroundImage = null;
-                        NextBtn.BackgroundImage = _rightIcons.GetThemeIcon();
+                        NextBtn.BackgroundImage = m_rightIcons.GetThemeIcon();
                     }
-                    else if (_index < (_articles.Count - 1))
+                    else if (m_index < (m_articles.Count - 1))
                     {
-                        PreviousBtn.BackgroundImage = _leftIcons.GetThemeIcon();
-                        NextBtn.BackgroundImage = _rightIcons.GetThemeIcon();
+                        PreviousBtn.BackgroundImage = m_leftIcons.GetThemeIcon();
+                        NextBtn.BackgroundImage = m_rightIcons.GetThemeIcon();
                     }
                     else
                     {
-                        PreviousBtn.BackgroundImage = _leftIcons.GetThemeIcon();
+                        PreviousBtn.BackgroundImage = m_leftIcons.GetThemeIcon();
                         NextBtn.BackgroundImage = null;
                     }
                 }
@@ -594,7 +605,7 @@ namespace CodeRedLauncher.Controls
             else
             {
                 ResetArticles();
-                _index = -1;
+                m_index = -1;
             }
         }
 

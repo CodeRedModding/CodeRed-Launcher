@@ -13,8 +13,8 @@ namespace CodeRedLauncher
     // Stores and manages all user modifiable settings in the launcher, as well as saving them offline.
     public static class Configuration
     {
-        private static bool _initialized = false;
-        private static Architecture.Path _storageFile = new Architecture.Path();
+        private static bool m_initialized = false;
+        private static Architecture.Path m_storageFile = new Architecture.Path();
 
         public static PublicSetting PrivacyPolicy = new PublicSetting(
             "False",
@@ -135,9 +135,9 @@ namespace CodeRedLauncher
 
         private static bool ParseConfigFile()
         {
-            if (_storageFile.Exists())
+            if (m_storageFile.Exists())
             {
-                using (StreamReader stream = new StreamReader(_storageFile.GetPath()))
+                using (StreamReader stream = new StreamReader(m_storageFile.GetPath()))
                 {
                     string line;
 
@@ -188,7 +188,7 @@ namespace CodeRedLauncher
         {
             if (bForceReset)
             {
-                _initialized = false;
+                m_initialized = false;
             }
 
             CheckInitialized();
@@ -196,35 +196,35 @@ namespace CodeRedLauncher
 
         public static bool CheckInitialized()
         {
-            if (!_initialized)
+            if (!m_initialized)
             {
-                _storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
+                m_storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
 
-                if (!_storageFile.Exists())
+                if (!m_storageFile.Exists())
                 {
-                    _storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr"); // Old file name, have to keep for backwards compatibility.
+                    m_storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr"); // Old file name, have to keep for backwards compatibility.
                 }
 
-                if (_storageFile.Exists())
+                if (m_storageFile.Exists())
                 {
                     if (ParseConfigFile())
                     {
-                        _initialized = true;
+                        m_initialized = true;
                     }
                 }
                 else
                 {
                     SetDefaultSettings(true);
-                    _initialized = true;
+                    m_initialized = true;
                 }
             }
 
-            return _initialized;
+            return m_initialized;
         }
 
         public static void SetDefaultSettings(bool bSaveChanges = false)
         {
-            _storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
+            m_storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
             PrivacyPolicy.ResetToDefault();
             TermsOfUse.ResetToDefault();
             PrivacyHash.ResetToDefault();
@@ -248,9 +248,9 @@ namespace CodeRedLauncher
 
         public async static void SaveChanges()
         {
-            if (_storageFile.Parent().Exists())
+            if (m_storageFile.Parent().Exists())
             {
-                _storageFile.Set(Storage.GetModulePath() / "Settings" / "Launcher.cr");
+                m_storageFile.Set(Storage.GetModulePath() / "Settings" / "Launcher.cr");
                 Architecture.Path oldFile = (Storage.GetModulePath() / "Settings" / "Injector.cr"); // This is for backwards compatibility, file used to be called "Injector.cr".
 
                 if (oldFile.Exists())
@@ -258,9 +258,9 @@ namespace CodeRedLauncher
                     oldFile.DeleteFile();
                 }
 
-                if (!_storageFile.Exists())
+                if (!m_storageFile.Exists())
                 {
-                    await File.Create(_storageFile.GetPath()).DisposeAsync();
+                    await File.Create(m_storageFile.GetPath()).DisposeAsync();
                 }
 
                 string fileConents = "";
@@ -279,7 +279,7 @@ namespace CodeRedLauncher
                 fileConents += (InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue() + Environment.NewLine);
                 fileConents += (LightMode.Name + " " + LightMode.GetStringValue());
 
-                using (StreamWriter stream = new StreamWriter(_storageFile.GetPath(), false))
+                using (StreamWriter stream = new StreamWriter(m_storageFile.GetPath(), false))
                 {
                     stream.Write(fileConents);
                 }

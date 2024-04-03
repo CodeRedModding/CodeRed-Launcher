@@ -11,7 +11,8 @@ namespace CodeRedLauncher
 {
     public static class Downloaders
     {
-        private static TimeSpan _timeout = TimeSpan.FromMinutes(15);
+        private static TimeSpan m_timeout = TimeSpan.FromMinutes(15);
+        private static string m_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0";
 
         public static async Task<bool> WebsiteOnline(string url)
         {
@@ -29,12 +30,12 @@ namespace CodeRedLauncher
                     }
                     else
                     {
-                        Logger.Write("Ping request failed, reason " + pingReply.Status.ToString(), LogLevel.LEVEL_WARN);
+                        Logger.Write("Ping request failed: " + pingReply.Status.ToString(), LogLevel.LEVEL_WARN);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Ping Fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                    Logger.Write("Ping request error: " + ex.Message, LogLevel.LEVEL_ERROR);
                     return false;
                 }
 
@@ -53,8 +54,10 @@ namespace CodeRedLauncher
                 {
                     try
                     {
-                        client.Timeout = _timeout;
+                        client.Timeout = m_timeout;
                         client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
+
                         HttpResponseMessage response = await client.GetAsync(url);
 
                         if (response.IsSuccessStatusCode)
@@ -77,7 +80,7 @@ namespace CodeRedLauncher
                     }
                     catch (Exception ex)
                     {
-                        Logger.Write("Download Image Fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                        Logger.Write("Download image fail: " + ex.Message, LogLevel.LEVEL_WARN);
                         return null;
                     }
                 }
@@ -96,8 +99,10 @@ namespace CodeRedLauncher
                 {
                     using (HttpClient client = new HttpClient())
                     {
-                        client.Timeout = _timeout;
+                        client.Timeout = m_timeout;
                         client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
+
                         HttpResponseMessage response = await client.GetAsync(url);
 
                         if (response.IsSuccessStatusCode)
@@ -106,14 +111,13 @@ namespace CodeRedLauncher
                         }
                         else
                         {
-                            Logger.Write("Website is offline, failed to download page for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                            Logger.Write(("Website response failed for url \"" + url + "\", status code \"" + response.StatusCode.ToString() + "\"!"), LogLevel.LEVEL_WARN);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Download Page Fail: " + ex.Message, LogLevel.LEVEL_WARN);
-                    return pageContent;
+                    Logger.Write("Download page fail: " + ex.Message, LogLevel.LEVEL_WARN);
                 }
             }
 
@@ -128,7 +132,9 @@ namespace CodeRedLauncher
                 {
                     using (HttpClient client = new HttpClient())
                     {
-                        client.Timeout = _timeout;
+                        client.Timeout = m_timeout;
+                        client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
+
                         HttpResponseMessage response = await client.GetAsync(url);
 
                         if (response.IsSuccessStatusCode)
@@ -157,12 +163,12 @@ namespace CodeRedLauncher
 
     public static class Retrievers
     {
-        private static bool _initialized = false;
-        private static string _remoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/Launcher.cr";
-        private static string _privacyUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Private/PrivacyPolicy.cr";
-        private static string _tosUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Private/TermsOfService.cr";
-        private static string _privacyContent = "";
-        private static string _tosContent = "";
+        private static bool m_initialized = false;
+        private static string m_remoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/Launcher.cr";
+        private static string m_privacyUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/PrivacyPolicy.cr";
+        private static string m_tosUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/TermsOfService.cr";
+        private static string m_privacyContent = "";
+        private static string m_tosContent = "";
 
         private static List<InternalSetting> _remoteSettings = new List<InternalSetting>()
         {
@@ -173,8 +179,8 @@ namespace CodeRedLauncher
             new InternalSetting(null, "LauncherUrl"),
             new InternalSetting(null, "DropperUrl"),
             new InternalSetting(null, "ModuleUrl"),
-            new InternalSetting(null, "DiscordUrl"),
-            new InternalSetting(null, "KofiUrl"),
+            new InternalSetting("https://discord.com/", "DiscordUrl"),
+            new InternalSetting("https://ko-fi.com/", "KofiUrl"),
             new InternalSetting(null, "NewsUrl"),
             new InternalSetting(null, "LauncherAlt"),
             new InternalSetting("No changelog provided for the most recent update.", "LauncherChangelog"),
@@ -198,7 +204,7 @@ namespace CodeRedLauncher
 
         private static async Task<bool> DownloadRemote()
         {
-            if (!_initialized && (await Downloaders.WebsiteOnline(GetRemoteURL())))
+            if (!m_initialized && (await Downloaders.WebsiteOnline(GetRemoteURL())))
             {
                 string pageBody = await Downloaders.DownloadPage(GetRemoteURL());
 
@@ -215,27 +221,27 @@ namespace CodeRedLauncher
 
                             if ((_remoteSettings[i].Name == "LauncherAlt") && (_remoteSettings[i].GetStringValue() != "null"))
                             {
-                                _remoteUrl = _remoteSettings[i].GetStringValue();
+                                m_remoteUrl = _remoteSettings[i].GetStringValue();
                             }
                         }
                     }
 
-                    _initialized = true;
+                    m_initialized = true;
                 }
             }
 
-            return _initialized;
+            return m_initialized;
         }
 
         public static async void Invalidate()
         {
-            _initialized = false;
+            m_initialized = false;
             await CheckInitialized();
         }
 
         public static async Task<bool> CheckInitialized()
         {
-            if (!_initialized)
+            if (!m_initialized)
             {
                 if (await DownloadRemote() == false)
                 {
@@ -243,22 +249,22 @@ namespace CodeRedLauncher
                 }
             }
 
-            return _initialized;
+            return m_initialized;
         }
 
         public static string GetRemoteURL()
         {
-            return _remoteUrl;
+            return m_remoteUrl;
         }
 
         public static string GetPrivacyURL()
         {
-            return _privacyUrl;
+            return m_privacyUrl;
         }
 
         public static string GetTermsURL()
         {
-            return _tosUrl;
+            return m_tosUrl;
         }
 
         public static async Task<string> GetPsyonixVersion()
@@ -359,14 +365,14 @@ namespace CodeRedLauncher
 
         public static async Task<string> GetPrivacyPolicy()
         {
-            if (string.IsNullOrEmpty(_privacyContent)) { _privacyContent = await Downloaders.DownloadPage(GetPrivacyURL()); }
-            return _privacyContent;
+            if (string.IsNullOrEmpty(m_privacyContent)) { m_privacyContent = await Downloaders.DownloadPage(GetPrivacyURL()); }
+            return m_privacyContent;
         }
 
         public static async Task<string> GetTermsOfUse()
         {
-            if (string.IsNullOrEmpty(_tosContent)) { _tosContent = await Downloaders.DownloadPage(GetTermsURL()); }
-            return _tosContent;
+            if (string.IsNullOrEmpty(m_tosContent)) { m_tosContent = await Downloaders.DownloadPage(GetTermsURL()); }
+            return m_tosContent;
         }
     }
 }

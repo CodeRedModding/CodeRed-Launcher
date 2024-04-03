@@ -19,15 +19,15 @@ namespace CodeRedLauncher.Controls
             Downloading
         }
 
-        private InstallLayouts _layout = InstallLayouts.None;
-        private Form _boundForm = null;
-        private CRTitle _boundTitle = null;
-        private bool _buttonsEnabled = true;
+        private InstallLayouts m_layout = InstallLayouts.None;
+        private Form m_boundForm = null;
+        private CRTitle m_boundTitle = null;
+        private bool m_buttonsEnabled = true;
 
         public InstallLayouts DisplayType
         {
-            get { return _layout; }
-            set { _layout = value; UpdateTheme(); }
+            get { return m_layout; }
+            set { m_layout = value; UpdateTheme(); }
         }
 
         public ControlTheme ControlType
@@ -44,20 +44,20 @@ namespace CodeRedLauncher.Controls
 
         public Form BoundForm
         {
-            get { return _boundForm; }
-            set { _boundForm = value; UpdateTheme(); }
+            get { return m_boundForm; }
+            set { m_boundForm = value; UpdateTheme(); }
         }
 
         public CRTitle BoundTitle
         {
-            get { return _boundTitle; }
-            set { _boundTitle = value; UpdateTheme(); }
+            get { return m_boundTitle; }
+            set { m_boundTitle = value; UpdateTheme(); }
         }
 
         public bool ButtonsEnabled
         {
-            get { return _buttonsEnabled; }
-            set { _buttonsEnabled = value; UpdateTheme(); }
+            get { return m_buttonsEnabled; }
+            set { m_buttonsEnabled = value; UpdateTheme(); }
         }
 
         public Image AcceptWhite

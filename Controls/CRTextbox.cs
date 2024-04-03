@@ -6,12 +6,12 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRTextbox : UserControl
     {
-        private ControlTheme _controlTheme = ControlTheme.Dark;
+        private ControlTheme m_controlTheme = ControlTheme.Dark;
 
         public ControlTheme ControlType
         {
-            get { return _controlTheme; }
-            set { _controlTheme = value; UpdateTheme(); }
+            get { return m_controlTheme; }
+            set { m_controlTheme = value; UpdateTheme(); }
         }
 
         public Font DisplayFont

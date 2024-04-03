@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static CodeRedLauncher.Controls.CROffline;
 
 namespace CodeRedLauncher.Controls
 {
@@ -19,14 +12,14 @@ namespace CodeRedLauncher.Controls
             View
         }
 
-        PolicyView _view = PolicyView.Register;
-        private Form _boundForm = null;
-        private CRTitle _boundTitle = null;
+        PolicyView m_view = PolicyView.Register;
+        private Form m_boundForm = null;
+        private CRTitle m_boundTitle = null;
 
         public PolicyView DisplayType
         {
-            get { return _view; }
-            set { _view = value; UpdateTheme(); }
+            get { return m_view; }
+            set { m_view = value; UpdateTheme(); }
         }
 
         public ControlTheme ControlType
@@ -43,14 +36,14 @@ namespace CodeRedLauncher.Controls
 
         public Form BoundForm
         {
-            get { return _boundForm; }
-            set { _boundForm = value; UpdateTheme(); }
+            get { return m_boundForm; }
+            set { m_boundForm = value; UpdateTheme(); }
         }
 
         public CRTitle BoundTitle
         {
-            get { return _boundTitle; }
-            set { _boundTitle = value; UpdateTheme(); }
+            get { return m_boundTitle; }
+            set { m_boundTitle = value; UpdateTheme(); }
         }
 
         public string DisplayTitle

@@ -19,14 +19,14 @@ namespace CodeRedLauncher.Controls
             Installer
         }
 
-        private OfflineLayouts _offlineType = OfflineLayouts.Default;
-        private Form _boundForm = null;
-        private CRTitle _boundTitle = null;
+        private OfflineLayouts m_offlineType = OfflineLayouts.Default;
+        private Form m_boundForm = null;
+        private CRTitle m_boundTitle = null;
 
         public OfflineLayouts OfflineType
         {
-            get { return _offlineType; }
-            set { _offlineType = value; UpdateTheme(); }
+            get { return m_offlineType; }
+            set { m_offlineType = value; UpdateTheme(); }
         }
 
         public ControlTheme ControlType
@@ -43,14 +43,14 @@ namespace CodeRedLauncher.Controls
 
         public Form BoundForm
         {
-            get { return _boundForm; }
-            set { _boundForm = value; UpdateTheme(); }
+            get { return m_boundForm; }
+            set { m_boundForm = value; UpdateTheme(); }
         }
 
         public CRTitle BoundTitle
         {
-            get { return _boundTitle; }
-            set { _boundTitle = value; UpdateTheme(); }
+            get { return m_boundTitle; }
+            set { m_boundTitle = value; UpdateTheme(); }
         }
 
         public Image AcceptWhite

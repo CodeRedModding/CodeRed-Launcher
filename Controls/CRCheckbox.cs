@@ -6,75 +6,75 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRCheckbox : UserControl
     {
-        private IconStore _icons = new IconStore();
-        private IconStore _checks = new IconStore();
-        private bool _enabled = true;
-        private bool _checked = false;
+        private IconStore m_icons = new IconStore();
+        private IconStore m_checks = new IconStore();
+        private bool m_enabled = true;
+        private bool m_checked = false;
 
         public ControlTheme ControlType
         {
-            get { return _icons.Control; }
-            set { _icons.Control = value; _checks.Control = value; UpdateTheme(); }
+            get { return m_icons.Control; }
+            set { m_icons.Control = value; m_checks.Control = value; UpdateTheme(); }
         }
 
         public IconTheme IconType
         {
-            get { return _icons.Theme; }
-            set { _icons.Theme = value; _checks.Theme = value; UpdateTheme(); }
+            get { return m_icons.Theme; }
+            set { m_icons.Theme = value; m_checks.Theme = value; UpdateTheme(); }
         }
 
         public Image IconWhite
         {
-            get { return _icons.GetIcon(IconTheme.White); }
-            set { _icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.White); }
+            set { m_icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconBlack
         {
-            get { return _icons.GetIcon(IconTheme.Black); }
-            set { _icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Black); }
+            set { m_icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconRed
         {
-            get { return _icons.GetIcon(IconTheme.Red); }
-            set { _icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Red); }
+            set { m_icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconPurple
         {
-            get { return _icons.GetIcon(IconTheme.Purple); }
-            set { _icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Purple); }
+            set { m_icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconBlue
         {
-            get { return _icons.GetIcon(IconTheme.Blue); }
-            set { _icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Blue); }
+            set { m_icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image UncheckWhite
         {
-            get { return _checks.GetIcon(IconTheme.White); }
-            set { _checks.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_checks.GetIcon(IconTheme.White); }
+            set { m_checks.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image UncheckDark
         {
-            get { return _checks.GetIcon(IconTheme.Black); }
-            set { _checks.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_checks.GetIcon(IconTheme.Black); }
+            set { m_checks.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image CheckWhite
         {
-            get { return _checks.GetIcon(IconTheme.Red); }
-            set { _checks.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_checks.GetIcon(IconTheme.Red); }
+            set { m_checks.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image CheckDark
         {
-            get { return _checks.GetIcon(IconTheme.Purple); }
-            set { _checks.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_checks.GetIcon(IconTheme.Purple); }
+            set { m_checks.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Font DisplayFont
@@ -91,14 +91,14 @@ namespace CodeRedLauncher.Controls
 
         public bool BoxEnabled
         {
-            get { return _enabled; }
-            set { _enabled = value; UpdateTheme(); }
+            get { return m_enabled; }
+            set { m_enabled = value; UpdateTheme(); }
         }
 
         public bool BoxChecked
         {
-            get { return _checked; }
-            set { _checked = value; UpdateTheme(); }
+            get { return m_checked; }
+            set { m_checked = value; UpdateTheme(); }
         }
 
         public CRCheckbox()
@@ -123,20 +123,20 @@ namespace CodeRedLauncher.Controls
             {
                 if (ControlType == ControlTheme.Dark)
                 {
-                    CheckImg.BackgroundImage = _checks.GetIcon(IconTheme.Red);
+                    CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.Red);
                 }
                 else if (ControlType == ControlTheme.Light)
                 {
-                    CheckImg.BackgroundImage = _checks.GetIcon(IconTheme.Purple);
+                    CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.Purple);
                 }
             }
             else if (ControlType == ControlTheme.Dark)
             {
-                CheckImg.BackgroundImage = _checks.GetIcon(IconTheme.White);
+                CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.White);
             }
             else if (ControlType == ControlTheme.Light)
             {
-                CheckImg.BackgroundImage = _checks.GetIcon(IconTheme.Black);
+                CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.Black);
             }
 
             if (ControlType == ControlTheme.Dark)
@@ -148,7 +148,7 @@ namespace CodeRedLauncher.Controls
                 TextLbl.ForeColor = GPalette.Black;
             }
 
-            IconImg.BackgroundImage = _icons.GetThemeIcon();
+            IconImg.BackgroundImage = m_icons.GetThemeIcon();
             Invalidate();
         }
 

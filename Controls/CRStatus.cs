@@ -31,162 +31,162 @@ namespace CodeRedLauncher.Controls
 
     public partial class CRStatus : UserControl
     {
-        private StatusTypes _status = StatusTypes.Process_Idle;
-        private StatusViews _view = StatusViews.One;
-        private InjectionResults _result = InjectionResults.None;
-        private IconStore _viewOne = new IconStore();
-        private IconStore _viewTwo = new IconStore();
-        private IconStore _viewThree = new IconStore();
-        private IconStore _descIcons = new IconStore();
+        private StatusTypes m_status = StatusTypes.Process_Idle;
+        private StatusViews m_view = StatusViews.One;
+        private InjectionResults m_result = InjectionResults.None;
+        private IconStore m_viewOne = new IconStore();
+        private IconStore m_viewTwo = new IconStore();
+        private IconStore m_viewThree = new IconStore();
+        private IconStore m_descIcons = new IconStore();
 
         public StatusTypes DisplayType
         {
-            get { return _status; }
-            set { _status = value; ResultType = InjectionResults.None; FormatType(); }
+            get { return m_status; }
+            set { m_status = value; ResultType = InjectionResults.None; FormatType(); }
         }
 
         public StatusViews ViewType
         {
-            get { return _view; }
-            set { _view = value; UpdateTheme(); }
+            get { return m_view; }
+            set { m_view = value; UpdateTheme(); }
         }
 
         public InjectionResults ResultType
         {
-            get { return _result; }
-            set { _result = value; FormatResult(); }
+            get { return m_result; }
+            set { m_result = value; FormatResult(); }
         }
 
         public ControlTheme ControlType
         {
-            get { return _viewOne.Control; }
-            set { _viewOne.Control = value; _viewTwo.Control = value; _viewThree.Control = value; _descIcons.Control = value; UpdateTheme(); }
+            get { return m_viewOne.Control; }
+            set { m_viewOne.Control = value; m_viewTwo.Control = value; m_viewThree.Control = value; m_descIcons.Control = value; UpdateTheme(); }
         }
 
         public IconTheme IconType
         {
-            get { return _viewOne.Theme; }
-            set { _viewOne.Theme = value; _viewTwo.Theme = value; _viewThree.Theme = value; _descIcons.Theme = value; UpdateTheme(); }
+            get { return m_viewOne.Theme; }
+            set { m_viewOne.Theme = value; m_viewTwo.Theme = value; m_viewThree.Theme = value; m_descIcons.Theme = value; UpdateTheme(); }
         }
 
         public Image IconFirstWhite
         {
-            get { return _viewOne.GetIcon(IconTheme.White); }
-            set { _viewOne.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_viewOne.GetIcon(IconTheme.White); }
+            set { m_viewOne.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconFirstBlack
         {
-            get { return _viewOne.GetIcon(IconTheme.Black); }
-            set { _viewOne.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_viewOne.GetIcon(IconTheme.Black); }
+            set { m_viewOne.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconFirstRed
         {
-            get { return _viewOne.GetIcon(IconTheme.Red); }
-            set { _viewOne.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_viewOne.GetIcon(IconTheme.Red); }
+            set { m_viewOne.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconFirstPurple
         {
-            get { return _viewOne.GetIcon(IconTheme.Purple); }
-            set { _viewOne.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_viewOne.GetIcon(IconTheme.Purple); }
+            set { m_viewOne.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconFirstBlue
         {
-            get { return _viewOne.GetIcon(IconTheme.Blue); }
-            set { _viewOne.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_viewOne.GetIcon(IconTheme.Blue); }
+            set { m_viewOne.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image IconSecondWhite
         {
-            get { return _viewTwo.GetIcon(IconTheme.White); }
-            set { _viewTwo.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_viewTwo.GetIcon(IconTheme.White); }
+            set { m_viewTwo.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconSecondBlack
         {
-            get { return _viewTwo.GetIcon(IconTheme.Black); }
-            set { _viewTwo.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_viewTwo.GetIcon(IconTheme.Black); }
+            set { m_viewTwo.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconSecondRed
         {
-            get { return _viewTwo.GetIcon(IconTheme.Red); }
-            set { _viewTwo.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_viewTwo.GetIcon(IconTheme.Red); }
+            set { m_viewTwo.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconSecondPurple
         {
-            get { return _viewTwo.GetIcon(IconTheme.Purple); }
-            set { _viewTwo.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_viewTwo.GetIcon(IconTheme.Purple); }
+            set { m_viewTwo.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconSecondBlue
         {
-            get { return _viewTwo.GetIcon(IconTheme.Blue); }
-            set { _viewTwo.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_viewTwo.GetIcon(IconTheme.Blue); }
+            set { m_viewTwo.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image IconThirdWhite
         {
-            get { return _viewThree.GetIcon(IconTheme.White); }
-            set { _viewThree.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_viewThree.GetIcon(IconTheme.White); }
+            set { m_viewThree.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconThirdBlack
         {
-            get { return _viewThree.GetIcon(IconTheme.Black); }
-            set { _viewThree.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_viewThree.GetIcon(IconTheme.Black); }
+            set { m_viewThree.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconThirdRed
         {
-            get { return _viewThree.GetIcon(IconTheme.Red); }
-            set { _viewThree.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_viewThree.GetIcon(IconTheme.Red); }
+            set { m_viewThree.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconThirdPurple
         {
-            get { return _viewThree.GetIcon(IconTheme.Purple); }
-            set { _viewThree.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_viewThree.GetIcon(IconTheme.Purple); }
+            set { m_viewThree.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconThirdBlue
         {
-            get { return _viewThree.GetIcon(IconTheme.Blue); }
-            set { _viewThree.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_viewThree.GetIcon(IconTheme.Blue); }
+            set { m_viewThree.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Image IconDescWhite
         {
-            get { return _descIcons.GetIcon(IconTheme.White); }
-            set { _descIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_descIcons.GetIcon(IconTheme.White); }
+            set { m_descIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconDescBlack
         {
-            get { return _descIcons.GetIcon(IconTheme.Black); }
-            set { _descIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_descIcons.GetIcon(IconTheme.Black); }
+            set { m_descIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconDescRed
         {
-            get { return _descIcons.GetIcon(IconTheme.Red); }
-            set { _descIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_descIcons.GetIcon(IconTheme.Red); }
+            set { m_descIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconDescPurple
         {
-            get { return _descIcons.GetIcon(IconTheme.Purple); }
-            set { _descIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_descIcons.GetIcon(IconTheme.Purple); }
+            set { m_descIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconDescBlue
         {
-            get { return _descIcons.GetIcon(IconTheme.Blue); }
-            set { _descIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_descIcons.GetIcon(IconTheme.Blue); }
+            set { m_descIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Font TitleFont
@@ -229,18 +229,18 @@ namespace CodeRedLauncher.Controls
 
             if (ViewType == StatusViews.One)
             {
-                TitleImg.BackgroundImage = _viewOne.GetThemeIcon();
+                TitleImg.BackgroundImage = m_viewOne.GetThemeIcon();
             }
             else if (ViewType == StatusViews.Two)
             {
-                TitleImg.BackgroundImage = _viewTwo.GetThemeIcon();
+                TitleImg.BackgroundImage = m_viewTwo.GetThemeIcon();
             }
             else if (ViewType == StatusViews.Three)
             {
-                TitleImg.BackgroundImage = _viewThree.GetThemeIcon();
+                TitleImg.BackgroundImage = m_viewThree.GetThemeIcon();
             }
 
-            DescriptionImg.BackgroundImage = _descIcons.GetThemeIcon();
+            DescriptionImg.BackgroundImage = m_descIcons.GetThemeIcon();
             Invalidate();
         }
 

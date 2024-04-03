@@ -18,21 +18,21 @@ namespace CodeRedLauncher
     // Helper class for managing tabs and their buttons outside of custom controls.
     public static class TabManager
     {
-        private static ControlTheme _theme = ControlTheme.Dark;
-        private static IconTheme _icon = IconTheme.Red;
-        private static TabControl _controlTab = null;
-        private static Dictionary<Tabs, Pair<CRTab, TabPage>> _boundTabs = new Dictionary<Tabs, Pair<CRTab, TabPage>>();
+        private static ControlTheme m_theme = ControlTheme.Dark;
+        private static IconTheme m_icon = IconTheme.Red;
+        private static TabControl m_controlTab = null;
+        private static Dictionary<Tabs, Pair<CRTab, TabPage>> m_boundTabs = new Dictionary<Tabs, Pair<CRTab, TabPage>>();
 
         public static ControlTheme ControlType
         {
-            get { return _theme; }
-            set { _theme = value; UpdateTheme(); }
+            get { return m_theme; }
+            set { m_theme = value; UpdateTheme(); }
         }
 
         public static IconTheme IconType
         {
-            get { return _icon; }
-            set { _icon = value; UpdateTheme(); }
+            get { return m_icon; }
+            set { m_icon = value; UpdateTheme(); }
         }
 
         public static void SetTheme(ControlTheme control, IconTheme icon)
@@ -45,7 +45,7 @@ namespace CodeRedLauncher
         {
             bool darkMode = (ControlType == ControlTheme.Dark);
 
-            foreach (var tab in _boundTabs)
+            foreach (var tab in m_boundTabs)
             {
                 if (tab.Value.Second != null)
                 {
@@ -61,17 +61,17 @@ namespace CodeRedLauncher
 
         public static void BindControl(TabControl control)
         {
-            _controlTab = control;
+            m_controlTab = control;
         }
 
         public static void BindTab(Tabs id, CRTab tab, TabPage page)
         {
-            _boundTabs[id] = new Pair<CRTab, TabPage>(tab, page);
+            m_boundTabs[id] = new Pair<CRTab, TabPage>(tab, page);
         }
 
         private static void ResetTabs()
         {
-            foreach (var tab in _boundTabs)
+            foreach (var tab in m_boundTabs)
             {
                 if (tab.Value.First != null)
                 {
@@ -82,12 +82,12 @@ namespace CodeRedLauncher
 
         public static void SelectTab(Tabs id)
         {
-            if ((_controlTab != null) && _boundTabs.ContainsKey(id))
+            if ((m_controlTab != null) && m_boundTabs.ContainsKey(id))
             {
                 ResetTabs();
-                Pair<CRTab, TabPage> tabPair = _boundTabs[id];
+                Pair<CRTab, TabPage> tabPair = m_boundTabs[id];
                 tabPair.First.TabSelected = true;
-                _controlTab.SelectedTab = tabPair.Second;
+                m_controlTab.SelectedTab = tabPair.Second;
             }
         }
     }

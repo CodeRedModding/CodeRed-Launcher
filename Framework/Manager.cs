@@ -179,7 +179,7 @@ namespace CodeRedLauncher
 
     public static class LibraryManager
     {
-        private static List<IntPtr> _handleCache = new List<IntPtr>(); // Handle cache for processes we've already loaded into.
+        private static List<IntPtr> m_handleCache = new List<IntPtr>(); // Handle cache for processes we've already loaded into.
 
         public static class Settings
         {
@@ -221,9 +221,9 @@ namespace CodeRedLauncher
                     {
                         if (module.FileName.Contains(Settings.ModuleName))
                         {
-                            if (!_handleCache.Contains(process.Handle))
+                            if (!m_handleCache.Contains(process.Handle))
                             {
-                                _handleCache.Add(process.Handle);
+                                m_handleCache.Add(process.Handle);
                             }
 
                             return true;
@@ -232,7 +232,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    return _handleCache.Contains(process.Handle);
+                    return m_handleCache.Contains(process.Handle);
                 }
             }
 
@@ -246,11 +246,11 @@ namespace CodeRedLauncher
                 return true;
             }
 
-            _handleCache.Clear(); // If there aren't any processes running, might as well clear the handle cache here while we're at it.
+            m_handleCache.Clear(); // If there aren't any processes running, might as well clear the handle cache here while we're at it.
             return false;
         }
 
-        // Attempts to dynamically load a library into all found processes (if configured as such), as well as update/clean up the "_handleCache" list.
+        // Attempts to dynamically load a library into all found processes (if configured as such), as well as update/clean up the "m_handleCache" list.
         public static List<InjectionResults> TryLoadDynamic(Architecture.Path libraryFile)
         {
             List<InjectionResults> returnList = new List<InjectionResults>();
@@ -304,22 +304,22 @@ namespace CodeRedLauncher
                 // If our cache doesn't include the processes we've just injected into, the process closed and is no longer injected.
                 foreach (IntPtr handle in injectedHandles)
                 {
-                    if (!_handleCache.Contains(handle))
+                    if (!m_handleCache.Contains(handle))
                     {
-                        _handleCache.Remove(handle);
+                        m_handleCache.Remove(handle);
                     }
                 }
             }
             else
             {
-                _handleCache.Clear();
+                m_handleCache.Clear();
                 returnList.Add(InjectionResults.ProcessNotFound);
             }
 
             return returnList;
         }
 
-        // Attempts to load a library into an individual process, adds to the "_handleCache" list but does NOT remove old handles.
+        // Attempts to load a library into an individual process, adds to the "m_handleCache" list but does NOT remove old handles.
         public static InjectionResults TryLoadIndividual(Process process, Architecture.Path libraryFile)
         {
             if (libraryFile.Exists())
@@ -332,7 +332,7 @@ namespace CodeRedLauncher
 
                         if (result == InjectionResults.Success)
                         {
-                            _handleCache.Add(process.Handle);
+                            m_handleCache.Add(process.Handle);
                         }
 
                         return result;
@@ -344,7 +344,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    _handleCache.Clear();
+                    m_handleCache.Clear();
                     return InjectionResults.ProcessNotFound;
                 }
             }

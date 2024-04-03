@@ -21,20 +21,20 @@ namespace CodeRedLauncher.Controls
 
     public class IconStore
     {
-        private ControlTheme _controlTheme = ControlTheme.Dark;
-        private IconTheme _iconTheme = IconTheme.White;
-        private Dictionary<IconTheme, Image> _icons = new Dictionary<IconTheme, Image>();
+        private ControlTheme m_controlTheme = ControlTheme.Dark;
+        private IconTheme m_iconTheme = IconTheme.White;
+        private Dictionary<IconTheme, Image> m_icons = new Dictionary<IconTheme, Image>();
 
         public ControlTheme Control
         {
-            get { return _controlTheme; }
-            set { _controlTheme = value; }
+            get { return m_controlTheme; }
+            set { m_controlTheme = value; }
         }
 
         public IconTheme Theme
         {
-            get { return _iconTheme; }
-            set { _iconTheme = value; }
+            get { return m_iconTheme; }
+            set { m_iconTheme = value; }
         }
 
         public Color GetColor()
@@ -63,12 +63,12 @@ namespace CodeRedLauncher.Controls
 
         public Image? GetIcon(IconTheme type)
         {
-            return (_icons.ContainsKey(type) ? _icons[type] : null);
+            return (m_icons.ContainsKey(type) ? m_icons[type] : null);
         }
 
         public void SetIcon(IconTheme type, Image icon)
         {
-            _icons[type] = icon;
+            m_icons[type] = icon;
         }
     }
 

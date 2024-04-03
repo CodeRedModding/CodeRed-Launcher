@@ -13,59 +13,59 @@ namespace CodeRedLauncher.Controls
 
     public partial class CRChangelog : UserControl
     {
-        private IconStore _icons = new IconStore();
-        private ChangelogViews _view = ChangelogViews.Module;
-        private string _moduleTextRaw = "Loading...";
-        private string _launcherTextRaw = "Loading...";
-        private string _moduleText = "Loading...";
-        private string _launcherText = "Loading...";
+        private IconStore m_icons = new IconStore();
+        private ChangelogViews m_view = ChangelogViews.Module;
+        private string m_moduleTextRaw = "Loading...";
+        private string m_launcherTextRaw = "Loading...";
+        private string m_moduleText = "Loading...";
+        private string m_launcherText = "Loading...";
 
         public ControlTheme ControlType
         {
-            get { return _icons.Control; }
-            set { _icons.Control = value; UpdateTheme(); }
+            get { return m_icons.Control; }
+            set { m_icons.Control = value; UpdateTheme(); }
         }
 
         public IconTheme IconType
         {
-            get { return _icons.Theme; }
-            set { _icons.Theme = value; UpdateTheme(); }
+            get { return m_icons.Theme; }
+            set { m_icons.Theme = value; UpdateTheme(); }
         }
 
         public ChangelogViews DisplayType
         {
-            get { return _view; }
-            set { _view = value; UpdateTheme(); }
+            get { return m_view; }
+            set { m_view = value; UpdateTheme(); }
         }
 
         public Image IconWhite
         {
-            get { return _icons.GetIcon(IconTheme.White); }
-            set { _icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.White); }
+            set { m_icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
         public Image IconBlack
         {
-            get { return _icons.GetIcon(IconTheme.Black); }
-            set { _icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Black); }
+            set { m_icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
         public Image IconRed
         {
-            get { return _icons.GetIcon(IconTheme.Red); }
-            set { _icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Red); }
+            set { m_icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
         public Image IconPurple
         {
-            get { return _icons.GetIcon(IconTheme.Purple); }
-            set { _icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Purple); }
+            set { m_icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
         public Image IconBlue
         {
-            get { return _icons.GetIcon(IconTheme.Blue); }
-            set { _icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get { return m_icons.GetIcon(IconTheme.Blue); }
+            set { m_icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
         public Font TitleFont
@@ -82,14 +82,14 @@ namespace CodeRedLauncher.Controls
 
         public string ModuleText
         {
-            get { return _moduleTextRaw; }
-            set { _moduleText = Format(value); UpdateTheme(); }
+            get { return m_moduleTextRaw; }
+            set { m_moduleText = Format(value); UpdateTheme(); }
         }
 
         public string LauncherText
         {
-            get { return _launcherTextRaw; }
-            set { _launcherText = Format(value); UpdateTheme(); }
+            get { return m_launcherTextRaw; }
+            set { m_launcherText = Format(value); UpdateTheme(); }
         }
 
         public CRChangelog()
@@ -115,13 +115,13 @@ namespace CodeRedLauncher.Controls
             if (DisplayType == ChangelogViews.Module)
             {
                 TitleLbl.Text = "Module Changelog";
-                DescriptionLbl.Text = _moduleText;
+                DescriptionLbl.Text = m_moduleText;
                 DescriptionLbl.TextAlign = ContentAlignment.MiddleLeft;
             }
             else if (DisplayType == ChangelogViews.Launcher)
             {
                 TitleLbl.Text = "Launcher Changelog";
-                DescriptionLbl.Text = _launcherText;
+                DescriptionLbl.Text = m_launcherText;
                 DescriptionLbl.TextAlign = ContentAlignment.MiddleLeft;
             }
             else if (DisplayType == ChangelogViews.Offline)
@@ -144,7 +144,7 @@ namespace CodeRedLauncher.Controls
                 DescriptionLbl.ForeColor = GPalette.Black;
             }
 
-            TitleImg.BackgroundImage = _icons.GetThemeIcon();
+            TitleImg.BackgroundImage = m_icons.GetThemeIcon();
             Invalidate();
         }
 

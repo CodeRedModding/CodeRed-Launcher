@@ -10,29 +10,29 @@ namespace CodeRedLauncher
 {
     public static class Updator
     {
-        private static bool _isUpdating = false;
-        private static bool _launcherOutdated = false;
-        private static bool _moduleOutdated = false;
-        private static List<string> _excludedExtensions = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" };
+        private static bool m_updating = false;
+        private static bool m_launcherOutdated = false;
+        private static bool m_moduleOutdated = false;
+        private static List<string> m_excluded = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" }; // File types we don't want to override when updating, like personal user settings.
 
         public static bool IsUpdating()
         {
-            return _isUpdating;
+            return m_updating;
         }
 
         public static bool IsOutdated()
         {
-            return (_launcherOutdated || _moduleOutdated);
+            return (m_launcherOutdated || m_moduleOutdated);
         }
 
         public static void OverrideLauncher()
         {
-            _moduleOutdated = false;
+            m_moduleOutdated = false;
         }
 
         public static void OverrideModule()
         {
-            _moduleOutdated = false;
+            m_moduleOutdated = false;
         }
 
         public static async Task<bool> IsModuleOutdated(bool bInvalidate)
@@ -48,13 +48,13 @@ namespace CodeRedLauncher
                 if (Storage.GetModuleVersion() != await Retrievers.GetModuleVersion())
                 {
                     Logger.Write("Module detected as outdated!");
-                    _moduleOutdated = true;
+                    m_moduleOutdated = true;
                     return true;
                 }
             }
 
             Logger.Write("Module is up to date!");
-            _moduleOutdated = false;
+            m_moduleOutdated = false;
             return false;
         }
 
@@ -71,25 +71,25 @@ namespace CodeRedLauncher
                 if (Assembly.GetVersion() != await Retrievers.GetLauncherVersion())
                 {
                     Logger.Write("Launcher detected as outdated!");
-                    _launcherOutdated = true;
+                    m_launcherOutdated = true;
                     return true;
                 }
             }
 
             Logger.Write("Launcher is up to date!");
-            _launcherOutdated = false;
+            m_launcherOutdated = false;
             return false;
         }
 
         private static async Task<Result> InstallModule(bool bForceInstall)
         {
-            _isUpdating = true;
+            m_updating = true;
             Result report = new Result();
 
-            if (!bForceInstall && !_moduleOutdated)
+            if (!bForceInstall && !m_moduleOutdated)
             {
                 report.FailReason = "No module update required.";
-                _isUpdating = false;
+                m_updating = false;
                 return report;
             }
 
@@ -150,7 +150,7 @@ namespace CodeRedLauncher
                                     {
                                         // Skip overriding existing files that may be user-specific, such as settings or scripts.
 
-                                        foreach (string file in _excludedExtensions)
+                                        foreach (string file in m_excluded)
                                         {
                                             if (fileFilter.EndsWith(file))
                                             {
@@ -169,7 +169,7 @@ namespace CodeRedLauncher
 
                             Logger.Write("Done!");
                             report.Succeeded = true;
-                            _moduleOutdated = false;
+                            m_moduleOutdated = false;
                             Configuration.SaveChanges();
                         }
                     }
@@ -186,7 +186,7 @@ namespace CodeRedLauncher
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
-            _isUpdating = false;
+            m_updating = false;
             return report;
         }
 
@@ -197,13 +197,13 @@ namespace CodeRedLauncher
 
         private static async Task<Result> InstallLauncher(bool bForceInstall)
         {
-            _isUpdating = true;
+            m_updating = true;
             Result report = new Result();
 
-            if (!bForceInstall && !_launcherOutdated)
+            if (!bForceInstall && !m_launcherOutdated)
             {
                 report.FailReason = "No launcher update required.";
-                _isUpdating = false;
+                m_updating = false;
                 return report;
             }
 
@@ -275,7 +275,7 @@ namespace CodeRedLauncher
                                         {
                                             Logger.Write("Done!");
                                             report.Succeeded = true;
-                                            _launcherOutdated = false;
+                                            m_launcherOutdated = false;
 
                                             // Since the launcher is "half portable", the user can place the exe wherever they want and move it around.
                                             // This text file is just super simple dynamic way to insure the dropper can always find it.
@@ -321,7 +321,7 @@ namespace CodeRedLauncher
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
-            _isUpdating = false;
+            m_updating = false;
             return report;
         }
 
@@ -336,7 +336,7 @@ namespace CodeRedLauncher
 
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                if (_moduleOutdated)
+                if (m_moduleOutdated)
                 {
                     Result moduleReport = await InstallModule(false);
 
@@ -347,7 +347,7 @@ namespace CodeRedLauncher
                     }
                 }
 
-                if (_launcherOutdated)
+                if (m_launcherOutdated)
                 {
                     Result launcherReport = await InstallLauncher(false);
 
