@@ -6,6 +6,7 @@ namespace CodeRedLauncher.Architecture
 {
     // This is a custom class I made just so I could use something that was similar to "std::filesystem::path" which I am more familiar with.
     // Unnecessary but I like working with it anyway because of the "append" function and divide operator overloads, there is room for improvement in some areas for sure but I don't care.
+
     public class Path
     {
         private string IndirectPath { get; set; } = "";

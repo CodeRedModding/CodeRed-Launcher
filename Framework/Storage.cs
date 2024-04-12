@@ -20,6 +20,7 @@ namespace CodeRedLauncher
     {
         private static bool m_initialized = false;
         private static bool m_versionsValid = false;
+        private static bool m_directoriesValid = true;
         private static PrivateSetting m_emptySetting = new PrivateSetting();
         private static PrivateSetting m_gamesFolder = new PrivateSetting();
         private static PrivateSetting m_logFile = new PrivateSetting();
@@ -321,7 +322,7 @@ namespace CodeRedLauncher
 
         public static bool FindDirectories()
         {
-            if (!m_initialized)
+            if (!m_initialized && m_directoriesValid)
             {
                 Architecture.Path gamesFolder = (new Architecture.Path(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) / "My Games" / "Rocket League");
 
@@ -349,7 +350,9 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    MessageBox.Show("Error: Failed to find the Rocket League games folder!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    m_directoriesValid = false;
+                    MessageBox.Show("Error: Failed to find your Rocket League games folder, have you never run Rocket League before? Cannot continue!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(0);
                 }
             }
 
