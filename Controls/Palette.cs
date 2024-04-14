@@ -81,6 +81,8 @@ namespace CodeRedLauncher.Controls
         public static readonly Color CodePurple_Highlight = Color.FromArgb(217, 63, 122);   // #d93f7a
         public static readonly Color CodeBlue = Color.FromArgb(64, 64, 173);                // #4040ad
         public static readonly Color CodeBlue_Highlight = Color.FromArgb(80, 80, 191);      // #5050bf
+        public static readonly Color CodeGreen = Color.FromArgb(37, 255, 94);               // #25FF5E
+        public static readonly Color CodeGreen_Highlight = Color.FromArgb(70, 255, 118);    // #46FF76
         // Greyscale
         public static readonly Color PureBlack = Color.FromArgb(20, 22, 24);                // #141618
         public static readonly Color Black = Color.FromArgb(30, 30, 31);                    // #1e1e1f
