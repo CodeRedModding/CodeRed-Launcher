@@ -76,21 +76,21 @@ namespace CodeRedLauncher.Controls
     {
         // Primary Colors
         public static readonly Color CodeRed = Color.FromArgb(255, 50, 37);                     // #ff3225
-        public static readonly Color CodeRed_Highlight = Color.FromArgb(252, 82, 71);           // #fc5247
-        public static readonly Color CodeOrange = Color.FromArgb(255, 130, 37);                 // #ff8225
-        public static readonly Color CodeOrange_Highlight = Color.FromArgb(252, 148, 71);       // #fc9447
+        public static readonly Color CodeRed_Highlight = Color.FromArgb(255, 65, 52);           // #ff4134
+        public static readonly Color CodeOrange = Color.FromArgb(255, 134, 35);                 // #ff8623
+        public static readonly Color CodeOrange_Highlight = Color.FromArgb(255, 149, 50);       // #ff9532
         public static readonly Color CodeYellow = Color.FromArgb(255, 246, 37);                 // #fff625
-        public static readonly Color CodeYellow_Highlight = Color.FromArgb(252, 244, 71);       // #fcF447
-        public static readonly Color CodeGreen = Color.FromArgb(37, 255, 94);                   // #25FF5E
-        public static readonly Color CodeGreen_Highlight = Color.FromArgb(70, 255, 118);        // #46FF76
-        public static readonly Color CodeBlue = Color.FromArgb(37, 100, 255);                   // #2564ff
-        public static readonly Color CodeBlue_Highlight = Color.FromArgb(71, 124, 252);         // #477cfc
+        public static readonly Color CodeYellow_Highlight = Color.FromArgb(252, 255, 52);       // #ffff34
+        public static readonly Color CodeGreen = Color.FromArgb(40, 250, 71);                   // #28fa47
+        public static readonly Color CodeGreen_Highlight = Color.FromArgb(55, 255, 86);         // #37ff56
+        public static readonly Color CodeBlue = Color.FromArgb(41, 110, 255);                   // #296eff
+        public static readonly Color CodeBlue_Highlight = Color.FromArgb(56, 125, 255);         // #387dff
         public static readonly Color CodePurple = Color.FromArgb(209, 44, 107);                 // #d12c6b (Used by the lightmode UI)
-        public static readonly Color CodePurple_Highlight = Color.FromArgb(217, 63, 122);       // #d93f7a (Used by the lightmode UI)
+        public static readonly Color CodePurple_Highlight = Color.FromArgb(224, 59, 122);       // #e03b7a (Used by the lightmode UI)
         private static readonly Color CodePurple_Alt = Color.FromArgb(185, 37, 255);            // #b925ff (Unused in the launcher)
-        private static readonly Color CodePurple_Alt_Highlight = Color.FromArgb(193, 71, 252);  // #c147fc (Unused in the launcher)
-        public static readonly Color CodePink = Color.FromArgb(255, 37, 234);                   // #ff25ea
-        public static readonly Color CodePink_Highlight = Color.FromArgb(252, 71, 236);         // #fc47ec
+        private static readonly Color CodePurple_Alt_Highlight = Color.FromArgb(200, 52, 255);  // #c834ff (Unused in the launcher)
+        public static readonly Color CodePink = Color.FromArgb(255, 48, 241);                   // #ff30f1
+        public static readonly Color CodePink_Highlight = Color.FromArgb(255, 62, 232);         // #ff3ee8
         // Greyscale
         public static readonly Color PureBlack = Color.FromArgb(20, 22, 24);                    // #141618
         public static readonly Color Black = Color.FromArgb(30, 30, 31);                        // #1e1e1f
