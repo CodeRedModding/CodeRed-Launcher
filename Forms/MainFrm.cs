@@ -1312,16 +1312,16 @@ namespace CodeRedLauncher
 
             if (report.Succeeded)
             {
+                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
                 UpdatePopup.HidePopup();
                 ProcessTmr.Start();
                 CheckForUpdates(true, false);
             }
-            else if (report.FailReason != null)
+            else if (report.HasFailReason())
             {
+                UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Fail;
                 Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
             }
-
-            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
         }
 
         private async void UpdatePopup_ButtonClickDeny(object sender, EventArgs e)

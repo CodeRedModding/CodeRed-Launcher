@@ -6,7 +6,7 @@ namespace CodeRedLauncher
     public class Result
     {
         public bool Succeeded { get; set; }
-        public string FailReason { get; set; }
+        public string? FailReason { get; set; }
 
         public Result()
         {
@@ -14,15 +14,15 @@ namespace CodeRedLauncher
             FailReason = null;
         }
 
-        public Result(bool bSucceeded, string failReason = "")
+        public Result(bool bSucceeded, string? failReason = null)
         {
             Succeeded = bSucceeded;
             FailReason = failReason;
         }
-        
-        bool HasFailReason()
+
+        public bool HasFailReason()
         {
-            return (FailReason != null);
+            return !string.IsNullOrEmpty(FailReason);
         }
     }
 }

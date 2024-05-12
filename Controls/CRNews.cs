@@ -11,6 +11,9 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRNews : UserControl
     {
+        private string m_altUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/News.cr"; // Psyonix started blocking requests to their site...have to use my own now.
+        private string m_altThumbnail = "https://i.imgur.com/g9ssgL7.png";
+
         private IconStore m_calendarIcons = new IconStore();
         private IconStore m_authorIcons = new IconStore();
         private IconStore m_categoryIcons = new IconStore();
@@ -33,6 +36,8 @@ namespace CodeRedLauncher.Controls
 
             public NewsStorage(string bodyContent)
             {
+                Timestamp = "Rocket League";
+                Author = "Psyonix Team";
                 ParseJson(bodyContent);
             }
 
@@ -40,6 +45,7 @@ namespace CodeRedLauncher.Controls
             {
                 if (bodyContent.Contains("slug"))
                 {
+                    bodyContent = bodyContent.Replace("\": \"", "\":\"");
                     Match titleMatch = Regex.Match(bodyContent, "(?<=\"title\":\")(.*?)(?=\")");
                     Match urlMatch = Regex.Match(bodyContent, "(?<=\"slug\":\")(.*?)(?=\")");
                     Match imageMatch = Regex.Match(bodyContent, "(?<=\"imageUrl\":\")(.*?)(?=\")");
@@ -415,6 +421,7 @@ namespace CodeRedLauncher.Controls
                             newsStorage.ThumbnailUrl = thumbnailMatch.Groups[1].Value;
                             Int32 jpg = newsStorage.ThumbnailUrl.IndexOf(".jpg");
                             Int32 png = newsStorage.ThumbnailUrl.IndexOf(".png");
+                            Int32 webp = newsStorage.ThumbnailUrl.IndexOf(".webp");
 
                             if (jpg > 0)
                             {
@@ -423,6 +430,10 @@ namespace CodeRedLauncher.Controls
                             else if (png > 0)
                             {
                                 newsStorage.ThumbnailUrl = (newsStorage.ThumbnailUrl.Substring(0, png) + ".png");
+                            }
+                            else if (webp > 0)
+                            {
+                                newsStorage.ThumbnailUrl = (newsStorage.ThumbnailUrl.Substring(0, webp) + ".webp");
                             }
                         }
 
@@ -454,19 +465,19 @@ namespace CodeRedLauncher.Controls
             return newsStorage;
         }
 
-        public async void ParseArticles(string url)
+        public async void ParseArticles(string url, bool bRecursive = false)
         {
             if (!string.IsNullOrEmpty(url))
             {
-                return; // Fuck Psyonix for blocking requests to their news url, billion dollar company can't give us an actual api to use.
-
+                bool fallback = false;
                 string pageBody = await Downloaders.DownloadPage(url);
 
-                if (!string.IsNullOrEmpty(pageBody))
+                if (!string.IsNullOrEmpty(pageBody)) 
                 {
                     m_articles.Clear();
                     ResetArticles();
-                    MatchCollection articleLinks = Regex.Matches(pageBody.Replace("\\", ""), "(?=\"title\")(.*?)(?=})");
+
+                    MatchCollection articleLinks = Regex.Matches(pageBody.Replace("\\", ""), (bRecursive ? "(?s)(?=\"title).*?(?=})" : "(?=\"title\")(.*?)(?=})"));
 
                     Int32 articles = 0;
 
@@ -474,24 +485,43 @@ namespace CodeRedLauncher.Controls
                     {
                         Match link = articleLinks[i];
 
-                        if (link.Success && link.Groups[1].Success && link.Groups[1].Value.Contains("slug"))
+                        if (link.Success && link.Groups[0].Success && link.Groups[0].ToString().Contains("slug"))
                         {
                             articles++;
-                            m_articles.Add(new NewsStorage(link.Groups[1].Value));
+                            m_articles.Add(new NewsStorage(link.Groups[0].ToString()));
                         }
 
-                        if (articles >= m_maxIndexes)
+                        if (articles == m_maxIndexes)
                         {
                             break;
                         }
                     }
 
-                    LoadAllIndexes(); // Parse and download everything in the background.
-                    LoadPreviousArticle();
+                    if (articles > 0)
+                    {
+                        Logger.Write("Found news article links!");
+                        LoadAllIndexes(); // Parse and download everything in the background.
+                        LoadPreviousArticle();
+                        return;
+                    }
+                    else
+                    {
+                        fallback = true;
+                    }
                 }
                 else
                 {
-                    Logger.Write("Failed to download news article info!", LogLevel.LEVEL_WARN);
+                    fallback = true;
+                }
+
+                if (fallback && !bRecursive)
+                {
+                    Logger.Write("Couldn't find official news links, resorting to fallback url!");
+                    ParseArticles(m_altUrl, true);
+                }
+                else if (bRecursive)
+                {
+                    Logger.Write("Fallback url failed, no news links found!");
                 }
             }
         }
@@ -524,7 +554,7 @@ namespace CodeRedLauncher.Controls
                         if (newsStorage.ThumbnailImage == null)
                         {
                             newsStorage.ThumbnailUrl = "";
-                            newsStorage.ThumbnailUrlAlt = "https://i.imgur.com/dmpY0zQ.png";
+                            newsStorage.ThumbnailUrlAlt = m_altThumbnail;
                             newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrlAlt);
                         }
                     }
@@ -570,7 +600,7 @@ namespace CodeRedLauncher.Controls
                             if (newsStorage.ThumbnailImage == null)
                             {
                                 newsStorage.ThumbnailUrl = "";
-                                newsStorage.ThumbnailUrlAlt = "https://i.imgur.com/dmpY0zQ.png";
+                                newsStorage.ThumbnailUrlAlt = m_altThumbnail;
                                 newsStorage.ThumbnailImage = await Downloaders.DownloadImage(newsStorage.ThumbnailUrlAlt);
                             }
 
@@ -611,22 +641,34 @@ namespace CodeRedLauncher.Controls
 
         private void PreviousBtn_Click(object sender, EventArgs e)
         {
-            LoadPreviousArticle();
+            if (PreviousBtn.BackgroundImage != null)
+            {
+                LoadPreviousArticle();
+            }
         }
 
         private void PreviousBtn_DoubleClick(object sender, EventArgs e)
         {
-            LoadPreviousArticle();
+            if (PreviousBtn.BackgroundImage != null)
+            {
+                LoadPreviousArticle();
+            }
         }
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
-            LoadNextArticle();
+            if (NextBtn.BackgroundImage != null)
+            {
+                LoadNextArticle();
+            }
         }
 
         private void NextBtn_DoubleClick(object sender, EventArgs e)
         {
-            LoadNextArticle();
+            if (NextBtn.BackgroundImage != null)
+            {
+                LoadNextArticle();
+            }
         }
 
         private void ThumbnailImg_Click(object sender, EventArgs e)

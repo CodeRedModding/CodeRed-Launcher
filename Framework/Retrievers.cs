@@ -44,7 +44,7 @@ namespace CodeRedLauncher
             return false;
         }
 
-        public static async Task<Image> DownloadImage(string url)
+        public static async Task<Image> DownloadImage(string url, bool bNoCache = true)
         {
             Image image = null;
 
@@ -55,8 +55,12 @@ namespace CodeRedLauncher
                     try
                     {
                         client.Timeout = m_timeout;
-                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
                         client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
+
+                        if (bNoCache)
+                        {
+                            client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        }
 
                         HttpResponseMessage response = await client.GetAsync(url);
 
@@ -89,7 +93,7 @@ namespace CodeRedLauncher
             return image;
         }
 
-        public static async Task<string> DownloadPage(string url)
+        public static async Task<string> DownloadPage(string url, bool bNoCache = true)
         {
             string pageContent = "";
 
@@ -100,8 +104,12 @@ namespace CodeRedLauncher
                     using (HttpClient client = new HttpClient())
                     {
                         client.Timeout = m_timeout;
-                        client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
                         client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
+
+                        if (bNoCache)
+                        {
+                            client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        }
 
                         HttpResponseMessage response = await client.GetAsync(url);
 
@@ -124,7 +132,7 @@ namespace CodeRedLauncher
             return pageContent;
         }
 
-        public static async Task<bool> DownloadFile(string url, Architecture.Path folder, string fileName)
+        public static async Task<bool> DownloadFile(string url, Architecture.Path folder, string fileName, bool bNoCache = true)
         {
             if (folder.Exists() && !string.IsNullOrEmpty(url))
             {
@@ -134,6 +142,11 @@ namespace CodeRedLauncher
                     {
                         client.Timeout = m_timeout;
                         client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
+
+                        if (bNoCache)
+                        {
+                            client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                        }
 
                         HttpResponseMessage response = await client.GetAsync(url);
 

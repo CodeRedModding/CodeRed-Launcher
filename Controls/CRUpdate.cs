@@ -20,7 +20,8 @@ namespace CodeRedLauncher.Controls
             Downloading,
             Module,
             Launcher,
-            Both
+            Both,
+            Fail
         }
 
         private UpdateLayouts m_updateType = UpdateLayouts.Module;
@@ -208,6 +209,14 @@ namespace CodeRedLauncher.Controls
             else if (UpdateType == UpdateLayouts.Both)
             {
                 DescriptionLbl.Text = "A new version both the launcher and module were found, would you like to automatically install it now?";
+                m_buttonsEnabled = true;
+                AcceptBtn.Visible = true;
+                DenyBtn.Visible = true;
+                GameBtn.Visible = false;
+            }
+            else if (UpdateType == UpdateLayouts.Fail)
+            {
+                DescriptionLbl.Text = "An error occurred while downloading the latest version, would you like to try again?";
                 m_buttonsEnabled = true;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;

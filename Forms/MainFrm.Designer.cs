@@ -1237,7 +1237,6 @@ namespace CodeRedLauncher
             NewsTabBtn.TabEnabled = true;
             NewsTabBtn.TabIndex = 1;
             NewsTabBtn.TabSelected = false;
-            NewsTabBtn.Visible = false;
             NewsTabBtn.OnTabClick += NewsTabBtn_OnTabClick;
             // 
             // DashboardTabBtn
