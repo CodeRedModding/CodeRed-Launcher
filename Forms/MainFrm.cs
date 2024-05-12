@@ -1241,12 +1241,12 @@ namespace CodeRedLauncher
                     StartupRoutine(true);
                     InstallPopup.HidePopup();
                 }
-                else if (moduleReport.FailReason != null)
+                else if (moduleReport.HasFailReason())
                 {
                     MessageBox.Show(moduleReport.FailReason, Assembly.GetTitle());
                 }
             }
-            else if (pathReport.FailReason != null)
+            else if (pathReport.HasFailReason())
             {
                 MessageBox.Show(pathReport.FailReason, Assembly.GetTitle());
             }
