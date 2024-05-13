@@ -11,8 +11,9 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRNews : UserControl
     {
-        private string m_altUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/News.cr"; // Psyonix started blocking requests to their site...have to use my own now.
-        private string m_altThumbnail = "https://i.imgur.com/g9ssgL7.png";
+        private static bool m_usingAlt = false;
+        private static readonly string m_altUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/News.cr"; // Psyonix started blocking requests to their site...have to use my own now.
+        private static readonly string m_altThumbnail = "https://i.imgur.com/g9ssgL7.png";
 
         private IconStore m_calendarIcons = new IconStore();
         private IconStore m_authorIcons = new IconStore();
@@ -30,14 +31,12 @@ namespace CodeRedLauncher.Controls
             public string ThumbnailUrlAlt { get; set; }
             public Image ThumbnailImage { get; set; } = null;
             public string Title { get; set; }
-            public string Timestamp { get; set; }
-            public string Author { get; set; }
+            public string Timestamp { get; set; } = "Rocket League";
+            public string Author { get; set; } = "Psyonix Team";
             public bool Parsed { get; set; } = false;
 
             public NewsStorage(string bodyContent)
             {
-                Timestamp = "Rocket League";
-                Author = "Psyonix Team";
                 ParseJson(bodyContent);
             }
 
@@ -69,6 +68,25 @@ namespace CodeRedLauncher.Controls
                     if (imageMatch.Success && imageMatch.Groups[1].Success)
                     {
                         ThumbnailUrl = imageMatch.Groups[1].Value;
+                    }
+
+                    if (m_usingAlt)
+                    {
+                        // Specific to the fallback url.
+                        Match dateMatch = Regex.Match(bodyContent, "(?<=\"date\":\")(.*?)(?=\")");
+                        Match authorMatch = Regex.Match(bodyContent, "(?<=\"author\":\")(.*?)(?=\")");
+
+                        if (dateMatch.Success && dateMatch.Groups[1].Success)
+                        {
+                            Timestamp = dateMatch.Groups[1].Value;
+                        }
+
+                        if (authorMatch.Success && authorMatch.Groups[1].Success)
+                        {
+                            Author = authorMatch.Groups[1].Value;
+                        }
+
+                        Parsed = true;
                     }
                 }
             }
@@ -404,7 +422,7 @@ namespace CodeRedLauncher.Controls
 
         private async Task<NewsStorage> ParseLink(NewsStorage newsStorage)
         {
-            if (!string.IsNullOrEmpty(newsStorage.NewsUrl))
+            if (!string.IsNullOrEmpty(newsStorage.NewsUrl) && !m_usingAlt)
             {
                 string pageBody = await Downloaders.DownloadPage(newsStorage.NewsUrl);
 
@@ -517,6 +535,7 @@ namespace CodeRedLauncher.Controls
                 if (fallback && !bRecursive)
                 {
                     Logger.Write("Couldn't find official news links, resorting to fallback url!");
+                    m_usingAlt = true;
                     ParseArticles(m_altUrl, true);
                 }
                 else if (bRecursive)
