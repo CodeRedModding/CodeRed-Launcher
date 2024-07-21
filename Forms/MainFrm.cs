@@ -84,37 +84,21 @@ namespace CodeRedLauncher
 
         private void LaunchBtn_OnButtonClick(object sender, EventArgs e)
         {
-            if (!LibraryManager.AnyProcessRunning())
+            if (!LibraryManager.AnyProcessRunning() && Storage.CheckInitialized())
             {
-                if (Storage.CheckInitialized())
+                PlatformTypes platform = Storage.GetCurrentPlatform(true);
+
+                if (platform == PlatformTypes.Steam)
                 {
-                    PlatformTypes platform = Storage.GetCurrentPlatform(true);
+                    Architecture.Path gameFile = (Storage.GetSteamPath() / "RocketLeague.exe");
 
-                    if (platform == PlatformTypes.Steam)
+                    if (gameFile.Exists())
                     {
-                        Architecture.Path gameFile = (Storage.GetSteamPath() / "RocketLeague.exe");
-
-                        if (gameFile.Exists())
-                        {
-                            Process.Start(new ProcessStartInfo(gameFile.GetPath()) { UseShellExecute = false });
-                        }
-                        else
-                        {
-                            Logger.Write("Failed to locate the users Rocket League executable on Steam!", LogLevel.LEVEL_ERROR);
-                        }
+                        Process.Start(new ProcessStartInfo(gameFile.GetPath()) { UseShellExecute = false });
                     }
-                    else if (platform == PlatformTypes.Epic)
+                    else
                     {
-                        Architecture.Path gameFile = (Storage.GetEpicPath() / "RocketLeague.exe");
-
-                        if (gameFile.Exists())
-                        {
-                            Process.Start(new ProcessStartInfo(gameFile.GetPath()) { UseShellExecute = false });
-                        }
-                        else
-                        {
-                            Logger.Write("Failed to locate the users Rocket League executable on Epic!", LogLevel.LEVEL_ERROR);
-                        }
+                        Logger.Write("Failed to locate the users Rocket League executable on Steam!", LogLevel.LEVEL_ERROR);
                     }
                 }
             }
@@ -520,8 +504,18 @@ namespace CodeRedLauncher
                         {
                             ManualInjectBtn.SendToBack();
                             ManualInjectBtn.Visible = false;
-                            LaunchBtn.BringToFront();
-                            LaunchBtn.Visible = true;
+                            
+                            if (Storage.GetCurrentPlatform(false) == PlatformTypes.Steam)
+                            {
+                                LaunchBtn.BringToFront();
+                                LaunchBtn.Visible = true;
+                            }
+                            else
+                            {
+                                LaunchBtn.SendToBack();
+                                LaunchBtn.Visible = false;
+                            }
+
                             ProcessStatusCtrl.DisplayType = StatusTypes.Process_Injecting;
                             InjectTmr.Start();
                         }
@@ -531,11 +525,21 @@ namespace CodeRedLauncher
             else
             {
                 InjectTmr.Stop();
-                LaunchBtn.DisplayText = "Launch Rocket League";
                 ManualInjectBtn.SendToBack();
                 ManualInjectBtn.Visible = false;
-                LaunchBtn.BringToFront();
-                LaunchBtn.Visible = true;
+
+                if (Storage.GetCurrentPlatform(false) == PlatformTypes.Steam)
+                {
+                    LaunchBtn.DisplayText = "Launch Rocket League";
+                    LaunchBtn.BringToFront();
+                    LaunchBtn.Visible = true;
+                }
+                else
+                {
+                    LaunchBtn.SendToBack();
+                    LaunchBtn.Visible = false;
+                }
+
                 ProcessStatusCtrl.DisplayType = StatusTypes.Process_Idle;
             }
         }
