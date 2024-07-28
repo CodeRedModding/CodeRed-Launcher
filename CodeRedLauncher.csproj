@@ -5,7 +5,6 @@
     <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Platforms>AnyCPU;x64</Platforms>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
     <StartupObject>CodeRedLauncher.Program</StartupObject>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -16,6 +15,7 @@
     <PackageIcon>Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/CodeRedModding/CodeRed-Launcher</RepositoryUrl>
     <Title>CodeRedLauncher</Title>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

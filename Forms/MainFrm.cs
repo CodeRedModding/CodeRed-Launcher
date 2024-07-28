@@ -425,7 +425,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    MessageBox.Show("There were no crash dumps or logs found to export! This could be either a good or bad thing...", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("There were no crash dumps or logs found to export!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

@@ -336,7 +336,7 @@ namespace CodeRedLauncher
                     {
                         if (!m_moduleFolder.IsNull())
                         {
-                            MessageBox.Show("Error: Failed to locate the needed registry keys!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error: Failed to locate the needed registry keys for CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
@@ -351,7 +351,7 @@ namespace CodeRedLauncher
                 else
                 {
                     m_directoriesValid = false;
-                    MessageBox.Show("Error: Failed to find your Rocket League games folder, have you never run Rocket League before? Cannot continue!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error: Failed to locate your Rocket League path, this could either be a result of not having the game installed or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Environment.Exit(0);
                 }
             }
