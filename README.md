@@ -11,6 +11,9 @@ The CodeRed Launcher is used to inject CodeRed into Rocket League, view news abo
 ## 📦 Download
 #### If this is your first time using CodeRed, you can [click this link](https://github.com/CodeRedModding/CodeRed-Launcher/releases/latest/download/CodeRedLauncher.zip) to download the latest version of the installer!
 
+## 🗑️ Uninstall
+#### Want to fully remove CodeRed from your system? [Click this link](https://github.com/CodeRedModding/CodeRed-Launcher/releases/latest/download/CodeRedUninstaller.zip) to download the uninstaller.
+
 ## 🗺️ Previews
 
 ![](Previews/Dashboard.png?raw=true)
