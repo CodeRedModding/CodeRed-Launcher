@@ -8,11 +8,8 @@ The CodeRed Launcher is used to inject CodeRed into Rocket League, view news abo
 
 **3.** Must have the [**.NET 8.0**](<https://dotnet.microsoft.com/en-us/download/dotnet/8.0>) runtime installed to use the launcher.
 
-## 📦 Download
 ### If this is your first time using CodeRed, you can [click this link](https://github.com/CodeRedModding/CodeRed-Launcher/releases/latest/download/CodeRedLauncher.zip) to download the latest version of the installer!
-
-## 🗑️ Uninstall
-### Want to fully remove CodeRed from your system? [Click this link](https://github.com/CodeRedModding/CodeRed-Launcher/releases/latest/download/CodeRedUninstaller.zip) to download the uninstaller.
+#### Want to fully remove CodeRed from your system? [Click this link](https://github.com/CodeRedModding/CodeRed-Launcher/releases/latest/download/CodeRedUninstaller.zip) to download the uninstaller.
 
 ## 🗺️ Previews
 
