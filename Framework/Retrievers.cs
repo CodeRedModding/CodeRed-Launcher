@@ -174,6 +174,7 @@ namespace CodeRedLauncher
         }
     }
 
+    // Dowwnloads and stores values from the remote config.
     public static class Retrievers
     {
         private static bool m_initialized = false;

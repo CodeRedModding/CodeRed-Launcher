@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Windows.Gaming.UI;
 
 namespace CodeRedLauncher.Controls
 {
@@ -18,6 +11,7 @@ namespace CodeRedLauncher.Controls
             None,
             Running,
             Downloading,
+            Installing,
             Module,
             Launcher,
             Both,
@@ -184,7 +178,15 @@ namespace CodeRedLauncher.Controls
             }
             else if (UpdateType == UpdateLayouts.Downloading)
             {
-                DescriptionLbl.Text = "Downloading and installing files, please wait...";
+                DescriptionLbl.Text = "Downloading latest version, please wait...";
+                m_buttonsEnabled = false;
+                AcceptBtn.Visible = true;
+                DenyBtn.Visible = true;
+                GameBtn.Visible = false;
+            }
+            else if (UpdateType == UpdateLayouts.Installing)
+            {
+                DescriptionLbl.Text = "Download complete, installing files...";
                 m_buttonsEnabled = false;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;

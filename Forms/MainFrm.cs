@@ -450,8 +450,6 @@ namespace CodeRedLauncher
 
         private void EasterEggImg_Click(object sender, EventArgs e)
         {
-            // It's been over half a year and no ones found this easter egg yet, starting to think no one ever will :(
-
             if (EasterEggImg.BackgroundImage == null)
             {
                 EasterEggImg.BackgroundImage = (Configuration.ShouldUseLightMode() ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
@@ -938,10 +936,6 @@ namespace CodeRedLauncher
                 Configuration.SaveChanges();
                 UpdateTheme();
             }
-            else
-            {
-                Logger.Write("Failed to initialize the users settings!", LogLevel.LEVEL_ERROR);
-            }
         }
 
         private async void StorageToInterface()
@@ -997,11 +991,6 @@ namespace CodeRedLauncher
                 NewsArtOne.BackgroundImage = (lightMode ? Properties.Resources.TL2_Light : Properties.Resources.TL2_Dark);
                 NewsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.TR2_Light : Properties.Resources.TR2_Dark);
                 NewsCtrl.SetTheme(control, icon);
-            }
-
-            // Sessions
-            {
-
             }
 
             // Settings
@@ -1311,7 +1300,7 @@ namespace CodeRedLauncher
 
             Retrievers.Invalidate();
             await Retrievers.CheckInitialized();
-            Result report = await Updator.InstallUpdates();
+            Result report = await Updator.InstallUpdates(UpdatePopup);
             UpdatePopup.ButtonsEnabled = true;
 
             if (report.Succeeded)

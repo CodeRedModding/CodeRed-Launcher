@@ -8,21 +8,50 @@ using System.Collections.Generic;
 
 namespace CodeRedLauncher
 {
+    enum UpdatorStatus : byte
+    {
+        Idle,
+        Preparing,
+        Downloading,
+        Installing
+    }
+
     public static class Updator
     {
-        private static bool m_updating = false;
         private static bool m_launcherOutdated = false;
         private static bool m_moduleOutdated = false;
+        private static UpdatorStatus m_updateStatus = UpdatorStatus.Idle;
+        private static Controls.CRUpdate m_updateCtrl = null;
         private static List<string> m_excluded = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" }; // File types we don't want to override when updating, like personal user settings.
 
         public static bool IsUpdating()
         {
-            return m_updating;
+            return (m_updateStatus != UpdatorStatus.Idle);
         }
 
         public static bool IsOutdated()
         {
             return (m_launcherOutdated || m_moduleOutdated);
+        }
+
+        private static void SetStatus(UpdatorStatus status)
+        {
+            m_updateStatus = status;
+
+            if (m_updateCtrl != null)
+            {
+                switch (status)
+                {
+                    case UpdatorStatus.Downloading:
+                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.Downloading;
+                        break;
+                    case UpdatorStatus.Installing:
+                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.Installing;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public static void OverrideLauncher()
@@ -83,13 +112,13 @@ namespace CodeRedLauncher
 
         private static async Task<Result> InstallModule(bool bForceInstall)
         {
-            m_updating = true;
+            SetStatus(UpdatorStatus.Preparing);
             Result report = new Result();
 
             if (!bForceInstall && !m_moduleOutdated)
             {
+                SetStatus(UpdatorStatus.Idle);
                 report.FailReason = "No module update required.";
-                m_updating = false;
                 return report;
             }
 
@@ -109,8 +138,9 @@ namespace CodeRedLauncher
 
                 if (!string.IsNullOrEmpty(moduleUrl))
                 {
-                    Architecture.Path downloadedFile = (tempFolder / "CodeRedModule.zip");
                     Logger.Write("Downloading module archive...");
+                    Architecture.Path downloadedFile = (tempFolder / "CodeRedModule.zip");
+                    SetStatus(UpdatorStatus.Downloading);
 
                     if (await Downloaders.DownloadFile(moduleUrl, tempFolder, "CodeRedModule.zip"))
                     {
@@ -124,6 +154,8 @@ namespace CodeRedLauncher
                             }
 
                             Logger.Write("Extracting file from archive...");
+                            SetStatus(UpdatorStatus.Installing);
+                            await Task.Delay(1500);
 
                             using (ZipArchive zipArchive = ZipFile.OpenRead(downloadedFile.GetPath()))
                             {
@@ -186,7 +218,7 @@ namespace CodeRedLauncher
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
-            m_updating = false;
+            SetStatus(UpdatorStatus.Idle);
             return report;
         }
 
@@ -197,13 +229,13 @@ namespace CodeRedLauncher
 
         private static async Task<Result> InstallLauncher(bool bForceInstall)
         {
-            m_updating = true;
+            SetStatus(UpdatorStatus.Preparing);
             Result report = new Result();
 
             if (!bForceInstall && !m_launcherOutdated)
             {
+                SetStatus(UpdatorStatus.Idle);
                 report.FailReason = "No launcher update required.";
-                m_updating = false;
                 return report;
             }
 
@@ -228,7 +260,9 @@ namespace CodeRedLauncher
                     Architecture.Path launcherExe = (tempFolder / "CodeRedLauncher.exe");
                     Architecture.Path dropperArchive = (tempFolder / "CodeRedDropper.zip");
                     Architecture.Path dropperExe = (tempFolder / "CodeRedDropper.exe");
+
                     Logger.Write("Downloading launcher archive...");
+                    SetStatus(UpdatorStatus.Downloading);
 
                     if (await Downloaders.DownloadFile(launcherUrl, tempFolder, "CodeRedLauncher.zip"))
                     {
@@ -257,6 +291,8 @@ namespace CodeRedLauncher
                                     if (dropperArchive.Exists())
                                     {
                                         Logger.Write("Extracting file from archive...");
+                                        SetStatus(UpdatorStatus.Installing);
+                                        await Task.Delay(1500);
 
                                         using (ZipArchive zipArchive = ZipFile.OpenRead(dropperArchive.GetPath()))
                                         {
@@ -321,7 +357,7 @@ namespace CodeRedLauncher
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
-            m_updating = false;
+            SetStatus(UpdatorStatus.Idle);
             return report;
         }
 
@@ -330,8 +366,9 @@ namespace CodeRedLauncher
             return await InstallLauncher(true);
         }
 
-        public static async Task<Result> InstallUpdates()
+        public static async Task<Result> InstallUpdates(Controls.CRUpdate updateCtrl)
         {
+            m_updateCtrl = updateCtrl;
             Result report = new Result(true);
 
             if (!Configuration.OfflineMode.GetBoolValue())

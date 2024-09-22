@@ -2,13 +2,18 @@
 using System.IO;
 using Microsoft.Win32;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using CodeRedLauncher.Architecture;
-using System.Text;
 
 namespace CodeRedLauncher
 {
+    public enum DirectoryStatus : byte
+    {
+        NotFound,
+        NoGameFolder,
+        NoRegistryKeys,
+        FoldersFound
+    }
+
     public enum PlatformTypes : byte
     {
         Unknown,
@@ -16,11 +21,12 @@ namespace CodeRedLauncher
         Epic
     }
 
+    // Stores local values and paths from the users system.
     public static class Storage
     {
-        private static bool m_initialized = false;
         private static bool m_versionsValid = false;
-        private static bool m_directoriesValid = true;
+        private static bool m_initialized = false;
+        private static DirectoryStatus m_directoryStatus = DirectoryStatus.NotFound;
         private static PrivateSetting m_emptySetting = new PrivateSetting();
         private static PrivateSetting m_gamesFolder = new PrivateSetting();
         private static PrivateSetting m_logFile = new PrivateSetting();
@@ -63,6 +69,11 @@ namespace CodeRedLauncher
             }
 
             return m_initialized;
+        }
+
+        public static DirectoryStatus GetDirectoryStatus()
+        {
+            return m_directoryStatus;
         }
 
         private static void ParseLogFile()
@@ -322,7 +333,7 @@ namespace CodeRedLauncher
 
         public static bool FindDirectories()
         {
-            if (!m_initialized && m_directoriesValid)
+            if (!m_initialized && (m_directoryStatus != DirectoryStatus.NoGameFolder))
             {
                 Architecture.Path gamesFolder = (new Architecture.Path(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) / "My Games" / "Rocket League");
 
@@ -336,23 +347,19 @@ namespace CodeRedLauncher
                     {
                         if (!m_moduleFolder.IsNull())
                         {
-                            MessageBox.Show("Error: Failed to locate the needed registry keys for CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            m_initialized = true;
+                            m_directoryStatus = DirectoryStatus.NoRegistryKeys;
+                            MessageBox.Show("Error: Failed to locate the needed registry keys for CodeRed, either you installation is corrupt or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return m_initialized;
                         }
                     }
-                    else
-                    {
-                        m_initialized = true;
-                    }
+
+                    m_initialized = true;
+                    m_directoryStatus = DirectoryStatus.FoldersFound;
                 }
                 else
                 {
-                    m_directoriesValid = false;
-                    MessageBox.Show("Error: Failed to locate your Rocket League path, this could either be a result of not having the game installed or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Environment.Exit(0);
+                    m_directoryStatus = DirectoryStatus.NoGameFolder;
+                    MessageBox.Show("Error: Failed to locate your Rocket League folder, either you don't have the game installed or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
