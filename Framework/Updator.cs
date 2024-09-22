@@ -12,8 +12,10 @@ namespace CodeRedLauncher
     {
         Idle,
         Preparing,
-        Downloading,
-        Installing
+        DownloadingModule,
+        DownloadingLauncher,
+        InstallingModule,
+        InstallingLauncher
     }
 
     public static class Updator
@@ -42,11 +44,17 @@ namespace CodeRedLauncher
             {
                 switch (status)
                 {
-                    case UpdatorStatus.Downloading:
-                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.Downloading;
+                    case UpdatorStatus.DownloadingModule:
+                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.DownloadingModule;
                         break;
-                    case UpdatorStatus.Installing:
-                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.Installing;
+                    case UpdatorStatus.DownloadingLauncher:
+                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.DownloadingLauncher;
+                        break;
+                    case UpdatorStatus.InstallingModule:
+                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.InstallingModule;
+                        break;
+                    case UpdatorStatus.InstallingLauncher:
+                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.InstallingLauncher;
                         break;
                     default:
                         break;
@@ -140,7 +148,7 @@ namespace CodeRedLauncher
                 {
                     Logger.Write("Downloading module archive...");
                     Architecture.Path downloadedFile = (tempFolder / "CodeRedModule.zip");
-                    SetStatus(UpdatorStatus.Downloading);
+                    SetStatus(UpdatorStatus.DownloadingModule);
 
                     if (await Downloaders.DownloadFile(moduleUrl, tempFolder, "CodeRedModule.zip"))
                     {
@@ -154,7 +162,7 @@ namespace CodeRedLauncher
                             }
 
                             Logger.Write("Extracting file from archive...");
-                            SetStatus(UpdatorStatus.Installing);
+                            SetStatus(UpdatorStatus.InstallingModule);
                             await Task.Delay(1500);
 
                             using (ZipArchive zipArchive = ZipFile.OpenRead(downloadedFile.GetPath()))
@@ -262,7 +270,7 @@ namespace CodeRedLauncher
                     Architecture.Path dropperExe = (tempFolder / "CodeRedDropper.exe");
 
                     Logger.Write("Downloading launcher archive...");
-                    SetStatus(UpdatorStatus.Downloading);
+                    SetStatus(UpdatorStatus.DownloadingLauncher);
 
                     if (await Downloaders.DownloadFile(launcherUrl, tempFolder, "CodeRedLauncher.zip"))
                     {
@@ -291,7 +299,7 @@ namespace CodeRedLauncher
                                     if (dropperArchive.Exists())
                                     {
                                         Logger.Write("Extracting file from archive...");
-                                        SetStatus(UpdatorStatus.Installing);
+                                        SetStatus(UpdatorStatus.InstallingLauncher);
                                         await Task.Delay(1500);
 
                                         using (ZipArchive zipArchive = ZipFile.OpenRead(dropperArchive.GetPath()))

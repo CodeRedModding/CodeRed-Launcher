@@ -10,8 +10,10 @@ namespace CodeRedLauncher.Controls
         {
             None,
             Running,
-            Downloading,
-            Installing,
+            DownloadingModule,
+            DownloadingLauncher,
+            InstallingModule,
+            InstallingLauncher,
             Module,
             Launcher,
             Both,
@@ -176,17 +178,33 @@ namespace CodeRedLauncher.Controls
                 DenyBtn.Visible = false;
                 GameBtn.Visible = true;
             }
-            else if (UpdateType == UpdateLayouts.Downloading)
+            else if (UpdateType == UpdateLayouts.DownloadingModule)
             {
-                DescriptionLbl.Text = "Downloading latest version, please wait...";
+                DescriptionLbl.Text = "Downloading latest module version, please wait...";
                 m_buttonsEnabled = false;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;
                 GameBtn.Visible = false;
             }
-            else if (UpdateType == UpdateLayouts.Installing)
+            else if (UpdateType == UpdateLayouts.InstallingModule)
             {
-                DescriptionLbl.Text = "Download complete, installing files...";
+                DescriptionLbl.Text = "Download complete, installing module...";
+                m_buttonsEnabled = false;
+                AcceptBtn.Visible = true;
+                DenyBtn.Visible = true;
+                GameBtn.Visible = false;
+            }
+            else if (UpdateType == UpdateLayouts.DownloadingLauncher)
+            {
+                DescriptionLbl.Text = "Downloading latest launcher version, please wait...";
+                m_buttonsEnabled = false;
+                AcceptBtn.Visible = true;
+                DenyBtn.Visible = true;
+                GameBtn.Visible = false;
+            }
+            else if (UpdateType == UpdateLayouts.InstallingLauncher)
+            {
+                DescriptionLbl.Text = "Download complete, installing launcher...";
                 m_buttonsEnabled = false;
                 AcceptBtn.Visible = true;
                 DenyBtn.Visible = true;

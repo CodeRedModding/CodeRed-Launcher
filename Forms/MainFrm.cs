@@ -1295,7 +1295,6 @@ namespace CodeRedLauncher
         {
             this.TopMost = false;
             UpdatePopup.ButtonsEnabled = false;
-            UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Downloading;
             UpdateStatusCtrl.DisplayType = StatusTypes.Version_Downloading;
 
             Retrievers.Invalidate();
