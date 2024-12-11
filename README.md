@@ -1,5 +1,4 @@
 ## 🚀 CodeRed Launcher
-### .NET 9.0 Windows
 
 The CodeRed Launcher is used to inject CodeRed into Rocket League, view news about the game, and also automatically install updates for you.
 
