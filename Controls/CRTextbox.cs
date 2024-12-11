@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace CodeRedLauncher.Controls
 {
@@ -8,30 +9,35 @@ namespace CodeRedLauncher.Controls
     {
         private ControlTheme m_controlTheme = ControlTheme.Dark;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ControlTheme ControlType
         {
             get { return m_controlTheme; }
             set { m_controlTheme = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font DisplayFont
         {
             get { return InputBx.Font; }
             set { InputBx.Font = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string DisplayText
         {
             get { return InputBx.Text; }
             set { InputBx.Text = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool BoxEnabled
         {
             get { return InputBx.Enabled; }
             set { InputBx.Enabled = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ReadOnly
         {
             get { return InputBx.ReadOnly; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,30 +13,35 @@ namespace CodeRedLauncher.Controls
         bool m_minimizeButton = true;
         bool m_maximizeButton = true;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ControlTheme ControlType
         {
             get { return m_theme; }
             set { m_theme = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Form BoundForm
         {
             get { return m_boundForm; }
             set { m_boundForm = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string DisplayText
         {
             get { return TitleLbl.Text; }
             set { TitleLbl.Text = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool MinimizeButton
         {
             get { return m_minimizeButton; }
             set { m_minimizeButton = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool MaximizeButton
         {
             get { return m_maximizeButton; }

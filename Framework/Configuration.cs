@@ -115,7 +115,7 @@ namespace CodeRedLauncher
         );
 
         public static PublicSetting InjectionTimeout = new PublicSetting(
-            "20000",
+            "2500",
             "InjectionTimeout",
             "Module injection timeout",
             "Time delay in milliseconds used when injecting into Rocket League.",

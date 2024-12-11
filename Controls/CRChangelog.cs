@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace CodeRedLauncher.Controls
 {
@@ -20,72 +21,84 @@ namespace CodeRedLauncher.Controls
         private string m_moduleText = "Loading...";
         private string m_launcherText = "Loading...";
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ControlTheme ControlType
         {
             get { return m_icons.Control; }
             set { m_icons.Control = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public IconTheme IconType
         {
             get { return m_icons.Theme; }
             set { m_icons.Theme = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ChangelogViews DisplayType
         {
             get { return m_view; }
             set { m_view = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconWhite
         {
             get { return m_icons.GetIcon(IconTheme.White); }
             set { m_icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconBlack
         {
             get { return m_icons.GetIcon(IconTheme.Black); }
             set { m_icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconRed
         {
             get { return m_icons.GetIcon(IconTheme.Red); }
             set { m_icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconPurple
         {
             get { return m_icons.GetIcon(IconTheme.Purple); }
             set { m_icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconBlue
         {
             get { return m_icons.GetIcon(IconTheme.Blue); }
             set { m_icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font TitleFont
         {
             get { return TitleLbl.Font; }
             set { TitleLbl.Font = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font DescriptionFont
         {
             get { return DescriptionLbl.Font; }
             set { DescriptionLbl.Font = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string ModuleText
         {
             get { return m_moduleTextRaw; }
             set { m_moduleText = Format(value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string LauncherText
         {
             get { return m_launcherTextRaw; }

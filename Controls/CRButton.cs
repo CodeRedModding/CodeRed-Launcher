@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace CodeRedLauncher.Controls
 {
@@ -10,48 +11,56 @@ namespace CodeRedLauncher.Controls
         private bool m_syncColor = false;
         private bool m_enabled = true;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ControlTheme ControlType
         {
             get { return m_icons.Control; }
             set { m_icons.Control = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public IconTheme IconType
         {
             get { return m_icons.Theme; }
             set { m_icons.Theme = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IconSync
         {
             get { return m_syncColor; }
             set { m_syncColor = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconWhite
         {
             get { return m_icons.GetIcon(IconTheme.White); }
             set { m_icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconBlack
         {
             get { return m_icons.GetIcon(IconTheme.Black); }
             set { m_icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconRed
         {
             get { return m_icons.GetIcon(IconTheme.Red); }
             set { m_icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconPurple
         {
             get { return m_icons.GetIcon(IconTheme.Purple); }
             set { m_icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image IconBlue
         {
             get { return m_icons.GetIcon(IconTheme.Blue); }
@@ -73,18 +82,21 @@ namespace CodeRedLauncher.Controls
             m_icons.SetIcon(type, icon);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font DisplayFont
         {
             get { return TextLbl.Font; }
             set { TextLbl.Font = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string DisplayText
         {
             get { return TextLbl.Text; }
             set { TextLbl.Text = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ButtonEnabled
         {
             get { return m_enabled; }

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Net;
+using System.ComponentModel;
 
 namespace CodeRedLauncher.Controls
 {
@@ -33,6 +33,7 @@ namespace CodeRedLauncher.Controls
             public string Title { get; set; }
             public string Timestamp { get; set; } = "Rocket League";
             public string Author { get; set; } = "Psyonix Team";
+            public string Category { get; set; } = "Game News";
             public bool Parsed { get; set; } = false;
 
             public NewsStorage(string bodyContent)
@@ -72,9 +73,10 @@ namespace CodeRedLauncher.Controls
 
                     if (m_usingAlt)
                     {
-                        // Specific to the fallback url.
+                        // Specific to the GitHub fallback url.
                         Match dateMatch = Regex.Match(bodyContent, "(?<=\"date\":\")(.*?)(?=\")");
                         Match authorMatch = Regex.Match(bodyContent, "(?<=\"author\":\")(.*?)(?=\")");
+                        Match categoryMatch = Regex.Match(bodyContent, "(?<=\"category\":\")(.*?)(?=\")");
 
                         if (dateMatch.Success && dateMatch.Groups[1].Success)
                         {
@@ -84,6 +86,11 @@ namespace CodeRedLauncher.Controls
                         if (authorMatch.Success && authorMatch.Groups[1].Success)
                         {
                             Author = authorMatch.Groups[1].Value;
+                        }
+
+                        if (categoryMatch.Success && categoryMatch.Groups[1].Success)
+                        {
+                            Category = categoryMatch.Groups[1].Value;
                         }
 
                         Parsed = true;
@@ -111,192 +118,224 @@ namespace CodeRedLauncher.Controls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ControlTheme ControlType
         {
             get { return m_calendarIcons.Control; }
             set { m_calendarIcons.Control = value; m_authorIcons.Control = value; m_categoryIcons.Control = value; m_leftIcons.Control = value; m_rightIcons.Control = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public IconTheme IconType
         {
             get { return m_calendarIcons.Theme; }
             set { m_calendarIcons.Theme = value; m_authorIcons.Theme = value; m_categoryIcons.Theme = value; m_leftIcons.Theme = value; m_rightIcons.Theme = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CalendarWhite
         {
             get { return m_calendarIcons.GetIcon(IconTheme.White); }
             set { m_calendarIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CalendarBlack
         {
             get { return m_calendarIcons.GetIcon(IconTheme.Black); }
             set { m_calendarIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CalendarRed
         {
             get { return m_calendarIcons.GetIcon(IconTheme.Red); }
             set { m_calendarIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CalendarPurple
         {
             get { return m_calendarIcons.GetIcon(IconTheme.Purple); }
             set { m_calendarIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CalendarBlue
         {
             get { return m_calendarIcons.GetIcon(IconTheme.Blue); }
             set { m_calendarIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AuthorWhite
         {
             get { return m_authorIcons.GetIcon(IconTheme.White); }
             set { m_authorIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AuthorBlack
         {
             get { return m_authorIcons.GetIcon(IconTheme.Black); }
             set { m_authorIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AuthorRed
         {
             get { return m_authorIcons.GetIcon(IconTheme.Red); }
             set { m_authorIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AuthorPurple
         {
             get { return m_authorIcons.GetIcon(IconTheme.Purple); }
             set { m_authorIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AuthorBlue
         {
             get { return m_authorIcons.GetIcon(IconTheme.Blue); }
             set { m_authorIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CategoryWhite
         {
             get { return m_categoryIcons.GetIcon(IconTheme.White); }
             set { m_categoryIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CategoryBlack
         {
             get { return m_categoryIcons.GetIcon(IconTheme.Black); }
             set { m_categoryIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CategoryRed
         {
             get { return m_categoryIcons.GetIcon(IconTheme.Red); }
             set { m_categoryIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CategoryPurple
         {
             get { return m_categoryIcons.GetIcon(IconTheme.Purple); }
             set { m_categoryIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image CategoryBlue
         {
             get { return m_categoryIcons.GetIcon(IconTheme.Blue); }
             set { m_categoryIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image LeftWhite
         {
             get { return m_leftIcons.GetIcon(IconTheme.White); }
             set { m_leftIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image LeftBlack
         {
             get { return m_leftIcons.GetIcon(IconTheme.Black); }
             set { m_leftIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image LeftRed
         {
             get { return m_leftIcons.GetIcon(IconTheme.Red); }
             set { m_leftIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image LeftPurple
         {
             get { return m_leftIcons.GetIcon(IconTheme.Purple); }
             set { m_leftIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image LeftBlue
         {
             get { return m_leftIcons.GetIcon(IconTheme.Blue); }
             set { m_leftIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image RightWhite
         {
             get { return m_rightIcons.GetIcon(IconTheme.White); }
             set { m_rightIcons.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image RightBlack
         {
             get { return m_rightIcons.GetIcon(IconTheme.Black); }
             set { m_rightIcons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image RightRed
         {
             get { return m_rightIcons.GetIcon(IconTheme.Red); }
             set { m_rightIcons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image RightPurple
         {
             get { return m_rightIcons.GetIcon(IconTheme.Purple); }
             set { m_rightIcons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image RightBlue
         {
             get { return m_rightIcons.GetIcon(IconTheme.Blue); }
             set { m_rightIcons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string PublishDate
         {
             get { return CalendarLbl.DisplayText; }
             set { CalendarLbl.DisplayText = value; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string PublishAuthor
         {
             get { return AuthorLbl.DisplayText; }
             set { AuthorLbl.DisplayText = value; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string NewsCategory
         {
             get { return CategoryLbl.DisplayText; }
             set { CategoryLbl.DisplayText = value; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Title
         {
             get { return TitleLbl.Text; }
             set { TitleLbl.Text = value; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image Thumbnail
         {
             get { return ThumbnailImg.BackgroundImage; }
@@ -600,7 +639,7 @@ namespace CodeRedLauncher.Controls
 
                     PublishDate = newsStorage.Timestamp;
                     PublishAuthor = newsStorage.Author;
-                    NewsCategory = "News"; // Psyonix removed category tags it seems like...have to do this for now.
+                    NewsCategory = newsStorage.Category;
                     Title = newsStorage.Title;
 
                     if (newsStorage.ThumbnailImage == null)

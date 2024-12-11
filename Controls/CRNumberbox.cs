@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace CodeRedLauncher.Controls
 {
@@ -8,54 +9,63 @@ namespace CodeRedLauncher.Controls
     {
         private ControlTheme m_controlTheme = ControlTheme.Dark;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ControlTheme ControlType
         {
             get { return m_controlTheme; }
             set { m_controlTheme = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Int32 Value
         {
             get { return (Int32)InputBx.Value; }
             set { InputBx.Value = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Int32 MinimumValue
         {
             get { return (Int32)InputBx.Minimum; }
             set { InputBx.Minimum = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Int32 MaximumValue
         {
             get { return (Int32)InputBx.Maximum; }
             set { InputBx.Maximum = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Int32 Increment
         {
             get { return (Int32)InputBx.Increment; }
             set { InputBx.Increment = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool Hexadecimal
         {
             get { return InputBx.Hexadecimal; }
             set { InputBx.Hexadecimal = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font DisplayFont
         {
             get { return InputBx.Font; }
             set { InputBx.Font = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool BoxEnabled
         {
             get { return InputBx.Enabled; }
             set { InputBx.Enabled = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ReadOnly
         {
             get { return InputBx.ReadOnly; }

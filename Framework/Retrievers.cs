@@ -184,7 +184,7 @@ namespace CodeRedLauncher
         private static string m_privacyContent = "";
         private static string m_tosContent = "";
 
-        private static List<InternalSetting> _remoteSettings = new List<InternalSetting>()
+        private static List<InternalSetting> m_remoteSettings = new List<InternalSetting>()
         {
             new InternalSetting("000000.000000.000000", "PsyonixVersion"),
             new InternalSetting("0.0.0", "LauncherVersion"),
@@ -205,7 +205,7 @@ namespace CodeRedLauncher
 
         private static InternalSetting? GetStoredSetting(string name)
         {
-            foreach (InternalSetting setting in _remoteSettings)
+            foreach (InternalSetting setting in m_remoteSettings)
             {
                 if (setting.Name == name)
                 {
@@ -226,16 +226,16 @@ namespace CodeRedLauncher
                 {
                     Dictionary<string, string> mappedBody = Extensions.Json.MapValuesToKeys(pageBody);
 
-                    for (Int32 i = 0; i < _remoteSettings.Count; i++)
+                    for (Int32 i = 0; i < m_remoteSettings.Count; i++)
                     {
-                        if (mappedBody.ContainsKey(_remoteSettings[i].Name))
+                        if (mappedBody.ContainsKey(m_remoteSettings[i].Name))
                         {
-                            _remoteSettings[i].SetValue(mappedBody[_remoteSettings[i].Name]);
-                            Logger.Write("Retrieved remote value: " + _remoteSettings[i].GetStringValue());
+                            m_remoteSettings[i].SetValue(mappedBody[m_remoteSettings[i].Name]);
+                            Logger.Write("Retrieved remote value: " + m_remoteSettings[i].GetStringValue());
 
-                            if ((_remoteSettings[i].Name == "LauncherAlt") && (_remoteSettings[i].GetStringValue() != "null"))
+                            if ((m_remoteSettings[i].Name == "LauncherAlt") && (m_remoteSettings[i].GetStringValue() != "null"))
                             {
-                                m_remoteUrl = _remoteSettings[i].GetStringValue();
+                                m_remoteUrl = m_remoteSettings[i].GetStringValue();
                             }
                         }
                     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace CodeRedLauncher.Controls
 {
@@ -16,132 +17,154 @@ namespace CodeRedLauncher.Controls
         private Form m_boundForm = null;
         private CRTitle m_boundTitle = null;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public PolicyView DisplayType
         {
             get { return m_view; }
             set { m_view = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ControlTheme ControlType
         {
             get { return AcceptBtn.ControlType; }
             set { AcceptBtn.ControlType = value; DenyBtn.ControlType = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public IconTheme IconType
         {
             get { return AcceptBtn.IconType; }
             set { AcceptBtn.IconType = value; DenyBtn.IconType = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Form BoundForm
         {
             get { return m_boundForm; }
             set { m_boundForm = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public CRTitle BoundTitle
         {
             get { return m_boundTitle; }
             set { m_boundTitle = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string DisplayTitle
         {
             get { return TitleLbl.Text; }
             set { TitleLbl.Text = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AcceptWhite
         {
             get { return AcceptBtn.GetIcon(IconTheme.White); }
             set { AcceptBtn.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AcceptBlack
         {
             get { return AcceptBtn.GetIcon(IconTheme.Black); }
             set { AcceptBtn.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AcceptRed
         {
             get { return AcceptBtn.GetIcon(IconTheme.Red); }
             set { AcceptBtn.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AcceptPurple
         {
             get { return AcceptBtn.GetIcon(IconTheme.Purple); }
             set { AcceptBtn.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AcceptBlue
         {
             get { return AcceptBtn.GetIcon(IconTheme.Blue); }
             set { AcceptBtn.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image DenyWhite
         {
             get { return DenyBtn.GetIcon(IconTheme.White); }
             set { DenyBtn.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image DenyBlack
         {
             get { return DenyBtn.GetIcon(IconTheme.Black); }
             set { DenyBtn.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image DenyRed
         {
             get { return DenyBtn.GetIcon(IconTheme.Red); }
             set { DenyBtn.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image DenyPurple
         {
             get { return DenyBtn.GetIcon(IconTheme.Purple); }
             set { DenyBtn.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image DenyBlue
         {
             get { return DenyBtn.GetIcon(IconTheme.Blue); }
             set { DenyBtn.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AltWhite
         {
             get { return AltBtn.GetIcon(IconTheme.White); }
             set { AltBtn.SetIcon(IconTheme.White, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AltBlack
         {
             get { return AltBtn.GetIcon(IconTheme.Black); }
             set { AltBtn.SetIcon(IconTheme.Black, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AltRed
         {
             get { return AltBtn.GetIcon(IconTheme.Red); }
             set { AltBtn.SetIcon(IconTheme.Red, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AltPurple
         {
             get { return AltBtn.GetIcon(IconTheme.Purple); }
             set { AltBtn.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Image AltBlue
         {
             get { return AltBtn.GetIcon(IconTheme.Blue); }
             set { AltBtn.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string DescriptionText
         {
             get { return DescriptionBx.Text; }
