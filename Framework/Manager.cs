@@ -61,11 +61,19 @@ namespace CodeRedLauncher
 
         public static bool IsValidProcess(Process process)
         {
-            if ((process != null)
-                && (process.Id > 8) // A process with an id of 8 or lower is a system process, we shouldn't be trying to access those.
-                && (process.MainWindowHandle != IntPtr.Zero))
+            try
             {
-                return true;
+                if ((process != null)
+                    && (process.Id > 8) // A process with an id of 8 or lower is a system process, we shouldn't be trying to access those.
+                    && (process.MainWindowHandle != IntPtr.Zero)
+                    && (process.Handle != IntPtr.Zero))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write("(IsValidProcess) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN); // Most likely an access denied exception which is fine, can also happen if the process is brand new.
             }
 
             return false;
@@ -77,12 +85,19 @@ namespace CodeRedLauncher
 
             if (IsValidProcess(process))
             {
-                foreach (ProcessModule module in process.Modules)
+                try
                 {
-                    if ((module != null) && (module.BaseAddress != IntPtr.Zero))
+                    foreach (ProcessModule module in process.Modules)
                     {
-                        returnList.Add(module);
+                        if ((module != null) && (module.BaseAddress != IntPtr.Zero))
+                        {
+                            returnList.Add(module);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write("(GetModules) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN);
                 }
             }
 
@@ -153,7 +168,7 @@ namespace CodeRedLauncher
                     }
                     catch (Exception ex)
                     {
-                        Logger.Write("Exception when trying to close process: " + ex.ToString());
+                        Logger.Write("(CloseProcesses) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN);
                         return false;
                     }
                 }
@@ -166,6 +181,7 @@ namespace CodeRedLauncher
     public enum InjectionResults : byte
     {
         None,
+        UnhandledException,
         LibraryNotFound,
         ProcessNotFound,
         AlreadyInjected,
@@ -219,14 +235,21 @@ namespace CodeRedLauncher
 
                     foreach (ProcessModule module in moudles)
                     {
-                        if (module.FileName.Contains(Settings.ModuleName))
+                        try
                         {
-                            if (!m_handleCache.Contains(process.Handle))
+                            if (module.FileName.Contains(Settings.ModuleName))
                             {
-                                m_handleCache.Add(process.Handle);
-                            }
+                                if (!m_handleCache.Contains(process.Handle))
+                                {
+                                    m_handleCache.Add(process.Handle);
+                                }
 
-                            return true;
+                                return true;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Write("(IsModuleLoaded) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN);
                         }
                     }
                 }
@@ -354,50 +377,59 @@ namespace CodeRedLauncher
 
         private static InjectionResults LoadLibraryInternal(Process process, Architecture.Path libraryFile)
         {
-            IntPtr processHandle = OpenProcess(Convert.ToUInt32(ProcessFlags.All), 1, Convert.ToUInt32(process.Id));
-
-            if (processHandle == IntPtr.Zero)
+            try
             {
-                return InjectionResults.HandleNotFound;
-            }
+                IntPtr processHandle = OpenProcess(Convert.ToUInt32(ProcessFlags.All), 1, Convert.ToUInt32(process.Id));
 
-            IntPtr loadLibraryAddress = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+                if (processHandle == IntPtr.Zero)
+                {
+                    return InjectionResults.HandleNotFound;
+                }
 
-            if (loadLibraryAddress == IntPtr.Zero)
-            {
+                IntPtr loadLibraryAddress = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+
+                if (loadLibraryAddress == IntPtr.Zero)
+                {
+                    CloseHandle(processHandle);
+                    return InjectionResults.KernalNotFound;
+                }
+
+                IntPtr allocatedAddress = VirtualAllocEx(processHandle, IntPtr.Zero, new IntPtr(libraryFile.GetPath().Length), (Convert.ToUInt32(AllocationType.Commit) | Convert.ToUInt32(AllocationType.Reserve)), Convert.ToUInt32(MemoryProtection.ExecuteReadWrite));
+
+                if (allocatedAddress == IntPtr.Zero)
+                {
+                    CloseHandle(processHandle);
+                    return InjectionResults.AllocateFail;
+                }
+
+                byte[] bytes = Encoding.ASCII.GetBytes(libraryFile.GetPath());
+                int bWroteMemory = WriteProcessMemory(processHandle, allocatedAddress, bytes, Convert.ToUInt32(bytes.Length), 0);
+
+                if (bWroteMemory == 0)
+                {
+                    CloseHandle(processHandle);
+                    return InjectionResults.WriteFail;
+                }
+
+                IntPtr threadHandle = CreateRemoteThread(processHandle, IntPtr.Zero, IntPtr.Zero, loadLibraryAddress, allocatedAddress, 0, IntPtr.Zero);
+
+                if (threadHandle == IntPtr.Zero)
+                {
+                    CloseHandle(processHandle);
+                    return InjectionResults.ThreadFail;
+                }
+
+                CloseHandle(threadHandle);
                 CloseHandle(processHandle);
-                return InjectionResults.KernalNotFound;
+
+                return InjectionResults.Success;
             }
-
-            IntPtr allocatedAddress = VirtualAllocEx(processHandle, IntPtr.Zero, new IntPtr(libraryFile.GetPath().Length), (Convert.ToUInt32(AllocationType.Commit) | Convert.ToUInt32(AllocationType.Reserve)), Convert.ToUInt32(MemoryProtection.ExecuteReadWrite));
-
-            if (allocatedAddress == IntPtr.Zero)
+            catch (Exception ex)
             {
-                CloseHandle(processHandle);
-                return InjectionResults.AllocateFail;
+                Logger.Write("(GetModules) LoadLibraryInternal: " + ex.ToString(), LogLevel.LEVEL_ERROR); // Something went terribly wrong if this happens, will definitely want to know the exception reason.
             }
 
-            byte[] bytes = Encoding.ASCII.GetBytes(libraryFile.GetPath());
-            int bWroteMemory = WriteProcessMemory(processHandle, allocatedAddress, bytes, Convert.ToUInt32(bytes.Length), 0);
-
-            if (bWroteMemory == 0)
-            {
-                CloseHandle(processHandle);
-                return InjectionResults.WriteFail;
-            }
-
-            IntPtr threadHandle = CreateRemoteThread(processHandle, IntPtr.Zero, IntPtr.Zero, loadLibraryAddress, allocatedAddress, 0, IntPtr.Zero);
-
-            if (threadHandle == IntPtr.Zero)
-            {
-                CloseHandle(processHandle);
-                return InjectionResults.ThreadFail;
-            }
-
-            CloseHandle(threadHandle);
-            CloseHandle(processHandle);
-
-            return InjectionResults.Success;
+            return InjectionResults.UnhandledException;
         }
     }
 }

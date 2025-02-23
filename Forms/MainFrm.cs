@@ -121,7 +121,7 @@ namespace CodeRedLauncher
                 if (processes.Count > 0)
                 {
                     Logger.Write("Process found!");
-                    LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
+                    ProcessInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
                 }
             }
             else
@@ -134,7 +134,7 @@ namespace CodeRedLauncher
 
                     foreach (InjectionResults result in results)
                     {
-                        LogInjectionResult(result);
+                        ProcessInjectionResult(result);
                     }
                 }
             }
@@ -239,29 +239,6 @@ namespace CodeRedLauncher
             }
         }
 
-        // https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
-        static void CopyDirectory(string sourceDir, string destinationDir, bool bRecursive)
-        {
-            DirectoryInfo sourceInfo = new DirectoryInfo(sourceDir);
-            DirectoryInfo[] dirs = sourceInfo.GetDirectories();
-            Directory.CreateDirectory(destinationDir);
-
-            foreach (FileInfo file in sourceInfo.GetFiles())
-            {
-                string targetFilePath = Path.Combine(destinationDir, file.Name);
-                file.CopyTo(targetFilePath);
-            }
-
-            if (bRecursive)
-            {
-                foreach (DirectoryInfo subDir in dirs)
-                {
-                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-                    CopyDirectory(subDir.FullName, newDestinationDir, true);
-                }
-            }
-        }
-
         private void InstallPathBtn_OnButtonClick(object sender, EventArgs e)
         {
             if (!LibraryManager.AnyProcessRunning())
@@ -293,7 +270,7 @@ namespace CodeRedLauncher
                         if (modulePath != newPath)
                         {
                             PathPopup.ShowPopup();
-                            CopyDirectory(modulePath.GetPath(), newPath.GetPath(), true);
+                            Extensions.Filesystem.CopyDirectory(modulePath.GetPath(), newPath.GetPath(), true);
                             Directory.Delete(modulePath.GetPath(), true);
 
                             Installer.ModifyRegistry(false, newPath);
@@ -573,7 +550,7 @@ namespace CodeRedLauncher
                 if (processes.Count > 0)
                 {
                     Logger.Write("Process found!");
-                    LogInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
+                    ProcessInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
                 }
 
                 InjectTmr.Stop();
@@ -588,7 +565,7 @@ namespace CodeRedLauncher
 
                     foreach (InjectionResults result in results)
                     {
-                        LogInjectionResult(result);
+                        ProcessInjectionResult(result);
                     }
                 }
 
@@ -609,12 +586,15 @@ namespace CodeRedLauncher
             }
         }
 
-        void LogInjectionResult(InjectionResults result)
+        void ProcessInjectionResult(InjectionResults result)
         {
             ProcessStatusCtrl.ResultType = result;
 
             switch (result)
             {
+                case InjectionResults.UnhandledException:
+                    Logger.Write("Failed to inject, unhandled exception occurred!", LogLevel.LEVEL_ERROR);
+                    break;
                 case InjectionResults.LibraryNotFound:
                     Logger.Write("Failed to inject, could not find library file!", LogLevel.LEVEL_ERROR);
                     break;

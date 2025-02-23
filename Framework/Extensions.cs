@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.Json;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CodeRedLauncher.Extensions
 {
@@ -178,6 +179,32 @@ namespace CodeRedLauncher.Extensions
             }
 
             return mappedJson;
+        }
+    }
+
+    public class Filesystem
+    {
+        // https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
+        public static void CopyDirectory(string sourceDir, string destinationDir, bool bRecursive)
+        {
+            DirectoryInfo sourceInfo = new DirectoryInfo(sourceDir);
+            DirectoryInfo[] dirs = sourceInfo.GetDirectories();
+            Directory.CreateDirectory(destinationDir);
+
+            foreach (FileInfo file in sourceInfo.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                file.CopyTo(targetFilePath);
+            }
+
+            if (bRecursive)
+            {
+                foreach (DirectoryInfo subDir in dirs)
+                {
+                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                    CopyDirectory(subDir.FullName, newDestinationDir, true);
+                }
+            }
         }
     }
 }

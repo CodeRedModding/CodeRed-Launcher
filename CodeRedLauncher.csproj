@@ -61,11 +61,4 @@
     <Folder Include="Forms\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\..\Discord\CodeRed\Logos\Icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
 </Project>
