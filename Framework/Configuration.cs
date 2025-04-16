@@ -33,14 +33,14 @@ namespace CodeRedLauncher
             "0",
             "PrivacyHash",
             "The current privacy policy hash.",
-            "The last known hash of the privacy policy the user agreed to"
+            "The last known hash of the privacy policy the user agreed to."
         );
 
         public static PublicSetting TermsHash = new PublicSetting(
             "0",
             "TermsHash",
             "The current terms of use hash.",
-            "The last known hash of the terms of use the user agreed to"
+            "The last known hash of the terms of use the user agreed to."
         );
 
         public static PublicSetting OfflineMode = new PublicSetting(
@@ -53,7 +53,7 @@ namespace CodeRedLauncher
         public static PublicSetting AutoCheckUpdates = new PublicSetting(
             "True",
             "AutoCheckUpdates",
-            "Automatically check for updates",
+            "Automatically check for updates.",
             "Choose to automatically check for updates and compare versions, as well as before each injection.",
             SaveChanges
         );
@@ -61,7 +61,7 @@ namespace CodeRedLauncher
         public static PublicSetting AutoInstallUpdates = new PublicSetting(
             "False",
             "AutoInstallUpdates",
-            "Automatically install updates in the background",
+            "Automatically install updates in the background.",
             "Automatically installs updates for you in the background if a new version is found.",
             SaveChanges
         );
@@ -69,7 +69,7 @@ namespace CodeRedLauncher
         public static PublicSetting PreventInjection = new PublicSetting(
             "True",
             "PreventInjection",
-            "Prevent injection when out of date",
+            "Prevent injection when out of date.",
             "Prevents injecting out of date modules into unsupported Rocket League versions.",
             SaveChanges
         );
@@ -77,7 +77,7 @@ namespace CodeRedLauncher
         public static PublicSetting RunOnStartup = new PublicSetting(
             "False",
             "RunOnStartup",
-            "Run on windows startup",
+            "Run on windows startup.",
             "Choose to automatically open the launcher on Windows startup.",
             SaveChanges
         );
@@ -85,7 +85,7 @@ namespace CodeRedLauncher
         public static PublicSetting MinimizeOnStartup = new PublicSetting(
             "False",
             "MinimizeOnStartup",
-            "Minimize on startup",
+            "Minimize the application on startup.",
             "Choose to automatically minimize the launcher when opened.",
             SaveChanges
         );
@@ -93,7 +93,7 @@ namespace CodeRedLauncher
         public static PublicSetting HideWhenMinimized = new PublicSetting(
             "False",
             "HideWhenMinimized",
-            "Hide when minimized",
+            "Hide the application when minimized.",
             "Choose to automatically hide to the system tray when the launcher is minimized.",
             SaveChanges
         );
@@ -101,7 +101,7 @@ namespace CodeRedLauncher
         public static PublicSetting InjectAllInstances = new PublicSetting(
             "False",
             "InjectAllInstances",
-            "Inject into all game instances",
+            "Inject into all running game instances.",
             "Choose to inject the module into all running Rocket League instances, may take up more resources.",
             SaveChanges
         );
@@ -109,7 +109,7 @@ namespace CodeRedLauncher
         public static PublicSetting InjectionType = new PublicSetting(
             "Timeout",
             "InjectionType",
-            "Module injection type",
+            "Module injection type.",
             "Injection method to use by the launcher when injecting modules.",
             SaveChanges
         );
@@ -117,7 +117,7 @@ namespace CodeRedLauncher
         public static PublicSetting InjectionTimeout = new PublicSetting(
             "2500",
             "InjectionTimeout",
-            "Module injection timeout",
+            "Module injection timeout.",
             "Time delay in milliseconds used when injecting into Rocket League.",
             SaveChanges
         );
@@ -125,7 +125,7 @@ namespace CodeRedLauncher
         public static PublicSetting LightMode = new PublicSetting(
             "False",
             "LightMode",
-            "Interface light mode",
+            "Interface light mode.",
             "Use light mode for all user interface elements.",
             SaveChanges
         );

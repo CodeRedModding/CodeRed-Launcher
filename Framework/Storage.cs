@@ -88,54 +88,61 @@ namespace CodeRedLauncher
                 {
                     m_logFile.SetValue(logFile);
 
-                    // Opening with "FileAccess.Read + FileShare.ReadWrite" is important here because RocketLeague.exe locks the log file when the game is running, without it you wouldn't be able to read its contents.
-                    FileStream logStream = File.Open(logFile.GetPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    string logContents;
-
-                    using (StreamReader stream = new StreamReader(logStream))
+                    try
                     {
-                        logContents = stream.ReadToEnd();
-                    }
+                        // Opening with "FileAccess.Read + FileShare.ReadWrite" is important here because RocketLeague.exe locks the log file when the game is running, without it you wouldn't be able to read its contents.
+                        FileStream logStream = File.Open(logFile.GetPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                        string logContents;
 
-                    logStream.Close();
-
-                    Match psyMatch = Regex.Match(logContents, "Log: GPsyonixBuildID (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                    Match directoryMatch = Regex.Match(logContents, "Init: Base directory: (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                    Match netMatch = Regex.Match(logContents, "Log: BuildID: (.*) from GPsyonixBuildID", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-
-                    if (psyMatch.Groups[1].Success)
-                    {
-                        m_psyonixVersion.SetValue(psyMatch.Groups[1].Value);
-                        m_versionsValid = true;
-                    }
-                    else
-                    {
-                        m_versionsValid = false;
-                    }
-
-                    if (netMatch.Groups[1].Success)
-                    {
-                        m_netBuild.SetValue(netMatch.Groups[1].Value);
-                    }
-
-                    if (directoryMatch.Groups[1].Success)
-                    {
-                        string baseDirectory = directoryMatch.Groups[1].Value;
-
-                        if (baseDirectory.Contains("steamapps"))
+                        using (StreamReader stream = new StreamReader(logStream))
                         {
-                            m_steamFolder.SetValue(baseDirectory);
-                            m_currentPlatform.SetValue(PlatformTypes.Steam.ToString());
+                            logContents = stream.ReadToEnd();
                         }
-                        else if (baseDirectory.Contains("Epic Games"))
+
+                        logStream.Close();
+
+                        Match psyMatch = Regex.Match(logContents, "Log: GPsyonixBuildID (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                        Match directoryMatch = Regex.Match(logContents, "Init: Base directory: (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                        Match netMatch = Regex.Match(logContents, "Log: BuildID: (.*) from GPsyonixBuildID", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+
+                        if (psyMatch.Groups[1].Success)
                         {
-                            m_epicFolder.SetValue(baseDirectory);
-                            m_currentPlatform.SetValue(PlatformTypes.Epic.ToString());
+                            m_psyonixVersion.SetValue(psyMatch.Groups[1].Value);
+                            m_versionsValid = true;
                         }
                         else
                         {
-                            m_currentPlatform.SetValue(PlatformTypes.Unknown.ToString());
+                            m_versionsValid = false;
                         }
+
+                        if (netMatch.Groups[1].Success)
+                        {
+                            m_netBuild.SetValue(netMatch.Groups[1].Value);
+                        }
+
+                        if (directoryMatch.Groups[1].Success)
+                        {
+                            string baseDirectory = directoryMatch.Groups[1].Value;
+
+                            if (baseDirectory.Contains("steamapps"))
+                            {
+                                m_steamFolder.SetValue(baseDirectory);
+                                m_currentPlatform.SetValue(PlatformTypes.Steam.ToString());
+                            }
+                            else if (baseDirectory.Contains("Epic Games"))
+                            {
+                                m_epicFolder.SetValue(baseDirectory);
+                                m_currentPlatform.SetValue(PlatformTypes.Epic.ToString());
+                            }
+                            else
+                            {
+                                m_currentPlatform.SetValue(PlatformTypes.Unknown.ToString());
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Write("Read log file fail: " + ex.Message, LogLevel.LEVEL_WARN);
                     }
                 }
                 else
@@ -256,7 +263,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Steam Path Fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                    Logger.Write("Steam read registry fail: " + ex.Message, LogLevel.LEVEL_WARN);
                 }
             }
             else
@@ -294,7 +301,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Epic Path Fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                    Logger.Write("Read epic registry fail: " + ex.Message, LogLevel.LEVEL_WARN);
                 }
             }
             else

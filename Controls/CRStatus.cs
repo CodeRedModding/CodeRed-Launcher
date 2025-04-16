@@ -343,7 +343,7 @@ namespace CodeRedLauncher.Controls
             switch (ResultType)
             {
                 case InjectionResults.UnhandledException:
-                    DescriptionLbl.Text = "Failed to inject, unhandled exception occurred!";
+                    DescriptionLbl.Text = "Failed to inject, an exception occurred!";
                     break;
                 case InjectionResults.LibraryNotFound:
                     DescriptionLbl.Text = "Failed to inject, could not find module file!";
@@ -352,7 +352,7 @@ namespace CodeRedLauncher.Controls
                     DescriptionLbl.Text = "Failed to inject, process no longer exists!";
                     break;
                 case InjectionResults.AlreadyInjected:
-                    DescriptionLbl.Text = "Successfully injected, changes applied in-game.";
+                    DescriptionLbl.Text = "Successfully injected, changes applied in game.";
                     break;
                 case InjectionResults.HandleNotFound:
                     DescriptionLbl.Text = "Failed to inject, process handle is invalid!";
@@ -370,7 +370,9 @@ namespace CodeRedLauncher.Controls
                     DescriptionLbl.Text = "Failed to inject, could not create remote thread!";
                     break;
                 case InjectionResults.Success:
-                    DescriptionLbl.Text = "Successfully injected, changes applied in-game.";
+                    DescriptionLbl.Text = "Successfully injected, changes applied in game.";
+                    break;
+                default:
                     break;
             }
         }

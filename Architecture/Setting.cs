@@ -26,7 +26,7 @@ namespace CodeRedLauncher
     public class PublicSetting : SettingBase
     {
         public string Label { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } // Description isn't currently used, but its intention is to be used for a tooltip hover type of thing on the UI widget for it.
         private Action SaveCallback { get; set; }
 
         public PublicSetting(string defaultValue, string name, string label, string description, Action saveCallback = null) : base(name, defaultValue)

@@ -13,7 +13,7 @@ namespace CodeRedLauncher.Controls
     {
         private static bool m_usingAlt = false;
         private static readonly string m_altUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/News.cr"; // Psyonix started blocking requests to their site...have to use my own now.
-        private static readonly string m_altThumbnail = "https://i.imgur.com/g9ssgL7.png";
+        private static readonly string m_altThumbnail = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/refs/heads/main/Assets/News/Fallback.jpg";
 
         private IconStore m_calendarIcons = new IconStore();
         private IconStore m_authorIcons = new IconStore();

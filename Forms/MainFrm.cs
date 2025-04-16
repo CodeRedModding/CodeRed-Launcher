@@ -604,7 +604,7 @@ namespace CodeRedLauncher
                     break;
                 case InjectionResults.AlreadyInjected:
                     // If we uncomment this it will write to the log file indefinitely as long as the game is running.
-                    // Logger.Write("Successfully injected, changes applied in-game.");
+                    // Logger.Write("Successfully injected, changes applied in game.");
                     break;
                 case InjectionResults.HandleNotFound:
                     Logger.Write("Failed to inject, window handle is invalid!", LogLevel.LEVEL_ERROR);
@@ -631,7 +631,9 @@ namespace CodeRedLauncher
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.Success:
-                    Logger.Write("Successfully injected, changes applied in-game.");
+                    Logger.Write("Successfully injected, changes applied in game.");
+                    break;
+                default:
                     break;
             }
         }
