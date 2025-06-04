@@ -181,7 +181,17 @@ namespace CodeRedLauncher.Controls
             ToggleType();
         }
 
-        public void ToggleType()
+        private void DescriptionLbl_Click(object sender, EventArgs e)
+        {
+            ToggleType();
+        }
+
+        private void DescriptionLbl_DoubleClick(object sender, EventArgs e)
+        {
+            ToggleType();
+        }
+
+        private void ToggleType()
         {
             DisplayType = ((DisplayType == ChangelogViews.Module) ? ChangelogViews.Launcher : ChangelogViews.Module);
             UpdateTheme();

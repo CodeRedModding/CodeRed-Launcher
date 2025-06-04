@@ -1206,26 +1206,28 @@ namespace CodeRedLauncher
 
         private async void InstallCodeRed(bool bManuallyChoose)
         {
-            Result pathReport = Installer.CreateInstallPath(bManuallyChoose);
+            Result pathResult = Installer.CreateInstallPath(bManuallyChoose);
 
-            if (pathReport.Succeeded)
+            if (pathResult.Succeeded)
             {
-                Result moduleReport = await Installer.DownloadModule();
+                Result moduleResult = await Installer.DownloadModule();
 
-                if (moduleReport.Succeeded)
+                if (moduleResult.Succeeded)
                 {
                     await CheckForUpdates(true, false);
                     StartupRoutine(true);
                     InstallPopup.HidePopup();
                 }
-                else if (moduleReport.HasFailReason())
+                else if (moduleResult.HasFailReason())
                 {
-                    MessageBox.Show(moduleReport.FailReason, Assembly.GetTitle());
+                    Logger.Write("(InstallCodeRed) Module fail: " + moduleResult.FailReason, LogLevel.Fatal);
+                    MessageBox.Show(moduleResult.FailReason, Assembly.GetTitle());
                 }
             }
-            else if (pathReport.HasFailReason())
+            else if (pathResult.HasFailReason())
             {
-                MessageBox.Show(pathReport.FailReason, Assembly.GetTitle());
+                Logger.Write("(InstallCodeRed) Path fail: " + pathResult.FailReason, LogLevel.Fatal);
+                MessageBox.Show(pathResult.FailReason, Assembly.GetTitle());
             }
 
             InstallPopup.ButtonsEnabled = true;
@@ -1283,20 +1285,20 @@ namespace CodeRedLauncher
 
             RemoteStorage.Invalidate();
             await RemoteStorage.CheckInitialized();
-            Result report = await Updater.InstallUpdates(UpdatePopup);
+
+            Result installResult = await Updater.InstallUpdates(UpdatePopup);
             UpdatePopup.ButtonsEnabled = true;
 
-            if (report.Succeeded)
+            if (installResult.Succeeded)
             {
                 NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                 UpdatePopup.HidePopup();
                 ProcessTmr.Start();
                 CheckForUpdates(true, false);
             }
-            else if (report.HasFailReason())
+            else if (installResult.HasFailReason())
             {
                 UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Fail;
-                Logger.Write("(UpdatePopup) " + report.FailReason, LogLevel.Error);
             }
         }
 

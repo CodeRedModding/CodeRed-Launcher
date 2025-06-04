@@ -39,7 +39,7 @@
             TitleLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TitleLbl.BackColor = System.Drawing.Color.Transparent;
             TitleLbl.Cursor = System.Windows.Forms.Cursors.Hand;
-            TitleLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            TitleLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             TitleLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             TitleLbl.Location = new System.Drawing.Point(55, 0);
             TitleLbl.Name = "TitleLbl";
@@ -67,7 +67,8 @@
             // 
             DescriptionLbl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             DescriptionLbl.BackColor = System.Drawing.Color.Transparent;
-            DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            DescriptionLbl.Cursor = System.Windows.Forms.Cursors.Hand;
+            DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             DescriptionLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             DescriptionLbl.Location = new System.Drawing.Point(19, 55);
             DescriptionLbl.Name = "DescriptionLbl";
@@ -75,6 +76,8 @@
             DescriptionLbl.TabIndex = 47;
             DescriptionLbl.Text = "Loading...";
             DescriptionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            DescriptionLbl.Click += DescriptionLbl_Click;
+            DescriptionLbl.DoubleClick += DescriptionLbl_DoubleClick;
             // 
             // CRChangelog
             // 

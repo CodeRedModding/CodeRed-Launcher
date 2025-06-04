@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Windows.System;
 
 namespace CodeRedLauncher
 {
@@ -121,13 +122,13 @@ namespace CodeRedLauncher
         private static async Task<Result> InstallModule(bool bForceInstall)
         {
             SetStatus(UpdatorStatus.Preparing);
-            Result report = new Result();
+            Result result = new Result();
 
             if (!bForceInstall && !m_moduleOutdated)
             {
                 SetStatus(UpdatorStatus.Idle);
-                report.FailReason = "No module update required.";
-                return report;
+                result.FailReason = "No module update required.";
+                return result;
             }
 
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
@@ -208,26 +209,26 @@ namespace CodeRedLauncher
                             }
 
                             Logger.Write("(InstallModule) Done!");
-                            report.Succeeded = true;
+                            result.Succeeded = true;
                             m_moduleOutdated = false;
                             Configuration.SaveChanges();
                         }
                     }
                     else
                     {
-                        report.FailReason = "Failed to download module archive.";
+                        result.FailReason = "Failed to download module archive.";
                     }
                 }
                 else
                 {
-                    report.FailReason = "Failed to retrieve download link.";
+                    result.FailReason = "Failed to retrieve download link.";
                 }
 
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
             SetStatus(UpdatorStatus.Idle);
-            return report;
+            return result;
         }
 
         public static async Task<Result> ForceInstallModule()
@@ -238,13 +239,13 @@ namespace CodeRedLauncher
         private static async Task<Result> InstallLauncher(bool bForceInstall)
         {
             SetStatus(UpdatorStatus.Preparing);
-            Result report = new Result();
+            Result result = new Result();
 
             if (!bForceInstall && !m_launcherOutdated)
             {
                 SetStatus(UpdatorStatus.Idle);
-                report.FailReason = "No launcher update required.";
-                return report;
+                result.FailReason = "No launcher update required.";
+                return result;
             }
 
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
@@ -318,7 +319,7 @@ namespace CodeRedLauncher
                                         if (dropperExe.Exists())
                                         {
                                             Logger.Write("(InstallLauncher) Done!");
-                                            report.Succeeded = true;
+                                            result.Succeeded = true;
                                             m_launcherOutdated = false;
 
                                             // Since the launcher is "half portable", the user can place the exe wherever they want and move it around.
@@ -333,40 +334,40 @@ namespace CodeRedLauncher
                                         }
                                         else
                                         {
-                                            report.FailReason = "Failed to extract dropper executable from its archive.";
+                                            result.FailReason = "Failed to extract dropper executable from its archive.";
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    report.FailReason = "Failed to download dropper archive.";
+                                    result.FailReason = "Failed to download dropper archive.";
                                 }
                             }
                             else
                             {
-                                report.FailReason = "Failed to extract launcher executable from its archive.";
+                                result.FailReason = "Failed to extract launcher executable from its archive.";
                             }
                         }
                         else
                         {
-                            report.FailReason = "Failed to download launcher archive.";
+                            result.FailReason = "Failed to download launcher archive.";
                         }
                     }
                     else
                     {
-                        report.FailReason = "Failed to download launcher executable.";
+                        result.FailReason = "Failed to download launcher executable.";
                     }
                 }
                 else
                 {
-                    report.FailReason = "Failed to retrieve download links.";
+                    result.FailReason = "Failed to retrieve download links.";
                 }
 
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
             SetStatus(UpdatorStatus.Idle);
-            return report;
+            return result;
         }
 
         public static async Task<Result> ForceInstallLauncher()
@@ -377,40 +378,41 @@ namespace CodeRedLauncher
         public static async Task<Result> InstallUpdates(Controls.CRUpdate updateCtrl)
         {
             m_updateCtrl = updateCtrl;
-            Result report = new Result();
+            Result result = new Result();
 
             if (!Configuration.OfflineMode.GetBoolValue())
             {
                 if (m_moduleOutdated)
                 {
-                    Result moduleReport = await InstallModule(false);
+                    Result moduleResult = await InstallModule(false);
 
-                    if (!moduleReport.Succeeded)
+                    if (!moduleResult.Succeeded)
                     {
-                        Logger.Write("(InstallUpdates) " + moduleReport.FailReason, LogLevel.Error);
-                        return moduleReport;
+                        Logger.Write("(InstallUpdates) " + moduleResult.FailReason, LogLevel.Error);
+                        return moduleResult;
                     }
                 }
 
                 if (m_launcherOutdated)
                 {
-                    Result launcherReport = await InstallLauncher(false);
+                    Result launcherResult = await InstallLauncher(false);
 
-                    if (!launcherReport.Succeeded)
+                    if (!launcherResult.Succeeded)
                     {
-                        Logger.Write("(InstallUpdates) " + launcherReport.FailReason, LogLevel.Error);
-                        return launcherReport;
+                        Logger.Write("(InstallUpdates) " + launcherResult.FailReason, LogLevel.Error);
+                        return launcherResult;
                     }
                 }
 
-                report.Succeeded = true;
+                result.Succeeded = true;
             }
             else
             {
-                report.FailReason = "Could not install updates, launcher is running in offline mode!";
+                result.FailReason = "Could not install updates, launcher is running in offline mode!";
+                Logger.Write("(InstallUpdates) " + result.FailReason, LogLevel.Error);
             }
 
-            return report;
+            return result;
         }
     }
 }

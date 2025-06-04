@@ -40,7 +40,7 @@ namespace CodeRedLauncher
 
         public static Result CreateInstallPath(bool bManuallyChoose)
         {
-            Result report = new Result();
+            Result result = new Result();
             Architecture.Path installPath = new Architecture.Path();
 
             if (bManuallyChoose)
@@ -72,42 +72,42 @@ namespace CodeRedLauncher
             {
                 ModifyRegistry(false, installPath);
                 LocalStorage.Invalidate(true);
-                report.Succeeded = true;
+                result.Succeeded = true;
             }
             else
             {
-                report.FailReason = "Failed to locate desired install path.";
+                result.FailReason = "Failed to locate desired install path.";
             }
 
-            return report;
+            return result;
         }
 
         public static async Task<Result> DownloadModule()
         {
-            Result report = new Result();
+            Result result = new Result();
             Architecture.Path moduleFolder = LocalStorage.GetModulePath();
 
             if (moduleFolder.Exists())
             {
-                Result moduleReport = await Updater.ForceInstallModule(); // Doing a little cheaty cheat here, letting the updater do the rest of the work.
+                Result moduleResult = await Updater.ForceInstallModule(); // Doing a little cheaty cheat here, letting the updater do the rest of the work.
 
-                if (!moduleReport.Succeeded)
+                if (!moduleResult.Succeeded)
                 {
                     Configuration.CheckInitialized();
-                    Logger.Write("(DownloadModule) Failed to download module file: " + moduleReport.FailReason, LogLevel.Error);
-                    return moduleReport;
+                    Logger.Write("(DownloadModule) Failed to download module file: " + moduleResult.FailReason, LogLevel.Error);
+                    return moduleResult;
                 }
                 else
                 {
-                    report.Succeeded = true;
+                    result.Succeeded = true;
                 }
             }
             else
             {
-                report.FailReason = "Failed to locate folder, cannot download latest module archive!";
+                result.FailReason = "Failed to locate folder, cannot download latest module archive!";
             }
 
-            return report;
+            return result;
         }
     }
 }
