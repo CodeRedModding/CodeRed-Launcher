@@ -18,7 +18,7 @@ namespace CodeRedLauncher
         InstallingLauncher
     }
 
-    public static class Updator
+    public static class Updater
     {
         private static bool m_launcherOutdated = false;
         private static bool m_moduleOutdated = false;
@@ -76,21 +76,21 @@ namespace CodeRedLauncher
         {
             if (bInvalidate)
             {
-                Storage.Invalidate();
-                Retrievers.Invalidate();
+                LocalStorage.Invalidate();
+                RemoteStorage.Invalidate();
             }
 
-            if (await Retrievers.CheckInitialized())
+            if (await RemoteStorage.CheckInitialized())
             {
-                if (Storage.GetModuleVersion() != await Retrievers.GetModuleVersion())
+                if (LocalStorage.GetModuleVersion() != await RemoteStorage.GetModuleVersion())
                 {
-                    Logger.Write("Module detected as outdated!");
+                    Logger.Write("(IsModuleOutdated) Module detected as outdated!");
                     m_moduleOutdated = true;
                     return true;
                 }
             }
 
-            Logger.Write("Module is up to date!");
+            Logger.Write("(IsModuleOutdated) Module is up to date!");
             m_moduleOutdated = false;
             return false;
         }
@@ -99,21 +99,21 @@ namespace CodeRedLauncher
         {
             if (bInvalidate)
             {
-                Storage.Invalidate();
-                Retrievers.Invalidate();
+                LocalStorage.Invalidate();
+                RemoteStorage.Invalidate();
             }
 
-            if (await Retrievers.CheckInitialized())
+            if (await RemoteStorage.CheckInitialized())
             {
-                if (Assembly.GetVersion() != await Retrievers.GetLauncherVersion())
+                if (Assembly.GetVersion() != await RemoteStorage.GetLauncherVersion())
                 {
-                    Logger.Write("Launcher detected as outdated!");
+                    Logger.Write("(IsLauncherOutdated) Launcher detected as outdated!");
                     m_launcherOutdated = true;
                     return true;
                 }
             }
 
-            Logger.Write("Launcher is up to date!");
+            Logger.Write("(IsLauncherOutdated) Launcher is up to date!");
             m_launcherOutdated = false;
             return false;
         }
@@ -134,7 +134,7 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
-                Logger.Write("Deleting temporary folder...");
+                Logger.Write("(InstallModule) Deleting temporary folder...");
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
@@ -142,11 +142,11 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
-                string moduleUrl = await Retrievers.GetModuleUrl();
+                string moduleUrl = await RemoteStorage.GetModuleUrl();
 
                 if (!string.IsNullOrEmpty(moduleUrl))
                 {
-                    Logger.Write("Downloading module archive...");
+                    Logger.Write("(InstallModule) Downloading module archive...");
                     Architecture.Path downloadedFile = (tempFolder / "CodeRedModule.zip");
                     SetStatus(UpdatorStatus.DownloadingModule);
 
@@ -154,14 +154,14 @@ namespace CodeRedLauncher
                     {
                         if (downloadedFile.Exists())
                         {
-                            Architecture.Path modulePath = Storage.GetModulePath();
+                            Architecture.Path modulePath = LocalStorage.GetModulePath();
 
                             if (!modulePath.Exists())
                             {
                                 Directory.CreateDirectory(modulePath.GetPath());
                             }
 
-                            Logger.Write("Extracting file from archive...");
+                            Logger.Write("(InstallModule) Extracting file from archive...");
                             SetStatus(UpdatorStatus.InstallingModule);
                             await Task.Delay(1500);
 
@@ -207,7 +207,7 @@ namespace CodeRedLauncher
                                 }
                             }
 
-                            Logger.Write("Done!");
+                            Logger.Write("(InstallModule) Done!");
                             report.Succeeded = true;
                             m_moduleOutdated = false;
                             Configuration.SaveChanges();
@@ -251,7 +251,7 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
-                Logger.Write("Deleting temporary folder...");
+                Logger.Write("(InstallLauncher) Deleting temporary folder...");
                 Directory.Delete(tempFolder.GetPath(), true);
             }
 
@@ -259,8 +259,8 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
-                string launcherUrl = await Retrievers.GetLauncherUrl();
-                string dropperUrl = await Retrievers.GetDropperUrl();
+                string launcherUrl = await RemoteStorage.GetLauncherUrl();
+                string dropperUrl = await RemoteStorage.GetDropperUrl();
 
                 if (!string.IsNullOrEmpty(launcherUrl) && !string.IsNullOrEmpty(dropperUrl))
                 {
@@ -269,14 +269,14 @@ namespace CodeRedLauncher
                     Architecture.Path dropperArchive = (tempFolder / "CodeRedDropper.zip");
                     Architecture.Path dropperExe = (tempFolder / "CodeRedDropper.exe");
 
-                    Logger.Write("Downloading launcher archive...");
+                    Logger.Write("(InstallLauncher) Downloading launcher archive...");
                     SetStatus(UpdatorStatus.DownloadingLauncher);
 
                     if (await Downloaders.DownloadFile(launcherUrl, tempFolder, "CodeRedLauncher.zip"))
                     {
                         if (launcherArchive.Exists())
                         {
-                            Logger.Write("Extracting file from archive...");
+                            Logger.Write("(InstallLauncher) Extracting file from archive...");
 
                             using (ZipArchive zipArchive = ZipFile.OpenRead(launcherArchive.GetPath()))
                             {
@@ -292,13 +292,13 @@ namespace CodeRedLauncher
                             if (launcherExe.Exists())
                             {
                                 File.Delete(launcherArchive.GetPath());
-                                Logger.Write("Downloading dropper archive...");
+                                Logger.Write("(InstallLauncher) Downloading dropper archive...");
 
                                 if (await Downloaders.DownloadFile(dropperUrl, tempFolder, "CodeRedDropper.zip"))
                                 {
                                     if (dropperArchive.Exists())
                                     {
-                                        Logger.Write("Extracting file from archive...");
+                                        Logger.Write("(InstallLauncher) Extracting file from archive...");
                                         SetStatus(UpdatorStatus.InstallingLauncher);
                                         await Task.Delay(1500);
 
@@ -317,7 +317,7 @@ namespace CodeRedLauncher
 
                                         if (dropperExe.Exists())
                                         {
-                                            Logger.Write("Done!");
+                                            Logger.Write("(InstallLauncher) Done!");
                                             report.Succeeded = true;
                                             m_launcherOutdated = false;
 
@@ -377,7 +377,7 @@ namespace CodeRedLauncher
         public static async Task<Result> InstallUpdates(Controls.CRUpdate updateCtrl)
         {
             m_updateCtrl = updateCtrl;
-            Result report = new Result(true);
+            Result report = new Result();
 
             if (!Configuration.OfflineMode.GetBoolValue())
             {
@@ -387,7 +387,7 @@ namespace CodeRedLauncher
 
                     if (!moduleReport.Succeeded)
                     {
-                        Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_WARN);
+                        Logger.Write("(InstallUpdates) " + moduleReport.FailReason, LogLevel.Error);
                         return moduleReport;
                     }
                 }
@@ -398,7 +398,7 @@ namespace CodeRedLauncher
 
                     if (!launcherReport.Succeeded)
                     {
-                        Logger.Write(launcherReport.FailReason, LogLevel.LEVEL_WARN);
+                        Logger.Write("(InstallUpdates) " + launcherReport.FailReason, LogLevel.Error);
                         return launcherReport;
                     }
                 }

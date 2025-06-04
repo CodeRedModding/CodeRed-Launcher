@@ -84,21 +84,22 @@ namespace CodeRedLauncher
 
         private void LaunchBtn_OnButtonClick(object sender, EventArgs e)
         {
-            if (!LibraryManager.AnyProcessRunning() && Storage.CheckInitialized())
+            if (!LibraryManager.AnyProcessRunning() && LocalStorage.CheckInitialized())
             {
-                PlatformTypes platform = Storage.GetCurrentPlatform(true);
+                PlatformTypes platform = LocalStorage.GetCurrentPlatform(true);
 
                 if (platform == PlatformTypes.Steam)
                 {
-                    Architecture.Path gameFile = (Storage.GetSteamPath() / "RocketLeague.exe");
+                    Architecture.Path gameFile = (LocalStorage.GetSteamPath() / "RocketLeague.exe");
 
                     if (gameFile.Exists())
                     {
+                        Logger.Write("(LaunchBtn) Trying to start process \"" + gameFile.GetPath() + "\"!");
                         Process.Start(new ProcessStartInfo(gameFile.GetPath()) { UseShellExecute = false });
                     }
                     else
                     {
-                        Logger.Write("Failed to locate the users Rocket League executable on Steam!", LogLevel.LEVEL_ERROR);
+                        Logger.Write("(LaunchBtn) Failed to locate the users Rocket League executable on Steam!", LogLevel.Error);
                     }
                 }
             }
@@ -106,9 +107,9 @@ namespace CodeRedLauncher
 
         private void ManualInjectBtn_OnButtonClick(object sender, EventArgs e)
         {
-            if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
+            if (Updater.IsOutdated() && Configuration.ShouldPreventInjection())
             {
-                Logger.Write("Prevented injection, updator returned out of date!");
+                Logger.Write("(ManualInjectBtn) Prevented injection, updater returned out of date!");
                 ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                 InjectTmr.Stop();
                 return;
@@ -120,17 +121,17 @@ namespace CodeRedLauncher
 
                 if (processes.Count > 0)
                 {
-                    Logger.Write("Process found!");
-                    ProcessInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
+                    Logger.Write("(ManualInjectBtn) Process found!");
+                    ProcessInjectionResult(LibraryManager.TryLoadIndividual(processes[0], LocalStorage.GetLibraryFile()));
                 }
             }
             else
             {
-                List<InjectionResults> results = LibraryManager.TryLoadDynamic(Storage.GetLibraryFile());
+                List<InjectionResults> results = LibraryManager.TryLoadDynamic(LocalStorage.GetLibraryFile());
 
                 if (results.Count > 0)
                 {
-                    Logger.Write("Process found!");
+                    Logger.Write("P(ManualInjectBtn) Process found!");
 
                     foreach (InjectionResults result in results)
                     {
@@ -174,12 +175,12 @@ namespace CodeRedLauncher
             {
                 if (RunOnStartupBx.BoxChecked)
                 {
-                    Logger.Write("Setting run on start registry value to \"" + Application.ExecutablePath + "\"...");
+                    Logger.Write("(RunOnStartupBx) Setting run on start registry value to \"" + Application.ExecutablePath + "\"...");
                     startKey.SetValue(Assembly.GetProduct(), Application.ExecutablePath);
                 }
                 else
                 {
-                    Logger.Write("Deleting run on start registry key...");
+                    Logger.Write("(RunOnStartupBx) Deleting run on start registry key...");
                     startKey.DeleteValue(Assembly.GetProduct(), false);
                 }
 
@@ -243,7 +244,7 @@ namespace CodeRedLauncher
         {
             if (!LibraryManager.AnyProcessRunning())
             {
-                Architecture.Path modulePath = Storage.GetModulePath();
+                Architecture.Path modulePath = LocalStorage.GetModulePath();
 
                 if (modulePath.Exists())
                 {
@@ -262,7 +263,7 @@ namespace CodeRedLauncher
                             }
                         }
 
-                        Logger.Write("User selected \"" + folderBrowser.SelectedPath + "\" for new install path.");
+                        Logger.Write("(InstallPathBtn) User selected \"" + folderBrowser.SelectedPath + "\" for new install path.");
                     }
 
                     if (newPath.Exists())
@@ -275,19 +276,19 @@ namespace CodeRedLauncher
 
                             Installer.ModifyRegistry(false, newPath);
                             Configuration.Invalidate(true);
-                            Storage.Invalidate(true);
+                            LocalStorage.Invalidate(true);
                             ConfigToInterface();
                             StorageToInterface();
                             PathPopup.HidePopup();
                         }
                         else
                         {
-                            Logger.Write("Selected path is the same as the current one, cannot move install path!", LogLevel.LEVEL_WARN);
+                            Logger.Write("(InstallPathBtn) Selected path is the same as the current one, cannot move install path!", LogLevel.Warning);
                         }
                     }
                     else
                     {
-                        Logger.Write("Selected path is invalid, cannot move install path!", LogLevel.LEVEL_ERROR);
+                        Logger.Write("(InstallPathBtn) Selected path is invalid, cannot move install path!", LogLevel.Error);
                     }
                 }
             }
@@ -295,7 +296,7 @@ namespace CodeRedLauncher
 
         private void OpenFolderBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Architecture.Path folderPath = Storage.GetModulePath();
+            Architecture.Path folderPath = LocalStorage.GetModulePath();
 
             if (folderPath.Exists())
             {
@@ -305,10 +306,10 @@ namespace CodeRedLauncher
 
         private void ExportLogsBtn_OnButtonClick(object sender, EventArgs e)
         {
-            Architecture.Path modulePath = Storage.GetModulePath();
+            Architecture.Path modulePath = LocalStorage.GetModulePath();
             Architecture.Path launchPath = (modulePath / "Settings" / "Launcher.cr");
             Architecture.Path variablesPath = (modulePath / "Settings" / "Variables.cr");
-            Architecture.Path logsPath = (Storage.GetGamesPath() / "TAGame" / "Logs");
+            Architecture.Path logsPath = (LocalStorage.GetGamesPath() / "TAGame" / "Logs");
 
             if (modulePath.Exists())
             {
@@ -316,7 +317,7 @@ namespace CodeRedLauncher
 
                 if (tempFolder.Exists())
                 {
-                    Logger.Write("Old temporary folder found, deleting...");
+                    Logger.Write("(ExportLogsBtn) Old temporary folder found, deleting...");
                     Directory.Delete(tempFolder.GetPath(), true);
                 }
 
@@ -380,7 +381,7 @@ namespace CodeRedLauncher
 
                             if (zipFolder.Exists())
                             {
-                                Logger.Write("Found \"" + filesToExport.Count + "\" files to export.");
+                                Logger.Write("(ExportLogsBtn) Found \"" + filesToExport.Count + "\" files to export.");
 
                                 foreach (string file in filesToExport)
                                 {
@@ -446,9 +447,9 @@ namespace CodeRedLauncher
 
                 if ((ProcessStatusCtrl.DisplayType != StatusTypes.Process_Injecting) && (ProcessStatusCtrl.DisplayType != StatusTypes.Process_Manual))
                 {
-                    Logger.Write("Process is running!");
+                    Logger.Write("(ProcessTmr) Process is running!");
 
-                    if (!Updator.IsOutdated())
+                    if (!Updater.IsOutdated())
                     {
                         CheckForUpdates(true, false);
                         ProcessStatusCtrl.DisplayType = StatusTypes.Process_Running;
@@ -458,9 +459,9 @@ namespace CodeRedLauncher
                         ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                     }
 
-                    if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
+                    if (Updater.IsOutdated() && Configuration.ShouldPreventInjection())
                     {
-                        Logger.Write("Prevented injection, updator returned out of date!");
+                        Logger.Write("(ProcessTmr) Prevented injection, updater returned out of date!");
                         ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                         InjectTmr.Stop();
                     }
@@ -480,7 +481,7 @@ namespace CodeRedLauncher
                             ManualInjectBtn.SendToBack();
                             ManualInjectBtn.Visible = false;
                             
-                            if (Storage.GetCurrentPlatform(false) == PlatformTypes.Steam)
+                            if (LocalStorage.GetCurrentPlatform(false) == PlatformTypes.Steam)
                             {
                                 LaunchBtn.BringToFront();
                                 LaunchBtn.Visible = true;
@@ -503,7 +504,7 @@ namespace CodeRedLauncher
                 ManualInjectBtn.SendToBack();
                 ManualInjectBtn.Visible = false;
 
-                if (Storage.GetCurrentPlatform(false) == PlatformTypes.Steam)
+                if (LocalStorage.GetCurrentPlatform(false) == PlatformTypes.Steam)
                 {
                     LaunchBtn.DisplayText = "Launch Rocket League";
                     LaunchBtn.BringToFront();
@@ -523,9 +524,9 @@ namespace CodeRedLauncher
         {
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                if (Updator.IsOutdated() && Configuration.ShouldPreventInjection())
+                if (Updater.IsOutdated() && Configuration.ShouldPreventInjection())
                 {
-                    Logger.Write("Prevented injection, updator returned out of date!");
+                    Logger.Write("(InjectTmr) Prevented injection, updater returned out of date!");
                     ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                     InjectTmr.Stop();
                     return;
@@ -549,19 +550,19 @@ namespace CodeRedLauncher
 
                 if (processes.Count > 0)
                 {
-                    Logger.Write("Process found!");
-                    ProcessInjectionResult(LibraryManager.TryLoadIndividual(processes[0], Storage.GetLibraryFile()));
+                    Logger.Write("(InjectTmr) Process found!");
+                    ProcessInjectionResult(LibraryManager.TryLoadIndividual(processes[0], LocalStorage.GetLibraryFile()));
                 }
 
                 InjectTmr.Stop();
             }
             else
             {
-                List<InjectionResults> results = LibraryManager.TryLoadDynamic(Storage.GetLibraryFile());
+                List<InjectionResults> results = LibraryManager.TryLoadDynamic(LocalStorage.GetLibraryFile());
 
                 if (results.Count > 0)
                 {
-                    Logger.Write("Process found!");
+                    Logger.Write("(InjectTmr) Process found!");
 
                     foreach (InjectionResults result in results)
                     {
@@ -575,9 +576,9 @@ namespace CodeRedLauncher
 
         private void UpdateTmr_Tick(object sender, EventArgs e)
         {
-            if (!Updator.IsOutdated())
+            if (!Updater.IsOutdated())
             {
-                Logger.Write("Auto checking for updates...");
+                Logger.Write("(UpdateTmr) Auto checking for updates...");
                 CheckForUpdates(true, true);
             }
             else
@@ -593,13 +594,13 @@ namespace CodeRedLauncher
             switch (result)
             {
                 case InjectionResults.UnhandledException:
-                    Logger.Write("Failed to inject, unhandled exception occurred!", LogLevel.LEVEL_ERROR);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, unhandled exception occurred!", LogLevel.Error);
                     break;
                 case InjectionResults.LibraryNotFound:
-                    Logger.Write("Failed to inject, could not find library file!", LogLevel.LEVEL_ERROR);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not find library file!", LogLevel.Error);
                     break;
                 case InjectionResults.ProcessNotFound:
-                    Logger.Write("Failed to inject, process is no longer valid!", LogLevel.LEVEL_WARN);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, process is no longer valid!", LogLevel.Warning);
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.AlreadyInjected:
@@ -607,31 +608,31 @@ namespace CodeRedLauncher
                     // Logger.Write("Successfully injected, changes applied in game.");
                     break;
                 case InjectionResults.HandleNotFound:
-                    Logger.Write("Failed to inject, window handle is invalid!", LogLevel.LEVEL_ERROR);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, window handle is invalid!", LogLevel.Error);
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.KernalNotFound:
-                    Logger.Write("Failed to inject, load library not found!", LogLevel.LEVEL_FATAL);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, load library not found!", LogLevel.Fatal);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.AllocateFail:
-                    Logger.Write("Failed to inject, could not allocate space in memory!", LogLevel.LEVEL_ERROR);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not allocate space in memory!", LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.WriteFail:
-                    Logger.Write("Failed to inject, could not write library into memory!", LogLevel.LEVEL_ERROR);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not write library into memory!", LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.ThreadFail:
-                    Logger.Write("Failed to inject, could not create remote thread!", LogLevel.LEVEL_ERROR);
+                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not create remote thread!", LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.Success:
-                    Logger.Write("Successfully injected, changes applied in game.");
+                    Logger.Write("(ProcessInjectionResult) Successfully injected, changes applied in game.");
                     break;
                 default:
                     break;
@@ -667,9 +668,10 @@ namespace CodeRedLauncher
         {
             this.Text = Assembly.GetTitle();
             TabPnl.BringToFront();
-            TitleBar.BringToFront();
+
             TitleBar.BoundForm = this;
             TitleBar.DisplayText = Assembly.GetTitle().ToUpper();
+            TitleBar.BringToFront();
 
             DuplicatePopup.Bind(this, TitleBar);
             PolicyPopup.Bind(this, TitleBar);
@@ -714,8 +716,8 @@ namespace CodeRedLauncher
 
             if (tempFolder.Exists())
             {
-                Logger.Write("Old launcher folder found, deleting...");
-                Directory.Delete(tempFolder.GetPath(), true); // This is to cleanup anything left over by the auto updator/dropper program.
+                Logger.Write("(StartupRoutine) Old launcher folder found, deleting...");
+                Directory.Delete(tempFolder.GetPath(), true); // This is to cleanup anything left over by the auto updater program.
             }
 
             bool canContinue = true;
@@ -723,7 +725,7 @@ namespace CodeRedLauncher
 
             if (Assembly.UsingPrivacy())
             {
-                PolicyPopup.DescriptionText = await Retrievers.GetPrivacyPolicy();
+                PolicyPopup.DescriptionText = await RemoteStorage.GetPrivacyPolicy();
                 string policyHash = Configuration.HashMD5(PolicyPopup.DescriptionText);
 
                 if ((policyHash != Configuration.GetPrivacyHash()) || string.IsNullOrEmpty(PolicyPopup.DescriptionText))
@@ -751,7 +753,7 @@ namespace CodeRedLauncher
 
             if (Assembly.UsingTerms())
             {
-                TermsPopup.DescriptionText = await Retrievers.GetTermsOfUse();
+                TermsPopup.DescriptionText = await RemoteStorage.GetTermsOfUse();
                 string termsHash = Configuration.HashMD5(TermsPopup.DescriptionText);
 
                 if ((termsHash != Configuration.GetTermsHash()) || string.IsNullOrEmpty(TermsPopup.DescriptionText))
@@ -785,9 +787,9 @@ namespace CodeRedLauncher
 
         private async void ContinuePolicy(bool bInvalidate)
         {
-            if (!Storage.HasCoderedRegistry() || !Storage.GetModulePath().Exists())
+            if (!LocalStorage.HasCoderedRegistry() || !LocalStorage.GetModulePath().Exists())
             {
-                if (await Retrievers.CheckInitialized())
+                if (await RemoteStorage.CheckInitialized())
                 {
                     InstallPopup.ShowPopup();
                 }
@@ -802,17 +804,17 @@ namespace CodeRedLauncher
 
             if (bInvalidate)
             {
-                Storage.Invalidate(true);
-                Retrievers.Invalidate();
+                LocalStorage.Invalidate(true);
+                RemoteStorage.Invalidate();
             }
 
             Logger.CheckInitialized(); // Create and initialize the log file for the launcher.
 
             if (Configuration.CheckInitialized())
             {
-                if (await Retrievers.CheckInitialized())
+                if (await RemoteStorage.CheckInitialized())
                 {
-                    if (await Downloaders.WebsiteOnline(Retrievers.GetRemoteURL()) == false)
+                    if (await Downloaders.WebsiteOnline(RemoteStorage.GetRemoteURL()) == false)
                     {
                         OfflinePopup.OfflineType = CROffline.OfflineLayouts.Default;
                         OfflinePopup.ShowPopup();
@@ -830,7 +832,7 @@ namespace CodeRedLauncher
             }
             else
             {
-                if (!Storage.GetLibraryFile().Exists())
+                if (!LocalStorage.GetLibraryFile().Exists())
                 {
                     await Installer.DownloadModule();
                     StartupRoutine(true);
@@ -851,7 +853,7 @@ namespace CodeRedLauncher
             {
                 if (bInvalidate)
                 {
-                    Retrievers.Invalidate();
+                    RemoteStorage.Invalidate();
                 }
 
                 if (Configuration.ShouldCheckForUpdates())
@@ -862,7 +864,7 @@ namespace CodeRedLauncher
                 {
                     UpdateStatusCtrl.DisplayType = StatusTypes.Version_Idle;
                     RetrieversToInterface();
-                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                    NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                 }
             }
             else
@@ -882,10 +884,10 @@ namespace CodeRedLauncher
         {
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                ChangelogCtrl.ModuleText = await Retrievers.GetModuleChangelog();
-                ChangelogCtrl.LauncherText = await Retrievers.GetLauncherChangelog();
-                DiscordInfoCtrl.DisplayDescription = await Retrievers.GetDiscordUrl();
-                DonateInfoCtrl.DisplayDescription = await Retrievers.GetKofiUrl();
+                ChangelogCtrl.ModuleText = await RemoteStorage.GetModuleChangelog();
+                ChangelogCtrl.LauncherText = await RemoteStorage.GetLauncherChangelog();
+                DiscordInfoCtrl.DisplayDescription = await RemoteStorage.GetDiscordUrl();
+                DonateInfoCtrl.DisplayDescription = await RemoteStorage.GetKofiUrl();
 
                 if (ChangelogCtrl.DisplayType == ChangelogViews.Offline)
                 {
@@ -922,16 +924,16 @@ namespace CodeRedLauncher
 
         private async void StorageToInterface()
         {
-            if (Storage.CheckInitialized())
+            if (LocalStorage.CheckInitialized())
             {
-                InstallPathBx.DisplayText = Storage.GetModulePath().GetPath();
+                InstallPathBx.DisplayText = LocalStorage.GetModulePath().GetPath();
                 LauncherInfoCtrl.DisplayDescription = Assembly.GetVersion();
-                ModuleInfoCtrl.DisplayDescription = Storage.GetModuleVersion();
-                PsyonixInfoCtrl.DisplayDescription = Storage.GetPsyonixVersion();
-                BuildInfoCtrl.DisplayDescription = Storage.GetNetBuild().ToString();
-                PlatformInfoCtrl.DisplayDescription = Storage.GetPlatformString(false);
+                ModuleInfoCtrl.DisplayDescription = LocalStorage.GetModuleVersion();
+                PsyonixInfoCtrl.DisplayDescription = LocalStorage.GetPsyonixVersion();
+                BuildInfoCtrl.DisplayDescription = LocalStorage.GetNetBuild().ToString();
+                PlatformInfoCtrl.DisplayDescription = LocalStorage.GetPlatformString(false);
                 CreditsLbl.Text = "CodeRed is developed by @ItsBranK, but its creation would not have been possible without the inspiration of the following people: ";
-                CreditsLbl.Text += await Retrievers.GetCredits();
+                CreditsLbl.Text += await RemoteStorage.GetCredits();
             }
         }
 
@@ -1018,29 +1020,29 @@ namespace CodeRedLauncher
         // If "bInvalidate" is set to true it forces the application to retrieve all local and remote information.
         private async Task<bool> CheckForUpdates(bool bInvalidate, bool bShowPrompt)
         {
-            if (!Updator.IsUpdating())
+            if (!Updater.IsUpdating())
             {
                 if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
                 {
-                    Logger.Write("Checking for updates...");
+                    Logger.Write("(CheckForUpdates) Checking for updates...");
                     UpdateStatusCtrl.DisplayType = StatusTypes.Version_Checking;
                     UpdateStatusCtrl.ViewType = StatusViews.One;
 
-                    if (await Retrievers.CheckInitialized())
+                    if (await RemoteStorage.CheckInitialized())
                     {
-                        bool moduleOutdated = await Updator.IsModuleOutdated(bInvalidate);
-                        bool launcherOutdated = await Updator.IsLauncherOutdated(bInvalidate);
+                        bool moduleOutdated = await Updater.IsModuleOutdated(bInvalidate);
+                        bool launcherOutdated = await Updater.IsLauncherOutdated(bInvalidate);
 
-                        UInt32 localVersion = Storage.GetPsyonixDate();
-                        UInt32 remoteVersion = await Retrievers.GetPsyonixDate();
+                        UInt32 localVersion = LocalStorage.GetPsyonixDate();
+                        UInt32 remoteVersion = await RemoteStorage.GetPsyonixDate();
                         bool ignoreModule = (localVersion > remoteVersion);
 
                         // If the installed Rocket League version is greater than the one retrieved remotely, an update for the module is not out yet.
 
                         if (ignoreModule && !launcherOutdated)
                         {
-                            Logger.Write("CodeRed is out of date, no new module version has been released yet!");
-                            Updator.OverrideModule();
+                            Logger.Write("(CheckForUpdates) CodeRed is out of date, no new module version has been released yet!");
+                            Updater.OverrideModule();
                             UpdateStatusCtrl.DisplayType = StatusTypes.Version_Unsafe;
                             UpdateStatusCtrl.ViewType = StatusViews.Three;
 
@@ -1051,9 +1053,9 @@ namespace CodeRedLauncher
                                 UpdateTmr.Start();
                             }
 
-                            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                            NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                         }
-                        else if (Updator.IsOutdated())
+                        else if (Updater.IsOutdated())
                         {
                             UpdateTmr.Stop();
 
@@ -1095,7 +1097,7 @@ namespace CodeRedLauncher
                                 }
                                 else
                                 {
-                                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                                    NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                                 }
                             }
                             else if (!ignoreModule && moduleOutdated)
@@ -1109,7 +1111,7 @@ namespace CodeRedLauncher
 
                                     if ((processes.Count > 0) && LibraryManager.IsModuleLoaded(processes[0], true))
                                     {
-                                        Logger.Write("Process found!");
+                                        Logger.Write("(CheckForUpdates) Process found!");
                                         UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
                                     }
                                     else
@@ -1135,7 +1137,7 @@ namespace CodeRedLauncher
                                 }
                                 else
                                 {
-                                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                                    NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                                 }
                             }
                             else if (launcherOutdated)
@@ -1160,7 +1162,7 @@ namespace CodeRedLauncher
                                 }
                                 else
                                 {
-                                    NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                                    NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                                 }
                             }
                             else
@@ -1182,16 +1184,16 @@ namespace CodeRedLauncher
                         }
                         else
                         {
-                            Logger.Write("No updates found!");
+                            Logger.Write("(CheckForUpdates) No updates found!");
                             UpdateStatusCtrl.ViewType = StatusViews.Two;
                             UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
-                            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                            NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                         }
                     }
                 }
                 else
                 {
-                    Logger.Write("Could not check for updates, launcher is running in offline mode!");
+                    Logger.Write("(CheckForUpdates) Could not check for updates, launcher is running in offline mode!");
                 }
             }
 
@@ -1279,14 +1281,14 @@ namespace CodeRedLauncher
             UpdatePopup.ButtonsEnabled = false;
             UpdateStatusCtrl.DisplayType = StatusTypes.Version_Downloading;
 
-            Retrievers.Invalidate();
-            await Retrievers.CheckInitialized();
-            Result report = await Updator.InstallUpdates(UpdatePopup);
+            RemoteStorage.Invalidate();
+            await RemoteStorage.CheckInitialized();
+            Result report = await Updater.InstallUpdates(UpdatePopup);
             UpdatePopup.ButtonsEnabled = true;
 
             if (report.Succeeded)
             {
-                NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+                NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                 UpdatePopup.HidePopup();
                 ProcessTmr.Start();
                 CheckForUpdates(true, false);
@@ -1294,13 +1296,13 @@ namespace CodeRedLauncher
             else if (report.HasFailReason())
             {
                 UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Fail;
-                Logger.Write(report.FailReason, LogLevel.LEVEL_ERROR);
+                Logger.Write("(UpdatePopup) " + report.FailReason, LogLevel.Error);
             }
         }
 
         private async void UpdatePopup_ButtonClickDeny(object sender, EventArgs e)
         {
-            NewsCtrl.ParseArticles(await Retrievers.GetNewsUrl());
+            NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
         }
 
         private void PolicyPopup_ButtonClickAccept(object sender, EventArgs e)

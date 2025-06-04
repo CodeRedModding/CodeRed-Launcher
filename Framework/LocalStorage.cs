@@ -22,9 +22,10 @@ namespace CodeRedLauncher
     }
 
     // Stores local values and paths from the users system.
-    public static class Storage
+    public static class LocalStorage
     {
-        private static bool m_versionsValid = false;
+        private static bool m_localVersionValid = false;
+        private static bool m_psyVersionValid = false;
         private static bool m_initialized = false;
         private static DirectoryStatus m_directoryStatus = DirectoryStatus.NotFound;
         private static PrivateSetting m_emptySetting = new PrivateSetting();
@@ -41,7 +42,8 @@ namespace CodeRedLauncher
 
         public static void Invalidate(bool bForceReset = false)
         {
-            m_versionsValid = false;
+            m_localVersionValid = false;
+            m_psyVersionValid = false;
 
             if (bForceReset)
             {
@@ -57,15 +59,19 @@ namespace CodeRedLauncher
             {
                 if (!FindDirectories())
                 {
-                    Logger.Write("Failed to retrieve local directory information, cannot verify Rocket League version!", LogLevel.LEVEL_ERROR);
+                    Logger.Write("(CheckInitialized) Failed to retrieve local directory information, cannot verify Rocket League version!", LogLevel.Error);
                     MessageBox.Show("Error: Failed to retrieve local directory information!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
-            if (!m_versionsValid)
+            if (!m_localVersionValid)
+            {
+                ParseVersionFile();
+            }
+
+            if (!m_psyVersionValid)
             {
                 ParseLogFile();
-                ParseVersionFile();
             }
 
             return m_initialized;
@@ -78,89 +84,80 @@ namespace CodeRedLauncher
 
         private static void ParseLogFile()
         {
-            Architecture.Path gamesPath = m_gamesFolder.GetPathValue();
-
-            if (gamesPath.Exists())
+            if (!m_psyVersionValid)
             {
-                Architecture.Path logFile = (gamesPath / "TAGame" / "Logs" / "Launch.log");
+                Architecture.Path gamesPath = m_gamesFolder.GetPathValue();
 
-                if (logFile.Exists())
+                if (gamesPath.Exists())
                 {
-                    m_logFile.SetValue(logFile);
+                    Architecture.Path logFile = (gamesPath / "TAGame" / "Logs" / "Launch.log");
 
-                    try
+                    if (logFile.Exists())
                     {
-                        // Opening with "FileAccess.Read + FileShare.ReadWrite" is important here because RocketLeague.exe locks the log file when the game is running, without it you wouldn't be able to read its contents.
-                        FileStream logStream = File.Open(logFile.GetPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                        string logContents;
+                        Logger.Write("(ParseLogFile) Reading log file...");
+                        m_logFile.SetValue(logFile);
 
-                        using (StreamReader stream = new StreamReader(logStream))
+                        try
                         {
-                            logContents = stream.ReadToEnd();
-                        }
+                            // Opening with "FileAccess.Read + FileShare.ReadWrite" is important here because RocketLeague.exe locks the log file when the game is running, without it you wouldn't be able to read its contents.
+                            FileStream logStream = File.Open(logFile.GetPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                            string logContents;
 
-                        logStream.Close();
-
-                        Match psyMatch = Regex.Match(logContents, "Log: GPsyonixBuildID (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                        Match directoryMatch = Regex.Match(logContents, "Init: Base directory: (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                        Match netMatch = Regex.Match(logContents, "Log: BuildID: (.*) from GPsyonixBuildID", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-
-                        if (psyMatch.Groups[1].Success)
-                        {
-                            m_psyonixVersion.SetValue(psyMatch.Groups[1].Value);
-                            m_versionsValid = true;
-                        }
-                        else
-                        {
-                            m_versionsValid = false;
-                        }
-
-                        if (netMatch.Groups[1].Success)
-                        {
-                            m_netBuild.SetValue(netMatch.Groups[1].Value);
-                        }
-
-                        if (directoryMatch.Groups[1].Success)
-                        {
-                            string baseDirectory = directoryMatch.Groups[1].Value;
-
-                            if (baseDirectory.Contains("steamapps"))
+                            using (StreamReader stream = new StreamReader(logStream))
                             {
-                                m_steamFolder.SetValue(baseDirectory);
-                                m_currentPlatform.SetValue(PlatformTypes.Steam.ToString());
+                                logContents = stream.ReadToEnd();
                             }
-                            else if (baseDirectory.Contains("Epic Games"))
+
+                            logStream.Close();
+
+                            Match psyMatch = Regex.Match(logContents, "Log: GPsyonixBuildID (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                            Match directoryMatch = Regex.Match(logContents, "Init: Base directory: (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                            Match netMatch = Regex.Match(logContents, "Log: BuildID: (.*) from GPsyonixBuildID", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+
+                            if (psyMatch.Groups[1].Success)
                             {
-                                m_epicFolder.SetValue(baseDirectory);
-                                m_currentPlatform.SetValue(PlatformTypes.Epic.ToString());
+                                m_psyonixVersion.SetValue(psyMatch.Groups[1].Value);
+                                m_psyVersionValid = true;
                             }
-                            else
+
+                            if (netMatch.Groups[1].Success)
                             {
-                                m_currentPlatform.SetValue(PlatformTypes.Unknown.ToString());
+                                m_netBuild.SetValue(netMatch.Groups[1].Value);
                             }
+
+                            if (directoryMatch.Groups[1].Success)
+                            {
+                                string baseDirectory = directoryMatch.Groups[1].Value;
+
+                                if (baseDirectory.Contains("steamapps"))
+                                {
+                                    m_steamFolder.SetValue(baseDirectory);
+                                    m_currentPlatform.SetValue(PlatformTypes.Steam.ToString());
+                                }
+                                else if (baseDirectory.Contains("Epic Games"))
+                                {
+                                    m_epicFolder.SetValue(baseDirectory);
+                                    m_currentPlatform.SetValue(PlatformTypes.Epic.ToString());
+                                }
+                                else
+                                {
+                                    m_currentPlatform.SetValue(PlatformTypes.Unknown.ToString());
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Write("(ParseLogFile) Exception: " + ex.Message, LogLevel.Error);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.Write("Read log file fail: " + ex.Message, LogLevel.LEVEL_WARN);
-                    }
                 }
-                else
-                {
-                    m_versionsValid = false;
-                }
-            }
-            else
-            {
-                m_versionsValid = false;
             }
         }
 
         private static void ParseVersionFile()
         {
-            if (!Updator.IsUpdating())
+            if (!Updater.IsUpdating() && !m_localVersionValid)
             {
-                m_versionsValid = false;
                 Architecture.Path moduleFolder = m_moduleFolder.GetPathValue();
 
                 if (moduleFolder.Exists())
@@ -169,6 +166,7 @@ namespace CodeRedLauncher
 
                     if (versionFile.Exists())
                     {
+                        Logger.Write("(ParseVersionFile) Reading version file...");
                         string versionContents;
 
                         using (StreamReader stream = new StreamReader(versionFile.GetPath()))
@@ -182,7 +180,7 @@ namespace CodeRedLauncher
 
                             if (m_moduleVersion.GetFloatValue() != m_moduleVersion.GetFloatValue(true))
                             {
-                                m_versionsValid = true;
+                                m_localVersionValid = true;
                             }
                         }
                     }
@@ -263,7 +261,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Steam read registry fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                    Logger.Write("(ParseRegistryKeys) Steam folder exception: " + ex.Message, LogLevel.Warning);
                 }
             }
             else
@@ -301,7 +299,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Read epic registry fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                    Logger.Write("(ParseRegistryKeys) Epic folder exception: " + ex.Message, LogLevel.Warning);
                 }
             }
             else
@@ -347,17 +345,15 @@ namespace CodeRedLauncher
                 if (gamesFolder.Exists())
                 {
                     m_gamesFolder.SetValue(gamesFolder);
+
                     ParseLogFile();
                     ParseVersionFile();
 
-                    if (!ParseRegistryKeys())
+                    if (!ParseRegistryKeys() && !m_moduleFolder.IsNull())
                     {
-                        if (!m_moduleFolder.IsNull())
-                        {
-                            m_directoryStatus = DirectoryStatus.NoRegistryKeys;
-                            MessageBox.Show("Error: Failed to locate the needed registry keys for CodeRed, either you installation is corrupt or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return m_initialized;
-                        }
+                        m_directoryStatus = DirectoryStatus.NoRegistryKeys;
+                        MessageBox.Show("Error: Failed to locate the needed registry keys for CodeRed, either you installation is corrupt or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
                     }
 
                     m_initialized = true;
@@ -445,18 +441,20 @@ namespace CodeRedLauncher
         // First two numbers are the year, second two are the month, and last two are the day.
         public static UInt32 GetPsyonixDate()
         {
+            UInt32 dateNumber = 0;
+
             if (CheckInitialized())
             {
                 string psyonixVersion = m_psyonixVersion.GetStringValue();
-                string buildDate = psyonixVersion.Substring(0, psyonixVersion.IndexOf("."));
+                string dateString = psyonixVersion.Substring(0, psyonixVersion.IndexOf("."));
 
-                if (Extensions.Strings.IsStringDecimal(buildDate))
+                if (UInt32.TryParse(dateString, out dateNumber))
                 {
-                    return UInt32.Parse(buildDate);
+                    Logger.Write("(GetPsyonixDate) Found date \"" + dateNumber.ToString() + "\"!");
                 }
             }
 
-            return 0;
+            return dateNumber;
         }
 
         public static Int32 GetNetBuild()

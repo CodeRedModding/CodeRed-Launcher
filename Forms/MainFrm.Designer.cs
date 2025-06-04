@@ -50,12 +50,12 @@ namespace CodeRedLauncher
             CreditsLbl = new System.Windows.Forms.Label();
             DashboardTab = new System.Windows.Forms.TabPage();
             UpdateStatusCtrl = new Controls.CRStatus();
-            ProcessStatusCtrl = new Controls.CRStatus();
             ChangelogCtrl = new Controls.CRChangelog();
             DashboardArtTwo = new System.Windows.Forms.PictureBox();
-            DashboardArtOne = new System.Windows.Forms.PictureBox();
             ManualInjectBtn = new Controls.CRButton();
             LaunchBtn = new Controls.CRButton();
+            ProcessStatusCtrl = new Controls.CRStatus();
+            DashboardArtOne = new System.Windows.Forms.PictureBox();
             NewsTab = new System.Windows.Forms.TabPage();
             NewsCtrl = new Controls.CRNews();
             NewsArtOne = new System.Windows.Forms.PictureBox();
@@ -66,10 +66,8 @@ namespace CodeRedLauncher
             SettingsArtOne = new System.Windows.Forms.PictureBox();
             HideWhenMinimizedBx = new Controls.CRCheckbox();
             InstallPathLbl = new Controls.CRLabel();
-            InjectionTimeoutLbl = new Controls.CRLabel();
             LightModeBx = new Controls.CRCheckbox();
             ManualInjectBx = new Controls.CRCheckbox();
-            InstallPathBtn = new Controls.CRButton();
             InstallPathBx = new Controls.CRTextbox();
             OpenFolderBtn = new Controls.CRButton();
             ExportLogsBtn = new Controls.CRButton();
@@ -79,6 +77,8 @@ namespace CodeRedLauncher
             PreventInjectionBx = new Controls.CRCheckbox();
             AutoCheckUpdatesBx = new Controls.CRCheckbox();
             InjectionTimeoutBx = new Controls.CRNumberbox();
+            InjectionTimeoutLbl = new Controls.CRLabel();
+            InstallPathBtn = new Controls.CRButton();
             BackgroundPnl = new System.Windows.Forms.Panel();
             TabPnl = new System.Windows.Forms.Panel();
             AboutTabBtn = new Controls.CRTab();
@@ -91,9 +91,9 @@ namespace CodeRedLauncher
             OfflinePopup = new Controls.CROffline();
             DuplicatePopup = new Controls.CRDuplicate();
             PathPopup = new Controls.CRPathing();
-            TitleBar = new Controls.CRTitle();
             InstallPopup = new Controls.CRInstall();
             UpdatePopup = new Controls.CRUpdate();
+            TitleBar = new Controls.CRTitle();
             ProcessTmr = new System.Windows.Forms.Timer(components);
             InjectTmr = new System.Windows.Forms.Timer(components);
             TrayIcon = new System.Windows.Forms.NotifyIcon(components);
@@ -453,12 +453,12 @@ namespace CodeRedLauncher
             // 
             DashboardTab.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
             DashboardTab.Controls.Add(UpdateStatusCtrl);
-            DashboardTab.Controls.Add(ProcessStatusCtrl);
             DashboardTab.Controls.Add(ChangelogCtrl);
             DashboardTab.Controls.Add(DashboardArtTwo);
-            DashboardTab.Controls.Add(DashboardArtOne);
             DashboardTab.Controls.Add(ManualInjectBtn);
             DashboardTab.Controls.Add(LaunchBtn);
+            DashboardTab.Controls.Add(ProcessStatusCtrl);
+            DashboardTab.Controls.Add(DashboardArtOne);
             DashboardTab.Location = new System.Drawing.Point(4, 24);
             DashboardTab.Name = "DashboardTab";
             DashboardTab.Padding = new System.Windows.Forms.Padding(3);
@@ -502,42 +502,6 @@ namespace CodeRedLauncher
             UpdateStatusCtrl.TitleFont = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
             UpdateStatusCtrl.ViewType = CodeRedLauncher.Controls.StatusViews.One;
             // 
-            // ProcessStatusCtrl
-            // 
-            ProcessStatusCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
-            ProcessStatusCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            ProcessStatusCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            ProcessStatusCtrl.DisplayType = CodeRedLauncher.Controls.StatusTypes.Process_Idle;
-            ProcessStatusCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            ProcessStatusCtrl.IconDescBlack = Properties.Resources.Note_Black;
-            ProcessStatusCtrl.IconDescBlue = Properties.Resources.Note_Blue;
-            ProcessStatusCtrl.IconDescPurple = Properties.Resources.Note_Purple;
-            ProcessStatusCtrl.IconDescRed = Properties.Resources.Note_Red;
-            ProcessStatusCtrl.IconDescWhite = Properties.Resources.Note_White;
-            ProcessStatusCtrl.IconFirstBlack = Properties.Resources.Rocket_Black;
-            ProcessStatusCtrl.IconFirstBlue = Properties.Resources.Rocket_Blue;
-            ProcessStatusCtrl.IconFirstPurple = Properties.Resources.Rocket_Purple;
-            ProcessStatusCtrl.IconFirstRed = Properties.Resources.Rocket_Red;
-            ProcessStatusCtrl.IconFirstWhite = Properties.Resources.Rocket_White;
-            ProcessStatusCtrl.IconSecondBlack = null;
-            ProcessStatusCtrl.IconSecondBlue = null;
-            ProcessStatusCtrl.IconSecondPurple = null;
-            ProcessStatusCtrl.IconSecondRed = null;
-            ProcessStatusCtrl.IconSecondWhite = null;
-            ProcessStatusCtrl.IconThirdBlack = null;
-            ProcessStatusCtrl.IconThirdBlue = null;
-            ProcessStatusCtrl.IconThirdPurple = null;
-            ProcessStatusCtrl.IconThirdRed = null;
-            ProcessStatusCtrl.IconThirdWhite = null;
-            ProcessStatusCtrl.IconType = CodeRedLauncher.Controls.IconTheme.Red;
-            ProcessStatusCtrl.Location = new System.Drawing.Point(25, 25);
-            ProcessStatusCtrl.Name = "ProcessStatusCtrl";
-            ProcessStatusCtrl.ResultType = InjectionResults.None;
-            ProcessStatusCtrl.Size = new System.Drawing.Size(480, 130);
-            ProcessStatusCtrl.TabIndex = 35;
-            ProcessStatusCtrl.TitleFont = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            ProcessStatusCtrl.ViewType = CodeRedLauncher.Controls.StatusViews.One;
-            // 
             // ChangelogCtrl
             // 
             ChangelogCtrl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
@@ -570,17 +534,6 @@ namespace CodeRedLauncher
             DashboardArtTwo.Size = new System.Drawing.Size(120, 114);
             DashboardArtTwo.TabIndex = 37;
             DashboardArtTwo.TabStop = false;
-            // 
-            // DashboardArtOne
-            // 
-            DashboardArtOne.BackColor = System.Drawing.Color.Transparent;
-            DashboardArtOne.BackgroundImage = Properties.Resources.TL1_Dark;
-            DashboardArtOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            DashboardArtOne.Location = new System.Drawing.Point(0, 0);
-            DashboardArtOne.Name = "DashboardArtOne";
-            DashboardArtOne.Size = new System.Drawing.Size(126, 122);
-            DashboardArtOne.TabIndex = 38;
-            DashboardArtOne.TabStop = false;
             // 
             // ManualInjectBtn
             // 
@@ -628,6 +581,53 @@ namespace CodeRedLauncher
             LaunchBtn.TabIndex = 32;
             LaunchBtn.Visible = false;
             LaunchBtn.OnButtonClick += LaunchBtn_OnButtonClick;
+            // 
+            // ProcessStatusCtrl
+            // 
+            ProcessStatusCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
+            ProcessStatusCtrl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            ProcessStatusCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            ProcessStatusCtrl.DisplayType = CodeRedLauncher.Controls.StatusTypes.Process_Idle;
+            ProcessStatusCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            ProcessStatusCtrl.IconDescBlack = Properties.Resources.Note_Black;
+            ProcessStatusCtrl.IconDescBlue = Properties.Resources.Note_Blue;
+            ProcessStatusCtrl.IconDescPurple = Properties.Resources.Note_Purple;
+            ProcessStatusCtrl.IconDescRed = Properties.Resources.Note_Red;
+            ProcessStatusCtrl.IconDescWhite = Properties.Resources.Note_White;
+            ProcessStatusCtrl.IconFirstBlack = Properties.Resources.Rocket_Black;
+            ProcessStatusCtrl.IconFirstBlue = Properties.Resources.Rocket_Blue;
+            ProcessStatusCtrl.IconFirstPurple = Properties.Resources.Rocket_Purple;
+            ProcessStatusCtrl.IconFirstRed = Properties.Resources.Rocket_Red;
+            ProcessStatusCtrl.IconFirstWhite = Properties.Resources.Rocket_White;
+            ProcessStatusCtrl.IconSecondBlack = null;
+            ProcessStatusCtrl.IconSecondBlue = null;
+            ProcessStatusCtrl.IconSecondPurple = null;
+            ProcessStatusCtrl.IconSecondRed = null;
+            ProcessStatusCtrl.IconSecondWhite = null;
+            ProcessStatusCtrl.IconThirdBlack = null;
+            ProcessStatusCtrl.IconThirdBlue = null;
+            ProcessStatusCtrl.IconThirdPurple = null;
+            ProcessStatusCtrl.IconThirdRed = null;
+            ProcessStatusCtrl.IconThirdWhite = null;
+            ProcessStatusCtrl.IconType = CodeRedLauncher.Controls.IconTheme.Red;
+            ProcessStatusCtrl.Location = new System.Drawing.Point(25, 25);
+            ProcessStatusCtrl.Name = "ProcessStatusCtrl";
+            ProcessStatusCtrl.ResultType = InjectionResults.None;
+            ProcessStatusCtrl.Size = new System.Drawing.Size(480, 130);
+            ProcessStatusCtrl.TabIndex = 35;
+            ProcessStatusCtrl.TitleFont = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
+            ProcessStatusCtrl.ViewType = CodeRedLauncher.Controls.StatusViews.One;
+            // 
+            // DashboardArtOne
+            // 
+            DashboardArtOne.BackColor = System.Drawing.Color.Transparent;
+            DashboardArtOne.BackgroundImage = Properties.Resources.TL1_Dark;
+            DashboardArtOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            DashboardArtOne.Location = new System.Drawing.Point(0, 0);
+            DashboardArtOne.Name = "DashboardArtOne";
+            DashboardArtOne.Size = new System.Drawing.Size(126, 122);
+            DashboardArtOne.TabIndex = 38;
+            DashboardArtOne.TabStop = false;
             // 
             // NewsTab
             // 
@@ -715,10 +715,8 @@ namespace CodeRedLauncher
             SettingsTab.Controls.Add(SettingsArtOne);
             SettingsTab.Controls.Add(HideWhenMinimizedBx);
             SettingsTab.Controls.Add(InstallPathLbl);
-            SettingsTab.Controls.Add(InjectionTimeoutLbl);
             SettingsTab.Controls.Add(LightModeBx);
             SettingsTab.Controls.Add(ManualInjectBx);
-            SettingsTab.Controls.Add(InstallPathBtn);
             SettingsTab.Controls.Add(InstallPathBx);
             SettingsTab.Controls.Add(OpenFolderBtn);
             SettingsTab.Controls.Add(ExportLogsBtn);
@@ -728,6 +726,8 @@ namespace CodeRedLauncher
             SettingsTab.Controls.Add(PreventInjectionBx);
             SettingsTab.Controls.Add(AutoCheckUpdatesBx);
             SettingsTab.Controls.Add(InjectionTimeoutBx);
+            SettingsTab.Controls.Add(InjectionTimeoutLbl);
+            SettingsTab.Controls.Add(InstallPathBtn);
             SettingsTab.Location = new System.Drawing.Point(4, 24);
             SettingsTab.Name = "SettingsTab";
             SettingsTab.Size = new System.Drawing.Size(910, 600);
@@ -826,23 +826,6 @@ namespace CodeRedLauncher
             InstallPathLbl.Size = new System.Drawing.Size(150, 35);
             InstallPathLbl.TabIndex = 72;
             // 
-            // InjectionTimeoutLbl
-            // 
-            InjectionTimeoutLbl.BackColor = System.Drawing.Color.Transparent;
-            InjectionTimeoutLbl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            InjectionTimeoutLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            InjectionTimeoutLbl.DisplayText = "Injection delay";
-            InjectionTimeoutLbl.IconBlack = Properties.Resources.Hourglass_Black;
-            InjectionTimeoutLbl.IconBlue = Properties.Resources.Hourglass_Blue;
-            InjectionTimeoutLbl.IconPurple = Properties.Resources.Hourglass_Purple;
-            InjectionTimeoutLbl.IconRed = Properties.Resources.Hourglass_Red;
-            InjectionTimeoutLbl.IconType = CodeRedLauncher.Controls.IconTheme.Red;
-            InjectionTimeoutLbl.IconWhite = Properties.Resources.Hourglass_White;
-            InjectionTimeoutLbl.Location = new System.Drawing.Point(35, 440);
-            InjectionTimeoutLbl.Name = "InjectionTimeoutLbl";
-            InjectionTimeoutLbl.Size = new System.Drawing.Size(150, 35);
-            InjectionTimeoutLbl.TabIndex = 71;
-            // 
             // LightModeBx
             // 
             LightModeBx.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
@@ -894,29 +877,6 @@ namespace CodeRedLauncher
             ManualInjectBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             ManualInjectBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
             ManualInjectBx.OnCheckChanged += ManualInjectBx_OnCheckChanged;
-            // 
-            // InstallPathBtn
-            // 
-            InstallPathBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            InstallPathBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
-            InstallPathBtn.ButtonEnabled = true;
-            InstallPathBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            InstallPathBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            InstallPathBtn.DisplayText = "   Change";
-            InstallPathBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            InstallPathBtn.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            InstallPathBtn.IconBlack = Properties.Resources.Folders_Black;
-            InstallPathBtn.IconBlue = Properties.Resources.Folders_Blue;
-            InstallPathBtn.IconPurple = Properties.Resources.Folders_Purple;
-            InstallPathBtn.IconRed = Properties.Resources.Folders_Red;
-            InstallPathBtn.IconSync = false;
-            InstallPathBtn.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            InstallPathBtn.IconWhite = Properties.Resources.Folders_White;
-            InstallPathBtn.Location = new System.Drawing.Point(467, 490);
-            InstallPathBtn.Name = "InstallPathBtn";
-            InstallPathBtn.Size = new System.Drawing.Size(165, 35);
-            InstallPathBtn.TabIndex = 68;
-            InstallPathBtn.OnButtonClick += InstallPathBtn_OnButtonClick;
             // 
             // InstallPathBx
             // 
@@ -1130,20 +1090,60 @@ namespace CodeRedLauncher
             InjectionTimeoutBx.Value = 20000;
             InjectionTimeoutBx.OnValueChanged += InjectionTimeoutBx_OnValueChanged;
             // 
+            // InjectionTimeoutLbl
+            // 
+            InjectionTimeoutLbl.BackColor = System.Drawing.Color.Transparent;
+            InjectionTimeoutLbl.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            InjectionTimeoutLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            InjectionTimeoutLbl.DisplayText = "Injection delay";
+            InjectionTimeoutLbl.IconBlack = Properties.Resources.Hourglass_Black;
+            InjectionTimeoutLbl.IconBlue = Properties.Resources.Hourglass_Blue;
+            InjectionTimeoutLbl.IconPurple = Properties.Resources.Hourglass_Purple;
+            InjectionTimeoutLbl.IconRed = Properties.Resources.Hourglass_Red;
+            InjectionTimeoutLbl.IconType = CodeRedLauncher.Controls.IconTheme.Red;
+            InjectionTimeoutLbl.IconWhite = Properties.Resources.Hourglass_White;
+            InjectionTimeoutLbl.Location = new System.Drawing.Point(35, 440);
+            InjectionTimeoutLbl.Name = "InjectionTimeoutLbl";
+            InjectionTimeoutLbl.Size = new System.Drawing.Size(150, 35);
+            InjectionTimeoutLbl.TabIndex = 71;
+            // 
+            // InstallPathBtn
+            // 
+            InstallPathBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            InstallPathBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
+            InstallPathBtn.ButtonEnabled = true;
+            InstallPathBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            InstallPathBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            InstallPathBtn.DisplayText = "   Change";
+            InstallPathBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            InstallPathBtn.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
+            InstallPathBtn.IconBlack = Properties.Resources.Folders_Black;
+            InstallPathBtn.IconBlue = Properties.Resources.Folders_Blue;
+            InstallPathBtn.IconPurple = Properties.Resources.Folders_Purple;
+            InstallPathBtn.IconRed = Properties.Resources.Folders_Red;
+            InstallPathBtn.IconSync = false;
+            InstallPathBtn.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            InstallPathBtn.IconWhite = Properties.Resources.Folders_White;
+            InstallPathBtn.Location = new System.Drawing.Point(467, 490);
+            InstallPathBtn.Name = "InstallPathBtn";
+            InstallPathBtn.Size = new System.Drawing.Size(165, 35);
+            InstallPathBtn.TabIndex = 68;
+            InstallPathBtn.OnButtonClick += InstallPathBtn_OnButtonClick;
+            // 
             // BackgroundPnl
             // 
             BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
-            BackgroundPnl.Controls.Add(PathPopup);
             BackgroundPnl.Controls.Add(TitleBar);
-            BackgroundPnl.Controls.Add(InstallPopup);
-            BackgroundPnl.Controls.Add(UpdatePopup);
             BackgroundPnl.Controls.Add(TabCtrl);
             BackgroundPnl.Controls.Add(TermsPopup);
             BackgroundPnl.Controls.Add(PolicyPopup);
             BackgroundPnl.Controls.Add(OfflinePopup);
             BackgroundPnl.Controls.Add(DuplicatePopup);
+            BackgroundPnl.Controls.Add(PathPopup);
+            BackgroundPnl.Controls.Add(InstallPopup);
+            BackgroundPnl.Controls.Add(UpdatePopup);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1410,23 +1410,6 @@ namespace CodeRedLauncher
             PathPopup.TabIndex = 8;
             PathPopup.Visible = false;
             // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
-            TitleBar.BoundForm = null;
-            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            TitleBar.DisplayText = "CODERED LAUNCHER";
-            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            TitleBar.Location = new System.Drawing.Point(0, 0);
-            TitleBar.MaximizeButton = true;
-            TitleBar.MinimizeButton = true;
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new System.Drawing.Size(970, 30);
-            TitleBar.TabIndex = 2;
-            TitleBar.OnMinimized += TitleBar_OnMinimized;
-            TitleBar.OnExit += TitleBar_OnExit;
-            // 
             // InstallPopup
             // 
             InstallPopup.AcceptBlack = Properties.Resources.Download_Black;
@@ -1485,6 +1468,23 @@ namespace CodeRedLauncher
             UpdatePopup.Visible = false;
             UpdatePopup.ButtonClickAccept += UpdatePopup_ButtonClickAccept;
             UpdatePopup.ButtonClickDeny += UpdatePopup_ButtonClickDeny;
+            // 
+            // TitleBar
+            // 
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
+            TitleBar.BoundForm = null;
+            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.MaximizeButton = true;
+            TitleBar.MinimizeButton = true;
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // ProcessTmr
             // 
@@ -1577,7 +1577,6 @@ namespace CodeRedLauncher
         private System.Windows.Forms.Timer UpdateTmr;
         private Controls.CRTextbox InstallPathBx;
         private Controls.CRButton InstallPathBtn;
-        private System.Windows.Forms.PictureBox InjectionTimeoutImg;
         private Controls.CRInfo RemixInfoCtrl;
         private Controls.CRInfo DonateInfoCtrl;
         private Controls.CRInfo LauncherInfoCtrl;

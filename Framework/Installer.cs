@@ -19,7 +19,7 @@ namespace CodeRedLauncher
 
                 if (coderedKey != null)
                 {
-                    Logger.Write("Deleting install path registry key...");
+                    Logger.Write("(ModifyRegistry) Deleting install path registry key...");
                     coderedKey.DeleteValue(m_keyName, false);
                     coderedKey.Close();
                     Registry.CurrentUser.DeleteSubKey(m_subKey);
@@ -31,6 +31,7 @@ namespace CodeRedLauncher
 
                 if (coderedKey != null)
                 {
+                    Logger.Write("(ModifyRegistry) Saving install path \"" + installPath.GetPath() + "\" to registry!");
                     coderedKey.SetValue(m_keyName, installPath.GetPath());
                     coderedKey.Close();
                 }
@@ -57,20 +58,20 @@ namespace CodeRedLauncher
                             installPath.Append("CodeRed").CreateDirectory();
                         }
 
-                        Logger.Write("User manually selected \"" + installPath.GetPath() + "\" for the install path.");
+                        Logger.Write("(CreateInstallPath) User manually selected \"" + installPath.GetPath() + "\" for the install path.");
                     }
                 }
             }
             else
             {
-                installPath.Set(Storage.GetGamesPath() / "CodeRed");
+                installPath.Set(LocalStorage.GetGamesPath() / "CodeRed");
                 Directory.CreateDirectory(installPath.GetPath());
             }
 
             if (installPath.Exists())
             {
                 ModifyRegistry(false, installPath);
-                Storage.Invalidate(true);
+                LocalStorage.Invalidate(true);
                 report.Succeeded = true;
             }
             else
@@ -84,16 +85,16 @@ namespace CodeRedLauncher
         public static async Task<Result> DownloadModule()
         {
             Result report = new Result();
-            Architecture.Path moduleFolder = Storage.GetModulePath();
+            Architecture.Path moduleFolder = LocalStorage.GetModulePath();
 
             if (moduleFolder.Exists())
             {
-                Result moduleReport = await Updator.ForceInstallModule(); // Doing a little cheaty cheat here, letting the updator do the rest of the work.
+                Result moduleReport = await Updater.ForceInstallModule(); // Doing a little cheaty cheat here, letting the updater do the rest of the work.
 
                 if (!moduleReport.Succeeded)
                 {
                     Configuration.CheckInitialized();
-                    Logger.Write(moduleReport.FailReason, LogLevel.LEVEL_WARN);
+                    Logger.Write("(DownloadModule) Failed to download module file: " + moduleReport.FailReason, LogLevel.Error);
                     return moduleReport;
                 }
                 else

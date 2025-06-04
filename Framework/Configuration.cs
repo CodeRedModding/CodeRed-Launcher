@@ -197,11 +197,11 @@ namespace CodeRedLauncher
         {
             if (!m_initialized)
             {
-                m_storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
+                m_storageFile = (LocalStorage.GetModulePath() / "Settings" / "Launcher.cr");
 
                 if (!m_storageFile.Exists())
                 {
-                    m_storageFile = (Storage.GetModulePath() / "Settings" / "Injector.cr"); // Old file name, have to keep for backwards compatibility.
+                    m_storageFile = (LocalStorage.GetModulePath() / "Settings" / "Injector.cr"); // Old file name, have to keep for backwards compatibility.
                 }
 
                 if (m_storageFile.Exists())
@@ -223,7 +223,7 @@ namespace CodeRedLauncher
 
         public static void SetDefaultSettings(bool bSaveChanges = false)
         {
-            m_storageFile = (Storage.GetModulePath() / "Settings" / "Launcher.cr");
+            m_storageFile = (LocalStorage.GetModulePath() / "Settings" / "Launcher.cr");
             PrivacyPolicy.ResetToDefault();
             TermsOfUse.ResetToDefault();
             PrivacyHash.ResetToDefault();
@@ -249,8 +249,8 @@ namespace CodeRedLauncher
         {
             if (m_storageFile.Parent().Exists())
             {
-                m_storageFile.Set(Storage.GetModulePath() / "Settings" / "Launcher.cr");
-                Architecture.Path oldFile = (Storage.GetModulePath() / "Settings" / "Injector.cr"); // This is for backwards compatibility, file used to be called "Injector.cr".
+                m_storageFile.Set(LocalStorage.GetModulePath() / "Settings" / "Launcher.cr");
+                Architecture.Path oldFile = (LocalStorage.GetModulePath() / "Settings" / "Injector.cr"); // This is for backwards compatibility, file used to be called "Injector.cr".
 
                 if (oldFile.Exists())
                 {
@@ -285,7 +285,7 @@ namespace CodeRedLauncher
             }
             else
             {
-                Logger.Write("Launcher settings folder doesn't exist, failed to save settings!");
+                Logger.Write("(SaveChanges) Launcher settings folder doesn't exist, cannot save the users settings!", LogLevel.Warning);
             }
         }
 

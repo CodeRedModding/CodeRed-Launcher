@@ -9,15 +9,46 @@ using System.Drawing;
 
 namespace CodeRedLauncher
 {
+
     public static class Downloaders
     {
-        private static TimeSpan m_timeout = TimeSpan.FromMinutes(15);
-        private static string m_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0";
+        private static TimeSpan m_fileTimeout = TimeSpan.FromMinutes(15);
+        private static TimeSpan m_imageTimeout = TimeSpan.FromMinutes(5);
+        private static TimeSpan m_pageTimeout = TimeSpan.FromMinutes(2.5f);
+        private static string m_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0";
+        private static Int32 m_pageExpiration = 60; // Minimum time in seconds to keep for downloading pages, GitHub now has a limit of one request per minute.
+        private static Dictionary<string, WebCache> m_pageCache = new Dictionary<string, WebCache>(); // Only used for downloading raw page text, not images or files.
+
+        private class WebCache
+        {
+            public string Body { get; set; } = "";
+            public long ResponseTime { get; set; } = 0;
+
+            public bool HasResponse()
+            {
+                return (ResponseTime != 0);
+            }
+
+            public bool IsExpired()
+            {
+                return (!HasResponse() || (DateTimeOffset.UtcNow.ToUnixTimeSeconds() - ResponseTime) > m_pageExpiration);
+            }
+
+            public void SetResponse(string body)
+            {
+                if (!string.IsNullOrEmpty(body))
+                {
+                    Body = body;
+                    ResponseTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                }
+            }
+        }
 
         public static async Task<bool> WebsiteOnline(string url)
         {
             if (!string.IsNullOrEmpty(url))
             {
+                Logger.Write("(WebsiteOnline) Pinging website for \"" + url + "\"...");
                 Ping newPing = new Ping();
 
                 try
@@ -30,12 +61,12 @@ namespace CodeRedLauncher
                     }
                     else
                     {
-                        Logger.Write("Ping request failed: " + pingReply.Status.ToString(), LogLevel.LEVEL_WARN);
+                        Logger.Write("(WebsiteOnline) Ping request failed: " + pingReply.Status.ToString(), LogLevel.Warning);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Ping request error: " + ex.Message, LogLevel.LEVEL_ERROR);
+                    Logger.Write("(WebsiteOnline) Exception: " + ex.Message, LogLevel.Error);
                     return false;
                 }
 
@@ -50,11 +81,13 @@ namespace CodeRedLauncher
 
             if (!string.IsNullOrEmpty(url))
             {
+                Logger.Write("(DownloadImage) Downloading image from \"" + url + "\"...");
+
                 using (HttpClient client = new HttpClient())
                 {
                     try
                     {
-                        client.Timeout = m_timeout;
+                        client.Timeout = m_imageTimeout;
                         client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
 
                         if (bNoCache)
@@ -72,19 +105,20 @@ namespace CodeRedLauncher
                             {
                                 image = Image.FromStream(stream);
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
+                                Logger.Write("(DownloadImage) Image stream exception: " + ex.Message, LogLevel.Warning);
                                 image = null;
                             }
                         }
                         else
                         {
-                            Logger.Write("Website is offline, failed to download image for url \"" + url + "\"!", LogLevel.LEVEL_WARN);
+                            Logger.Write("(DownloadImage) Website is offline, failed to download image for url \"" + url + "\"!", LogLevel.Warning);
                         }
                     }
                     catch (Exception ex)
                     {
-                        Logger.Write("Download image fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                        Logger.Write("(DownloadImage) Exception: " + ex.Message, LogLevel.Error);
                         return null;
                     }
                 }
@@ -99,11 +133,32 @@ namespace CodeRedLauncher
 
             if (!string.IsNullOrEmpty(url))
             {
+                if (m_pageCache.ContainsKey(url))
+                {
+                    WebCache webCache = m_pageCache[url];
+
+                    if (!webCache.IsExpired())
+                    {
+                        Logger.Write("(DownloadPage) Cache not yet expired for \"" + url + "\", grabbing from last stored response!");
+                        return webCache.Body;
+                    }
+                    else
+                    {
+                        Logger.Write("(DownloadPage) Cache expired for \"" + url + "\"!");
+                    }
+                }
+                else
+                {
+                    m_pageCache[url] = new WebCache();
+                }
+
                 try
                 {
+                    Logger.Write("(DownloadPage) Downloading page from \"" + url + "\"...");
+
                     using (HttpClient client = new HttpClient())
                     {
-                        client.Timeout = m_timeout;
+                        client.Timeout = m_pageTimeout;
                         client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
 
                         if (bNoCache)
@@ -116,16 +171,17 @@ namespace CodeRedLauncher
                         if (response.IsSuccessStatusCode)
                         {
                             pageContent = await response.Content.ReadAsStringAsync();
+                            m_pageCache[url].SetResponse(pageContent);
                         }
                         else
                         {
-                            Logger.Write(("Website response failed for url \"" + url + "\", status code \"" + response.StatusCode.ToString() + "\"!"), LogLevel.LEVEL_WARN);
+                            Logger.Write(("(DownloadPage) Website response failed for url \"" + url + "\", status code \"" + response.StatusCode.ToString() + "\"!"), LogLevel.Warning);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Download page fail: " + ex.Message, LogLevel.LEVEL_WARN);
+                    Logger.Write("(DownloadPage) Exception: " + ex.Message, LogLevel.Error);
                 }
             }
 
@@ -136,11 +192,13 @@ namespace CodeRedLauncher
         {
             if (folder.Exists() && !string.IsNullOrEmpty(url))
             {
+                Logger.Write("(DownloadFile) Downloading file from \"" + url + "\"...");
+
                 try
                 {
                     using (HttpClient client = new HttpClient())
                     {
-                        client.Timeout = m_timeout;
+                        client.Timeout = m_fileTimeout;
                         client.DefaultRequestHeaders.UserAgent.ParseAdd(m_userAgent);
 
                         if (bNoCache)
@@ -165,7 +223,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex.Message, LogLevel.LEVEL_ERROR);
+                    Logger.Write("(DownloadFile) Exception: " + ex.Message, LogLevel.Error);
                     return false;
                 }
             }
@@ -175,7 +233,7 @@ namespace CodeRedLauncher
     }
 
     // Dowwnloads and stores values from the remote config.
-    public static class Retrievers
+    public static class RemoteStorage
     {
         private static bool m_initialized = false;
         private static string m_remoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/Launcher.cr";
@@ -199,7 +257,7 @@ namespace CodeRedLauncher
             new InternalSetting(null, "LauncherAlt"),
             new InternalSetting("No changelog provided for the most recent update.", "LauncherChangelog"),
             new InternalSetting("No changelog provided for the most recent update.", "ModuleChangelog"),
-            new InternalSetting("Bakkes, Martinn, TaylorSasser, ButternCream, GlenHumphrey, ToolB0x, BeardedOranges, and Megasplat/Aberinkula/FrancesElMute.", "Credits"),
+            new InternalSetting("Bakkes, Martinn, TaylorSasser, ButternCream, GlenHumphrey, Segal, ToolB0x, lchmagKekse, MrMythical, and Megasplat", "Credits"),
             new InternalSetting("false", "AltEndpoint"),
         };
 
@@ -231,7 +289,7 @@ namespace CodeRedLauncher
                         if (mappedBody.ContainsKey(m_remoteSettings[i].Name))
                         {
                             m_remoteSettings[i].SetValue(mappedBody[m_remoteSettings[i].Name]);
-                            Logger.Write("Retrieved remote value: " + m_remoteSettings[i].GetStringValue());
+                            Logger.Write("(DownloadRemote) Retrieved value: " + m_remoteSettings[i].GetStringValue());
 
                             if ((m_remoteSettings[i].Name == "LauncherAlt") && (m_remoteSettings[i].GetStringValue() != "null"))
                             {
@@ -259,7 +317,7 @@ namespace CodeRedLauncher
             {
                 if (await DownloadRemote() == false)
                 {
-                    Logger.Write("Failed to download remote information, cannot check for updates or verify installed version!", LogLevel.LEVEL_WARN);
+                    Logger.Write("(CheckInitialized) Failed to download remote information, cannot check for updates or verify installed version!", LogLevel.Warning);
                 }
             }
 
@@ -291,18 +349,20 @@ namespace CodeRedLauncher
         // First two numbers are the year, second two are the month, and last two are the day.
         public static async Task<UInt32> GetPsyonixDate()
         {
+            UInt32 dateNumber = 0;
+
             if (await CheckInitialized())
             {
-                string psyonixVersion =  GetStoredSetting("PsyonixVersion").GetStringValue();
-                string buildDate = psyonixVersion.Substring(0, psyonixVersion.IndexOf("."));
+                string psyonixVersion = GetStoredSetting("PsyonixVersion").GetStringValue();
+                string dateString = psyonixVersion.Substring(0, psyonixVersion.IndexOf("."));
 
-                if (Extensions.Strings.IsStringDecimal(buildDate))
+                if (UInt32.TryParse(dateString, out dateNumber))
                 {
-                    return UInt32.Parse(buildDate);
+                    Logger.Write("(GetPsyonixDate) Found date \"" + dateNumber.ToString() + "\"!");
                 }
             }
 
-            return 0;
+            return dateNumber;
         }
 
         public static async Task<string> GetLauncherVersion()

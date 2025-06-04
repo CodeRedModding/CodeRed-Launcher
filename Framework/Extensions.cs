@@ -8,69 +8,6 @@ namespace CodeRedLauncher.Extensions
 {
     public static class Strings
     {
-        private static readonly char[] AlphabetChars = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        private static readonly char[] DecimalChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        private static readonly char[] HexadecimalChars = { 'a', 'b', 'c', 'd', 'e', 'f' };
-
-        public static bool IsCharAlphabet(char c)
-        {
-            return AlphabetChars.Contains(Char.ToLower(c));
-        }
-
-        public static bool IsCharDecimal(char c)
-        {
-            return DecimalChars.Contains(Char.ToLower(c));
-        }
-
-        public static bool IsCharHexadecimal(char c)
-        {
-            if (HexadecimalChars.Contains(Char.ToLower(c)))
-            {
-                return true;
-            }
-
-            return IsCharDecimal(c);
-        }
-
-        public static bool IsStringAlphabet(string str)
-        {
-            foreach (char c in str)
-            {
-                if (!IsCharAlphabet(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public static bool IsStringDecimal(string str)
-        {
-            foreach (char c in str)
-            {
-                if (!IsCharDecimal(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public static bool IsStringHexadecimal(string str)
-        {
-            foreach (char c in str)
-            {
-                if (!IsCharHexadecimal(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         public static List<string> SplitRange(string str, char from, char to, bool bIncludeChar)
         {
             List<string> splitStrings = new List<string>();

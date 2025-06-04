@@ -515,7 +515,7 @@ namespace CodeRedLauncher.Controls
                 }
                 else
                 {
-                    Logger.Write("Failed to download news body for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.LEVEL_WARN);
+                    Logger.Write("(ParseLink) Failed to download news body for url \"" + newsStorage.NewsUrl + "\"!", LogLevel.Warning);
                 }
             }
 
@@ -556,7 +556,7 @@ namespace CodeRedLauncher.Controls
 
                     if (articles > 0)
                     {
-                        Logger.Write("Found news article links!");
+                        Logger.Write("(ParseArticles) Found \"" + articles.ToString() + "\" article pages!");
                         LoadAllIndexes(); // Parse and download everything in the background.
                         LoadPreviousArticle();
                         return;
@@ -573,13 +573,13 @@ namespace CodeRedLauncher.Controls
 
                 if (fallback && !bRecursive)
                 {
-                    Logger.Write("Couldn't find official news links, resorting to fallback url!");
+                    Logger.Write("(ParseArticles) Couldn't find official news links, resorting to fallback url!");
                     m_usingAlt = true;
                     ParseArticles(m_altUrl, true);
                 }
                 else if (bRecursive)
                 {
-                    Logger.Write("Fallback url failed, no news links found!");
+                    Logger.Write("(ParseArticles) Fallback url failed, no news links found!");
                 }
             }
         }

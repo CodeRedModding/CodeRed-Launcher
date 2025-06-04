@@ -4,14 +4,16 @@ namespace CodeRedLauncher
 {
     public class SettingBase
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
+
+        protected string CurrentValue { get; set; } = "";
+        protected string DefaultValue { get; set; } = "";
+
         protected string Value
         {
             get { return (IsNull() ? DefaultValue : CurrentValue); }
             set { CurrentValue = value; }
         }
-        protected string CurrentValue { get; set; }
-        protected string DefaultValue { get; set; }
 
         public SettingBase(string name, string defaultValue)
         {
@@ -20,14 +22,14 @@ namespace CodeRedLauncher
             DefaultValue = defaultValue;
         }
 
-        public bool IsNull() { return String.IsNullOrEmpty(CurrentValue); }
+        public bool IsNull() { return string.IsNullOrEmpty(CurrentValue); }
     }
 
     public class PublicSetting : SettingBase
     {
-        public string Label { get; set; }
-        public string Description { get; set; } // Description isn't currently used, but its intention is to be used for a tooltip hover type of thing on the UI widget for it.
-        private Action SaveCallback { get; set; }
+        public string Label { get; set; } = "";
+        public string Description { get; set; } = ""; // Description isn't currently used, but its intention is to be used for a tooltip hover type of thing on the UI widget for it.
+        private Action SaveCallback { get; set; } = null;
 
         public PublicSetting(string defaultValue, string name, string label, string description, Action saveCallback = null) : base(name, defaultValue)
         {
@@ -108,11 +110,11 @@ namespace CodeRedLauncher
 
     public class PrivateSetting : PublicSetting
     {
-        public PrivateSetting(string defaultValue = "") : base(defaultValue, null, null, null) { }
+        public PrivateSetting(string defaultValue = "") : base(defaultValue, null, null, null) {}
     }
 
     public class InternalSetting : PublicSetting
     {
-        public InternalSetting(string defaultValue, string name) : base(defaultValue, name, null, null) { }
+        public InternalSetting(string defaultValue, string name) : base(defaultValue, name, null, null) {}
     }
 }

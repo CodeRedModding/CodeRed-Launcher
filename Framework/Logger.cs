@@ -1,47 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Diagnostics;
 
 namespace CodeRedLauncher
 {
     public enum LogLevel : byte
     {
-        LEVEL_NONE,
-        LEVEL_WARN,
-        LEVEL_ERROR,
-        LEVEL_FATAL
+        None,
+        Warning,
+        Error,
+        Fatal
     }
 
     public static class Logger
     {
         private static bool m_initialized = false;
         private static Architecture.Path m_logFile = new Architecture.Path();
+        private static List<string> m_logQueue = new List<string>();
 
         public static bool CheckInitialized()
         {
-            if (!m_initialized || !m_logFile.Exists())
+            if (!m_initialized)
             {
                 CreateLogFile();
 
                 if (m_initialized)
                 {
-                    Write("Log file created successfully.");
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    Write("(CheckInitialized) Log file created successfully.");
                 }
             }
 
-            return true;
+            return m_initialized;
         }
 
         private async static void CreateLogFile()
         {
-            if (!m_initialized || !m_logFile.Exists())
+            if (!m_initialized)
             {
-                Architecture.Path modPath = Storage.GetModulePath();
+                Architecture.Path modPath = LocalStorage.GetModulePath();
                 
                 if (modPath.Exists())
                 {
@@ -58,6 +54,13 @@ namespace CodeRedLauncher
                     }
 
                     m_initialized = true;
+
+                    foreach (string str in m_logQueue)
+                    {
+                        WriteInternal(str);
+                    }
+
+                    m_logQueue.Clear();
                 }
             }
         }
@@ -67,30 +70,44 @@ namespace CodeRedLauncher
             return "[" + DateTime.Now.ToString() + "] ";
         }
 
-        public static void Write(string str, LogLevel level = LogLevel.LEVEL_NONE)
+        public static void Write(string str, LogLevel level = LogLevel.None)
         {
-            if (CheckInitialized())
+            string formattedStr = CreateTimestamp();
+
+            switch (level)
             {
-                string newLine = CreateTimestamp();
+                case LogLevel.Warning:
+                    formattedStr += "WARNING: ";
+                    break;
+                case LogLevel.Error:
+                    formattedStr += "ERROR: ";
+                    break;
+                case LogLevel.Fatal:
+                    formattedStr += "FATAL: ";
+                    break;
+                default:
+                    break;
+            }
 
-                switch (level)
-                {
-                    case LogLevel.LEVEL_WARN:
-                        newLine += "WARNING: ";
-                        break; 
-                    case LogLevel.LEVEL_ERROR:
-                        newLine += "ERROR: ";
-                        break;
-                    case LogLevel.LEVEL_FATAL:
-                        newLine += "FATAL ERROR: ";
-                        break;
-                }
+            formattedStr += (str + Environment.NewLine);
 
-                newLine += (str + Environment.NewLine);
+            if (m_initialized)
+            {
+                WriteInternal(formattedStr);
+            }
+            else
+            {
+                m_logQueue.Add(formattedStr);
+            }
+        }
 
+        private static void WriteInternal(string str)
+        {
+            if (!string.IsNullOrEmpty(str) && m_initialized && m_logFile.Exists())
+            {
                 using (StreamWriter stream = new StreamWriter(m_logFile.GetPath(), true))
                 {
-                    stream.Write(newLine);
+                    stream.Write(str);
                 }
             }
         }

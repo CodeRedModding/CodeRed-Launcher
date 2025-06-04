@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace CodeRedLauncher.Architecture
 {
@@ -73,23 +74,27 @@ namespace CodeRedLauncher.Architecture
         // Modifies the current path with the given string. If you wish to return/add on to the path by creating a new one instead of modifying it, see down below for the divide operator overload.
         public Path Append(string str)
         {
-            if (!string.IsNullOrEmpty(IndirectPath))
+            if (!string.IsNullOrEmpty(str))
             {
-                if (IndirectPath[IndirectPath.Length - 1] == '\\')
+                if (!string.IsNullOrEmpty(IndirectPath))
                 {
-                    IndirectPath += str;
+                    if (IndirectPath[IndirectPath.Length - 1] == '\\')
+                    {
+                        IndirectPath += str;
+                    }
+                    else
+                    {
+                        IndirectPath += ("\\" + str);
+                    }
                 }
                 else
                 {
-                    IndirectPath += ("\\" + str);
+                    IndirectPath = str;
                 }
-            }
-            else
-            {
-                IndirectPath = str;
+
+                Initialize(IndirectPath);
             }
 
-            Initialize(IndirectPath);
             return this;
         }
 

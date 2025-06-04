@@ -73,7 +73,7 @@ namespace CodeRedLauncher
             }
             catch (Exception ex)
             {
-                Logger.Write("(IsValidProcess) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN); // Most likely an access denied exception which is fine, can also happen if the process is brand new.
+                Logger.Write("(IsValidProcess) Exception: " + ex.ToString(), LogLevel.Warning); // Most likely an access denied exception which is fine, can also happen if the process is brand new.
             }
 
             return false;
@@ -97,7 +97,7 @@ namespace CodeRedLauncher
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("(GetModules) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN);
+                    Logger.Write("(GetModules) Exception: " + ex.ToString(), LogLevel.Warning);
                 }
             }
 
@@ -168,7 +168,7 @@ namespace CodeRedLauncher
                     }
                     catch (Exception ex)
                     {
-                        Logger.Write("(CloseProcesses) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN);
+                        Logger.Write("(CloseProcesses) Exception: " + ex.ToString(), LogLevel.Warning);
                         return false;
                     }
                 }
@@ -249,7 +249,7 @@ namespace CodeRedLauncher
                         }
                         catch (Exception ex)
                         {
-                            Logger.Write("(IsModuleLoaded) Exception: " + ex.ToString(), LogLevel.LEVEL_WARN);
+                            Logger.Write("(IsModuleLoaded) Exception: " + ex.ToString(), LogLevel.Warning);
                         }
                     }
                 }
@@ -426,7 +426,7 @@ namespace CodeRedLauncher
             }
             catch (Exception ex)
             {
-                Logger.Write("(GetModules) LoadLibraryInternal: " + ex.ToString(), LogLevel.LEVEL_ERROR); // Something went terribly wrong if this happens, will definitely want to know the exception reason.
+                Logger.Write("(LoadLibraryInternal) Exception: " + ex.ToString(), LogLevel.Error); // Something went terribly wrong if this happens, will definitely want to know the exception reason.
             }
 
             return InjectionResults.UnhandledException;
