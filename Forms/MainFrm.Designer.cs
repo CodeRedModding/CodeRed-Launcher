@@ -34,66 +34,66 @@ namespace CodeRedLauncher
             TabCtrl = new System.Windows.Forms.TabControl();
             AboutTab = new System.Windows.Forms.TabPage();
             AboutArtOne = new System.Windows.Forms.PictureBox();
-            TermsBtn = new Controls.CRButton();
-            PolicyBtn = new Controls.CRButton();
+            TermsBtn = new CodeRedLauncher.Controls.CRButton();
+            PolicyBtn = new CodeRedLauncher.Controls.CRButton();
             EasterEggImg = new System.Windows.Forms.PictureBox();
-            PlatformInfoCtrl = new Controls.CRInfo();
-            BuildInfoCtrl = new Controls.CRInfo();
-            PsyonixInfoCtrl = new Controls.CRInfo();
-            ModuleInfoCtrl = new Controls.CRInfo();
-            LauncherInfoCtrl = new Controls.CRInfo();
-            WebsiteInfoCtrl = new Controls.CRInfo();
-            DiscordInfoCtrl = new Controls.CRInfo();
-            DonateInfoCtrl = new Controls.CRInfo();
-            RemixInfoCtrl = new Controls.CRInfo();
-            CheckUpdatesBtn = new Controls.CRButton();
+            PlatformInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            BuildInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            PsyonixInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            ModuleInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            LauncherInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            WebsiteInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            DiscordInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            DonateInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            RemixInfoCtrl = new CodeRedLauncher.Controls.CRInfo();
+            CheckUpdatesBtn = new CodeRedLauncher.Controls.CRButton();
             CreditsLbl = new System.Windows.Forms.Label();
             DashboardTab = new System.Windows.Forms.TabPage();
-            UpdateStatusCtrl = new Controls.CRStatus();
-            ChangelogCtrl = new Controls.CRChangelog();
+            UpdateStatusCtrl = new CodeRedLauncher.Controls.CRStatus();
+            ChangelogCtrl = new CodeRedLauncher.Controls.CRChangelog();
             DashboardArtTwo = new System.Windows.Forms.PictureBox();
-            ManualInjectBtn = new Controls.CRButton();
-            LaunchBtn = new Controls.CRButton();
-            ProcessStatusCtrl = new Controls.CRStatus();
+            ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
+            LaunchBtn = new CodeRedLauncher.Controls.CRButton();
+            ProcessStatusCtrl = new CodeRedLauncher.Controls.CRStatus();
             DashboardArtOne = new System.Windows.Forms.PictureBox();
             NewsTab = new System.Windows.Forms.TabPage();
-            NewsCtrl = new Controls.CRNews();
+            NewsCtrl = new CodeRedLauncher.Controls.CRNews();
             NewsArtOne = new System.Windows.Forms.PictureBox();
             NewsArtTwo = new System.Windows.Forms.PictureBox();
             SettingsTab = new System.Windows.Forms.TabPage();
-            AutoInstallBx = new Controls.CRCheckbox();
+            AutoInstallBx = new CodeRedLauncher.Controls.CRCheckbox();
             SettingsArtTwo = new System.Windows.Forms.PictureBox();
             SettingsArtOne = new System.Windows.Forms.PictureBox();
-            HideWhenMinimizedBx = new Controls.CRCheckbox();
-            InstallPathLbl = new Controls.CRLabel();
-            LightModeBx = new Controls.CRCheckbox();
-            ManualInjectBx = new Controls.CRCheckbox();
-            InstallPathBx = new Controls.CRTextbox();
-            OpenFolderBtn = new Controls.CRButton();
-            ExportLogsBtn = new Controls.CRButton();
-            InjectAllInstancesBx = new Controls.CRCheckbox();
-            MinimizeOnStartupBx = new Controls.CRCheckbox();
-            RunOnStartupBx = new Controls.CRCheckbox();
-            PreventInjectionBx = new Controls.CRCheckbox();
-            AutoCheckUpdatesBx = new Controls.CRCheckbox();
-            InjectionTimeoutBx = new Controls.CRNumberbox();
-            InjectionTimeoutLbl = new Controls.CRLabel();
-            InstallPathBtn = new Controls.CRButton();
+            HideWhenMinimizedBx = new CodeRedLauncher.Controls.CRCheckbox();
+            InstallPathLbl = new CodeRedLauncher.Controls.CRLabel();
+            LightModeBx = new CodeRedLauncher.Controls.CRCheckbox();
+            ManualInjectBx = new CodeRedLauncher.Controls.CRCheckbox();
+            InstallPathBx = new CodeRedLauncher.Controls.CRTextbox();
+            OpenFolderBtn = new CodeRedLauncher.Controls.CRButton();
+            ExportLogsBtn = new CodeRedLauncher.Controls.CRButton();
+            InjectAllInstancesBx = new CodeRedLauncher.Controls.CRCheckbox();
+            MinimizeOnStartupBx = new CodeRedLauncher.Controls.CRCheckbox();
+            RunOnStartupBx = new CodeRedLauncher.Controls.CRCheckbox();
+            PreventInjectionBx = new CodeRedLauncher.Controls.CRCheckbox();
+            AutoCheckUpdatesBx = new CodeRedLauncher.Controls.CRCheckbox();
+            InjectionTimeoutBx = new CodeRedLauncher.Controls.CRNumberbox();
+            InjectionTimeoutLbl = new CodeRedLauncher.Controls.CRLabel();
+            InstallPathBtn = new CodeRedLauncher.Controls.CRButton();
             BackgroundPnl = new System.Windows.Forms.Panel();
             TabPnl = new System.Windows.Forms.Panel();
-            AboutTabBtn = new Controls.CRTab();
-            SettingsTabBtn = new Controls.CRTab();
-            ExitTabBtn = new Controls.CRTab();
-            NewsTabBtn = new Controls.CRTab();
-            DashboardTabBtn = new Controls.CRTab();
-            TermsPopup = new Controls.CRPolicy();
-            PolicyPopup = new Controls.CRPolicy();
-            OfflinePopup = new Controls.CROffline();
-            DuplicatePopup = new Controls.CRDuplicate();
-            PathPopup = new Controls.CRPathing();
-            InstallPopup = new Controls.CRInstall();
-            UpdatePopup = new Controls.CRUpdate();
-            TitleBar = new Controls.CRTitle();
+            AboutTabBtn = new CodeRedLauncher.Controls.CRTab();
+            SettingsTabBtn = new CodeRedLauncher.Controls.CRTab();
+            ExitTabBtn = new CodeRedLauncher.Controls.CRTab();
+            NewsTabBtn = new CodeRedLauncher.Controls.CRTab();
+            DashboardTabBtn = new CodeRedLauncher.Controls.CRTab();
+            TitleBar = new CodeRedLauncher.Controls.CRTitle();
+            TermsPopup = new CodeRedLauncher.Controls.CRPolicy();
+            PolicyPopup = new CodeRedLauncher.Controls.CRPolicy();
+            OfflinePopup = new CodeRedLauncher.Controls.CROffline();
+            DuplicatePopup = new CodeRedLauncher.Controls.CRDuplicate();
+            PathPopup = new CodeRedLauncher.Controls.CRPathing();
+            InstallPopup = new CodeRedLauncher.Controls.CRInstall();
+            UpdatePopup = new CodeRedLauncher.Controls.CRUpdate();
             ProcessTmr = new System.Windows.Forms.Timer(components);
             InjectTmr = new System.Windows.Forms.Timer(components);
             TrayIcon = new System.Windows.Forms.NotifyIcon(components);
@@ -1028,7 +1028,7 @@ namespace CodeRedLauncher
             PreventInjectionBx.CheckWhite = Properties.Resources.Checkbox_White;
             PreventInjectionBx.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
             PreventInjectionBx.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            PreventInjectionBx.DisplayText = "Prevent injection when out of date";
+            PreventInjectionBx.DisplayText = "Prevent injection if easy anti-cheat is detected";
             PreventInjectionBx.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             PreventInjectionBx.IconBlack = Properties.Resources.Lock_Black;
             PreventInjectionBx.IconBlue = Properties.Resources.Lock_Blue;
@@ -1135,7 +1135,6 @@ namespace CodeRedLauncher
             BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
-            BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Controls.Add(TabCtrl);
             BackgroundPnl.Controls.Add(TermsPopup);
             BackgroundPnl.Controls.Add(PolicyPopup);
@@ -1144,6 +1143,7 @@ namespace CodeRedLauncher
             BackgroundPnl.Controls.Add(PathPopup);
             BackgroundPnl.Controls.Add(InstallPopup);
             BackgroundPnl.Controls.Add(UpdatePopup);
+            BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1257,6 +1257,23 @@ namespace CodeRedLauncher
             DashboardTabBtn.TabIndex = 0;
             DashboardTabBtn.TabSelected = true;
             DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
+            // 
+            // TitleBar
+            // 
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
+            TitleBar.BoundForm = null;
+            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.MaximizeButton = true;
+            TitleBar.MinimizeButton = true;
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // TermsPopup
             // 
@@ -1468,23 +1485,6 @@ namespace CodeRedLauncher
             UpdatePopup.Visible = false;
             UpdatePopup.ButtonClickAccept += UpdatePopup_ButtonClickAccept;
             UpdatePopup.ButtonClickDeny += UpdatePopup_ButtonClickDeny;
-            // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
-            TitleBar.BoundForm = null;
-            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            TitleBar.DisplayText = "CODERED LAUNCHER";
-            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            TitleBar.Location = new System.Drawing.Point(0, 0);
-            TitleBar.MaximizeButton = true;
-            TitleBar.MinimizeButton = true;
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new System.Drawing.Size(970, 30);
-            TitleBar.TabIndex = 2;
-            TitleBar.OnMinimized += TitleBar_OnMinimized;
-            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // ProcessTmr
             // 

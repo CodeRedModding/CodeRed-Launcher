@@ -66,11 +66,20 @@ namespace CodeRedLauncher
             SaveChanges
         );
 
-        public static PublicSetting PreventInjection = new PublicSetting(
+        // This setting was removed and is no longer used.
+        //public static PublicSetting PreventInjection_Outdated = new PublicSetting(
+        //    "True",
+        //    "PreventInjection",
+        //    "Prevent injection when out of date.",
+        //    "Prevents injecting out of date modules into unsupported Rocket League versions.",
+        //    SaveChanges
+        //);
+
+        public static PublicSetting PreventInjection_EAC = new PublicSetting(
             "True",
-            "PreventInjection",
-            "Prevent injection when out of date.",
-            "Prevents injecting out of date modules into unsupported Rocket League versions.",
+            "PreventInjection_EAC",
+            "Prevent injection if easy anti-cheat is detected.",
+            "Prevents injecting the module into the game if easy anti-cheat is added to avoid possible bans.",
             SaveChanges
         );
 
@@ -150,7 +159,8 @@ namespace CodeRedLauncher
                             if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), (line.Length - (TermsHash.Name.Length + 1)))); continue; }
                             if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(AutoInstallUpdates.Name)) { AutoInstallUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                            if (line.Contains(PreventInjection.Name)) { PreventInjection.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            //if (line.Contains(PreventInjection_Outdated.Name)) { PreventInjection_Outdated.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(PreventInjection_EAC.Name)) { PreventInjection_EAC.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(RunOnStartup.Name)) { RunOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(MinimizeOnStartup.Name)) { MinimizeOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(HideWhenMinimized.Name)) { HideWhenMinimized.SetValue(line.Contains("True") ? "True" : "False"); continue; }
@@ -230,7 +240,8 @@ namespace CodeRedLauncher
             TermsHash.ResetToDefault();
             AutoCheckUpdates.ResetToDefault();
             AutoInstallUpdates.ResetToDefault();
-            PreventInjection.ResetToDefault();
+            //PreventInjection_Outdated.ResetToDefault();
+            PreventInjection_EAC.ResetToDefault();
             RunOnStartup.ResetToDefault();
             MinimizeOnStartup.ResetToDefault();
             HideWhenMinimized.ResetToDefault();
@@ -269,7 +280,8 @@ namespace CodeRedLauncher
                 fileConents += (TermsHash.Name + " " + TermsHash.GetStringValue() + Environment.NewLine);
                 fileConents += (AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + Environment.NewLine);
                 fileConents += (AutoInstallUpdates.Name + " " + AutoInstallUpdates.GetStringValue() + Environment.NewLine);
-                fileConents += (PreventInjection.Name + " " + PreventInjection.GetStringValue() + Environment.NewLine);
+                //fileConents += (PreventInjection_Outdated.Name + " " + PreventInjection_Outdated.GetStringValue() + Environment.NewLine);
+                fileConents += (PreventInjection_EAC.Name + " " + PreventInjection_EAC.GetStringValue() + Environment.NewLine);
                 fileConents += (RunOnStartup.Name + " " + RunOnStartup.GetStringValue() + Environment.NewLine);
                 fileConents += (MinimizeOnStartup.Name + " " + MinimizeOnStartup.GetStringValue() + Environment.NewLine);
                 fileConents += (HideWhenMinimized.Name + " " + HideWhenMinimized.GetStringValue() + Environment.NewLine);
@@ -335,10 +347,10 @@ namespace CodeRedLauncher
             return AutoInstallUpdates.GetBoolValue(true);
         }
 
-        public static bool ShouldPreventInjection()
+        public static bool ShouldPreventInjection() // To do, check if EAC is installed.
         {
-            if (CheckInitialized()) { return PreventInjection.GetBoolValue(); }
-            return PreventInjection.GetBoolValue(true);
+            if (CheckInitialized()) { return PreventInjection_EAC.GetBoolValue(); }
+            return PreventInjection_EAC.GetBoolValue(true);
         }
 
         public static bool ShouldRunOnStartup()

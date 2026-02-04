@@ -14,8 +14,8 @@ namespace CodeRedLauncher.Controls
 
     public enum StatusTypes : byte
     {
-        Process_Idle,
         Process_Loading,
+        Process_Idle,
         Process_Running,
         Process_Injecting,
         Process_Manual,
@@ -27,7 +27,7 @@ namespace CodeRedLauncher.Controls
         Version_Launcher,
         Version_Both,
         Version_Safe,
-        Version_Unsafe,
+        Version_Unsafe
     }
 
     public partial class CRStatus : UserControl
@@ -272,70 +272,90 @@ namespace CodeRedLauncher.Controls
             Invalidate();
         }
 
-        private void FormatType()
+        public void FormatType()
         {
+            bool antiCheated = LocalStorage.DetectedAntiCheat();
+            bool shouldPrevent = (antiCheated && Configuration.ShouldPreventInjection());
+            string newTitle = "";
+
             switch (DisplayType)
             {
-                case StatusTypes.Process_Idle:
-                    TitleLbl.Text = "Rocket League Is Not Running";
-                    DescriptionLbl.Text = "Waiting for the user to launch Rocket League.";
-                    break;
                 case StatusTypes.Process_Loading:
-                    TitleLbl.Text = "Loading";
+                    newTitle = "Loading";
                     DescriptionLbl.Text = "Loading...";
                     break;
+                case StatusTypes.Process_Idle:
+                    newTitle = "Rocket League Is Not Running";
+                    DescriptionLbl.Text = (shouldPrevent ? "Preventing injection for your own safety!" : "Waiting for the user to launch Rocket League.");
+                    break;
                 case StatusTypes.Process_Running:
-                    TitleLbl.Text = "Rocket League Is Running";
+                    newTitle = "Rocket League Is Running";
                     break;
                 case StatusTypes.Process_Injecting:
-                    TitleLbl.Text = "Rocket League Is Running";
-                    DescriptionLbl.Text = "Process found, attempting to inject module...";
+                    newTitle = "Rocket League Is Running";
+                    DescriptionLbl.Text = (shouldPrevent ? "Preventing injection for your own safety!" : "Process found, attempting to inject module...");
                     break;
                 case StatusTypes.Process_Manual:
-                    TitleLbl.Text = "Rocket League Is Running";
-                    DescriptionLbl.Text = "Process found, ready for manual injection!";
+                    newTitle = "Rocket League Is Running";
+                    DescriptionLbl.Text = (shouldPrevent ? "Preventing injection for your own safety!" : "Process found, ready for manual injection!");
                     break;
                 case StatusTypes.Process_Outdated:
-                    TitleLbl.Text = "Rocket League Is Running";
+                    newTitle = "Rocket League Is Running";
                     DescriptionLbl.Text = "Version mismatch, preventing injection!";
                     break;
                 case StatusTypes.Version_Idle:
-                    TitleLbl.Text = "Waiting";
+                    newTitle = "Waiting";
                     DescriptionLbl.Text = "Automatically checking for updates disabled.";
+                    antiCheated = false; // Process and version status controls use this same class, we don't want to use this for the version one.
                     break;
                 case StatusTypes.Version_Checking:
-                    TitleLbl.Text = "Checking for Updates";
+                    newTitle = "Checking for Updates";
                     DescriptionLbl.Text = "Waiting for response...";
+                    antiCheated = false;
                     break;
                 case StatusTypes.Version_Downloading:
-                    TitleLbl.Text = "Update in Progress";
+                    newTitle = "Update in Progress";
                     DescriptionLbl.Text = "Downloading and installing...";
+                    antiCheated = false;
                     break;
                 case StatusTypes.Version_Module:
-                    TitleLbl.Text = "Module Out of Date";
+                    newTitle = "Module Out of Date";
                     DescriptionLbl.Text = "Your module version is out of date!";
+                    antiCheated = false;
                     break;
                 case StatusTypes.Version_Launcher:
-                    TitleLbl.Text = "Launcher Out of Date";
+                    newTitle = "Launcher Out of Date";
                     DescriptionLbl.Text = "Your launcher version is out of date!";
+                    antiCheated = false;
                     break;
                 case StatusTypes.Version_Both:
-                    TitleLbl.Text = "Both Out of Date";
+                    newTitle = "Both Out of Date";
                     DescriptionLbl.Text = "Your launcher and module are out of date!";
+                    antiCheated = false;
                     break;
                 case StatusTypes.Version_Safe:
-                    TitleLbl.Text = "Version up to Date";
+                    newTitle = "Version up to Date";
                     DescriptionLbl.Text = "You're running on the latest release!";
+                    antiCheated = false;
                     break;
                 case StatusTypes.Version_Unsafe:
-                    TitleLbl.Text = "Incompatible Version";
+                    newTitle = "Incompatible Version";
                     DescriptionLbl.Text = "Please wait for a new version to be released!";
+                    antiCheated = false;
                     break;
                 default:
-                    TitleLbl.Text = "Loading";
+                    newTitle = "Loading";
                     DescriptionLbl.Text = "Loading...";
+                    antiCheated = false;
                     break;
             }
+
+            if (antiCheated)
+            {
+                newTitle = "Easy Anti-Cheat Detected";
+            }
+
+            TitleLbl.Text = newTitle;
         }
 
         private void FormatResult()

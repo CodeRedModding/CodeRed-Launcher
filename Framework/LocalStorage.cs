@@ -1,8 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using CodeRedLauncher.Architecture;
 using Microsoft.Win32;
-using System.Windows.Forms;
+using System;
+using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace CodeRedLauncher
 {
@@ -24,6 +26,7 @@ namespace CodeRedLauncher
     // Stores local values and paths from the users system.
     public static class LocalStorage
     {
+        private static bool m_antiCheatDetected = false;
         private static bool m_localVersionValid = false;
         private static bool m_psyVersionValid = false;
         private static bool m_initialized = false;
@@ -39,6 +42,7 @@ namespace CodeRedLauncher
         private static PrivateSetting m_psyonixVersion = new PrivateSetting("000000.000000.000000");
         private static PrivateSetting m_netBuild = new PrivateSetting("0");
         private static PrivateSetting m_moduleVersion = new PrivateSetting("0.0.0");
+        private static List<string> m_antiCheatKeywords = new List<string>() { "EasyAntiCheat", "start_protected_game", "RocketLeague_EAC", "EAC" };
 
         public static void Invalidate(bool bForceReset = false)
         {
@@ -315,6 +319,40 @@ namespace CodeRedLauncher
             return foundInstallDir;
         }
 
+        public static bool FindDirectories()
+        {
+            if (!m_initialized && (m_directoryStatus != DirectoryStatus.NoGameFolder))
+            {
+                Architecture.Path gamesFolder = (new Architecture.Path(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) / "My Games" / "Rocket League");
+
+                if (gamesFolder.Exists())
+                {
+                    m_gamesFolder.SetValue(gamesFolder);
+
+                    ParseLogFile();
+                    ParseVersionFile();
+
+                    if (!ParseRegistryKeys() && !m_moduleFolder.IsNull())
+                    {
+                        m_directoryStatus = DirectoryStatus.NoRegistryKeys;
+                        MessageBox.Show("Error: Failed to locate the needed registry keys for CodeRed, either you installation is corrupt or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                    DetectedAntiCheat();
+                    m_initialized = true;
+                    m_directoryStatus = DirectoryStatus.FoldersFound;
+                }
+                else
+                {
+                    m_directoryStatus = DirectoryStatus.NoGameFolder;
+                    MessageBox.Show("Error: Failed to locate your Rocket League folder, either you don't have the game installed or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            return m_initialized;
+        }
+
         public static bool HasCoderedRegistry()
         {
             bool regkeyValid = false;
@@ -336,37 +374,74 @@ namespace CodeRedLauncher
             return regkeyValid;
         }
 
-        public static bool FindDirectories()
+        public static bool DetectedAntiCheat()
         {
-            if (!m_initialized && (m_directoryStatus != DirectoryStatus.NoGameFolder))
+            if (!m_antiCheatDetected)
             {
-                Architecture.Path gamesFolder = (new Architecture.Path(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) / "My Games" / "Rocket League");
-
-                if (gamesFolder.Exists())
+                if (!m_steamFolder.IsNull())
                 {
-                    m_gamesFolder.SetValue(gamesFolder);
+                    Logger.Write("(DetectedAntiCheat) Checking steam paths for easy anti-cheat...");
 
-                    ParseLogFile();
-                    ParseVersionFile();
-
-                    if (!ParseRegistryKeys() && !m_moduleFolder.IsNull())
+                    if (FoundCheatFiles(m_steamFolder.GetStringValue()))
                     {
-                        m_directoryStatus = DirectoryStatus.NoRegistryKeys;
-                        MessageBox.Show("Error: Failed to locate the needed registry keys for CodeRed, either you installation is corrupt or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
+                        Logger.Write("(DetectedAntiCheat) Found for steam!");
+                        m_antiCheatDetected = true;
                     }
-
-                    m_initialized = true;
-                    m_directoryStatus = DirectoryStatus.FoldersFound;
+                    else
+                    {
+                        Logger.Write("(DetectedAntiCheat) Nothing found for steam!");
+                    }
                 }
-                else
+
+                if (!m_antiCheatDetected && !m_epicFolder.IsNull())
                 {
-                    m_directoryStatus = DirectoryStatus.NoGameFolder;
-                    MessageBox.Show("Error: Failed to locate your Rocket League folder, either you don't have the game installed or your antivirus is blocking CodeRed!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Write("(DetectedAntiCheat) Checking epic paths for easy anti-cheat...");
+
+                    if (FoundCheatFiles(m_steamFolder.GetStringValue()))
+                    {
+                        Logger.Write("(DetectedAntiCheat) Found for epic!");
+                        m_antiCheatDetected = true;
+                    }
+                    else
+                    {
+                        Logger.Write("(DetectedAntiCheat) Nothing found for epic!");
+                    }
                 }
             }
 
-            return m_initialized;
+            return m_antiCheatDetected;
+        }
+
+        private static bool FoundCheatFiles(string directory)
+        {
+            if (!string.IsNullOrEmpty(directory))
+            {
+                try
+                {
+                    string[] fileEntries = Directory.GetFileSystemEntries(directory, "*", SearchOption.AllDirectories);
+
+                    foreach (string entry in fileEntries)
+                    {
+                        if (!string.IsNullOrEmpty(entry))
+                        {
+                            foreach (string keyword in m_antiCheatKeywords)
+                            {
+                                if (entry.ToLower().Contains(keyword.ToLower()))
+                                {
+                                    Logger.Write("(FoundCheatFiles) Found: " + entry);
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write("(FoundCheatFiles) Exception: " + ex.Message, LogLevel.Error);
+                }
+            }
+
+            return false;
         }
 
         public static Architecture.Path GetGamesPath()

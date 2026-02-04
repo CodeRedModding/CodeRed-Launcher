@@ -107,11 +107,17 @@ namespace CodeRedLauncher
 
         private void ManualInjectBtn_OnButtonClick(object sender, EventArgs e)
         {
-            if (Updater.IsOutdated() && Configuration.ShouldPreventInjection())
+            if (Updater.IsOutdated())
             {
                 Logger.Write("(ManualInjectBtn) Prevented injection, updater returned out of date!");
                 ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                 InjectTmr.Stop();
+                return;
+            }
+
+            if (LocalStorage.DetectedAntiCheat() && Configuration.ShouldPreventInjection())
+            {
+                Logger.Write("(ManualInjectBtn) Prevented injection, easy anti-cheat detected!");
                 return;
             }
 
@@ -158,12 +164,8 @@ namespace CodeRedLauncher
 
         private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.PreventInjection.SetValue(PreventInjectionBx.BoxChecked).Save();
-
-            if (AutoCheckUpdatesBx.BoxChecked)
-            {
-                CheckForUpdates(true, true);
-            }
+            Configuration.PreventInjection_EAC.SetValue(PreventInjectionBx.BoxChecked).Save();
+            ProcessStatusCtrl.FormatType();
         }
 
         private void RunOnStartupBx_OnCheckChanged(object sender, EventArgs e)
@@ -367,6 +369,7 @@ namespace CodeRedLauncher
 
                 if (filesToExport.Count > 0)
                 {
+                    MessageBox.Show("Found \"" + filesToExport.Count.ToString() + "\" files to export, select a folder to export them to!", Assembly.GetTitle(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
 
                     if (folderBrowser.ShowDialog() == DialogResult.OK)
@@ -449,6 +452,13 @@ namespace CodeRedLauncher
                 {
                     Logger.Write("(ProcessTmr) Process is running!");
 
+                    if (LocalStorage.DetectedAntiCheat() && Configuration.ShouldPreventInjection())
+                    {
+                        Logger.Write("(ProcessTmr) Prevented injection, easy anti-cheat detected!");
+                        InjectTmr.Stop();
+                        return;
+                    }
+
                     if (!Updater.IsOutdated())
                     {
                         CheckForUpdates(true, false);
@@ -459,7 +469,7 @@ namespace CodeRedLauncher
                         ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                     }
 
-                    if (Updater.IsOutdated() && Configuration.ShouldPreventInjection())
+                    if (Updater.IsOutdated())
                     {
                         Logger.Write("(ProcessTmr) Prevented injection, updater returned out of date!");
                         ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
@@ -473,6 +483,7 @@ namespace CodeRedLauncher
                             ManualInjectBtn.Visible = true;
                             LaunchBtn.SendToBack();
                             LaunchBtn.Visible = false;
+
                             ProcessStatusCtrl.DisplayType = StatusTypes.Process_Manual;
                             InjectTmr.Stop();
                         }
@@ -480,7 +491,7 @@ namespace CodeRedLauncher
                         {
                             ManualInjectBtn.SendToBack();
                             ManualInjectBtn.Visible = false;
-                            
+
                             if (LocalStorage.GetCurrentPlatform(false) == PlatformTypes.Steam)
                             {
                                 LaunchBtn.BringToFront();
@@ -524,13 +535,20 @@ namespace CodeRedLauncher
         {
             if (!Configuration.OfflineMode.GetBoolValue())
             {
-                if (Updater.IsOutdated() && Configuration.ShouldPreventInjection())
+                if (Updater.IsOutdated())
                 {
                     Logger.Write("(InjectTmr) Prevented injection, updater returned out of date!");
                     ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
                     InjectTmr.Stop();
                     return;
                 }
+            }
+
+            if (LocalStorage.DetectedAntiCheat() && Configuration.ShouldPreventInjection())
+            {
+                Logger.Write("(InjectTmr) Prevented injection, easy anti-cheat detected!");
+                InjectTmr.Stop();
+                ManualInjectBtn.Visible = false;
             }
 
             if (Configuration.GetInjectionType() == InjectionTypes.Manual)
