@@ -52,10 +52,9 @@ namespace CodeRedLauncher
             UpdateStatusCtrl = new CodeRedLauncher.Controls.CRStatus();
             ChangelogCtrl = new CodeRedLauncher.Controls.CRChangelog();
             DashboardArtTwo = new System.Windows.Forms.PictureBox();
-            ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
-            LaunchBtn = new CodeRedLauncher.Controls.CRButton();
             ProcessStatusCtrl = new CodeRedLauncher.Controls.CRStatus();
             DashboardArtOne = new System.Windows.Forms.PictureBox();
+            ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
             NewsTab = new System.Windows.Forms.TabPage();
             NewsCtrl = new CodeRedLauncher.Controls.CRNews();
             NewsArtOne = new System.Windows.Forms.PictureBox();
@@ -86,7 +85,6 @@ namespace CodeRedLauncher
             ExitTabBtn = new CodeRedLauncher.Controls.CRTab();
             NewsTabBtn = new CodeRedLauncher.Controls.CRTab();
             DashboardTabBtn = new CodeRedLauncher.Controls.CRTab();
-            TitleBar = new CodeRedLauncher.Controls.CRTitle();
             TermsPopup = new CodeRedLauncher.Controls.CRPolicy();
             PolicyPopup = new CodeRedLauncher.Controls.CRPolicy();
             OfflinePopup = new CodeRedLauncher.Controls.CROffline();
@@ -94,6 +92,7 @@ namespace CodeRedLauncher
             PathPopup = new CodeRedLauncher.Controls.CRPathing();
             InstallPopup = new CodeRedLauncher.Controls.CRInstall();
             UpdatePopup = new CodeRedLauncher.Controls.CRUpdate();
+            TitleBar = new CodeRedLauncher.Controls.CRTitle();
             ProcessTmr = new System.Windows.Forms.Timer(components);
             InjectTmr = new System.Windows.Forms.Timer(components);
             TrayIcon = new System.Windows.Forms.NotifyIcon(components);
@@ -446,7 +445,7 @@ namespace CodeRedLauncher
             CreditsLbl.Name = "CreditsLbl";
             CreditsLbl.Size = new System.Drawing.Size(840, 60);
             CreditsLbl.TabIndex = 21;
-            CreditsLbl.Text = "CodeRed is developed by @ItsBranK, but its creation would not have been possible without the inspiration of the following people: ";
+            CreditsLbl.Text = "CodeRed was created by ItsBrank, but its creation would not have been possible without the inspiration of the following people: ";
             CreditsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DashboardTab
@@ -455,10 +454,9 @@ namespace CodeRedLauncher
             DashboardTab.Controls.Add(UpdateStatusCtrl);
             DashboardTab.Controls.Add(ChangelogCtrl);
             DashboardTab.Controls.Add(DashboardArtTwo);
-            DashboardTab.Controls.Add(ManualInjectBtn);
-            DashboardTab.Controls.Add(LaunchBtn);
             DashboardTab.Controls.Add(ProcessStatusCtrl);
             DashboardTab.Controls.Add(DashboardArtOne);
+            DashboardTab.Controls.Add(ManualInjectBtn);
             DashboardTab.Location = new System.Drawing.Point(4, 24);
             DashboardTab.Name = "DashboardTab";
             DashboardTab.Padding = new System.Windows.Forms.Padding(3);
@@ -535,53 +533,6 @@ namespace CodeRedLauncher
             DashboardArtTwo.TabIndex = 37;
             DashboardArtTwo.TabStop = false;
             // 
-            // ManualInjectBtn
-            // 
-            ManualInjectBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
-            ManualInjectBtn.ButtonEnabled = true;
-            ManualInjectBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            ManualInjectBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            ManualInjectBtn.DisplayText = "Manually Inject";
-            ManualInjectBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            ManualInjectBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            ManualInjectBtn.IconBlack = Properties.Resources.Mouse_Black;
-            ManualInjectBtn.IconBlue = Properties.Resources.Mouse_Blue;
-            ManualInjectBtn.IconPurple = Properties.Resources.Mouse_Purple;
-            ManualInjectBtn.IconRed = Properties.Resources.Mouse_Red;
-            ManualInjectBtn.IconSync = false;
-            ManualInjectBtn.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            ManualInjectBtn.IconWhite = Properties.Resources.Mouse_White;
-            ManualInjectBtn.Location = new System.Drawing.Point(288, 530);
-            ManualInjectBtn.Name = "ManualInjectBtn";
-            ManualInjectBtn.Size = new System.Drawing.Size(320, 35);
-            ManualInjectBtn.TabIndex = 34;
-            ManualInjectBtn.Visible = false;
-            ManualInjectBtn.OnButtonClick += ManualInjectBtn_OnButtonClick;
-            // 
-            // LaunchBtn
-            // 
-            LaunchBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            LaunchBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
-            LaunchBtn.ButtonEnabled = true;
-            LaunchBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            LaunchBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            LaunchBtn.DisplayText = "Launch Rocket League";
-            LaunchBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            LaunchBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            LaunchBtn.IconBlack = Properties.Resources.Rocket_Black;
-            LaunchBtn.IconBlue = Properties.Resources.Rocket_Blue;
-            LaunchBtn.IconPurple = Properties.Resources.Rocket_Purple;
-            LaunchBtn.IconRed = Properties.Resources.Rocket_Red;
-            LaunchBtn.IconSync = false;
-            LaunchBtn.IconType = CodeRedLauncher.Controls.IconTheme.White;
-            LaunchBtn.IconWhite = Properties.Resources.Rocket_White;
-            LaunchBtn.Location = new System.Drawing.Point(288, 530);
-            LaunchBtn.Name = "LaunchBtn";
-            LaunchBtn.Size = new System.Drawing.Size(320, 35);
-            LaunchBtn.TabIndex = 32;
-            LaunchBtn.Visible = false;
-            LaunchBtn.OnButtonClick += LaunchBtn_OnButtonClick;
-            // 
             // ProcessStatusCtrl
             // 
             ProcessStatusCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
@@ -628,6 +579,29 @@ namespace CodeRedLauncher
             DashboardArtOne.Size = new System.Drawing.Size(126, 122);
             DashboardArtOne.TabIndex = 38;
             DashboardArtOne.TabStop = false;
+            // 
+            // ManualInjectBtn
+            // 
+            ManualInjectBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
+            ManualInjectBtn.ButtonEnabled = true;
+            ManualInjectBtn.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            ManualInjectBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            ManualInjectBtn.DisplayText = "Manually Inject";
+            ManualInjectBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            ManualInjectBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            ManualInjectBtn.IconBlack = Properties.Resources.Mouse_Black;
+            ManualInjectBtn.IconBlue = Properties.Resources.Mouse_Blue;
+            ManualInjectBtn.IconPurple = Properties.Resources.Mouse_Purple;
+            ManualInjectBtn.IconRed = Properties.Resources.Mouse_Red;
+            ManualInjectBtn.IconSync = false;
+            ManualInjectBtn.IconType = CodeRedLauncher.Controls.IconTheme.White;
+            ManualInjectBtn.IconWhite = Properties.Resources.Mouse_White;
+            ManualInjectBtn.Location = new System.Drawing.Point(288, 530);
+            ManualInjectBtn.Name = "ManualInjectBtn";
+            ManualInjectBtn.Size = new System.Drawing.Size(320, 35);
+            ManualInjectBtn.TabIndex = 34;
+            ManualInjectBtn.Visible = false;
+            ManualInjectBtn.OnButtonClick += ManualInjectBtn_OnButtonClick;
             // 
             // NewsTab
             // 
@@ -754,7 +728,7 @@ namespace CodeRedLauncher
             AutoInstallBx.IconWhite = Properties.Resources.Install_White;
             AutoInstallBx.Location = new System.Drawing.Point(35, 80);
             AutoInstallBx.Name = "AutoInstallBx";
-            AutoInstallBx.Size = new System.Drawing.Size(315, 35);
+            AutoInstallBx.Size = new System.Drawing.Size(365, 35);
             AutoInstallBx.TabIndex = 77;
             AutoInstallBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             AutoInstallBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -803,7 +777,7 @@ namespace CodeRedLauncher
             HideWhenMinimizedBx.IconWhite = Properties.Resources.Spy_White;
             HideWhenMinimizedBx.Location = new System.Drawing.Point(35, 260);
             HideWhenMinimizedBx.Name = "HideWhenMinimizedBx";
-            HideWhenMinimizedBx.Size = new System.Drawing.Size(315, 35);
+            HideWhenMinimizedBx.Size = new System.Drawing.Size(365, 35);
             HideWhenMinimizedBx.TabIndex = 74;
             HideWhenMinimizedBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             HideWhenMinimizedBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -846,7 +820,7 @@ namespace CodeRedLauncher
             LightModeBx.IconWhite = Properties.Resources.Sun_White;
             LightModeBx.Location = new System.Drawing.Point(35, 395);
             LightModeBx.Name = "LightModeBx";
-            LightModeBx.Size = new System.Drawing.Size(315, 35);
+            LightModeBx.Size = new System.Drawing.Size(365, 35);
             LightModeBx.TabIndex = 70;
             LightModeBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             LightModeBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -872,7 +846,7 @@ namespace CodeRedLauncher
             ManualInjectBx.IconWhite = Properties.Resources.Mouse_White;
             ManualInjectBx.Location = new System.Drawing.Point(35, 350);
             ManualInjectBx.Name = "ManualInjectBx";
-            ManualInjectBx.Size = new System.Drawing.Size(315, 35);
+            ManualInjectBx.Size = new System.Drawing.Size(365, 35);
             ManualInjectBx.TabIndex = 69;
             ManualInjectBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             ManualInjectBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -960,7 +934,7 @@ namespace CodeRedLauncher
             InjectAllInstancesBx.IconWhite = Properties.Resources.Stack_White;
             InjectAllInstancesBx.Location = new System.Drawing.Point(35, 305);
             InjectAllInstancesBx.Name = "InjectAllInstancesBx";
-            InjectAllInstancesBx.Size = new System.Drawing.Size(315, 35);
+            InjectAllInstancesBx.Size = new System.Drawing.Size(365, 35);
             InjectAllInstancesBx.TabIndex = 60;
             InjectAllInstancesBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             InjectAllInstancesBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -986,7 +960,7 @@ namespace CodeRedLauncher
             MinimizeOnStartupBx.IconWhite = Properties.Resources.Eye_White;
             MinimizeOnStartupBx.Location = new System.Drawing.Point(35, 215);
             MinimizeOnStartupBx.Name = "MinimizeOnStartupBx";
-            MinimizeOnStartupBx.Size = new System.Drawing.Size(315, 35);
+            MinimizeOnStartupBx.Size = new System.Drawing.Size(365, 35);
             MinimizeOnStartupBx.TabIndex = 58;
             MinimizeOnStartupBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             MinimizeOnStartupBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -1012,7 +986,7 @@ namespace CodeRedLauncher
             RunOnStartupBx.IconWhite = Properties.Resources.Windows_White;
             RunOnStartupBx.Location = new System.Drawing.Point(35, 170);
             RunOnStartupBx.Name = "RunOnStartupBx";
-            RunOnStartupBx.Size = new System.Drawing.Size(315, 35);
+            RunOnStartupBx.Size = new System.Drawing.Size(365, 35);
             RunOnStartupBx.TabIndex = 57;
             RunOnStartupBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             RunOnStartupBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -1038,7 +1012,7 @@ namespace CodeRedLauncher
             PreventInjectionBx.IconWhite = Properties.Resources.Lock_White;
             PreventInjectionBx.Location = new System.Drawing.Point(35, 125);
             PreventInjectionBx.Name = "PreventInjectionBx";
-            PreventInjectionBx.Size = new System.Drawing.Size(315, 35);
+            PreventInjectionBx.Size = new System.Drawing.Size(365, 35);
             PreventInjectionBx.TabIndex = 56;
             PreventInjectionBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             PreventInjectionBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -1064,7 +1038,7 @@ namespace CodeRedLauncher
             AutoCheckUpdatesBx.IconWhite = Properties.Resources.Download_White;
             AutoCheckUpdatesBx.Location = new System.Drawing.Point(35, 35);
             AutoCheckUpdatesBx.Name = "AutoCheckUpdatesBx";
-            AutoCheckUpdatesBx.Size = new System.Drawing.Size(315, 35);
+            AutoCheckUpdatesBx.Size = new System.Drawing.Size(365, 35);
             AutoCheckUpdatesBx.TabIndex = 55;
             AutoCheckUpdatesBx.UncheckDark = Properties.Resources.CheckboxEmpy_Black;
             AutoCheckUpdatesBx.UncheckWhite = Properties.Resources.CheckboxEmpy_White;
@@ -1135,6 +1109,7 @@ namespace CodeRedLauncher
             BackgroundPnl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             BackgroundPnl.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             BackgroundPnl.Controls.Add(TabPnl);
+            BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Controls.Add(TabCtrl);
             BackgroundPnl.Controls.Add(TermsPopup);
             BackgroundPnl.Controls.Add(PolicyPopup);
@@ -1143,7 +1118,6 @@ namespace CodeRedLauncher
             BackgroundPnl.Controls.Add(PathPopup);
             BackgroundPnl.Controls.Add(InstallPopup);
             BackgroundPnl.Controls.Add(UpdatePopup);
-            BackgroundPnl.Controls.Add(TitleBar);
             BackgroundPnl.Location = new System.Drawing.Point(1, 1);
             BackgroundPnl.Name = "BackgroundPnl";
             BackgroundPnl.Size = new System.Drawing.Size(970, 630);
@@ -1257,23 +1231,6 @@ namespace CodeRedLauncher
             DashboardTabBtn.TabIndex = 0;
             DashboardTabBtn.TabSelected = true;
             DashboardTabBtn.OnTabClick += DashboardTabBtn_OnTabClick;
-            // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
-            TitleBar.BoundForm = null;
-            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
-            TitleBar.DisplayText = "CODERED LAUNCHER";
-            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
-            TitleBar.Location = new System.Drawing.Point(0, 0);
-            TitleBar.MaximizeButton = true;
-            TitleBar.MinimizeButton = true;
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new System.Drawing.Size(970, 30);
-            TitleBar.TabIndex = 2;
-            TitleBar.OnMinimized += TitleBar_OnMinimized;
-            TitleBar.OnExit += TitleBar_OnExit;
             // 
             // TermsPopup
             // 
@@ -1486,6 +1443,23 @@ namespace CodeRedLauncher
             UpdatePopup.ButtonClickAccept += UpdatePopup_ButtonClickAccept;
             UpdatePopup.ButtonClickDeny += UpdatePopup_ButtonClickDeny;
             // 
+            // TitleBar
+            // 
+            TitleBar.BackColor = System.Drawing.Color.FromArgb(50, 50, 55);
+            TitleBar.BoundForm = null;
+            TitleBar.ControlType = CodeRedLauncher.Controls.ControlTheme.Dark;
+            TitleBar.DisplayText = "CODERED LAUNCHER";
+            TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            TitleBar.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
+            TitleBar.Location = new System.Drawing.Point(0, 0);
+            TitleBar.MaximizeButton = true;
+            TitleBar.MinimizeButton = true;
+            TitleBar.Name = "TitleBar";
+            TitleBar.Size = new System.Drawing.Size(970, 30);
+            TitleBar.TabIndex = 2;
+            TitleBar.OnMinimized += TitleBar_OnMinimized;
+            TitleBar.OnExit += TitleBar_OnExit;
+            // 
             // ProcessTmr
             // 
             ProcessTmr.Interval = 250;
@@ -1566,7 +1540,6 @@ namespace CodeRedLauncher
         private Controls.CRTab ExitTabBtn;
         private Controls.CRTab AboutTabBtn;
         private Controls.CRTab SettingsTabBtn;
-        private Controls.CRButton LaunchBtn;
         private Controls.CRChangelog ChangelogCtrl;
         private System.Windows.Forms.NotifyIcon TrayIcon;
         private Controls.CRButton ManualInjectBtn;

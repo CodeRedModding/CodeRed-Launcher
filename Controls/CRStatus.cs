@@ -229,6 +229,13 @@ namespace CodeRedLauncher.Controls
             set { DescriptionLbl.Font = value; UpdateTheme(); }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public string DescriptionText
+        {
+            get { return DescriptionLbl.Text; }
+            set { DescriptionLbl.Text = value; UpdateTheme(); }
+        }
+
         public CRStatus()
         {
             InitializeComponent();
@@ -250,7 +257,7 @@ namespace CodeRedLauncher.Controls
             }
             else if (ControlType == ControlTheme.Light)
             {
-                this.BackColor = GPalette.White; // Grey
+                this.BackColor = GPalette.White;
                 TitleLbl.ForeColor = GPalette.Black;
                 DescriptionLbl.ForeColor = GPalette.Black;
             }
@@ -275,82 +282,82 @@ namespace CodeRedLauncher.Controls
         public void FormatType()
         {
             bool antiCheated = LocalStorage.DetectedAntiCheat();
-            bool shouldPrevent = (antiCheated && Configuration.ShouldPreventInjection());
+            bool shouldPrevent = (antiCheated && UserConfig.ShouldPreventEACInjection());
             string newTitle = "";
 
             switch (DisplayType)
             {
                 case StatusTypes.Process_Loading:
                     newTitle = "Loading";
-                    DescriptionLbl.Text = "Loading...";
+                    DescriptionText = "Loading...";
                     break;
                 case StatusTypes.Process_Idle:
                     newTitle = "Rocket League Is Not Running";
-                    DescriptionLbl.Text = (shouldPrevent ? "Preventing injection for your own safety!" : "Waiting for the user to launch Rocket League.");
+                    DescriptionText = (shouldPrevent ? "Preventing injection for your own safety!" : "Waiting for the user to launch Rocket League.");
                     break;
                 case StatusTypes.Process_Running:
                     newTitle = "Rocket League Is Running";
                     break;
                 case StatusTypes.Process_Injecting:
                     newTitle = "Rocket League Is Running";
-                    DescriptionLbl.Text = (shouldPrevent ? "Preventing injection for your own safety!" : "Process found, attempting to inject module...");
+                    DescriptionText = (shouldPrevent ? "Preventing injection for your own safety!" : "Process found, attempting to inject module...");
                     break;
                 case StatusTypes.Process_Manual:
                     newTitle = "Rocket League Is Running";
-                    DescriptionLbl.Text = (shouldPrevent ? "Preventing injection for your own safety!" : "Process found, ready for manual injection!");
+                    DescriptionText = (shouldPrevent ? "Preventing injection for your own safety!" : "Process found, ready for manual injection!");
                     break;
                 case StatusTypes.Process_Outdated:
                     newTitle = "Rocket League Is Running";
-                    DescriptionLbl.Text = "Version mismatch, preventing injection!";
+                    DescriptionText = "Version mismatch, preventing injection!";
                     break;
                 case StatusTypes.Version_Idle:
                     newTitle = "Waiting";
-                    DescriptionLbl.Text = "Automatically checking for updates disabled.";
+                    DescriptionText = "Automatically checking for updates disabled.";
                     antiCheated = false; // Process and version status controls use this same class, we don't want to use this for the version one.
                     break;
                 case StatusTypes.Version_Checking:
                     newTitle = "Checking for Updates";
-                    DescriptionLbl.Text = "Waiting for response...";
+                    DescriptionText = "Waiting for response...";
                     antiCheated = false;
                     break;
                 case StatusTypes.Version_Downloading:
                     newTitle = "Update in Progress";
-                    DescriptionLbl.Text = "Downloading and installing...";
+                    DescriptionText = "Downloading and installing...";
                     antiCheated = false;
                     break;
                 case StatusTypes.Version_Module:
                     newTitle = "Module Out of Date";
-                    DescriptionLbl.Text = "Your module version is out of date!";
+                    DescriptionText = "Your module version is out of date!";
                     antiCheated = false;
                     break;
                 case StatusTypes.Version_Launcher:
                     newTitle = "Launcher Out of Date";
-                    DescriptionLbl.Text = "Your launcher version is out of date!";
+                    DescriptionText = "Your launcher version is out of date!";
                     antiCheated = false;
                     break;
                 case StatusTypes.Version_Both:
                     newTitle = "Both Out of Date";
-                    DescriptionLbl.Text = "Your launcher and module are out of date!";
+                    DescriptionText = "Your launcher and module are out of date!";
                     antiCheated = false;
                     break;
                 case StatusTypes.Version_Safe:
                     newTitle = "Version up to Date";
-                    DescriptionLbl.Text = "You're running on the latest release!";
+                    DescriptionText = "You're running on the latest release!";
                     antiCheated = false;
                     break;
                 case StatusTypes.Version_Unsafe:
                     newTitle = "Incompatible Version";
-                    DescriptionLbl.Text = "Please wait for a new version to be released!";
+                    DescriptionText = "Please wait for a new version to be released!";
                     antiCheated = false;
                     break;
                 default:
                     newTitle = "Loading";
-                    DescriptionLbl.Text = "Loading...";
+                    DescriptionText = "Loading...";
                     antiCheated = false;
                     break;
             }
 
-            if (antiCheated)
+            if (antiCheated && shouldPrevent)
             {
                 newTitle = "Easy Anti-Cheat Detected";
             }
@@ -363,34 +370,37 @@ namespace CodeRedLauncher.Controls
             switch (ResultType)
             {
                 case InjectionResults.UnhandledException:
-                    DescriptionLbl.Text = "Failed to inject, an exception occurred!";
+                    DescriptionText = "Failed to inject, an unhandled exception occurred!";
                     break;
                 case InjectionResults.LibraryNotFound:
-                    DescriptionLbl.Text = "Failed to inject, could not find module file!";
+                    DescriptionText = "Failed to inject, could not find dll file!";
                     break;
                 case InjectionResults.ProcessNotFound:
-                    DescriptionLbl.Text = "Failed to inject, process no longer exists!";
+                    DescriptionText = "Failed to inject, process no longer exists!";
                     break;
                 case InjectionResults.AlreadyInjected:
-                    DescriptionLbl.Text = "Successfully injected, changes applied in game.";
+                    DescriptionText = "Successfully injected, changes applied in game.";
                     break;
                 case InjectionResults.HandleNotFound:
-                    DescriptionLbl.Text = "Failed to inject, process handle is invalid!";
+                    DescriptionText = "Failed to inject, process handle is invalid!";
                     break;
-                case InjectionResults.KernalNotFound:
-                    DescriptionLbl.Text = "Failed to inject, load library not found!";
+                case InjectionResults.KernelNotFound:
+                    DescriptionText = "Failed to inject, kernel32.dll not found!";
+                    break;
+                case InjectionResults.LoadLibraryNotFound:
+                    DescriptionText = "Failed to inject, LoadLibraryW not found!";
                     break;
                 case InjectionResults.AllocateFail:
-                    DescriptionLbl.Text = "Failed to inject, could not allocate space in memory!";
+                    DescriptionText = "Failed to inject, virtual allocate was blocked!";
                     break;
                 case InjectionResults.WriteFail:
-                    DescriptionLbl.Text = "Failed to inject, could not write bytes into memory!";
+                    DescriptionText = "Failed to inject, could not write bytes into memory!";
                     break;
                 case InjectionResults.ThreadFail:
-                    DescriptionLbl.Text = "Failed to inject, could not create remote thread!";
+                    DescriptionText = "Failed to inject, could not create remote thread!";
                     break;
                 case InjectionResults.Success:
-                    DescriptionLbl.Text = "Successfully injected, changes applied in game.";
+                    DescriptionText = "Successfully injected, changes applied in game.";
                     break;
                 default:
                     break;

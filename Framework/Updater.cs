@@ -211,7 +211,7 @@ namespace CodeRedLauncher
                             Logger.Write("(InstallModule) Done!");
                             result.Succeeded = true;
                             m_moduleOutdated = false;
-                            Configuration.SaveChanges();
+                            UserConfig.SaveChanges();
                         }
                     }
                     else
@@ -380,7 +380,7 @@ namespace CodeRedLauncher
             m_updateCtrl = updateCtrl;
             Result result = new Result();
 
-            if (!Configuration.OfflineMode.GetBoolValue())
+            if (!UserConfig.OfflineMode.GetBoolValue())
             {
                 if (m_moduleOutdated)
                 {

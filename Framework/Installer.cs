@@ -93,7 +93,7 @@ namespace CodeRedLauncher
 
                 if (!moduleResult.Succeeded)
                 {
-                    Configuration.CheckInitialized();
+                    UserConfig.CheckInitialized();
                     Logger.Write("(DownloadModule) Failed to download module file: " + moduleResult.FailReason, LogLevel.Error);
                     return moduleResult;
                 }

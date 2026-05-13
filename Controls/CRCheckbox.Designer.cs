@@ -48,9 +48,9 @@
             // 
             // TextLbl
             // 
+            TextLbl.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TextLbl.BackColor = System.Drawing.Color.Transparent;
-            TextLbl.Dock = System.Windows.Forms.DockStyle.Right;
-            TextLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            TextLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             TextLbl.Location = new System.Drawing.Point(68, 0);
             TextLbl.Name = "TextLbl";
             TextLbl.Size = new System.Drawing.Size(250, 37);
@@ -79,8 +79,8 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Transparent;
             Controls.Add(CheckImg);
-            Controls.Add(TextLbl);
             Controls.Add(IconImg);
+            Controls.Add(TextLbl);
             DoubleBuffered = true;
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             Name = "CRCheckbox";

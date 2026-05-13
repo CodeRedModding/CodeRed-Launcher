@@ -9,6 +9,23 @@ using System.Runtime.InteropServices;
 
 namespace CodeRedLauncher
 {
+    public enum InjectionResults : byte
+    {
+        None,
+        UnhandledException,
+        LibraryNotFound,
+        ProcessNotFound,
+        AlreadyInjected,
+        HandleNotFound,
+        KernelNotFound,
+        LoadLibraryNotFound,
+        AllocateFail,
+        WriteFail,
+        ThreadFail,
+        Success
+    }
+
+    [Flags]
     public enum ProcessFlags : UInt32
     {
         All = 0x001F0FFF,
@@ -26,6 +43,7 @@ namespace CodeRedLauncher
         Synchronize = 0x00100000
     }
 
+    [Flags]
     public enum AllocationType : UInt32
     {
         Commit = 0x1000,
@@ -39,6 +57,7 @@ namespace CodeRedLauncher
         LargePages = 0x20000000
     }
 
+    [Flags]
     public enum MemoryProtection : UInt32
     {
         Execute = 0x10,
@@ -178,21 +197,6 @@ namespace CodeRedLauncher
         }
     }
 
-    public enum InjectionResults : byte
-    {
-        None,
-        UnhandledException,
-        LibraryNotFound,
-        ProcessNotFound,
-        AlreadyInjected,
-        HandleNotFound,
-        KernalNotFound,
-        AllocateFail,
-        WriteFail,
-        ThreadFail,  
-        Success
-    }
-
     public static class LibraryManager
     {
         private static List<IntPtr> m_handleCache = new List<IntPtr>(); // Handle cache for processes we've already loaded into.
@@ -204,23 +208,22 @@ namespace CodeRedLauncher
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern int WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] buffer, UInt32 size, Int32 lpNumberOfBytesWritten);
+        static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] buffer, UInt32 nSize, out IntPtr lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttribute, IntPtr dwStackSize, IntPtr lpStartAddress,
-        IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+        static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttribute, UInt32 dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, UInt32 dwCreationFlags, IntPtr lpThreadId);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, UInt32 flAllocationType, UInt32 flProtect);
+        static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, IntPtr dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern IntPtr GetModuleHandle(string lpModuleName);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern IntPtr OpenProcess(UInt32 dwDesiredAccess, Int32 bInheritHandle, UInt32 dwProcessId);
+        static extern IntPtr OpenProcess(ProcessFlags dwDesiredAccess, bool bInheritHandle, UInt32 dwProcessId);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern Int32 CloseHandle(IntPtr hObject);
@@ -303,12 +306,12 @@ namespace CodeRedLauncher
                             injectedHandles.Add(processes[0].Handle);
                         }
 
-                        if (!Configuration.ShouldInjectAll())
+                        if (!UserConfig.ShouldInjectAll())
                         {
                             return returnList;
                         }
                     }
-                    else if (Configuration.ShouldInjectAll())
+                    else if (UserConfig.ShouldInjectAll())
                     {
                         individualResult = TryLoadIndividual(processes[i], libraryFile);
                         returnList.Add(individualResult);
@@ -377,59 +380,79 @@ namespace CodeRedLauncher
 
         private static InjectionResults LoadLibraryInternal(Process process, Architecture.Path libraryFile)
         {
+            IntPtr processHandle = IntPtr.Zero;
+            IntPtr threadHandle = IntPtr.Zero;
+
             try
             {
-                IntPtr processHandle = OpenProcess(Convert.ToUInt32(ProcessFlags.All), 1, Convert.ToUInt32(process.Id));
+                if (!libraryFile.Exists())
+                {
+                    return InjectionResults.LibraryNotFound;
+                }
+
+                processHandle = OpenProcess((ProcessFlags.CreateThread | ProcessFlags.QueryInformation | ProcessFlags.VirtualMemoryOperation | ProcessFlags.VirtualMemoryWrite | ProcessFlags.VirtualMemoryRead), false, (UInt32)process.Id);
 
                 if (processHandle == IntPtr.Zero)
                 {
                     return InjectionResults.HandleNotFound;
                 }
 
-                IntPtr loadLibraryAddress = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+                IntPtr kernel32Handle = GetModuleHandle("kernel32.dll");
+
+                if (kernel32Handle == IntPtr.Zero)
+                {
+                    return InjectionResults.KernelNotFound;
+                }
+
+                IntPtr loadLibraryAddress = GetProcAddress(kernel32Handle, "LoadLibraryW");
 
                 if (loadLibraryAddress == IntPtr.Zero)
                 {
-                    CloseHandle(processHandle);
-                    return InjectionResults.KernalNotFound;
+                    return InjectionResults.LoadLibraryNotFound;
                 }
 
-                IntPtr allocatedAddress = VirtualAllocEx(processHandle, IntPtr.Zero, new IntPtr(libraryFile.GetPath().Length), (Convert.ToUInt32(AllocationType.Commit) | Convert.ToUInt32(AllocationType.Reserve)), Convert.ToUInt32(MemoryProtection.ExecuteReadWrite));
+                byte[] libraryBytes = Encoding.Unicode.GetBytes(libraryFile.GetPath() + '\0');
+                IntPtr allocateBuffer = VirtualAllocEx(processHandle, IntPtr.Zero, new IntPtr(libraryBytes.Length), (AllocationType.Commit | AllocationType.Reserve), MemoryProtection.ReadWrite);
 
-                if (allocatedAddress == IntPtr.Zero)
+                if (allocateBuffer == IntPtr.Zero)
                 {
-                    CloseHandle(processHandle);
                     return InjectionResults.AllocateFail;
                 }
 
-                byte[] bytes = Encoding.ASCII.GetBytes(libraryFile.GetPath());
-                int bWroteMemory = WriteProcessMemory(processHandle, allocatedAddress, bytes, Convert.ToUInt32(bytes.Length), 0);
+                IntPtr bytesWritten = 0;
+                bool writeSuccess = WriteProcessMemory(processHandle, allocateBuffer, libraryBytes, (UInt32)libraryBytes.Length, out bytesWritten);
 
-                if (bWroteMemory == 0)
+                if (!writeSuccess || (bytesWritten.ToInt64() != libraryBytes.Length))
                 {
-                    CloseHandle(processHandle);
                     return InjectionResults.WriteFail;
                 }
 
-                IntPtr threadHandle = CreateRemoteThread(processHandle, IntPtr.Zero, IntPtr.Zero, loadLibraryAddress, allocatedAddress, 0, IntPtr.Zero);
+                threadHandle = CreateRemoteThread(processHandle,IntPtr.Zero, 0, loadLibraryAddress, allocateBuffer, 0, IntPtr.Zero);
 
                 if (threadHandle == IntPtr.Zero)
                 {
-                    CloseHandle(processHandle);
                     return InjectionResults.ThreadFail;
                 }
-
-                CloseHandle(threadHandle);
-                CloseHandle(processHandle);
 
                 return InjectionResults.Success;
             }
             catch (Exception ex)
             {
                 Logger.Write("(LoadLibraryInternal) Exception: " + ex.ToString(), LogLevel.Error); // Something went terribly wrong if this happens, will definitely want to know the exception reason.
+                return InjectionResults.UnhandledException;
             }
+            finally
+            {
+                if (threadHandle != IntPtr.Zero)
+                {
+                    CloseHandle(threadHandle);
+                }
 
-            return InjectionResults.UnhandledException;
+                if (processHandle != IntPtr.Zero)
+                {
+                    CloseHandle(processHandle);
+                }
+            }
         }
     }
 }

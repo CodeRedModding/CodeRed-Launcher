@@ -60,9 +60,9 @@
             // 
             // DescriptionLbl
             // 
-            DescriptionLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            DescriptionLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             DescriptionLbl.BackColor = System.Drawing.Color.Transparent;
-            DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             DescriptionLbl.Location = new System.Drawing.Point(49, 64);
             DescriptionLbl.Name = "DescriptionLbl";
             DescriptionLbl.Size = new System.Drawing.Size(420, 50);
@@ -72,9 +72,9 @@
             // 
             // TitleLbl
             // 
-            TitleLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            TitleLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TitleLbl.BackColor = System.Drawing.Color.Transparent;
-            TitleLbl.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            TitleLbl.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
             TitleLbl.Location = new System.Drawing.Point(49, 14);
             TitleLbl.Name = "TitleLbl";
             TitleLbl.Size = new System.Drawing.Size(420, 50);

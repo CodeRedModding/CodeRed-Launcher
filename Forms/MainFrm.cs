@@ -34,7 +34,7 @@ namespace CodeRedLauncher
 
         private void TitleBar_OnMinimized(object sender, EventArgs e)
         {
-            if (Configuration.ShouldHideWhenMinimized())
+            if (UserConfig.ShouldHideWhenMinimized())
             {
                 this.Hide();
             }
@@ -82,29 +82,6 @@ namespace CodeRedLauncher
             Environment.Exit(0);
         }
 
-        private void LaunchBtn_OnButtonClick(object sender, EventArgs e)
-        {
-            if (!LibraryManager.AnyProcessRunning() && LocalStorage.CheckInitialized())
-            {
-                PlatformTypes platform = LocalStorage.GetCurrentPlatform(true);
-
-                if (platform == PlatformTypes.Steam)
-                {
-                    Architecture.Path gameFile = (LocalStorage.GetSteamPath() / "RocketLeague.exe");
-
-                    if (gameFile.Exists())
-                    {
-                        Logger.Write("(LaunchBtn) Trying to start process \"" + gameFile.GetPath() + "\"!");
-                        Process.Start(new ProcessStartInfo(gameFile.GetPath()) { UseShellExecute = false });
-                    }
-                    else
-                    {
-                        Logger.Write("(LaunchBtn) Failed to locate the users Rocket League executable on Steam!", LogLevel.Error);
-                    }
-                }
-            }
-        }
-
         private void ManualInjectBtn_OnButtonClick(object sender, EventArgs e)
         {
             if (Updater.IsOutdated())
@@ -115,13 +92,13 @@ namespace CodeRedLauncher
                 return;
             }
 
-            if (LocalStorage.DetectedAntiCheat() && Configuration.ShouldPreventInjection())
+            if (LocalStorage.DetectedAntiCheat() && UserConfig.ShouldPreventEACInjection())
             {
                 Logger.Write("(ManualInjectBtn) Prevented injection, easy anti-cheat detected!");
                 return;
             }
 
-            if (!Configuration.ShouldInjectAll())
+            if (!UserConfig.ShouldInjectAll())
             {
                 List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
 
@@ -149,7 +126,7 @@ namespace CodeRedLauncher
 
         private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.AutoCheckUpdates.SetValue(AutoCheckUpdatesBx.BoxChecked).Save();
+            UserConfig.AutoCheckUpdates.SetValue(AutoCheckUpdatesBx.BoxChecked).Save();
 
             if (AutoCheckUpdatesBx.BoxChecked)
             {
@@ -159,18 +136,18 @@ namespace CodeRedLauncher
 
         private void AutoInstallBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.AutoInstallUpdates.SetValue(AutoInstallBx.BoxChecked).Save();
+            UserConfig.AutoInstallUpdates.SetValue(AutoInstallBx.BoxChecked).Save();
         }
 
         private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.PreventInjection_EAC.SetValue(PreventInjectionBx.BoxChecked).Save();
+            UserConfig.PreventInjection_EAC.SetValue(PreventInjectionBx.BoxChecked).Save();
             ProcessStatusCtrl.FormatType();
         }
 
         private void RunOnStartupBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.RunOnStartup.SetValue(RunOnStartupBx.BoxChecked).Save();
+            UserConfig.RunOnStartup.SetValue(RunOnStartupBx.BoxChecked).Save();
             RegistryKey startKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
             if (startKey != null)
@@ -192,24 +169,24 @@ namespace CodeRedLauncher
 
         private void MinimizeOnStartupBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.MinimizeOnStartup.SetValue(MinimizeOnStartupBx.BoxChecked).Save();
+            UserConfig.MinimizeOnStartup.SetValue(MinimizeOnStartupBx.BoxChecked).Save();
         }
 
         private void HideWhenMinimizedBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.HideWhenMinimized.SetValue(HideWhenMinimizedBx.BoxChecked).Save();
+            UserConfig.HideWhenMinimized.SetValue(HideWhenMinimizedBx.BoxChecked).Save();
         }
 
         private void InjectAllInstancesBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.InjectAllInstances.SetValue(InjectAllInstancesBx.BoxChecked).Save();
+            UserConfig.InjectAllInstances.SetValue(InjectAllInstancesBx.BoxChecked).Save();
         }
 
         private void ManualInjectBx_OnCheckChanged(object sender, EventArgs e)
         {
             if (ManualInjectBx.BoxChecked)
             {
-                Configuration.InjectionType.SetValue(InjectionTypes.Manual.ToString()).Save();
+                UserConfig.InjectionType.SetValue(InjectionTypes.Manual.ToString()).Save();
 
                 if (LibraryManager.AnyProcessRunning() && (ProcessStatusCtrl.DisplayType != StatusTypes.Process_Manual))
                 {
@@ -223,21 +200,21 @@ namespace CodeRedLauncher
             }
             else
             {
-                Configuration.InjectionType.SetValue(InjectionTypes.Timeout.ToString()).Save();
+                UserConfig.InjectionType.SetValue(InjectionTypes.Timeout.ToString()).Save();
             }
         }
 
         private void LightModeBx_OnCheckChanged(object sender, EventArgs e)
         {
-            Configuration.LightMode.SetValue(LightModeBx.BoxChecked).Save();
+            UserConfig.LightMode.SetValue(LightModeBx.BoxChecked).Save();
             UpdateTheme();
         }
 
         private void InjectionTimeoutBx_OnValueChanged(object sender, EventArgs e)
         {
-            if (Configuration.InjectionTimeoutRange.IsInRange(InjectionTimeoutBx.Value))
+            if (UserConfig.InjectionTimeoutRange.IsInRange(InjectionTimeoutBx.Value))
             {
-                Configuration.InjectionTimeout.SetValue(InjectionTimeoutBx.Value).Save();
+                UserConfig.InjectionTimeout.SetValue(InjectionTimeoutBx.Value).Save();
                 InjectTmr.Interval = InjectionTimeoutBx.Value;
             }
         }
@@ -277,7 +254,7 @@ namespace CodeRedLauncher
                             Directory.Delete(modulePath.GetPath(), true);
 
                             Installer.ModifyRegistry(false, newPath);
-                            Configuration.Invalidate(true);
+                            UserConfig.Invalidate(true);
                             LocalStorage.Invalidate(true);
                             ConfigToInterface();
                             StorageToInterface();
@@ -433,7 +410,7 @@ namespace CodeRedLauncher
         {
             if (EasterEggImg.BackgroundImage == null)
             {
-                EasterEggImg.BackgroundImage = (Configuration.ShouldUseLightMode() ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
+                EasterEggImg.BackgroundImage = (UserConfig.ShouldUseLightMode() ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
             }
             else
             {
@@ -446,13 +423,11 @@ namespace CodeRedLauncher
         {
             if (LibraryManager.AnyProcessRunning())
             {
-                LaunchBtn.DisplayText = "Launch (Already running)";
-
                 if ((ProcessStatusCtrl.DisplayType != StatusTypes.Process_Injecting) && (ProcessStatusCtrl.DisplayType != StatusTypes.Process_Manual))
                 {
                     Logger.Write("(ProcessTmr) Process is running!");
 
-                    if (LocalStorage.DetectedAntiCheat() && Configuration.ShouldPreventInjection())
+                    if (LocalStorage.DetectedAntiCheat() && UserConfig.ShouldPreventEACInjection())
                     {
                         Logger.Write("(ProcessTmr) Prevented injection, easy anti-cheat detected!");
                         InjectTmr.Stop();
@@ -477,12 +452,10 @@ namespace CodeRedLauncher
                     }
                     else
                     {
-                        if (Configuration.InjectionType.GetStringValue() == InjectionTypes.Manual.ToString())
+                        if (UserConfig.InjectionType.GetStringValue() == InjectionTypes.Manual.ToString())
                         {
                             ManualInjectBtn.BringToFront();
                             ManualInjectBtn.Visible = true;
-                            LaunchBtn.SendToBack();
-                            LaunchBtn.Visible = false;
 
                             ProcessStatusCtrl.DisplayType = StatusTypes.Process_Manual;
                             InjectTmr.Stop();
@@ -491,17 +464,6 @@ namespace CodeRedLauncher
                         {
                             ManualInjectBtn.SendToBack();
                             ManualInjectBtn.Visible = false;
-
-                            if (LocalStorage.GetCurrentPlatform(false) == PlatformTypes.Steam)
-                            {
-                                LaunchBtn.BringToFront();
-                                LaunchBtn.Visible = true;
-                            }
-                            else
-                            {
-                                LaunchBtn.SendToBack();
-                                LaunchBtn.Visible = false;
-                            }
 
                             ProcessStatusCtrl.DisplayType = StatusTypes.Process_Injecting;
                             InjectTmr.Start();
@@ -515,25 +477,13 @@ namespace CodeRedLauncher
                 ManualInjectBtn.SendToBack();
                 ManualInjectBtn.Visible = false;
 
-                if (LocalStorage.GetCurrentPlatform(false) == PlatformTypes.Steam)
-                {
-                    LaunchBtn.DisplayText = "Launch Rocket League";
-                    LaunchBtn.BringToFront();
-                    LaunchBtn.Visible = true;
-                }
-                else
-                {
-                    LaunchBtn.SendToBack();
-                    LaunchBtn.Visible = false;
-                }
-
                 ProcessStatusCtrl.DisplayType = StatusTypes.Process_Idle;
             }
         }
 
         private void InjectTmr_Tick(object sender, EventArgs e)
         {
-            if (!Configuration.OfflineMode.GetBoolValue())
+            if (!UserConfig.OfflineMode.GetBoolValue())
             {
                 if (Updater.IsOutdated())
                 {
@@ -544,14 +494,14 @@ namespace CodeRedLauncher
                 }
             }
 
-            if (LocalStorage.DetectedAntiCheat() && Configuration.ShouldPreventInjection())
+            if (LocalStorage.DetectedAntiCheat() && UserConfig.ShouldPreventEACInjection())
             {
                 Logger.Write("(InjectTmr) Prevented injection, easy anti-cheat detected!");
                 InjectTmr.Stop();
                 ManualInjectBtn.Visible = false;
             }
 
-            if (Configuration.GetInjectionType() == InjectionTypes.Manual)
+            if (UserConfig.GetInjectionType() == InjectionTypes.Manual)
             {
                 ProcessStatusCtrl.DisplayType = StatusTypes.Process_Manual;
                 ManualInjectBtn.Visible = true;
@@ -562,7 +512,7 @@ namespace CodeRedLauncher
                 ManualInjectBtn.Visible = false;
             }
 
-            if (!Configuration.ShouldInjectAll())
+            if (!UserConfig.ShouldInjectAll())
             {
                 List<Process> processes = ProcessManager.GetFilteredProcesses(LibraryManager.Settings.ProcessName);
 
@@ -612,45 +562,46 @@ namespace CodeRedLauncher
             switch (result)
             {
                 case InjectionResults.UnhandledException:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, unhandled exception occurred!", LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
                     break;
                 case InjectionResults.LibraryNotFound:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not find library file!", LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
                     break;
                 case InjectionResults.ProcessNotFound:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, process is no longer valid!", LogLevel.Warning);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Warning);
                     InjectTmr.Stop();
-                    break;
-                case InjectionResults.AlreadyInjected:
-                    // If we uncomment this it will write to the log file indefinitely as long as the game is running.
-                    // Logger.Write("Successfully injected, changes applied in game.");
                     break;
                 case InjectionResults.HandleNotFound:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, window handle is invalid!", LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
                     InjectTmr.Stop();
                     break;
-                case InjectionResults.KernalNotFound:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, load library not found!", LogLevel.Fatal);
+                case InjectionResults.KernelNotFound:
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Fatal);
+                    ProcessTmr.Stop();
+                    InjectTmr.Stop();
+                    break;
+                case InjectionResults.LoadLibraryNotFound:
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Fatal);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.AllocateFail:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not allocate space in memory!", LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.WriteFail:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not write library into memory!", LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.ThreadFail:
-                    Logger.Write("(ProcessInjectionResult) Failed to inject, could not create remote thread!", LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.Success:
-                    Logger.Write("(ProcessInjectionResult) Successfully injected, changes applied in game.");
+                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText);
                     break;
                 default:
                     break;
@@ -739,20 +690,20 @@ namespace CodeRedLauncher
             }
 
             bool canContinue = true;
-            Configuration.CheckInitialized();
+            UserConfig.CheckInitialized();
 
             if (Assembly.UsingPrivacy())
             {
                 PolicyPopup.DescriptionText = await RemoteStorage.GetPrivacyPolicy();
-                string policyHash = Configuration.HashMD5(PolicyPopup.DescriptionText);
+                string policyHash = UserConfig.HashMD5(PolicyPopup.DescriptionText);
 
-                if ((policyHash != Configuration.GetPrivacyHash()) || string.IsNullOrEmpty(PolicyPopup.DescriptionText))
+                if ((policyHash != UserConfig.GetPrivacyHash()) || string.IsNullOrEmpty(PolicyPopup.DescriptionText))
                 {
-                    Configuration.PrivacyHash.SetValue(policyHash);
-                    Configuration.PrivacyPolicy.SetValue(false);
+                    UserConfig.PrivacyHash.SetValue(policyHash);
+                    UserConfig.PrivacyPolicy.SetValue(false);
                 }
 
-                if (!Configuration.AgreedToPolicy())
+                if (!UserConfig.AgreedToPolicy())
                 {
                     if (string.IsNullOrEmpty(PolicyPopup.DescriptionText))
                     {
@@ -772,15 +723,15 @@ namespace CodeRedLauncher
             if (Assembly.UsingTerms())
             {
                 TermsPopup.DescriptionText = await RemoteStorage.GetTermsOfUse();
-                string termsHash = Configuration.HashMD5(TermsPopup.DescriptionText);
+                string termsHash = UserConfig.HashMD5(TermsPopup.DescriptionText);
 
-                if ((termsHash != Configuration.GetTermsHash()) || string.IsNullOrEmpty(TermsPopup.DescriptionText))
+                if ((termsHash != UserConfig.GetTermsHash()) || string.IsNullOrEmpty(TermsPopup.DescriptionText))
                 {
-                    Configuration.TermsHash.SetValue(termsHash);
-                    Configuration.TermsOfUse.SetValue(false);
+                    UserConfig.TermsHash.SetValue(termsHash);
+                    UserConfig.TermsOfUse.SetValue(false);
                 }
 
-                if (!Configuration.AgreedToTerms())
+                if (!UserConfig.AgreedToTerms())
                 {
                     if (string.IsNullOrEmpty(TermsPopup.DescriptionText))
                     {
@@ -805,7 +756,7 @@ namespace CodeRedLauncher
 
         private async void ContinuePolicy(bool bInvalidate)
         {
-            if (!LocalStorage.HasCoderedRegistry() || !LocalStorage.GetModulePath().Exists())
+            if (!LocalStorage.HasCodeRedRegistry() || !LocalStorage.GetModulePath().Exists())
             {
                 if (await RemoteStorage.CheckInitialized())
                 {
@@ -828,7 +779,7 @@ namespace CodeRedLauncher
 
             Logger.CheckInitialized(); // Create and initialize the log file for the launcher.
 
-            if (Configuration.CheckInitialized())
+            if (UserConfig.CheckInitialized())
             {
                 if (await RemoteStorage.CheckInitialized())
                 {
@@ -867,14 +818,14 @@ namespace CodeRedLauncher
 
         private async void ContinueStartup(bool bInvalidate)
         {
-            if (!Configuration.OfflineMode.GetBoolValue())
+            if (!UserConfig.OfflineMode.GetBoolValue())
             {
                 if (bInvalidate)
                 {
                     RemoteStorage.Invalidate();
                 }
 
-                if (Configuration.ShouldCheckForUpdates())
+                if (UserConfig.ShouldCheckForUpdates())
                 {
                     await CheckForUpdates(false, true);
                 }
@@ -890,7 +841,7 @@ namespace CodeRedLauncher
                 ChangelogCtrl.DisplayType = ChangelogViews.Offline;
             }
 
-            if (Configuration.ShouldMinimizeOnStartup())
+            if (UserConfig.ShouldMinimizeOnStartup())
             {
                 this.Hide();
             }
@@ -900,7 +851,7 @@ namespace CodeRedLauncher
 
         private async void RetrieversToInterface()
         {
-            if (!Configuration.OfflineMode.GetBoolValue())
+            if (!UserConfig.OfflineMode.GetBoolValue())
             {
                 ChangelogCtrl.ModuleText = await RemoteStorage.GetModuleChangelog();
                 ChangelogCtrl.LauncherText = await RemoteStorage.GetLauncherChangelog();
@@ -920,22 +871,22 @@ namespace CodeRedLauncher
 
         private void ConfigToInterface()
         {
-            if (Configuration.CheckInitialized())
+            if (UserConfig.CheckInitialized())
             {
-                AutoCheckUpdatesBx.BoxChecked = Configuration.ShouldCheckForUpdates();
-                AutoInstallBx.BoxChecked = Configuration.ShouldAutoInstall();
-                PreventInjectionBx.BoxChecked = Configuration.ShouldPreventInjection();
-                RunOnStartupBx.BoxChecked = Configuration.ShouldRunOnStartup();
-                MinimizeOnStartupBx.BoxChecked = Configuration.ShouldMinimizeOnStartup();
-                HideWhenMinimizedBx.BoxChecked = Configuration.ShouldHideWhenMinimized();
-                InjectAllInstancesBx.BoxChecked = Configuration.ShouldInjectAll();
-                ManualInjectBx.BoxChecked = (Configuration.GetInjectionType() == InjectionTypes.Manual);
-                LightModeBx.BoxChecked = Configuration.ShouldUseLightMode();
-                InjectionTimeoutBx.MinimumValue = Configuration.InjectionTimeoutRange.Minimum;
-                InjectionTimeoutBx.MaximumValue = Configuration.InjectionTimeoutRange.Maximum;
-                InjectionTimeoutBx.Value = Configuration.GetInjectionTimeout();
+                AutoCheckUpdatesBx.BoxChecked = UserConfig.ShouldCheckForUpdates();
+                AutoInstallBx.BoxChecked = UserConfig.ShouldAutoInstall();
+                PreventInjectionBx.BoxChecked = UserConfig.ShouldPreventEACInjection();
+                RunOnStartupBx.BoxChecked = UserConfig.ShouldRunOnStartup();
+                MinimizeOnStartupBx.BoxChecked = UserConfig.ShouldMinimizeOnStartup();
+                HideWhenMinimizedBx.BoxChecked = UserConfig.ShouldHideWhenMinimized();
+                InjectAllInstancesBx.BoxChecked = UserConfig.ShouldInjectAll();
+                ManualInjectBx.BoxChecked = (UserConfig.GetInjectionType() == InjectionTypes.Manual);
+                LightModeBx.BoxChecked = UserConfig.ShouldUseLightMode();
+                InjectionTimeoutBx.MinimumValue = UserConfig.InjectionTimeoutRange.Minimum;
+                InjectionTimeoutBx.MaximumValue = UserConfig.InjectionTimeoutRange.Maximum;
+                InjectionTimeoutBx.Value = UserConfig.GetInjectionTimeout();
                 InjectTmr.Interval = InjectionTimeoutBx.Value;
-                Configuration.SaveChanges();
+                UserConfig.SaveChanges();
                 UpdateTheme();
             }
         }
@@ -950,7 +901,7 @@ namespace CodeRedLauncher
                 PsyonixInfoCtrl.DisplayDescription = LocalStorage.GetPsyonixVersion();
                 BuildInfoCtrl.DisplayDescription = LocalStorage.GetNetBuild().ToString();
                 PlatformInfoCtrl.DisplayDescription = LocalStorage.GetPlatformString(false);
-                CreditsLbl.Text = "CodeRed is developed by @ItsBranK, but its creation would not have been possible without the inspiration of the following people: ";
+                CreditsLbl.Text = "CodeRed was created by ItsBrank, but its creation would not have been possible without the inspiration of the following people: ";
                 CreditsLbl.Text += await RemoteStorage.GetCredits();
             }
         }
@@ -984,7 +935,6 @@ namespace CodeRedLauncher
                 ProcessStatusCtrl.SetTheme(control, icon);
                 UpdateStatusCtrl.SetTheme(control, icon);
                 ChangelogCtrl.SetTheme(control, icon);
-                LaunchBtn.SetTheme(control, iconAlt);
                 ManualInjectBtn.SetTheme(control, iconAlt);
             }
 
@@ -1040,7 +990,7 @@ namespace CodeRedLauncher
         {
             if (!Updater.IsUpdating())
             {
-                if (!Configuration.OfflineMode.GetBoolValue() || bInvalidate)
+                if (!UserConfig.OfflineMode.GetBoolValue() || bInvalidate)
                 {
                     Logger.Write("(CheckForUpdates) Checking for updates...");
                     UpdateStatusCtrl.DisplayType = StatusTypes.Version_Checking;
@@ -1104,7 +1054,7 @@ namespace CodeRedLauncher
 
                                 if (bShowPrompt)
                                 {
-                                    if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                    if (UserConfig.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
                                     {
                                         UpdatePopup_ButtonClickAccept(null, null);
                                     }
@@ -1144,7 +1094,7 @@ namespace CodeRedLauncher
 
                                 if (bShowPrompt)
                                 {
-                                    if (Configuration.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                    if (UserConfig.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
                                     {
                                         UpdatePopup_ButtonClickAccept(null, null);
                                     }
@@ -1169,7 +1119,7 @@ namespace CodeRedLauncher
                                 {
                                     UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Launcher;
 
-                                    if (Configuration.ShouldAutoInstall())
+                                    if (UserConfig.ShouldAutoInstall())
                                     {
                                         UpdatePopup_ButtonClickAccept(null, null);
                                     }
@@ -1188,7 +1138,7 @@ namespace CodeRedLauncher
                                 UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
                                 UpdateStatusCtrl.ViewType = StatusViews.Two;
 
-                                if (Configuration.ShouldAutoInstall())
+                                if (UserConfig.ShouldAutoInstall())
                                 {
                                     UpdatePopup_ButtonClickAccept(null, null);
                                 }
@@ -1278,14 +1228,14 @@ namespace CodeRedLauncher
 
         private void OfflinePopup_ButtonClickAccept(object sender, EventArgs e)
         {
-            Configuration.OfflineMode.SetValue(false);
+            UserConfig.OfflineMode.SetValue(false);
             ContinueStartup(true);
             OfflinePopup.HidePopup();
         }
 
         private void OfflinePopup_ButtonClickDeny(object sender, EventArgs e)
         {
-            Configuration.OfflineMode.SetValue(true);
+            UserConfig.OfflineMode.SetValue(true);
             ContinueStartup(false);
             OfflinePopup.HidePopup();
         }
@@ -1328,7 +1278,7 @@ namespace CodeRedLauncher
         private void PolicyPopup_ButtonClickAccept(object sender, EventArgs e)
         {
             PolicyPopup.HidePopup();
-            Configuration.PrivacyPolicy.SetValue(true);
+            UserConfig.PrivacyPolicy.SetValue(true);
 
             if (!TermsPopup.Visible)
             {
@@ -1338,14 +1288,14 @@ namespace CodeRedLauncher
 
         private void PolicyPopup_ButtonClickDeny(object sender, EventArgs e)
         {
-            Configuration.PrivacyPolicy.SetValue(false);
+            UserConfig.PrivacyPolicy.SetValue(false);
             TitleBar_OnExit(null, null);
         }
 
         private void TermsPopup_ButtonClickAccept(object sender, EventArgs e)
         {
             TermsPopup.HidePopup();
-            Configuration.TermsOfUse.SetValue(true);
+            UserConfig.TermsOfUse.SetValue(true);
 
             if (!PolicyPopup.Visible)
             {
@@ -1355,7 +1305,7 @@ namespace CodeRedLauncher
 
         private void TermsPopup_ButtonClickDeny(object sender, EventArgs e)
         {
-            Configuration.TermsOfUse.SetValue(false);
+            UserConfig.TermsOfUse.SetValue(false);
             TitleBar_OnExit(null, null);
         }
     }

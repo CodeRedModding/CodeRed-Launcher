@@ -353,7 +353,7 @@ namespace CodeRedLauncher
             return m_initialized;
         }
 
-        public static bool HasCoderedRegistry()
+        public static bool HasCodeRedRegistry()
         {
             bool regkeyValid = false;
             RegistryKey coderedKey = Registry.CurrentUser.OpenSubKey("CodeRedModding");

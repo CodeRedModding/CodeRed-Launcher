@@ -10,7 +10,7 @@ namespace CodeRedLauncher
     }
 
     // Stores and manages all user modifiable settings in the launcher, as well as saving them offline.
-    public static class Configuration
+    public static class UserConfig
     {
         private static bool m_initialized = false;
         private static Architecture.Path m_storageFile = new Architecture.Path();
@@ -19,14 +19,14 @@ namespace CodeRedLauncher
             "False",
             "PrivacyPolicy",
             "Agree to the private policy.",
-            "If the user has argeed to use the private policy or not."
+            "If the user has agreed to use the private policy or not."
         );
 
         public static PublicSetting TermsOfUse = new PublicSetting(
             "False",
             "TermsOfUse",
             "Agree to the terms of use.",
-            "If the user has argeed to use the terms of use or not."
+            "If the user has agreed to use the terms of use or not."
         );
 
         public static PublicSetting PrivacyHash = new PublicSetting(
@@ -66,17 +66,16 @@ namespace CodeRedLauncher
             SaveChanges
         );
 
-        // This setting was removed and is no longer used.
-        //public static PublicSetting PreventInjection_Outdated = new PublicSetting(
-        //    "True",
-        //    "PreventInjection",
-        //    "Prevent injection when out of date.",
-        //    "Prevents injecting out of date modules into unsupported Rocket League versions.",
-        //    SaveChanges
-        //);
+        public static PublicSetting PreventInjection_Version = new PublicSetting(
+            "True",
+            "PreventInjection_Version",
+            "Prevent injection when out of date.",
+            "Prevents injecting out of date modules into unsupported Rocket League versions.",
+            SaveChanges
+        );
 
         public static PublicSetting PreventInjection_EAC = new PublicSetting(
-            "True",
+            "False",
             "PreventInjection_EAC",
             "Prevent injection if easy anti-cheat is detected.",
             "Prevents injecting the module into the game if easy anti-cheat is added to avoid possible bans.",
@@ -124,7 +123,7 @@ namespace CodeRedLauncher
         );
 
         public static PublicSetting InjectionTimeout = new PublicSetting(
-            "2500",
+            "3500",
             "InjectionTimeout",
             "Module injection timeout.",
             "Time delay in milliseconds used when injecting into Rocket League.",
@@ -159,7 +158,7 @@ namespace CodeRedLauncher
                             if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), (line.Length - (TermsHash.Name.Length + 1)))); continue; }
                             if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(AutoInstallUpdates.Name)) { AutoInstallUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                            //if (line.Contains(PreventInjection_Outdated.Name)) { PreventInjection_Outdated.SetValue(line.Contains("True") ? "True" : "False"); continue; }
+                            if (line.Contains(PreventInjection_Version.Name)) { PreventInjection_Version.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(PreventInjection_EAC.Name)) { PreventInjection_EAC.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(RunOnStartup.Name)) { RunOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(MinimizeOnStartup.Name)) { MinimizeOnStartup.SetValue(line.Contains("True") ? "True" : "False"); continue; }
@@ -240,7 +239,7 @@ namespace CodeRedLauncher
             TermsHash.ResetToDefault();
             AutoCheckUpdates.ResetToDefault();
             AutoInstallUpdates.ResetToDefault();
-            //PreventInjection_Outdated.ResetToDefault();
+            PreventInjection_Version.ResetToDefault();
             PreventInjection_EAC.ResetToDefault();
             RunOnStartup.ResetToDefault();
             MinimizeOnStartup.ResetToDefault();
@@ -273,26 +272,26 @@ namespace CodeRedLauncher
                     await File.Create(m_storageFile.GetPath()).DisposeAsync();
                 }
 
-                string fileConents = "";
-                fileConents += (PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + Environment.NewLine);
-                fileConents += (TermsOfUse.Name + " " + TermsOfUse.GetStringValue() + Environment.NewLine);
-                fileConents += (PrivacyHash.Name + " " + PrivacyHash.GetStringValue() + Environment.NewLine);
-                fileConents += (TermsHash.Name + " " + TermsHash.GetStringValue() + Environment.NewLine);
-                fileConents += (AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + Environment.NewLine);
-                fileConents += (AutoInstallUpdates.Name + " " + AutoInstallUpdates.GetStringValue() + Environment.NewLine);
-                //fileConents += (PreventInjection_Outdated.Name + " " + PreventInjection_Outdated.GetStringValue() + Environment.NewLine);
-                fileConents += (PreventInjection_EAC.Name + " " + PreventInjection_EAC.GetStringValue() + Environment.NewLine);
-                fileConents += (RunOnStartup.Name + " " + RunOnStartup.GetStringValue() + Environment.NewLine);
-                fileConents += (MinimizeOnStartup.Name + " " + MinimizeOnStartup.GetStringValue() + Environment.NewLine);
-                fileConents += (HideWhenMinimized.Name + " " + HideWhenMinimized.GetStringValue() + Environment.NewLine);
-                fileConents += (InjectAllInstances.Name + " " + InjectAllInstances.GetStringValue() + Environment.NewLine);
-                fileConents += (InjectionType.Name + " " + InjectionType.GetStringValue() + Environment.NewLine);
-                fileConents += (InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue() + Environment.NewLine);
-                fileConents += (LightMode.Name + " " + LightMode.GetStringValue());
+                string fileContents = "";
+                fileContents += (PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + Environment.NewLine);
+                fileContents += (TermsOfUse.Name + " " + TermsOfUse.GetStringValue() + Environment.NewLine);
+                fileContents += (PrivacyHash.Name + " " + PrivacyHash.GetStringValue() + Environment.NewLine);
+                fileContents += (TermsHash.Name + " " + TermsHash.GetStringValue() + Environment.NewLine);
+                fileContents += (AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + Environment.NewLine);
+                fileContents += (AutoInstallUpdates.Name + " " + AutoInstallUpdates.GetStringValue() + Environment.NewLine);
+                fileContents += (PreventInjection_Version.Name + " " + PreventInjection_Version.GetStringValue() + Environment.NewLine);
+                fileContents += (PreventInjection_EAC.Name + " " + PreventInjection_EAC.GetStringValue() + Environment.NewLine);
+                fileContents += (RunOnStartup.Name + " " + RunOnStartup.GetStringValue() + Environment.NewLine);
+                fileContents += (MinimizeOnStartup.Name + " " + MinimizeOnStartup.GetStringValue() + Environment.NewLine);
+                fileContents += (HideWhenMinimized.Name + " " + HideWhenMinimized.GetStringValue() + Environment.NewLine);
+                fileContents += (InjectAllInstances.Name + " " + InjectAllInstances.GetStringValue() + Environment.NewLine);
+                fileContents += (InjectionType.Name + " " + InjectionType.GetStringValue() + Environment.NewLine);
+                fileContents += (InjectionTimeout.Name + " " + InjectionTimeout.GetStringValue() + Environment.NewLine);
+                fileContents += (LightMode.Name + " " + LightMode.GetStringValue());
 
                 using (StreamWriter stream = new StreamWriter(m_storageFile.GetPath(), false))
                 {
-                    stream.Write(fileConents);
+                    stream.Write(fileContents);
                 }
             }
             else
@@ -347,7 +346,13 @@ namespace CodeRedLauncher
             return AutoInstallUpdates.GetBoolValue(true);
         }
 
-        public static bool ShouldPreventInjection() // To do, check if EAC is installed.
+        private static bool ShouldPreventVersionInjection() // Removed, as of now the user can't inject if they wanted to for safety reasons. I will add this back eventually.
+        {
+            if (CheckInitialized()) { return PreventInjection_Version.GetBoolValue(); }
+            return PreventInjection_Version.GetBoolValue(true);
+        }
+
+        public static bool ShouldPreventEACInjection()
         {
             if (CheckInitialized()) { return PreventInjection_EAC.GetBoolValue(); }
             return PreventInjection_EAC.GetBoolValue(true);
