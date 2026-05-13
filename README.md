@@ -7,7 +7,7 @@ The CodeRed Launcher is used to inject CodeRed into Rocket League, view news abo
 
 **2.** Must have at least 4GB of vram and 8GB of system ram.
 
-**3.** Must have the [**.NET 9.0**](<https://dotnet.microsoft.com/en-us/download/dotnet/9.0>) runtime installed to use the launcher.
+**3.** Must have the [**.NET 10.0**](<https://dotnet.microsoft.com/en-us/download/dotnet/9.0>) runtime installed to use the launcher.
 
 ## 📦 Download
 ### If this is your first time using CodeRed, you can [click this link](https://github.com/CodeRedModding/CodeRed-Launcher/releases/latest/download/CodeRedLauncher.zip) to download the latest version of the installer!
