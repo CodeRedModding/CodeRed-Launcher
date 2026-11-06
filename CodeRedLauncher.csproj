@@ -27,7 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\CRDuplicate.cs">
+    <Compile Update="Controls\CRDupePopup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\CRVersionStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\CRTextbox.cs" />

@@ -130,8 +130,8 @@
   <data name="Refresh_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Calendar_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Calendar_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TR0_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TR0_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Warning_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Warning_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,29 +145,14 @@
   <data name="Left_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Left_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Drive_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Drive_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Message_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Message_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Eye_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Eye_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="News_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\News_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Note_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Note_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Tag_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tag_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Left_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Left_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Box_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Box_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dashboard_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Dashboard_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -175,8 +160,8 @@
   <data name="Exit_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sessions_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sessions_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Coffee_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Coffee_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Database_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Database_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -190,8 +175,8 @@
   <data name="Drive_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Drive_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Settings_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Refresh_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Refresh_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Stack_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Stack_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,15 +190,6 @@
   <data name="Folders_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folders_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Lock_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Lock_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Eye_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Eye_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Website_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Website_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Windows_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Windows_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -223,11 +199,8 @@
   <data name="Drive_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Drive_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zip_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zip_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Palette_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Palette_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TR3_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TR3_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Folder_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folder_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,17 +208,14 @@
   <data name="Folders_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folders_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cupcake_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cupcake_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Rocket_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rocket_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Mouse_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Mouse_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Shield_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shield_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Calendar_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Calendar_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Checkbox_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Checkbox_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -262,29 +232,29 @@
   <data name="Offline_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Offline_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TL0_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TL0_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="List_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\List_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Folder_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folder_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Message_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Message_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="TL2_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TL2_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Website_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Website_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Box_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Box_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Zip_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Zip_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Folders_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folders_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Shield_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shield_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Install_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Install_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TR2_Dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TR2_Dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -301,17 +271,17 @@
   <data name="List_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\List_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Calendar_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Calendar_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TL1_Dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TL1_Dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Windows_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Windows_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Exit_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Spy_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Spy_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Open_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Open_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="No_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\No_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -325,29 +295,17 @@
   <data name="Note_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Note_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Warning_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Warning_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Dashboard_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Dashboard_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Open_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Open_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tag_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tag_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CheckboxEmpy_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CheckboxEmpy_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Coffee_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Coffee_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Discord_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Discord_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Settings_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Offline_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Offline_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Rocket_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rocket_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TR3_Dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TR3_Dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -357,9 +315,6 @@
   </data>
   <data name="Cupcake_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cupcake_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Discord_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Discord_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="No_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\No_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -373,26 +328,14 @@
   <data name="Zip_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Zip_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sessions_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sessions_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TR0_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TR0_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Website_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Website_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Palette_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Palette_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Rocket_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rocket_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Palette_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Palette_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tag_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tag_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Sessions_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sessions_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Message_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Message_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Server_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Server_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -403,9 +346,6 @@
   <data name="News_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\News_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Server_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Server_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Folders_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folders_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -415,71 +355,41 @@
   <data name="Lock_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Lock_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Remix_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Remix_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="News_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\News_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Tag_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tag_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TL0_Dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TL0_Dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Offline_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Offline_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="TL0_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TL0_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Message_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Message_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BR1_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BR1_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Database_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Database_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Account_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Account_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Coffee_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Coffee_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Right_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Right_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TL0_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TL0_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Remix_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Remix_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Stack_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Stack_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Calendar_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Calendar_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cloud_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cloud_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Exit_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Exit_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Account_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Account_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="About_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\About_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exit_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exit_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Discord_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Discord_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Changelog_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Changelog_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Stack_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Stack_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Remix_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Remix_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Sessions_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sessions_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Account_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Account_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Settings_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Settings_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -490,14 +400,11 @@
   <data name="Shield_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shield_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Windows_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Windows_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Open_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Open_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Coffee_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Coffee_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hourglass_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hourglass_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cloud_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cloud_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -508,20 +415,8 @@
   <data name="Discord_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Discord_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Hourglass_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hourglass_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Sun_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sun_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cupcake_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cupcake_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Shield_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shield_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Refresh_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Refresh_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cloud_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cloud_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -532,20 +427,14 @@
   <data name="Note_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Note_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Coffee_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Coffee_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Coffee_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Coffee_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BR0_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BR0_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tag_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tag_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Exit_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Exit_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Left_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Left_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BR0_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BR0_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TR4_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TR4_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -553,35 +442,23 @@
   <data name="Download_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Download_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zip_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zip_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dashboard_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dashboard_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BR3_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BR3_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Dashboard_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Dashboard_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Install_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Install_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Server_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Server_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Folders_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folders_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Settings_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Message_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Message_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Drive_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Drive_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="No_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\No_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Shield_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shield_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Refresh_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Refresh_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Hourglass_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hourglass_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -589,38 +466,26 @@
   <data name="Note_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Note_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Eye_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Eye_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Offline_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Offline_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="About_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\About_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Install_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Install_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Download_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Download_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Yes_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Yes_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Settings_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Settings_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Windows_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Windows_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Cloud_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cloud_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Right_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Right_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Eye_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Eye_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Offline_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Offline_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sessions_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sessions_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BR1_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BR1_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Eye_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Eye_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Drive_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Drive_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -628,35 +493,11 @@
   <data name="Changelog_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Changelog_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Spy_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Spy_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Download_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Download_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="List_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\List_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Left_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Left_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Box_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Box_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Sun_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sun_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Box_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Box_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Spy_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Spy_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Right_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Right_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Note_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Note_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Yes_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Yes_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -664,50 +505,20 @@
   <data name="Hourglass_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hourglass_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Box_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Box_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Warning_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Warning_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Discord_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Discord_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="No_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\No_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Account_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Account_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="News_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\News_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Changelog_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Changelog_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Open_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Open_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cupcake_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cupcake_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Server_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Server_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Sun_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sun_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Cupcake_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cupcake_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CheckboxEmpy_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CheckboxEmpy_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cloud_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cloud_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Download_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Download_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Folder_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folder_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Database_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Database_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Lock_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Lock_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -715,8 +526,8 @@
   <data name="Download_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Download_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CheckboxEmpy_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CheckboxEmpy_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Remix_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Remix_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Left_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Left_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -724,20 +535,8 @@
   <data name="Palette_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Palette_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Open_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Open_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Mouse_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mouse_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="List_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\List_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Sun_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sun_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Yes_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Yes_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Zip_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Zip_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -745,50 +544,26 @@
   <data name="Refresh_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Remix_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Remix_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="No_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\No_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="News_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\News_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Windows_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Windows_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Folder_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folder_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Yes_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Yes_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Mouse_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Mouse_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TL1_Dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TL1_Dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Palette_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Palette_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Changelog_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Changelog_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Windows_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Windows_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Hourglass_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hourglass_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="List_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\List_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Eye_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Eye_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Right_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Right_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="About_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\About_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Exit_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -814,23 +589,11 @@
   <data name="Website_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Website_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Lock_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Lock_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="No_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\No_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Refresh_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Refresh_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TR3_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TR3_Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="News_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\News_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Folder_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folder_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Eye_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Eye_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Settings_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Settings_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -838,20 +601,11 @@
   <data name="Right_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Right_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Calendar_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Calendar_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cloud_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cloud_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="List_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\List_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Lock_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Lock_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Account_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Account_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Database_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Database_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="About_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\About_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -864,20 +618,5 @@
   </data>
   <data name="Cupcake_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cupcake_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Install_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Install_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Install_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Install_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Install_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Install_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Install_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Install_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Install_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Install_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

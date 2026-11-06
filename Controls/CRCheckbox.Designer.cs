@@ -40,7 +40,7 @@
             IconImg.Anchor = System.Windows.Forms.AnchorStyles.Left;
             IconImg.BackColor = System.Drawing.Color.Transparent;
             IconImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            IconImg.Location = new System.Drawing.Point(3, 5);
+            IconImg.Location = new System.Drawing.Point(4, 4);
             IconImg.Name = "IconImg";
             IconImg.Size = new System.Drawing.Size(28, 28);
             IconImg.TabIndex = 5;
@@ -53,7 +53,7 @@
             TextLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             TextLbl.Location = new System.Drawing.Point(68, 0);
             TextLbl.Name = "TextLbl";
-            TextLbl.Size = new System.Drawing.Size(250, 37);
+            TextLbl.Size = new System.Drawing.Size(252, 37);
             TextLbl.TabIndex = 7;
             TextLbl.Text = "Checkbox";
             TextLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -65,7 +65,7 @@
             CheckImg.Anchor = System.Windows.Forms.AnchorStyles.Left;
             CheckImg.BackColor = System.Drawing.Color.Transparent;
             CheckImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            CheckImg.Location = new System.Drawing.Point(36, 7);
+            CheckImg.Location = new System.Drawing.Point(36, 6);
             CheckImg.Name = "CheckImg";
             CheckImg.Size = new System.Drawing.Size(24, 24);
             CheckImg.TabIndex = 8;
@@ -84,8 +84,7 @@
             DoubleBuffered = true;
             ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             Name = "CRCheckbox";
-            Size = new System.Drawing.Size(318, 37);
-            SizeChanged += CRCheckbox_SizeChanged;
+            Size = new System.Drawing.Size(320, 36);
             ((System.ComponentModel.ISupportInitialize)IconImg).EndInit();
             ((System.ComponentModel.ISupportInitialize)CheckImg).EndInit();
             ResumeLayout(false);

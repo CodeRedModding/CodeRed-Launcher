@@ -15,8 +15,7 @@ namespace CodeRedLauncher.Controls
         White,
         Black,
         Red,
-        Purple,
-        Blue
+        Purple
     }
 
     public class IconStore
@@ -25,21 +24,33 @@ namespace CodeRedLauncher.Controls
         private IconTheme m_iconTheme = IconTheme.White;
         private Dictionary<IconTheme, Image> m_icons = new Dictionary<IconTheme, Image>();
 
-        public ControlTheme Control
+        public ControlTheme Theme
         {
-            get { return m_controlTheme; }
-            set { m_controlTheme = value; }
+            get
+            {
+                return m_controlTheme;
+            }
+            set
+            {
+                m_controlTheme = value;
+            }
         }
 
-        public IconTheme Theme
+        public IconTheme IconTheme
         {
-            get { return m_iconTheme; }
-            set { m_iconTheme = value; }
+            get
+            {
+                return m_iconTheme;
+            }
+            set
+            {
+                m_iconTheme = value;
+            }
         }
 
-        public Color GetColor()
+        public Color GetIconColor()
         {
-            switch (Theme)
+            switch (IconTheme)
             {
                 case IconTheme.White:
                     return GPalette.White;
@@ -49,26 +60,29 @@ namespace CodeRedLauncher.Controls
                     return GPalette.CodeRed;
                 case IconTheme.Purple:
                     return GPalette.CodePurple;
-                case IconTheme.Blue:
-                    return GPalette.CodeBlue;
                 default:
                     return GPalette.White;
             }
         }
 
-        public Image? GetThemeIcon()
+        public bool IsDarkMode()
         {
-            return GetIcon(Theme);
+            return (Theme == ControlTheme.Dark);
         }
 
-        public Image? GetIcon(IconTheme type)
+        public Image GetIcon()
         {
-            return (m_icons.ContainsKey(type) ? m_icons[type] : null);
+            return GetIcon(IconTheme);
         }
 
-        public void SetIcon(IconTheme type, Image icon)
+        public Image GetIcon(IconTheme iconTheme)
         {
-            m_icons[type] = icon;
+            return (m_icons.ContainsKey(iconTheme) ? m_icons[iconTheme] : null);
+        }
+
+        public void SetIcon(IconTheme iconTheme, Image image)
+        {
+            m_icons[iconTheme] = image;
         }
     }
 
@@ -94,11 +108,15 @@ namespace CodeRedLauncher.Controls
         // Greyscale
         public static readonly Color PureBlack = Color.FromArgb(20, 22, 24);                    // #141618
         public static readonly Color Black = Color.FromArgb(30, 30, 31);                        // #1e1e1f
+        public static readonly Color LightBlack_Highlight = Color.FromArgb(38, 40, 43);         // #26282b
         public static readonly Color LightBlack = Color.FromArgb(40, 42, 45);                   // #282a2d
+        public static readonly Color DarkGrey_Highlight = Color.FromArgb(45, 45, 50);           // #2d2d32
         public static readonly Color DarkGrey = Color.FromArgb(50, 50, 55);                     // #323237
         public static readonly Color LightGrey = Color.FromArgb(128, 128, 130);                 // #808082
+        public static readonly Color Grey_Highlight = Color.FromArgb(184, 184, 188);            // #b8b8bc
         public static readonly Color Grey = Color.FromArgb(194, 194, 198);                      // #c2c2c6
         public static readonly Color GreyWhite = Color.FromArgb(226, 224, 224);                 // #e2e0f4
+        public static readonly Color White_Highlight = Color.FromArgb(237, 237, 237);           // #ededed
         public static readonly Color White = Color.FromArgb(242, 242, 242);                     // #f2f2f2
         public static readonly Color PureWhite = Color.FromArgb(255, 255, 255);                 // #ffffff
     }

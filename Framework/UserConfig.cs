@@ -15,34 +15,6 @@ namespace CodeRedLauncher
         private static bool m_initialized = false;
         private static Architecture.Path m_storageFile = new Architecture.Path();
 
-        public static PublicSetting PrivacyPolicy = new PublicSetting(
-            "False",
-            "PrivacyPolicy",
-            "Agree to the private policy.",
-            "If the user has agreed to use the private policy or not."
-        );
-
-        public static PublicSetting TermsOfUse = new PublicSetting(
-            "False",
-            "TermsOfUse",
-            "Agree to the terms of use.",
-            "If the user has agreed to use the terms of use or not."
-        );
-
-        public static PublicSetting PrivacyHash = new PublicSetting(
-            "0",
-            "PrivacyHash",
-            "The current privacy policy hash.",
-            "The last known hash of the privacy policy the user agreed to."
-        );
-
-        public static PublicSetting TermsHash = new PublicSetting(
-            "0",
-            "TermsHash",
-            "The current terms of use hash.",
-            "The last known hash of the terms of use the user agreed to."
-        );
-
         public static PublicSetting OfflineMode = new PublicSetting(
             "False",
             "OfflineMode",
@@ -152,10 +124,6 @@ namespace CodeRedLauncher
                     {
                         try
                         {
-                            if (line.Contains(PrivacyPolicy.Name)) { PrivacyPolicy.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                            if (line.Contains(TermsOfUse.Name)) { TermsOfUse.SetValue(line.Contains("True") ? "True" : "False"); continue; }
-                            if (line.Contains(PrivacyHash.Name)) { PrivacyHash.SetValue(line.Substring((PrivacyHash.Name.Length + 1), (line.Length - (PrivacyHash.Name.Length + 1)))); continue; }
-                            if (line.Contains(TermsHash.Name)) { TermsHash.SetValue(line.Substring((TermsHash.Name.Length + 1), (line.Length - (TermsHash.Name.Length + 1)))); continue; }
                             if (line.Contains(AutoCheckUpdates.Name)) { AutoCheckUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(AutoInstallUpdates.Name)) { AutoInstallUpdates.SetValue(line.Contains("True") ? "True" : "False"); continue; }
                             if (line.Contains(PreventInjection_Version.Name)) { PreventInjection_Version.SetValue(line.Contains("True") ? "True" : "False"); continue; }
@@ -233,10 +201,6 @@ namespace CodeRedLauncher
         public static void SetDefaultSettings(bool bSaveChanges = false)
         {
             m_storageFile = (LocalStorage.GetModulePath() / "Settings" / "Launcher.cr");
-            PrivacyPolicy.ResetToDefault();
-            TermsOfUse.ResetToDefault();
-            PrivacyHash.ResetToDefault();
-            TermsHash.ResetToDefault();
             AutoCheckUpdates.ResetToDefault();
             AutoInstallUpdates.ResetToDefault();
             PreventInjection_Version.ResetToDefault();
@@ -273,10 +237,6 @@ namespace CodeRedLauncher
                 }
 
                 string fileContents = "";
-                fileContents += (PrivacyPolicy.Name + " " + PrivacyPolicy.GetStringValue() + Environment.NewLine);
-                fileContents += (TermsOfUse.Name + " " + TermsOfUse.GetStringValue() + Environment.NewLine);
-                fileContents += (PrivacyHash.Name + " " + PrivacyHash.GetStringValue() + Environment.NewLine);
-                fileContents += (TermsHash.Name + " " + TermsHash.GetStringValue() + Environment.NewLine);
                 fileContents += (AutoCheckUpdates.Name + " " + AutoCheckUpdates.GetStringValue() + Environment.NewLine);
                 fileContents += (AutoInstallUpdates.Name + " " + AutoInstallUpdates.GetStringValue() + Environment.NewLine);
                 fileContents += (PreventInjection_Version.Name + " " + PreventInjection_Version.GetStringValue() + Environment.NewLine);
@@ -308,30 +268,6 @@ namespace CodeRedLauncher
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
                 return Convert.ToHexString(hashBytes);
             }
-        }
-
-        public static bool AgreedToPolicy()
-        {
-            if (CheckInitialized()) { return PrivacyPolicy.GetBoolValue(); }
-            return PrivacyPolicy.GetBoolValue(true);
-        }
-
-        public static bool AgreedToTerms()
-        {
-            if (CheckInitialized()) { return TermsOfUse.GetBoolValue(); }
-            return TermsOfUse.GetBoolValue(true);
-        }
-
-        public static string GetPrivacyHash()
-        {
-            if (CheckInitialized()) { return PrivacyHash.GetStringValue(); }
-            return PrivacyHash.GetStringValue(true);
-        }
-
-        public static string GetTermsHash()
-        {
-            if (CheckInitialized()) { return TermsHash.GetStringValue(); }
-            return TermsHash.GetStringValue(true);
         }
 
         public static bool ShouldCheckForUpdates()

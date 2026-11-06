@@ -41,14 +41,16 @@
             TitleLbl.Cursor = System.Windows.Forms.Cursors.Hand;
             TitleLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             TitleLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            TitleLbl.Location = new System.Drawing.Point(55, 0);
+            TitleLbl.Location = new System.Drawing.Point(0, 0);
             TitleLbl.Name = "TitleLbl";
-            TitleLbl.Size = new System.Drawing.Size(805, 55);
+            TitleLbl.Size = new System.Drawing.Size(860, 55);
             TitleLbl.TabIndex = 46;
-            TitleLbl.Text = "Module Changelog";
+            TitleLbl.Text = "               Module Changelog";
             TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             TitleLbl.Click += TitleLbl_Click;
             TitleLbl.DoubleClick += TitleLbl_DoubleClick;
+            TitleLbl.MouseEnter += TitleLbl_MouseEnter;
+            TitleLbl.MouseLeave += TitleLbl_MouseLeave;
             // 
             // TitleImg
             // 
@@ -62,12 +64,12 @@
             TitleImg.TabStop = false;
             TitleImg.Click += TitleImg_Click;
             TitleImg.DoubleClick += TitleImg_DoubleClick;
+            TitleImg.MouseEnter += TitleImg_MouseEnter;
             // 
             // DescriptionLbl
             // 
             DescriptionLbl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             DescriptionLbl.BackColor = System.Drawing.Color.Transparent;
-            DescriptionLbl.Cursor = System.Windows.Forms.Cursors.Hand;
             DescriptionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             DescriptionLbl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
             DescriptionLbl.Location = new System.Drawing.Point(19, 55);
@@ -76,17 +78,15 @@
             DescriptionLbl.TabIndex = 47;
             DescriptionLbl.Text = "Loading...";
             DescriptionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            DescriptionLbl.Click += DescriptionLbl_Click;
-            DescriptionLbl.DoubleClick += DescriptionLbl_DoubleClick;
             // 
             // CRChangelog
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
-            Controls.Add(TitleLbl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleImg);
+            Controls.Add(TitleLbl);
             DoubleBuffered = true;
             Name = "CRChangelog";
             Size = new System.Drawing.Size(860, 315);

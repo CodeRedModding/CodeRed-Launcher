@@ -24,7 +24,7 @@ namespace CodeRedLauncher
         private static bool m_launcherOutdated = false;
         private static bool m_moduleOutdated = false;
         private static UpdatorStatus m_updateStatus = UpdatorStatus.Idle;
-        private static Controls.CRUpdate m_updateCtrl = null;
+        private static Controls.CRUpdatePopup m_updateCtrl = null;
         private static List<string> m_excluded = new List<string>() { ".cr", ".crsp", ".crsq", ".crps", ".crst", ".crsl", ".crvu" }; // File types we don't want to override when updating, like personal user settings.
 
         public static bool IsUpdating()
@@ -46,16 +46,16 @@ namespace CodeRedLauncher
                 switch (status)
                 {
                     case UpdatorStatus.DownloadingModule:
-                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.DownloadingModule;
+                        m_updateCtrl.View = Controls.UpdateViews.DownloadingModule;
                         break;
                     case UpdatorStatus.DownloadingLauncher:
-                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.DownloadingLauncher;
+                        m_updateCtrl.View = Controls.UpdateViews.DownloadingLauncher;
                         break;
                     case UpdatorStatus.InstallingModule:
-                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.InstallingModule;
+                        m_updateCtrl.View = Controls.UpdateViews.InstallingModule;
                         break;
                     case UpdatorStatus.InstallingLauncher:
-                        m_updateCtrl.UpdateType = Controls.CRUpdate.UpdateLayouts.InstallingLauncher;
+                        m_updateCtrl.View = Controls.UpdateViews.InstallingLauncher;
                         break;
                     default:
                         break;
@@ -375,7 +375,7 @@ namespace CodeRedLauncher
             return await InstallLauncher(true);
         }
 
-        public static async Task<Result> InstallUpdates(Controls.CRUpdate updateCtrl)
+        public static async Task<Result> InstallUpdates(Controls.CRUpdatePopup updateCtrl)
         {
             m_updateCtrl = updateCtrl;
             Result result = new Result();

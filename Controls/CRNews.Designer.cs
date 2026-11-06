@@ -28,68 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CategoryLbl = new CRLabel();
-            AuthorLbl = new CRLabel();
-            CalendarLbl = new CRLabel();
             ThumbnailImg = new System.Windows.Forms.PictureBox();
-            NextBtn = new System.Windows.Forms.PictureBox();
-            PreviousBtn = new System.Windows.Forms.PictureBox();
+            NextImg = new System.Windows.Forms.PictureBox();
+            PreviousImg = new System.Windows.Forms.PictureBox();
             TitleLbl = new System.Windows.Forms.Label();
+            DateIconLbl = new CRIconLabel();
+            CategoryIconLbl = new CRIconLabel();
+            AuthorIconLbl = new CRIconLabel();
             ((System.ComponentModel.ISupportInitialize)ThumbnailImg).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NextBtn).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)PreviousBtn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NextImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PreviousImg).BeginInit();
             SuspendLayout();
-            // 
-            // CategoryLbl
-            // 
-            CategoryLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
-            CategoryLbl.ControlType = ControlTheme.Dark;
-            CategoryLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            CategoryLbl.DisplayText = "Loading...";
-            CategoryLbl.IconBlack = Properties.Resources.Tag_Black;
-            CategoryLbl.IconBlue = Properties.Resources.Tag_Blue;
-            CategoryLbl.IconPurple = Properties.Resources.Tag_Purple;
-            CategoryLbl.IconRed = Properties.Resources.Tag_Red;
-            CategoryLbl.IconType = IconTheme.Red;
-            CategoryLbl.IconWhite = Properties.Resources.Tag_White;
-            CategoryLbl.Location = new System.Drawing.Point(565, 0);
-            CategoryLbl.Name = "CategoryLbl";
-            CategoryLbl.Size = new System.Drawing.Size(265, 35);
-            CategoryLbl.TabIndex = 13;
-            // 
-            // AuthorLbl
-            // 
-            AuthorLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
-            AuthorLbl.ControlType = ControlTheme.Dark;
-            AuthorLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            AuthorLbl.DisplayText = "Loading...";
-            AuthorLbl.IconBlack = Properties.Resources.Account_Black;
-            AuthorLbl.IconBlue = Properties.Resources.Account_Blue;
-            AuthorLbl.IconPurple = Properties.Resources.Account_Purple;
-            AuthorLbl.IconRed = Properties.Resources.Account_Red;
-            AuthorLbl.IconType = IconTheme.Red;
-            AuthorLbl.IconWhite = Properties.Resources.Account_White;
-            AuthorLbl.Location = new System.Drawing.Point(300, 0);
-            AuthorLbl.Name = "AuthorLbl";
-            AuthorLbl.Size = new System.Drawing.Size(265, 35);
-            AuthorLbl.TabIndex = 12;
-            // 
-            // CalendarLbl
-            // 
-            CalendarLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
-            CalendarLbl.ControlType = ControlTheme.Dark;
-            CalendarLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            CalendarLbl.DisplayText = "Loading...";
-            CalendarLbl.IconBlack = Properties.Resources.Calendar_Black;
-            CalendarLbl.IconBlue = Properties.Resources.Calendar_Blue;
-            CalendarLbl.IconPurple = Properties.Resources.Calendar_Purple;
-            CalendarLbl.IconRed = Properties.Resources.Calendar_Red;
-            CalendarLbl.IconType = IconTheme.Red;
-            CalendarLbl.IconWhite = Properties.Resources.Calendar_White;
-            CalendarLbl.Location = new System.Drawing.Point(35, 0);
-            CalendarLbl.Name = "CalendarLbl";
-            CalendarLbl.Size = new System.Drawing.Size(265, 35);
-            CalendarLbl.TabIndex = 11;
             // 
             // ThumbnailImg
             // 
@@ -105,37 +54,36 @@
             ThumbnailImg.Click += ThumbnailImg_Click;
             ThumbnailImg.DoubleClick += ThumbnailImg_DoubleClick;
             // 
-            // NextBtn
+            // NextImg
             // 
-            NextBtn.BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
-            NextBtn.BackgroundImage = Properties.Resources.Right_Red;
-            NextBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            NextBtn.Dock = System.Windows.Forms.DockStyle.Right;
-            NextBtn.Location = new System.Drawing.Point(830, 0);
-            NextBtn.Name = "NextBtn";
-            NextBtn.Size = new System.Drawing.Size(35, 550);
-            NextBtn.TabIndex = 2;
-            NextBtn.TabStop = false;
-            NextBtn.Click += NextBtn_Click;
-            NextBtn.DoubleClick += NextBtn_DoubleClick;
+            NextImg.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            NextImg.BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
+            NextImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            NextImg.Location = new System.Drawing.Point(830, 0);
+            NextImg.Name = "NextImg";
+            NextImg.Size = new System.Drawing.Size(35, 550);
+            NextImg.TabIndex = 2;
+            NextImg.TabStop = false;
+            NextImg.Click += NextImg_Click;
+            NextImg.DoubleClick += NexImg_DoubleClick;
             // 
-            // PreviousBtn
+            // PreviousImg
             // 
-            PreviousBtn.BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
-            PreviousBtn.BackgroundImage = Properties.Resources.Left_Red;
-            PreviousBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            PreviousBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            PreviousBtn.Location = new System.Drawing.Point(0, 0);
-            PreviousBtn.Name = "PreviousBtn";
-            PreviousBtn.Size = new System.Drawing.Size(35, 550);
-            PreviousBtn.TabIndex = 0;
-            PreviousBtn.TabStop = false;
-            PreviousBtn.Click += PreviousBtn_Click;
-            PreviousBtn.DoubleClick += PreviousBtn_DoubleClick;
+            PreviousImg.BackColor = System.Drawing.Color.FromArgb(42, 45, 49);
+            PreviousImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            PreviousImg.Dock = System.Windows.Forms.DockStyle.Left;
+            PreviousImg.Location = new System.Drawing.Point(0, 0);
+            PreviousImg.Name = "PreviousImg";
+            PreviousImg.Size = new System.Drawing.Size(35, 550);
+            PreviousImg.TabIndex = 0;
+            PreviousImg.TabStop = false;
+            PreviousImg.Click += PreviousBtn_Click;
+            PreviousImg.DoubleClick += PreviousBtn_DoubleClick;
             // 
             // TitleLbl
             // 
-            TitleLbl.BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            TitleLbl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            TitleLbl.BackColor = System.Drawing.Color.Transparent;
             TitleLbl.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
             TitleLbl.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             TitleLbl.Location = new System.Drawing.Point(35, 490);
@@ -145,34 +93,76 @@
             TitleLbl.Text = "Loading...";
             TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // DateIconLbl
+            // 
+            DateIconLbl.BackColor = System.Drawing.Color.Transparent;
+            DateIconLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            DateIconLbl.DisplayText = "Loading...";
+            DateIconLbl.IconDark = Properties.Resources.Calendar_Red;
+            DateIconLbl.IconLight = Properties.Resources.Calendar_Purple;
+            DateIconLbl.IconSize = IconSizes.Small;
+            DateIconLbl.Location = new System.Drawing.Point(35, 0);
+            DateIconLbl.Name = "DateIconLbl";
+            DateIconLbl.Size = new System.Drawing.Size(265, 35);
+            DateIconLbl.TabIndex = 19;
+            DateIconLbl.Theme = ControlTheme.Dark;
+            // 
+            // CategoryIconLbl
+            // 
+            CategoryIconLbl.BackColor = System.Drawing.Color.Transparent;
+            CategoryIconLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            CategoryIconLbl.DisplayText = "Loading...";
+            CategoryIconLbl.IconDark = Properties.Resources.Tag_Red;
+            CategoryIconLbl.IconLight = Properties.Resources.Tag_Purple;
+            CategoryIconLbl.IconSize = IconSizes.Small;
+            CategoryIconLbl.Location = new System.Drawing.Point(300, 0);
+            CategoryIconLbl.Name = "CategoryIconLbl";
+            CategoryIconLbl.Size = new System.Drawing.Size(265, 35);
+            CategoryIconLbl.TabIndex = 20;
+            CategoryIconLbl.Theme = ControlTheme.Dark;
+            // 
+            // AuthorIconLbl
+            // 
+            AuthorIconLbl.BackColor = System.Drawing.Color.Transparent;
+            AuthorIconLbl.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            AuthorIconLbl.DisplayText = "Loading...";
+            AuthorIconLbl.IconDark = Properties.Resources.Account_Red;
+            AuthorIconLbl.IconLight = Properties.Resources.Account_Purple;
+            AuthorIconLbl.IconSize = IconSizes.Small;
+            AuthorIconLbl.Location = new System.Drawing.Point(565, 0);
+            AuthorIconLbl.Name = "AuthorIconLbl";
+            AuthorIconLbl.Size = new System.Drawing.Size(265, 35);
+            AuthorIconLbl.TabIndex = 21;
+            AuthorIconLbl.Theme = ControlTheme.Dark;
+            // 
             // CRNews
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(50, 51, 56);
+            Controls.Add(AuthorIconLbl);
+            Controls.Add(CategoryIconLbl);
+            Controls.Add(DateIconLbl);
             Controls.Add(TitleLbl);
             Controls.Add(ThumbnailImg);
-            Controls.Add(AuthorLbl);
-            Controls.Add(CategoryLbl);
-            Controls.Add(PreviousBtn);
-            Controls.Add(NextBtn);
-            Controls.Add(CalendarLbl);
+            Controls.Add(PreviousImg);
+            Controls.Add(NextImg);
             DoubleBuffered = true;
             Name = "CRNews";
             Size = new System.Drawing.Size(865, 550);
             ((System.ComponentModel.ISupportInitialize)ThumbnailImg).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NextBtn).EndInit();
-            ((System.ComponentModel.ISupportInitialize)PreviousBtn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NextImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PreviousImg).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private System.Windows.Forms.PictureBox ThumbnailImg;
-        private System.Windows.Forms.PictureBox NextBtn;
-        private System.Windows.Forms.PictureBox PreviousBtn;
-        private CRLabel CalendarLbl;
-        private CRLabel AuthorLbl;
-        private CRLabel CategoryLbl;
+        private System.Windows.Forms.PictureBox NextImg;
+        private System.Windows.Forms.PictureBox PreviousImg;
         private System.Windows.Forms.Label TitleLbl;
+        private CRIconLabel DateIconLbl;
+        private CRIconLabel CategoryIconLbl;
+        private CRIconLabel AuthorIconLbl;
     }
 }

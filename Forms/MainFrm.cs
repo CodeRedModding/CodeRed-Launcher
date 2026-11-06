@@ -1,13 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using CodeRedLauncher.Controls;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Windows.Forms;
+using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using CodeRedLauncher.Controls;
-using System.Drawing;
+using System.Windows.Forms;
 
 namespace CodeRedLauncher
 {
@@ -87,7 +86,7 @@ namespace CodeRedLauncher
             if (Updater.IsOutdated())
             {
                 Logger.Write("(ManualInjectBtn) Prevented injection, updater returned out of date!");
-                ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
+                ProcessCtrl.View = ProcessViews.Outdated;
                 InjectTmr.Stop();
                 return;
             }
@@ -142,7 +141,6 @@ namespace CodeRedLauncher
         private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs e)
         {
             UserConfig.PreventInjection_EAC.SetValue(PreventInjectionBx.BoxChecked).Save();
-            ProcessStatusCtrl.FormatType();
         }
 
         private void RunOnStartupBx_OnCheckChanged(object sender, EventArgs e)
@@ -188,14 +186,12 @@ namespace CodeRedLauncher
             {
                 UserConfig.InjectionType.SetValue(InjectionTypes.Manual.ToString()).Save();
 
-                if (LibraryManager.AnyProcessRunning() && (ProcessStatusCtrl.DisplayType != StatusTypes.Process_Manual))
+                if (LibraryManager.AnyProcessRunning())
                 {
                     if (InjectTmr.Enabled)
                     {
                         InjectTmr.Stop();
                     }
-
-                    ProcessStatusCtrl.DisplayType = StatusTypes.Process_Loading;
                 }
             }
             else
@@ -394,18 +390,6 @@ namespace CodeRedLauncher
             CheckForUpdates(true, true);
         }
 
-        private void TermsBtn_OnButtonClick(object sender, EventArgs e)
-        {
-            TermsPopup.DisplayType = CRPolicy.PolicyView.View;
-            TermsPopup.ShowPopup();
-        }
-
-        private void PolicyBtn_OnButtonClick(object sender, EventArgs e)
-        {
-            PolicyPopup.DisplayType = CRPolicy.PolicyView.View;
-            PolicyPopup.ShowPopup();
-        }
-
         private void EasterEggImg_Click(object sender, EventArgs e)
         {
             if (EasterEggImg.BackgroundImage == null)
@@ -415,7 +399,7 @@ namespace CodeRedLauncher
             else
             {
                 EasterEggImg.BackgroundImage = null;
-                Process.Start(new ProcessStartInfo("https://www.youtube.com/watch?v=-vNLePwhc7w") { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo("https://www.youtube.com/watch?v=HU5Qq97cxvU") { UseShellExecute = true });
             }
         }
 
@@ -423,7 +407,7 @@ namespace CodeRedLauncher
         {
             if (LibraryManager.AnyProcessRunning())
             {
-                if ((ProcessStatusCtrl.DisplayType != StatusTypes.Process_Injecting) && (ProcessStatusCtrl.DisplayType != StatusTypes.Process_Manual))
+                if ((ProcessCtrl.View != ProcessViews.Injecting) && (ProcessCtrl.View != ProcessViews.Manual))
                 {
                     Logger.Write("(ProcessTmr) Process is running!");
 
@@ -437,17 +421,17 @@ namespace CodeRedLauncher
                     if (!Updater.IsOutdated())
                     {
                         CheckForUpdates(true, false);
-                        ProcessStatusCtrl.DisplayType = StatusTypes.Process_Running;
+                        ProcessCtrl.View = ProcessViews.Running;
                     }
                     else
                     {
-                        ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
+                        ProcessCtrl.View = ProcessViews.Outdated;
                     }
 
                     if (Updater.IsOutdated())
                     {
                         Logger.Write("(ProcessTmr) Prevented injection, updater returned out of date!");
-                        ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
+                        ProcessCtrl.View = ProcessViews.Outdated;
                         InjectTmr.Stop();
                     }
                     else
@@ -456,16 +440,14 @@ namespace CodeRedLauncher
                         {
                             ManualInjectBtn.BringToFront();
                             ManualInjectBtn.Visible = true;
-
-                            ProcessStatusCtrl.DisplayType = StatusTypes.Process_Manual;
+                            ProcessCtrl.View = ProcessViews.Manual;
                             InjectTmr.Stop();
                         }
                         else
                         {
                             ManualInjectBtn.SendToBack();
                             ManualInjectBtn.Visible = false;
-
-                            ProcessStatusCtrl.DisplayType = StatusTypes.Process_Injecting;
+                            ProcessCtrl.View = ProcessViews.Injecting;
                             InjectTmr.Start();
                         }
                     }
@@ -476,8 +458,7 @@ namespace CodeRedLauncher
                 InjectTmr.Stop();
                 ManualInjectBtn.SendToBack();
                 ManualInjectBtn.Visible = false;
-
-                ProcessStatusCtrl.DisplayType = StatusTypes.Process_Idle;
+                ProcessCtrl.View = ProcessViews.Idle;
             }
         }
 
@@ -488,7 +469,7 @@ namespace CodeRedLauncher
                 if (Updater.IsOutdated())
                 {
                     Logger.Write("(InjectTmr) Prevented injection, updater returned out of date!");
-                    ProcessStatusCtrl.DisplayType = StatusTypes.Process_Outdated;
+                    ProcessCtrl.View = ProcessViews.Outdated;
                     InjectTmr.Stop();
                     return;
                 }
@@ -503,7 +484,7 @@ namespace CodeRedLauncher
 
             if (UserConfig.GetInjectionType() == InjectionTypes.Manual)
             {
-                ProcessStatusCtrl.DisplayType = StatusTypes.Process_Manual;
+                ProcessCtrl.View = ProcessViews.Manual;
                 ManualInjectBtn.Visible = true;
                 return;
             }
@@ -555,53 +536,53 @@ namespace CodeRedLauncher
             }
         }
 
-        void ProcessInjectionResult(InjectionResults result)
+        void ProcessInjectionResult(InjectionResults injectionResult)
         {
-            ProcessStatusCtrl.ResultType = result;
+            ProcessCtrl.Result = injectionResult;
 
-            switch (result)
+            switch (injectionResult)
             {
                 case InjectionResults.UnhandledException:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Error);
                     break;
                 case InjectionResults.LibraryNotFound:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Error);
                     break;
                 case InjectionResults.ProcessNotFound:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Warning);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Warning);
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.HandleNotFound:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Error);
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.KernelNotFound:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Fatal);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Fatal);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.LoadLibraryNotFound:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Fatal);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Fatal);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.AllocateFail:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.WriteFail:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.ThreadFail:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText, LogLevel.Error);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText, LogLevel.Error);
                     ProcessTmr.Stop();
                     InjectTmr.Stop();
                     break;
                 case InjectionResults.Success:
-                    Logger.Write("(ProcessInjectionResult) " + ProcessStatusCtrl.DescriptionText);
+                    Logger.Write("(ProcessInjectionResult) " + ProcessCtrl.DescriptionText);
                     break;
                 default:
                     break;
@@ -643,8 +624,6 @@ namespace CodeRedLauncher
             TitleBar.BringToFront();
 
             DuplicatePopup.Bind(this, TitleBar);
-            PolicyPopup.Bind(this, TitleBar);
-            TermsPopup.Bind(this, TitleBar);
             InstallPopup.Bind(this, TitleBar);
             PathPopup.Bind(this, TitleBar);
             OfflinePopup.Bind(this, TitleBar);
@@ -658,29 +637,11 @@ namespace CodeRedLauncher
             TabManager.BindTab(Tabs.Exit, ExitTabBtn, null);
             TabManager.SelectTab(Tabs.Dashboard);
 
-            TermsBtn.Visible = Assembly.UsingTerms();
-            PolicyBtn.Visible = Assembly.UsingPrivacy();
             UpdateTheme();
         }
 
         private async void StartupRoutine(bool bInvalidate = false)
         {
-            if (!Assembly.UsingTerms() && !Assembly.UsingPrivacy())
-            {
-                Point updateLoc = CheckUpdatesBtn.Location;
-                updateLoc.Y += 22;
-                CheckUpdatesBtn.Location = updateLoc;
-            }
-            else if (Assembly.UsingTerms() && !Assembly.UsingPrivacy())
-            {
-                TermsBtn.Width = CheckUpdatesBtn.Width;
-            }
-            else if (Assembly.UsingPrivacy() && !Assembly.UsingTerms())
-            {
-                PolicyBtn.Width = CheckUpdatesBtn.Width;
-                PolicyBtn.Location = TermsBtn.Location;
-            }
-
             Architecture.Path tempFolder = (new Architecture.Path(Path.GetTempPath()) / "CodeRedLauncher");
 
             if (tempFolder.Exists())
@@ -689,69 +650,8 @@ namespace CodeRedLauncher
                 Directory.Delete(tempFolder.GetPath(), true); // This is to cleanup anything left over by the auto updater program.
             }
 
-            bool canContinue = true;
             UserConfig.CheckInitialized();
-
-            if (Assembly.UsingPrivacy())
-            {
-                PolicyPopup.DescriptionText = await RemoteStorage.GetPrivacyPolicy();
-                string policyHash = UserConfig.HashMD5(PolicyPopup.DescriptionText);
-
-                if ((policyHash != UserConfig.GetPrivacyHash()) || string.IsNullOrEmpty(PolicyPopup.DescriptionText))
-                {
-                    UserConfig.PrivacyHash.SetValue(policyHash);
-                    UserConfig.PrivacyPolicy.SetValue(false);
-                }
-
-                if (!UserConfig.AgreedToPolicy())
-                {
-                    if (string.IsNullOrEmpty(PolicyPopup.DescriptionText))
-                    {
-                        OfflinePopup.OfflineType = CROffline.OfflineLayouts.Installer;
-                        OfflinePopup.ShowPopup();
-                    }
-                    else
-                    {
-                        PolicyPopup.DisplayType = CRPolicy.PolicyView.Register;
-                        PolicyPopup.ShowPopup();
-                    }
-
-                    canContinue = false;
-                }
-            }
-
-            if (Assembly.UsingTerms())
-            {
-                TermsPopup.DescriptionText = await RemoteStorage.GetTermsOfUse();
-                string termsHash = UserConfig.HashMD5(TermsPopup.DescriptionText);
-
-                if ((termsHash != UserConfig.GetTermsHash()) || string.IsNullOrEmpty(TermsPopup.DescriptionText))
-                {
-                    UserConfig.TermsHash.SetValue(termsHash);
-                    UserConfig.TermsOfUse.SetValue(false);
-                }
-
-                if (!UserConfig.AgreedToTerms())
-                {
-                    if (string.IsNullOrEmpty(TermsPopup.DescriptionText))
-                    {
-                        OfflinePopup.OfflineType = CROffline.OfflineLayouts.Installer;
-                        OfflinePopup.ShowPopup();
-                    }
-                    else
-                    {
-                        TermsPopup.DisplayType = CRPolicy.PolicyView.Register;
-                        TermsPopup.ShowPopup();
-                    }
-
-                    canContinue = false;
-                }
-            }
-
-            if (canContinue)
-            {
-                ContinuePolicy(false);
-            }
+            ContinuePolicy(false);
         }
 
         private async void ContinuePolicy(bool bInvalidate)
@@ -764,7 +664,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    OfflinePopup.OfflineType = CROffline.OfflineLayouts.Installer;
+                    OfflinePopup.View = OfflineViews.Installer;
                     OfflinePopup.ShowPopup();
                 }
 
@@ -785,7 +685,7 @@ namespace CodeRedLauncher
                 {
                     if (await Downloaders.WebsiteOnline(RemoteStorage.GetRemoteURL()) == false)
                     {
-                        OfflinePopup.OfflineType = CROffline.OfflineLayouts.Default;
+                        OfflinePopup.View = OfflineViews.Default;
                         OfflinePopup.ShowPopup();
                     }
                     else
@@ -795,7 +695,7 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    OfflinePopup.OfflineType = CROffline.OfflineLayouts.Default;
+                    OfflinePopup.View = OfflineViews.Default;
                     OfflinePopup.ShowPopup();
                 }
             }
@@ -831,14 +731,14 @@ namespace CodeRedLauncher
                 }
                 else
                 {
-                    UpdateStatusCtrl.DisplayType = StatusTypes.Version_Idle;
+                    VersionCtrl.View = VersionViews.Idle;
                     RetrieversToInterface();
                     NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                 }
             }
             else
             {
-                ChangelogCtrl.DisplayType = ChangelogViews.Offline;
+                ChangelogCtrl.View = ChangelogViews.Offline;
             }
 
             if (UserConfig.ShouldMinimizeOnStartup())
@@ -855,17 +755,17 @@ namespace CodeRedLauncher
             {
                 ChangelogCtrl.ModuleText = await RemoteStorage.GetModuleChangelog();
                 ChangelogCtrl.LauncherText = await RemoteStorage.GetLauncherChangelog();
-                DiscordInfoCtrl.DisplayDescription = await RemoteStorage.GetDiscordUrl();
-                DonateInfoCtrl.DisplayDescription = await RemoteStorage.GetKofiUrl();
+                DiscordInfoCtrl.DescriptionText = await RemoteStorage.GetDiscordUrl();
+                DonateInfoCtrl.DescriptionText = await RemoteStorage.GetKofiUrl();
 
-                if (ChangelogCtrl.DisplayType == ChangelogViews.Offline)
+                if (ChangelogCtrl.View == ChangelogViews.Offline)
                 {
-                    ChangelogCtrl.DisplayType = ChangelogViews.Module;
+                    ChangelogCtrl.View = ChangelogViews.Module;
                 }
             }
             else
             {
-                ChangelogCtrl.DisplayType = ChangelogViews.Offline;
+                ChangelogCtrl.View = ChangelogViews.Offline;
             }
         }
 
@@ -896,11 +796,11 @@ namespace CodeRedLauncher
             if (LocalStorage.CheckInitialized())
             {
                 InstallPathBx.DisplayText = LocalStorage.GetModulePath().GetPath();
-                LauncherInfoCtrl.DisplayDescription = Assembly.GetVersion();
-                ModuleInfoCtrl.DisplayDescription = LocalStorage.GetModuleVersion();
-                PsyonixInfoCtrl.DisplayDescription = LocalStorage.GetPsyonixVersion();
-                BuildInfoCtrl.DisplayDescription = LocalStorage.GetNetBuild().ToString();
-                PlatformInfoCtrl.DisplayDescription = LocalStorage.GetPlatformString(false);
+                LauncherInfoCtrl.DescriptionText = Assembly.GetVersion();
+                ModuleInfoCtrl.DescriptionText = LocalStorage.GetModuleVersion();
+                PsyonixInfoCtrl.DescriptionText = LocalStorage.GetPsyonixVersion();
+                BuildInfoCtrl.DescriptionText = LocalStorage.GetNetBuild().ToString();
+                PlatformInfoCtrl.DescriptionText = LocalStorage.GetPlatformString(false);
                 CreditsLbl.Text = "CodeRed was created by ItsBrank, but its creation would not have been possible without the inspiration of the following people: ";
                 CreditsLbl.Text += await RemoteStorage.GetCredits();
             }
@@ -910,78 +810,78 @@ namespace CodeRedLauncher
         {
             bool lightMode = LightModeBx.BoxChecked;
             ControlTheme control = (lightMode ? ControlTheme.Light : ControlTheme.Dark);
-            IconTheme icon = (lightMode ? IconTheme.Purple : IconTheme.Red);
-            IconTheme iconAlt = IconTheme.White;
 
             // Main
             {
                 this.BackColor = (lightMode ? GPalette.DarkGrey : GPalette.PureBlack);
-                TabManager.SetTheme(control, icon);
-                TitleBar.ControlType = control;
+                TabManager.Theme = control;
+                TitleBar.Theme = control;
                 TabPnl.BackColor = (lightMode ? GPalette.White : GPalette.LightBlack);
-                DuplicatePopup.SetTheme(control, iconAlt);
-                PolicyPopup.SetTheme(control, iconAlt);
-                TermsPopup.SetTheme(control, iconAlt);
-                InstallPopup.SetTheme(control, iconAlt);
-                PathPopup.SetTheme(control, iconAlt);
-                OfflinePopup.SetTheme(control, iconAlt);
-                UpdatePopup.SetTheme(control, iconAlt);
+                DuplicatePopup.Theme = control;
+                InstallPopup.Theme = control;
+                PathPopup.Theme = control;
+                OfflinePopup.Theme = control;
+                UpdatePopup.Theme = control;
             }
 
             // Dashboard
             {
-                DashboardArtOne.BackgroundImage = (lightMode ? Properties.Resources.TL1_Light : Properties.Resources.TL1_Dark);
-                DashboardArtTwo.BackgroundImage = (lightMode ? Properties.Resources.BR1_Light : Properties.Resources.BR1_Dark);
-                ProcessStatusCtrl.SetTheme(control, icon);
-                UpdateStatusCtrl.SetTheme(control, icon);
-                ChangelogCtrl.SetTheme(control, icon);
-                ManualInjectBtn.SetTheme(control, iconAlt);
+                DashboardArtOne.BackgroundImage = (lightMode ? Properties.Resources.TL0_Purple : Properties.Resources.TL0_Red);
+                DashboardArtTwo.BackgroundImage = (lightMode ? Properties.Resources.BR0_Purple : Properties.Resources.BR0_Red);
+                ProcessCtrl.Theme = control;
+                VersionCtrl.Theme = control;
+                ChangelogCtrl.Theme = control;
+                ManualInjectBtn.Theme = control;
             }
 
             // News
             {
                 NewsArtOne.BackgroundImage = (lightMode ? Properties.Resources.TL2_Light : Properties.Resources.TL2_Dark);
-                NewsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.TR2_Light : Properties.Resources.TR2_Dark);
-                NewsCtrl.SetTheme(control, icon);
+                NewsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.TR0_Purple : Properties.Resources.TR0_Red);
+                NewsCtrl.Theme = control;
             }
 
             // Settings
             {
                 SettingsArtOne.BackgroundImage = (lightMode ? Properties.Resources.TR3_Light : Properties.Resources.TR3_Dark);
                 SettingsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.BR3_Light : Properties.Resources.BR3_Dark);
-                AutoCheckUpdatesBx.SetTheme(control, icon);
-                AutoInstallBx.SetTheme(control, icon);
-                PreventInjectionBx.SetTheme(control, icon);
-                RunOnStartupBx.SetTheme(control, icon);
-                MinimizeOnStartupBx.SetTheme(control, icon);
-                HideWhenMinimizedBx.SetTheme(control, icon);
-                InjectAllInstancesBx.SetTheme(control, icon);
-                ManualInjectBx.SetTheme(control, icon);
-                LightModeBx.SetTheme(control, icon);
-                InjectionTimeoutLbl.SetTheme(control, icon);
-                InjectionTimeoutBx.ControlType = control;
-                InstallPathLbl.SetTheme(control, icon);
-                InstallPathBx.ControlType = control;
-                InstallPathBtn.SetTheme(control, iconAlt);
-                OpenFolderBtn.SetTheme(control, iconAlt);
-                ExportLogsBtn.SetTheme(control, iconAlt);
+                AutoCheckUpdatesBx.Theme = control;
+                AutoInstallBx.Theme = control;
+                PreventInjectionBx.Theme = control;
+                RunOnStartupBx.Theme = control;
+                MinimizeOnStartupBx.Theme = control;
+                HideWhenMinimizedBx.Theme = control;
+                InjectAllInstancesBx.Theme = control;
+                ManualInjectBx.Theme = control;
+                LightModeBx.Theme = control;
+                InjectionTimeoutLbl.Theme = control;
+                InjectionTimeoutBx.Theme = control;
+                InstallPathLbl.Theme = control;
+                InstallPathBx.Theme = control;
+                InstallPathBtn.Theme = control;
+                OpenFolderBtn.Theme = control;
+                ExportLogsBtn.Theme = control;
             }
 
             // About
             {
                 AboutArtOne.BackgroundImage = (lightMode ? Properties.Resources.TR4_Light : Properties.Resources.TR4_Dark);
-                LauncherInfoCtrl.SetTheme(control, icon);
-                ModuleInfoCtrl.SetTheme(control, icon);
-                PsyonixInfoCtrl.SetTheme(control, icon);
-                BuildInfoCtrl.SetTheme(control, icon);
-                PlatformInfoCtrl.SetTheme(control, icon);
-                WebsiteInfoCtrl.SetTheme(control, icon);
-                DiscordInfoCtrl.SetTheme(control, icon);
-                DonateInfoCtrl.SetTheme(control, icon);
-                RemixInfoCtrl.SetTheme(control, icon);
-                CheckUpdatesBtn.SetTheme(control, iconAlt);
-                PolicyBtn.SetTheme(control, iconAlt);
+                LauncherInfoCtrl.Theme = control;
+                ModuleInfoCtrl.Theme = control;
+                PsyonixInfoCtrl.Theme = control;
+                BuildInfoCtrl.Theme = control;
+                PlatformInfoCtrl.Theme = control;
+                WebsiteInfoCtrl.Theme = control;
+                DiscordInfoCtrl.Theme = control;
+                DonateInfoCtrl.Theme = control;
+                RemixInfoCtrl.Theme = control;
+                CheckUpdatesBtn.Theme = control;
                 CreditsLbl.ForeColor = (lightMode ? GPalette.DarkGrey : GPalette.LightGrey);
+
+                if (EasterEggImg.BackgroundImage != null)
+                {
+                    EasterEggImg.BackgroundImage = (UserConfig.ShouldUseLightMode() ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
+                }
             }
         }
 
@@ -993,8 +893,7 @@ namespace CodeRedLauncher
                 if (!UserConfig.OfflineMode.GetBoolValue() || bInvalidate)
                 {
                     Logger.Write("(CheckForUpdates) Checking for updates...");
-                    UpdateStatusCtrl.DisplayType = StatusTypes.Version_Checking;
-                    UpdateStatusCtrl.ViewType = StatusViews.One;
+                    VersionCtrl.View = VersionViews.Checking;
 
                     if (await RemoteStorage.CheckInitialized())
                     {
@@ -1011,8 +910,7 @@ namespace CodeRedLauncher
                         {
                             Logger.Write("(CheckForUpdates) CodeRed is out of date, no new module version has been released yet!");
                             Updater.OverrideModule();
-                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Unsafe;
-                            UpdateStatusCtrl.ViewType = StatusViews.Three;
+                            VersionCtrl.View = VersionViews.Unsafe;
 
                             // Every sixty seconds this timer automatically checks for updates.
 
@@ -1031,8 +929,7 @@ namespace CodeRedLauncher
 
                             if (!ignoreModule && moduleOutdated && launcherOutdated)
                             {
-                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Both;
-                                UpdateStatusCtrl.ViewType = StatusViews.Three;
+                                VersionCtrl.View = VersionViews.BothOutdated;
 
                                 if (LibraryManager.AnyProcessRunning())
                                 {
@@ -1040,21 +937,21 @@ namespace CodeRedLauncher
 
                                     if (processes.Count > 0 && LibraryManager.IsModuleLoaded(processes[0], true))
                                     {
-                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
+                                        UpdatePopup.View = UpdateViews.Running;
                                     }
                                     else
                                     {
-                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Both;
+                                        UpdatePopup.View = UpdateViews.Both;
                                     }
                                 }
                                 else
                                 {
-                                    UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Both;
+                                    UpdatePopup.View = UpdateViews.Both;
                                 }
 
                                 if (bShowPrompt)
                                 {
-                                    if (UserConfig.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                    if (UserConfig.ShouldAutoInstall() && (UpdatePopup.View != UpdateViews.Running))
                                     {
                                         UpdatePopup_ButtonClickAccept(null, null);
                                     }
@@ -1070,8 +967,7 @@ namespace CodeRedLauncher
                             }
                             else if (!ignoreModule && moduleOutdated)
                             {
-                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Module;
-                                UpdateStatusCtrl.ViewType = StatusViews.Three;
+                                VersionCtrl.View = VersionViews.ModuleOutdated;
 
                                 if (LibraryManager.AnyProcessRunning())
                                 {
@@ -1080,21 +976,21 @@ namespace CodeRedLauncher
                                     if ((processes.Count > 0) && LibraryManager.IsModuleLoaded(processes[0], true))
                                     {
                                         Logger.Write("(CheckForUpdates) Process found!");
-                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Running;
+                                        UpdatePopup.View = UpdateViews.Running;
                                     }
                                     else
                                     {
-                                        UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Module;
+                                        UpdatePopup.View = UpdateViews.Module;
                                     }
                                 }
                                 else
                                 {
-                                    UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Module;
+                                    UpdatePopup.View = UpdateViews.Module;
                                 }
 
                                 if (bShowPrompt)
                                 {
-                                    if (UserConfig.ShouldAutoInstall() && (UpdatePopup.UpdateType != CRUpdate.UpdateLayouts.Running))
+                                    if (UserConfig.ShouldAutoInstall() && (UpdatePopup.View != UpdateViews.Running))
                                     {
                                         UpdatePopup_ButtonClickAccept(null, null);
                                     }
@@ -1110,14 +1006,13 @@ namespace CodeRedLauncher
                             }
                             else if (launcherOutdated)
                             {
-                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Launcher;
-                                UpdateStatusCtrl.ViewType = StatusViews.Three;
+                                VersionCtrl.View = VersionViews.LauncherOutdated;
 
                                 // Doesn't matter if Rocket League is open or not when updating the launcher, so no need to check if any processes are running.
 
                                 if (bShowPrompt)
                                 {
-                                    UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Launcher;
+                                    UpdatePopup.View = UpdateViews.Launcher;
 
                                     if (UserConfig.ShouldAutoInstall())
                                     {
@@ -1135,8 +1030,7 @@ namespace CodeRedLauncher
                             }
                             else
                             {
-                                UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
-                                UpdateStatusCtrl.ViewType = StatusViews.Two;
+                                VersionCtrl.View = VersionViews.Safe;
 
                                 if (UserConfig.ShouldAutoInstall())
                                 {
@@ -1153,8 +1047,7 @@ namespace CodeRedLauncher
                         else
                         {
                             Logger.Write("(CheckForUpdates) No updates found!");
-                            UpdateStatusCtrl.ViewType = StatusViews.Two;
-                            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Safe;
+                            VersionCtrl.View = VersionViews.Safe;
                             NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
                         }
                     }
@@ -1215,14 +1108,14 @@ namespace CodeRedLauncher
         private void InstallPopup_ButtonClickAccept(object sender, EventArgs e)
         {
             InstallPopup.ButtonsEnabled = false;
-            InstallPopup.DisplayType = CRInstall.InstallLayouts.Downloading;
+            InstallPopup.View = InstallViews.Downloading;
             InstallCodeRed(false);
         }
 
         private void InstallPopup_ButtonClickDeny(object sender, EventArgs e)
         {
             InstallPopup.ButtonsEnabled = false;
-            InstallPopup.DisplayType = CRInstall.InstallLayouts.Downloading;
+            InstallPopup.View = InstallViews.Downloading;
             InstallCodeRed(true);
         }
 
@@ -1249,7 +1142,7 @@ namespace CodeRedLauncher
         {
             this.TopMost = false;
             UpdatePopup.ButtonsEnabled = false;
-            UpdateStatusCtrl.DisplayType = StatusTypes.Version_Downloading;
+            VersionCtrl.View = VersionViews.Downloading;
 
             RemoteStorage.Invalidate();
             await RemoteStorage.CheckInitialized();
@@ -1266,47 +1159,13 @@ namespace CodeRedLauncher
             }
             else if (installResult.HasFailReason())
             {
-                UpdatePopup.UpdateType = CRUpdate.UpdateLayouts.Fail;
+                UpdatePopup.View = UpdateViews.Fail;
             }
         }
 
         private async void UpdatePopup_ButtonClickDeny(object sender, EventArgs e)
         {
             NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
-        }
-
-        private void PolicyPopup_ButtonClickAccept(object sender, EventArgs e)
-        {
-            PolicyPopup.HidePopup();
-            UserConfig.PrivacyPolicy.SetValue(true);
-
-            if (!TermsPopup.Visible)
-            {
-                ContinuePolicy(false);
-            }
-        }
-
-        private void PolicyPopup_ButtonClickDeny(object sender, EventArgs e)
-        {
-            UserConfig.PrivacyPolicy.SetValue(false);
-            TitleBar_OnExit(null, null);
-        }
-
-        private void TermsPopup_ButtonClickAccept(object sender, EventArgs e)
-        {
-            TermsPopup.HidePopup();
-            UserConfig.TermsOfUse.SetValue(true);
-
-            if (!PolicyPopup.Visible)
-            {
-                ContinuePolicy(false);
-            }
-        }
-
-        private void TermsPopup_ButtonClickDeny(object sender, EventArgs e)
-        {
-            UserConfig.TermsOfUse.SetValue(false);
-            TitleBar_OnExit(null, null);
         }
     }
 }

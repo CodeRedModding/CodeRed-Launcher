@@ -7,114 +7,172 @@ namespace CodeRedLauncher.Controls
 {
     public partial class CRCheckbox : UserControl
     {
+        const IconTheme m_darkIcon = IconTheme.Red;
+        const IconTheme m_lightIcon = IconTheme.Purple;
         private IconStore m_icons = new IconStore();
-        private IconStore m_checks = new IconStore();
+        private IconStore m_uncheckedIcons = new IconStore();
+        private IconStore m_checkedIcons = new IconStore();
         private bool m_enabled = true;
         private bool m_checked = false;
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public ControlTheme ControlType
+        public bool IsDarkMode()
         {
-            get { return m_icons.Control; }
-            set { m_icons.Control = value; m_checks.Control = value; UpdateTheme(); }
+            return m_icons.IsDarkMode();
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public IconTheme IconType
+        public ControlTheme Theme
         {
-            get { return m_icons.Theme; }
-            set { m_icons.Theme = value; m_checks.Theme = value; UpdateTheme(); }
+            get
+            {
+                return m_icons.Theme;
+            }
+            set
+            {
+                m_icons.Theme = value;
+                m_icons.IconTheme = (IsDarkMode() ? m_darkIcon : m_lightIcon);
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image IconWhite
+        public Image IconDark
         {
-            get { return m_icons.GetIcon(IconTheme.White); }
-            set { m_icons.SetIcon(IconTheme.White, value); UpdateTheme(); }
+            get
+            {
+                return m_icons.GetIcon(m_darkIcon);
+            }
+            set
+            {
+                m_icons.SetIcon(m_darkIcon, value);
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image IconBlack
+        public Image IconLight
         {
-            get { return m_icons.GetIcon(IconTheme.Black); }
-            set { m_icons.SetIcon(IconTheme.Black, value); UpdateTheme(); }
+            get
+            {
+                return m_icons.GetIcon(m_lightIcon);
+            }
+            set
+            {
+                m_icons.SetIcon(m_lightIcon, value);
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image IconRed
+        public Image UncheckedDark
         {
-            get { return m_icons.GetIcon(IconTheme.Red); }
-            set { m_icons.SetIcon(IconTheme.Red, value); UpdateTheme(); }
+            get
+            {
+                return m_uncheckedIcons.GetIcon(m_darkIcon);
+            }
+            set
+            {
+                m_uncheckedIcons.SetIcon(m_darkIcon, value);
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image IconPurple
+        public Image UncheckedLight
         {
-            get { return m_icons.GetIcon(IconTheme.Purple); }
-            set { m_icons.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get
+            {
+                return m_uncheckedIcons.GetIcon(m_lightIcon);
+            }
+            set
+            {
+                m_uncheckedIcons.SetIcon(m_lightIcon, value);
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image IconBlue
+        public Image CheckedDark
         {
-            get { return m_icons.GetIcon(IconTheme.Blue); }
-            set { m_icons.SetIcon(IconTheme.Blue, value); UpdateTheme(); }
+            get
+            {
+                return m_checkedIcons.GetIcon(m_darkIcon);
+            }
+            set
+            {
+                m_checkedIcons.SetIcon(m_darkIcon, value);
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image UncheckWhite
+        public Image CheckedLight
         {
-            get { return m_checks.GetIcon(IconTheme.White); }
-            set { m_checks.SetIcon(IconTheme.White, value); UpdateTheme(); }
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image UncheckDark
-        {
-            get { return m_checks.GetIcon(IconTheme.Black); }
-            set { m_checks.SetIcon(IconTheme.Black, value); UpdateTheme(); }
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image CheckWhite
-        {
-            get { return m_checks.GetIcon(IconTheme.Red); }
-            set { m_checks.SetIcon(IconTheme.Red, value); UpdateTheme(); }
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Image CheckDark
-        {
-            get { return m_checks.GetIcon(IconTheme.Purple); }
-            set { m_checks.SetIcon(IconTheme.Purple, value); UpdateTheme(); }
+            get
+            {
+                return m_checkedIcons.GetIcon(m_lightIcon);
+            }
+            set
+            {
+                m_checkedIcons.SetIcon(m_lightIcon, value);
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font DisplayFont
         {
-            get { return TextLbl.Font; }
-            set { TextLbl.Font = value; UpdateTheme(); }
+            get
+            {
+                return TextLbl.Font;
+            }
+            set
+            {
+                TextLbl.Font = value;
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string DisplayText
         {
-            get { return TextLbl.Text; }
-            set { TextLbl.Text = value; UpdateTheme(); }
+            get
+            {
+                return TextLbl.Text;
+            }
+            set
+            {
+                TextLbl.Text = value;
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool BoxEnabled
         {
-            get { return m_enabled; }
-            set { m_enabled = value; UpdateTheme(); }
+            get
+            {
+                return m_enabled;
+            }
+            set
+            { 
+                m_enabled = value;
+                OnThemeUpdated();
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool BoxChecked
         {
-            get { return m_checked; }
-            set { m_checked = value; UpdateTheme(); }
+            get
+            {
+                return m_checked;
+            }
+            set
+            {
+                m_checked = value;
+                OnThemeUpdated();
+            }
         }
 
         public CRCheckbox()
@@ -122,89 +180,50 @@ namespace CodeRedLauncher.Controls
             InitializeComponent();
         }
 
-        public void SetTheme(ControlTheme control, IconTheme icon)
+        private void OnThemeUpdated()
         {
-            ControlType = control;
-            IconType = icon;
-        }
-
-        private void UpdateTheme()
-        {
-            // White = Unchecked White
-            // Black = Unchecked Dark
-            // Red = Checked White
-            // Purple = Checked Dark
-
-            if (BoxChecked)
-            {
-                if (ControlType == ControlTheme.Dark)
-                {
-                    CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.Red);
-                }
-                else if (ControlType == ControlTheme.Light)
-                {
-                    CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.Purple);
-                }
-            }
-            else if (ControlType == ControlTheme.Dark)
-            {
-                CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.White);
-            }
-            else if (ControlType == ControlTheme.Light)
-            {
-                CheckImg.BackgroundImage = m_checks.GetIcon(IconTheme.Black);
-            }
-
-            if (ControlType == ControlTheme.Dark)
-            {
-                TextLbl.ForeColor = GPalette.White;
-            }
-            else if (ControlType == ControlTheme.Light)
-            {
-                TextLbl.ForeColor = GPalette.Black;
-            }
-
-            IconImg.BackgroundImage = m_icons.GetThemeIcon();
+            m_uncheckedIcons.Theme = Theme;
+            m_uncheckedIcons.IconTheme = m_icons.IconTheme;
+            m_checkedIcons.Theme = Theme;
+            m_checkedIcons.IconTheme = m_icons.IconTheme;
+            TextLbl.ForeColor = (IsDarkMode() ? GPalette.White : GPalette.Black);
+            IconImg.BackgroundImage = m_icons.GetIcon();
+            CheckImg.BackgroundImage = (BoxChecked ? m_checkedIcons.GetIcon() : m_uncheckedIcons.GetIcon());
             Invalidate();
         }
 
-        public event EventHandler OnCheckChanged;
-        protected void CRButton_CheckChanged(EventArgs e)
+        public event EventHandler OnCheckChanged = null;
+        protected void CRButton_CheckChanged(EventArgs eventArgs)
         {
             if (BoxEnabled)
             {
                 BoxChecked = !BoxChecked;
-                OnCheckChanged?.Invoke(this, e);
+
+                if (OnCheckChanged != null)
+                {
+                    OnCheckChanged.Invoke(this, eventArgs);
+                }
             }
         }
 
-        private void CRCheckbox_SizeChanged(object sender, EventArgs e)
+        private void CheckImg_Click(object sender, EventArgs eventArgs)
         {
-            //IconImg.Width = IconImg.Height;
-            //CheckPnl.Width = CheckPnl.Height;
-            //CheckPnl.Location = new Point(((IconImg.Location.X + IconImg.Width) + 5), CheckPnl.Location.Y);
-            //TextLbl.Location = new Point(((CheckPnl.Location.X + CheckPnl.Width) + 5), TextLbl.Location.Y);
-            //Invalidate();
+            CRButton_CheckChanged(eventArgs);
         }
 
-        private void CheckImg_Click(object sender, EventArgs e)
+        private void CheckImg_DoubleClick(object sender, EventArgs eventArgs)
         {
-            CRButton_CheckChanged(e);
+            CRButton_CheckChanged(eventArgs);
         }
 
-        private void CheckImg_DoubleClick(object sender, EventArgs e)
+        private void TextLbl_Click(object sender, EventArgs eventArgs)
         {
-            CRButton_CheckChanged(e);
+            CRButton_CheckChanged(eventArgs);
         }
 
-        private void TextLbl_Click(object sender, EventArgs e)
+        private void TextLbl_DoubleClick(object sender, EventArgs eventArgs)
         {
-            CRButton_CheckChanged(e);
-        }
-
-        private void TextLbl_DoubleClick(object sender, EventArgs e)
-        {
-            CRButton_CheckChanged(e);
+            CRButton_CheckChanged(eventArgs);
         }
     }
 }

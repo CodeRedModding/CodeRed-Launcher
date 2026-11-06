@@ -13,13 +13,13 @@
     <Compile Update="Controls\CRCheckbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRInfo.cs">
+    <Compile Update="Controls\CRAboutInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRInstall.cs">
+    <Compile Update="Controls\CRInstallPopup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRLabel.cs">
+    <Compile Update="Controls\CRIconLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\CRNews.cs">
@@ -28,16 +28,13 @@
     <Compile Update="Controls\CRNumberbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CROffline.cs">
+    <Compile Update="Controls\CROfflinePopup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRPathing.cs">
+    <Compile Update="Controls\CRPathPopup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRPolicy.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\CRStatus.cs">
+    <Compile Update="Controls\CRProcessStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\CRTab.cs">
@@ -46,10 +43,10 @@
     <Compile Update="Controls\CRTextbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRTitle.cs">
+    <Compile Update="Controls\CRTitleBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\CRUpdate.cs">
+    <Compile Update="Controls\CRUpdatePopup.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Forms\MainFrm.cs">

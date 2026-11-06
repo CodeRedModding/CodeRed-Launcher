@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SelectedBox = new System.Windows.Forms.PictureBox();
+            ActiveImg = new System.Windows.Forms.PictureBox();
             TabImg = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)SelectedBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ActiveImg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TabImg).BeginInit();
             SuspendLayout();
             // 
-            // SelectedBox
+            // ActiveImg
             // 
-            SelectedBox.BackColor = System.Drawing.Color.FromArgb(239, 48, 36);
-            SelectedBox.Dock = System.Windows.Forms.DockStyle.Left;
-            SelectedBox.Location = new System.Drawing.Point(0, 0);
-            SelectedBox.Name = "SelectedBox";
-            SelectedBox.Size = new System.Drawing.Size(2, 50);
-            SelectedBox.TabIndex = 0;
-            SelectedBox.TabStop = false;
-            SelectedBox.Visible = false;
+            ActiveImg.BackColor = System.Drawing.Color.FromArgb(239, 48, 36);
+            ActiveImg.Dock = System.Windows.Forms.DockStyle.Left;
+            ActiveImg.Location = new System.Drawing.Point(0, 0);
+            ActiveImg.Name = "ActiveImg";
+            ActiveImg.Size = new System.Drawing.Size(2, 50);
+            ActiveImg.TabIndex = 0;
+            ActiveImg.TabStop = false;
+            ActiveImg.Visible = false;
             // 
             // TabImg
             // 
@@ -63,21 +63,21 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Transparent;
-            Controls.Add(SelectedBox);
+            Controls.Add(ActiveImg);
             Controls.Add(TabImg);
             DoubleBuffered = true;
             Name = "CRTab";
             Size = new System.Drawing.Size(60, 50);
             Click += CRTab_Click;
             DoubleClick += CRTab_DoubleClick;
-            ((System.ComponentModel.ISupportInitialize)SelectedBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ActiveImg).EndInit();
             ((System.ComponentModel.ISupportInitialize)TabImg).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox SelectedBox;
+        private System.Windows.Forms.PictureBox ActiveImg;
         private System.Windows.Forms.PictureBox TabImg;
     }
 }
