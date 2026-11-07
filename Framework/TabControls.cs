@@ -5,8 +5,9 @@ using System.Windows.Forms;
 
 namespace CodeRedLauncher
 {
-    public enum Tabs : byte
+    public enum TabIds : byte
     {
+        None,
         Dashboard,
         News,
         Settings,
@@ -18,9 +19,14 @@ namespace CodeRedLauncher
     public static class TabManager
     {
         private static ControlTheme m_theme = ControlTheme.Dark;
-        private static IconTheme m_icon = IconTheme.Red;
-        private static TabControl m_controlTab = null;
-        private static Dictionary<Tabs, Pair<CRTab, TabPage>> m_boundTabs = new Dictionary<Tabs, Pair<CRTab, TabPage>>();
+        private static TabIds m_activeTab = TabIds.None;
+        private static TabControl m_tabControl = null;
+        private static Dictionary<TabIds, Pair<CRTab, TabPage>> m_boundTabs = new Dictionary<TabIds, Pair<CRTab, TabPage>>();
+
+        public static bool IsDarkMode()
+        {
+            return (Theme == ControlTheme.Dark);
+        }
 
         public static ControlTheme Theme
         {
@@ -31,52 +37,44 @@ namespace CodeRedLauncher
             set
             {
                 m_theme = value;
-                m_icon = ((value == ControlTheme.Dark) ? IconTheme.Red : IconTheme.Purple);
                 OnThemeUpdated();
             }
         }
 
-        public static IconTheme IconType
+        public static void BindControl(TabControl tabControl)
         {
-            get
-            {
-                return m_icon;
-            }
-            set
-            {
-                m_icon = value;
-                OnThemeUpdated();
-            }
+            m_tabControl = tabControl;
         }
 
-        public static void BindControl(TabControl control)
-        {
-            m_controlTab = control;
-        }
-
-        public static void BindTab(Tabs tabId, CRTab tab, TabPage page)
+        public static void BindTab(TabIds tabId, CRTab tab, TabPage page)
         {
             m_boundTabs[tabId] = new Pair<CRTab, TabPage>(tab, page);
         }
 
-        private static void ResetTabs()
+        public static void SelectTab(TabIds tabId)
         {
-            foreach (var tab in m_boundTabs)
+            if ((m_activeTab != tabId) && (m_tabControl != null) && m_boundTabs.ContainsKey(tabId))
             {
-                if (tab.Value.First != null)
-                {
-                    tab.Value.First.TabActive = false;
-                }
+                DeselectAllTabs();
+                m_activeTab = tabId;
+                m_boundTabs[tabId].First.TabActive = true;
+                m_tabControl.SelectedTab = m_boundTabs[tabId].Second;
             }
         }
 
-        public static void SelectTab(Tabs tabId)
+        private static void DeselectAllTabs()
         {
-            if ((m_controlTab != null) && m_boundTabs.ContainsKey(tabId))
+            if (m_activeTab != TabIds.None)
             {
-                ResetTabs();
-                m_boundTabs[tabId].First.TabActive = true;
-                m_controlTab.SelectedTab = m_boundTabs[tabId].Second;
+                foreach (var tab in m_boundTabs)
+                {
+                    if (tab.Value.First != null)
+                    {
+                        tab.Value.First.TabActive = false;
+                    }
+                }
+
+                m_activeTab = TabIds.None;
             }
         }
 
@@ -84,14 +82,14 @@ namespace CodeRedLauncher
         {
             foreach (var tab in m_boundTabs)
             {
-                if (tab.Value.Second != null)
-                {
-                    tab.Value.Second.BackColor = ((Theme == ControlTheme.Dark) ? GPalette.Black : GPalette.GreyWhite);
-                }
-
                 if (tab.Value.First != null)
                 {
                     tab.Value.First.Theme = Theme;
+                }
+
+                if (tab.Value.Second != null)
+                {
+                    tab.Value.Second.BackColor = (IsDarkMode() ? GPalette.Black : GPalette.GreyWhite);
                 }
             }
         }

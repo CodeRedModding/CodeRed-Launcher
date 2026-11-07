@@ -57,6 +57,8 @@
             TabImg.TabStop = false;
             TabImg.Click += TabImg_Click;
             TabImg.DoubleClick += TabImg_DoubleClick;
+            TabImg.MouseEnter += TabImg_MouseEnter;
+            TabImg.MouseLeave += TabImg_MouseLeave;
             // 
             // CRTab
             // 
@@ -70,6 +72,8 @@
             Size = new System.Drawing.Size(60, 50);
             Click += CRTab_Click;
             DoubleClick += CRTab_DoubleClick;
+            MouseEnter += CRTab_MouseEnter;
+            MouseLeave += CRTab_MouseLeave;
             ((System.ComponentModel.ISupportInitialize)ActiveImg).EndInit();
             ((System.ComponentModel.ISupportInitialize)TabImg).EndInit();
             ResumeLayout(false);

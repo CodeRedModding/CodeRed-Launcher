@@ -124,7 +124,7 @@ namespace CodeRedLauncher.Controls
             if (TabActive)
             {
                 m_icons.IconTheme = (IsDarkMode() ? IconTheme.Red : IconTheme.Purple);
-                this.BackColor = (TabActive ? Color.FromArgb(10, ActiveImg.BackColor.R, ActiveImg.BackColor.G, ActiveImg.BackColor.B) : Color.Transparent);
+                this.BackColor = (IsDarkMode() ? GPalette.DarkGrey_Highlight : GPalette.GreyWhite_Highlight);
             }
             else
             {
@@ -138,6 +138,22 @@ namespace CodeRedLauncher.Controls
             Invalidate();
         }
 
+        private void OnMouseEnter()
+        {
+            if (!TabActive)
+            {
+                this.BackColor = (IsDarkMode() ? GPalette.LightBlack_Highlight : GPalette.White_Highlight);
+            }
+        }
+
+        private void OnMouseLeave()
+        {
+            if (!TabActive)
+            {
+                this.BackColor = Color.Transparent;
+            }
+        }
+
         public event EventHandler OnTabClick = null;
         protected void CRTab_OnClick(EventArgs eventArgs)
         {
@@ -149,14 +165,22 @@ namespace CodeRedLauncher.Controls
 
         private void TabImg_Click(object sender, EventArgs eventArgs)
         {
-            base.OnClick(eventArgs);
             CRTab_OnClick(eventArgs);
         }
 
         private void TabImg_DoubleClick(object sender, EventArgs eventArgs)
         {
-            base.OnClick(eventArgs);
             CRTab_OnClick(eventArgs);
+        }
+
+        private void TabImg_MouseEnter(object sender, EventArgs e)
+        {
+            OnMouseEnter();
+        }
+
+        private void TabImg_MouseLeave(object sender, EventArgs e)
+        {
+            OnMouseLeave();
         }
 
         private void CRTab_Click(object sender, EventArgs eventArgs)
@@ -167,6 +191,16 @@ namespace CodeRedLauncher.Controls
         private void CRTab_DoubleClick(object sender, EventArgs eventArgs)
         {
             CRTab_OnClick(eventArgs);
+        }
+
+        private void CRTab_MouseEnter(object sender, EventArgs e)
+        {
+            OnMouseEnter();
+        }
+
+        private void CRTab_MouseLeave(object sender, EventArgs e)
+        {
+            OnMouseLeave();
         }
     }
 }

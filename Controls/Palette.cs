@@ -115,6 +115,7 @@ namespace CodeRedLauncher.Controls
         public static readonly Color LightGrey = Color.FromArgb(128, 128, 130);                 // #808082
         public static readonly Color Grey_Highlight = Color.FromArgb(184, 184, 188);            // #b8b8bc
         public static readonly Color Grey = Color.FromArgb(194, 194, 198);                      // #c2c2c6
+        public static readonly Color GreyWhite_Highlight = Color.FromArgb(220, 219, 219);       // #dcdbdb
         public static readonly Color GreyWhite = Color.FromArgb(226, 224, 224);                 // #e2e0f4
         public static readonly Color White_Highlight = Color.FromArgb(237, 237, 237);           // #ededed
         public static readonly Color White = Color.FromArgb(242, 242, 242);                     // #f2f2f2

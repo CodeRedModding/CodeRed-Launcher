@@ -53,7 +53,7 @@
             TextLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             TextLbl.Location = new System.Drawing.Point(68, 0);
             TextLbl.Name = "TextLbl";
-            TextLbl.Size = new System.Drawing.Size(252, 37);
+            TextLbl.Size = new System.Drawing.Size(252, 36);
             TextLbl.TabIndex = 7;
             TextLbl.Text = "Checkbox";
             TextLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

@@ -346,6 +346,9 @@
   <data name="News_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\News_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TR1_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TR1_Purple1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Folders_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folders_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -559,6 +562,9 @@
   <data name="Changelog_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Changelog_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TR1_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TR1_Red2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Hourglass_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hourglass_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -618,5 +624,11 @@
   </data>
   <data name="Cupcake_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cupcake_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BR1_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BR1_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BR1_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BR1_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

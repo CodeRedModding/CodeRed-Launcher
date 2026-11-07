@@ -17,13 +17,13 @@ namespace CodeRedLauncher
             InitializeComponent();
         }
 
-        private void MainFrm_Load(object sender, EventArgs e)
+        private void MainFrm_Load(object sender, EventArgs eventArgs)
         {
             SetupUserInterface();
             CheckForInstances();
         }
 
-        private void MainFrm_Resize(object sender, EventArgs e)
+        private void MainFrm_Resize(object sender, EventArgs eventArgs)
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
@@ -31,7 +31,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void TitleBar_OnMinimized(object sender, EventArgs e)
+        private void TitleBar_OnMinimized(object sender, EventArgs eventArgs)
         {
             if (UserConfig.ShouldHideWhenMinimized())
             {
@@ -44,44 +44,44 @@ namespace CodeRedLauncher
             }
         }
 
-        private void TitleBar_OnExit(object sender, EventArgs e)
+        private void TitleBar_OnExit(object sender, EventArgs eventArgs)
         {
             this.TrayIcon.Visible = false;
             Environment.Exit(0);
         }
 
-        private void TrayIcon_Click(object sender, EventArgs e)
+        private void TrayIcon_Click(object sender, EventArgs eventArgs)
         {
             this.WindowState = FormWindowState.Normal;
             this.Show();
         }
 
-        private void DashboardTabBtn_OnTabClick(object sender, EventArgs e)
+        private void DashboardTabBtn_OnTabClick(object sender, EventArgs eventArgs)
         {
-            TabManager.SelectTab(Tabs.Dashboard);
+            TabManager.SelectTab(TabIds.Dashboard);
         }
 
-        private void NewsTabBtn_OnTabClick(object sender, EventArgs e)
+        private void NewsTabBtn_OnTabClick(object sender, EventArgs eventArgs)
         {
-            TabManager.SelectTab(Tabs.News);
+            TabManager.SelectTab(TabIds.News);
         }
 
-        private void SettingsTabBtn_OnTabClick(object sender, EventArgs e)
+        private void SettingsTabBtn_OnTabClick(object sender, EventArgs eventArgs)
         {
-            TabManager.SelectTab(Tabs.Settings);
+            TabManager.SelectTab(TabIds.Settings);
         }
 
-        private void AboutTabBtn_OnTabClick(object sender, EventArgs e)
+        private void AboutTabBtn_OnTabClick(object sender, EventArgs eventArgs)
         {
-            TabManager.SelectTab(Tabs.About);
+            TabManager.SelectTab(TabIds.About);
         }
 
-        private void ExitTabBtn_OnTabClick(object sender, EventArgs e)
+        private void ExitTabBtn_OnTabClick(object sender, EventArgs eventArgs)
         {
             Environment.Exit(0);
         }
 
-        private void ManualInjectBtn_OnButtonClick(object sender, EventArgs e)
+        private void ManualInjectBtn_OnButtonClick(object sender, EventArgs eventArgs)
         {
             if (Updater.IsOutdated())
             {
@@ -113,7 +113,7 @@ namespace CodeRedLauncher
 
                 if (results.Count > 0)
                 {
-                    Logger.Write("P(ManualInjectBtn) Process found!");
+                    Logger.Write("(ManualInjectBtn) Process found!");
 
                     foreach (InjectionResults result in results)
                     {
@@ -123,7 +123,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs e)
+        private void AutoCheckUpdatesBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.AutoCheckUpdates.SetValue(AutoCheckUpdatesBx.BoxChecked).Save();
 
@@ -133,17 +133,17 @@ namespace CodeRedLauncher
             }
         }
 
-        private void AutoInstallBx_OnCheckChanged(object sender, EventArgs e)
+        private void AutoInstallBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.AutoInstallUpdates.SetValue(AutoInstallBx.BoxChecked).Save();
         }
 
-        private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs e)
+        private void PreventInjectionBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.PreventInjection_EAC.SetValue(PreventInjectionBx.BoxChecked).Save();
         }
 
-        private void RunOnStartupBx_OnCheckChanged(object sender, EventArgs e)
+        private void RunOnStartupBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.RunOnStartup.SetValue(RunOnStartupBx.BoxChecked).Save();
             RegistryKey startKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -165,22 +165,22 @@ namespace CodeRedLauncher
             }
         }
 
-        private void MinimizeOnStartupBx_OnCheckChanged(object sender, EventArgs e)
+        private void MinimizeOnStartupBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.MinimizeOnStartup.SetValue(MinimizeOnStartupBx.BoxChecked).Save();
         }
 
-        private void HideWhenMinimizedBx_OnCheckChanged(object sender, EventArgs e)
+        private void HideWhenMinimizedBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.HideWhenMinimized.SetValue(HideWhenMinimizedBx.BoxChecked).Save();
         }
 
-        private void InjectAllInstancesBx_OnCheckChanged(object sender, EventArgs e)
+        private void InjectAllInstancesBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.InjectAllInstances.SetValue(InjectAllInstancesBx.BoxChecked).Save();
         }
 
-        private void ManualInjectBx_OnCheckChanged(object sender, EventArgs e)
+        private void ManualInjectBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             if (ManualInjectBx.BoxChecked)
             {
@@ -200,13 +200,13 @@ namespace CodeRedLauncher
             }
         }
 
-        private void LightModeBx_OnCheckChanged(object sender, EventArgs e)
+        private void LightModeBx_OnCheckChanged(object sender, EventArgs eventArgs)
         {
             UserConfig.LightMode.SetValue(LightModeBx.BoxChecked).Save();
             UpdateTheme();
         }
 
-        private void InjectionTimeoutBx_OnValueChanged(object sender, EventArgs e)
+        private void InjectionTimeoutBx_OnValueChanged(object sender, EventArgs eventArgs)
         {
             if (UserConfig.InjectionTimeoutRange.IsInRange(InjectionTimeoutBx.Value))
             {
@@ -215,7 +215,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void InstallPathBtn_OnButtonClick(object sender, EventArgs e)
+        private void InstallPathBtn_OnButtonClick(object sender, EventArgs eventArgs)
         {
             if (!LibraryManager.AnyProcessRunning())
             {
@@ -269,7 +269,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void OpenFolderBtn_OnButtonClick(object sender, EventArgs e)
+        private void OpenFolderBtn_OnButtonClick(object sender, EventArgs eventArgs)
         {
             Architecture.Path folderPath = LocalStorage.GetModulePath();
 
@@ -279,7 +279,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void ExportLogsBtn_OnButtonClick(object sender, EventArgs e)
+        private void ExportLogsBtn_OnButtonClick(object sender, EventArgs eventArgs)
         {
             Architecture.Path modulePath = LocalStorage.GetModulePath();
             Architecture.Path launchPath = (modulePath / "Settings" / "Launcher.cr");
@@ -384,13 +384,13 @@ namespace CodeRedLauncher
             }
         }
 
-        private void CheckUpdatesBtn_OnButtonClick(object sender, EventArgs e)
+        private void CheckUpdatesBtn_OnButtonClick(object sender, EventArgs eventArgs)
         {
             CheckUpdatesBtn.ButtonEnabled = false;
             CheckForUpdates(true, true);
         }
 
-        private void EasterEggImg_Click(object sender, EventArgs e)
+        private void EasterEggImg_Click(object sender, EventArgs eventArgs)
         {
             if (EasterEggImg.BackgroundImage == null)
             {
@@ -403,7 +403,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void ProcessTmr_Tick(object sender, EventArgs e)
+        private void ProcessTmr_Tick(object sender, EventArgs eventArgs)
         {
             if (LibraryManager.AnyProcessRunning())
             {
@@ -462,7 +462,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void InjectTmr_Tick(object sender, EventArgs e)
+        private void InjectTmr_Tick(object sender, EventArgs eventArgs)
         {
             if (!UserConfig.OfflineMode.GetBoolValue())
             {
@@ -523,7 +523,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private void UpdateTmr_Tick(object sender, EventArgs e)
+        private void UpdateTmr_Tick(object sender, EventArgs eventArgs)
         {
             if (!Updater.IsOutdated())
             {
@@ -620,7 +620,7 @@ namespace CodeRedLauncher
             TabPnl.BringToFront();
 
             TitleBar.BoundForm = this;
-            TitleBar.DisplayText = Assembly.GetTitle().ToUpper();
+            TitleBar.DisplayText = this.Text.ToUpper();
             TitleBar.BringToFront();
 
             DuplicatePopup.Bind(this, TitleBar);
@@ -630,12 +630,12 @@ namespace CodeRedLauncher
             UpdatePopup.Bind(this, TitleBar);
 
             TabManager.BindControl(TabCtrl);
-            TabManager.BindTab(Tabs.Dashboard, DashboardTabBtn, DashboardTab);
-            TabManager.BindTab(Tabs.News, NewsTabBtn, NewsTab);
-            TabManager.BindTab(Tabs.Settings, SettingsTabBtn, SettingsTab);
-            TabManager.BindTab(Tabs.About, AboutTabBtn, AboutTab);
-            TabManager.BindTab(Tabs.Exit, ExitTabBtn, null);
-            TabManager.SelectTab(Tabs.Dashboard);
+            TabManager.BindTab(TabIds.Dashboard, DashboardTabBtn, DashboardTab);
+            TabManager.BindTab(TabIds.News, NewsTabBtn, NewsTab);
+            TabManager.BindTab(TabIds.Settings, SettingsTabBtn, SettingsTab);
+            TabManager.BindTab(TabIds.About, AboutTabBtn, AboutTab);
+            TabManager.BindTab(TabIds.Exit, ExitTabBtn, null);
+            TabManager.SelectTab(TabIds.Dashboard);
 
             UpdateTheme();
         }
@@ -809,79 +809,83 @@ namespace CodeRedLauncher
         private void UpdateTheme()
         {
             bool lightMode = LightModeBx.BoxChecked;
-            ControlTheme control = (lightMode ? ControlTheme.Light : ControlTheme.Dark);
+            ControlTheme theme = (lightMode ? ControlTheme.Light : ControlTheme.Dark);
 
             // Main
             {
                 this.BackColor = (lightMode ? GPalette.DarkGrey : GPalette.PureBlack);
-                TabManager.Theme = control;
-                TitleBar.Theme = control;
+                TabManager.Theme = theme;
+                TitleBar.Theme = theme;
                 TabPnl.BackColor = (lightMode ? GPalette.White : GPalette.LightBlack);
-                DuplicatePopup.Theme = control;
-                InstallPopup.Theme = control;
-                PathPopup.Theme = control;
-                OfflinePopup.Theme = control;
-                UpdatePopup.Theme = control;
+                DuplicatePopup.Theme = theme;
+                InstallPopup.Theme = theme;
+                PathPopup.Theme = theme;
+                OfflinePopup.Theme = theme;
+                UpdatePopup.Theme = theme;
             }
 
             // Dashboard
             {
-                DashboardArtOne.BackgroundImage = (lightMode ? Properties.Resources.TL0_Purple : Properties.Resources.TL0_Red);
+                DashboardArtTLImg.BackgroundImage = (lightMode ? Properties.Resources.TL0_Purple : Properties.Resources.TL0_Red);
                 DashboardArtTwo.BackgroundImage = (lightMode ? Properties.Resources.BR0_Purple : Properties.Resources.BR0_Red);
-                ProcessCtrl.Theme = control;
-                VersionCtrl.Theme = control;
-                ChangelogCtrl.Theme = control;
-                ManualInjectBtn.Theme = control;
+
+                ProcessCtrl.Theme = theme;
+                VersionCtrl.Theme = theme;
+                ChangelogCtrl.Theme = theme;
+                ManualInjectBtn.Theme = theme;
             }
 
             // News
             {
                 NewsArtOne.BackgroundImage = (lightMode ? Properties.Resources.TL2_Light : Properties.Resources.TL2_Dark);
                 NewsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.TR0_Purple : Properties.Resources.TR0_Red);
-                NewsCtrl.Theme = control;
+
+                NewsCtrl.Theme = theme;
             }
 
             // Settings
             {
-                SettingsArtOne.BackgroundImage = (lightMode ? Properties.Resources.TR3_Light : Properties.Resources.TR3_Dark);
-                SettingsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.BR3_Light : Properties.Resources.BR3_Dark);
-                AutoCheckUpdatesBx.Theme = control;
-                AutoInstallBx.Theme = control;
-                PreventInjectionBx.Theme = control;
-                RunOnStartupBx.Theme = control;
-                MinimizeOnStartupBx.Theme = control;
-                HideWhenMinimizedBx.Theme = control;
-                InjectAllInstancesBx.Theme = control;
-                ManualInjectBx.Theme = control;
-                LightModeBx.Theme = control;
-                InjectionTimeoutLbl.Theme = control;
-                InjectionTimeoutBx.Theme = control;
-                InstallPathLbl.Theme = control;
-                InstallPathBx.Theme = control;
-                InstallPathBtn.Theme = control;
-                OpenFolderBtn.Theme = control;
-                ExportLogsBtn.Theme = control;
+                SettingsArtTRImg.BackgroundImage = (lightMode ? Properties.Resources.TR1_Purple : Properties.Resources.TR1_Red);
+                SettingsArtBRImg.BackgroundImage = (lightMode ? Properties.Resources.BR1_White : Properties.Resources.BR1_Black);
+
+                AutoCheckUpdatesBx.Theme = theme;
+                AutoInstallBx.Theme = theme;
+                PreventInjectionBx.Theme = theme;
+                RunOnStartupBx.Theme = theme;
+                MinimizeOnStartupBx.Theme = theme;
+                HideWhenMinimizedBx.Theme = theme;
+                InjectAllInstancesBx.Theme = theme;
+                ManualInjectBx.Theme = theme;
+                LightModeBx.Theme = theme;
+                InjectionTimeoutLbl.Theme = theme;
+                InjectionTimeoutBx.Theme = theme;
+                InstallPathLbl.Theme = theme;
+                InstallPathBx.Theme = theme;
+                InstallPathBtn.Theme = theme;
+                OpenFolderBtn.Theme = theme;
+                ExportLogsBtn.Theme = theme;
             }
 
             // About
             {
                 AboutArtOne.BackgroundImage = (lightMode ? Properties.Resources.TR4_Light : Properties.Resources.TR4_Dark);
-                LauncherInfoCtrl.Theme = control;
-                ModuleInfoCtrl.Theme = control;
-                PsyonixInfoCtrl.Theme = control;
-                BuildInfoCtrl.Theme = control;
-                PlatformInfoCtrl.Theme = control;
-                WebsiteInfoCtrl.Theme = control;
-                DiscordInfoCtrl.Theme = control;
-                DonateInfoCtrl.Theme = control;
-                RemixInfoCtrl.Theme = control;
-                CheckUpdatesBtn.Theme = control;
-                CreditsLbl.ForeColor = (lightMode ? GPalette.DarkGrey : GPalette.LightGrey);
 
                 if (EasterEggImg.BackgroundImage != null)
                 {
-                    EasterEggImg.BackgroundImage = (UserConfig.ShouldUseLightMode() ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
+                    EasterEggImg.BackgroundImage = (lightMode ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
                 }
+
+                LauncherInfoCtrl.Theme = theme;
+                ModuleInfoCtrl.Theme = theme;
+                PsyonixInfoCtrl.Theme = theme;
+                BuildInfoCtrl.Theme = theme;
+                PlatformInfoCtrl.Theme = theme;
+                WebsiteInfoCtrl.Theme = theme;
+                DiscordInfoCtrl.Theme = theme;
+                DonateInfoCtrl.Theme = theme;
+                RemixInfoCtrl.Theme = theme;
+                CheckUpdatesBtn.Theme = theme;
+                CreditsLbl.ForeColor = (lightMode ? GPalette.DarkGrey : GPalette.LightGrey);
             }
         }
 
@@ -1094,51 +1098,51 @@ namespace CodeRedLauncher
             InstallPopup.ButtonsEnabled = true;
         }
 
-        private void DuplicatePopup_ButtonClickAccept(object sender, EventArgs e)
+        private void DuplicatePopup_ButtonClickAccept(object sender, EventArgs eventArgs)
         {
             DuplicatePopup.HidePopup();
             StartupRoutine();
         }
 
-        private void DuplicatePopup_ButtonClickDeny(object sender, EventArgs e)
+        private void DuplicatePopup_ButtonClickDeny(object sender, EventArgs eventArgs)
         {
             Environment.Exit(0);
         }
 
-        private void InstallPopup_ButtonClickAccept(object sender, EventArgs e)
+        private void InstallPopup_ButtonClickAccept(object sender, EventArgs eventArgs)
         {
             InstallPopup.ButtonsEnabled = false;
             InstallPopup.View = InstallViews.Downloading;
             InstallCodeRed(false);
         }
 
-        private void InstallPopup_ButtonClickDeny(object sender, EventArgs e)
+        private void InstallPopup_ButtonClickDeny(object sender, EventArgs eventArgs)
         {
             InstallPopup.ButtonsEnabled = false;
             InstallPopup.View = InstallViews.Downloading;
             InstallCodeRed(true);
         }
 
-        private void OfflinePopup_ButtonClickAccept(object sender, EventArgs e)
+        private void OfflinePopup_ButtonClickAccept(object sender, EventArgs eventArgs)
         {
             UserConfig.OfflineMode.SetValue(false);
             ContinueStartup(true);
             OfflinePopup.HidePopup();
         }
 
-        private void OfflinePopup_ButtonClickDeny(object sender, EventArgs e)
+        private void OfflinePopup_ButtonClickDeny(object sender, EventArgs eventArgs)
         {
             UserConfig.OfflineMode.SetValue(true);
             ContinueStartup(false);
             OfflinePopup.HidePopup();
         }
 
-        private void OfflinePopup_ButtonClickAlt(object sender, EventArgs e)
+        private void OfflinePopup_ButtonClickAlt(object sender, EventArgs eventArgs)
         {
             TitleBar_OnExit(null, null);
         }
 
-        private async void UpdatePopup_ButtonClickAccept(object sender, EventArgs e)
+        private async void UpdatePopup_ButtonClickAccept(object sender, EventArgs eventArgs)
         {
             this.TopMost = false;
             UpdatePopup.ButtonsEnabled = false;
@@ -1163,7 +1167,7 @@ namespace CodeRedLauncher
             }
         }
 
-        private async void UpdatePopup_ButtonClickDeny(object sender, EventArgs e)
+        private async void UpdatePopup_ButtonClickDeny(object sender, EventArgs eventArgs)
         {
             NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
         }

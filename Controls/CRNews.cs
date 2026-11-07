@@ -442,7 +442,7 @@ namespace CodeRedLauncher.Controls
                 bool fallback = false;
                 string pageBody = await Downloaders.DownloadPage(url);
 
-                if (!string.IsNullOrEmpty(pageBody)) 
+                if (!string.IsNullOrEmpty(pageBody))
                 {
                     m_articles.Clear();
                     ResetArticles();
@@ -592,6 +592,16 @@ namespace CodeRedLauncher.Controls
             }
         }
 
+        private void OnThumbnailEnter()
+        {
+            TitleLbl.Font = new Font(TitleLbl.Font, (FontStyle.Bold | FontStyle.Underline));
+        }
+
+        private void OnThumbnailLeave()
+        {
+            TitleLbl.Font = new Font(TitleLbl.Font, FontStyle.Bold);
+        }
+
         private void ThumbnailImg_Click(object sender, EventArgs eventArgs)
         {
             OpenCurrentArticle();
@@ -602,6 +612,16 @@ namespace CodeRedLauncher.Controls
             OpenCurrentArticle();
         }
 
+        private void ThumbnailImg_MouseEnter(object sender, EventArgs e)
+        {
+            OnThumbnailEnter();
+        }
+
+        private void ThumbnailImg_MouseLeave(object sender, EventArgs e)
+        {
+            OnThumbnailLeave();
+        }
+
         private void TitleLbl_Click(object sender, EventArgs eventArgs)
         {
             OpenCurrentArticle();
@@ -610,6 +630,16 @@ namespace CodeRedLauncher.Controls
         private void TitleLbl_DoubleClick(object sender, EventArgs eventArgs)
         {
             OpenCurrentArticle();
+        }
+
+        private void TitleLbl_MouseEnter(object sender, EventArgs e)
+        {
+            OnThumbnailEnter();
+        }
+
+        private void TitleLbl_MouseLeave(object sender, EventArgs e)
+        {
+            OnThumbnailLeave();
         }
 
         private void PreviousBtn_Click(object sender, EventArgs eventArgs)
@@ -628,6 +658,23 @@ namespace CodeRedLauncher.Controls
             }
         }
 
+        private void PreviousImg_MouseEnter(object sender, EventArgs e)
+        {
+            if (PreviousImg.BackgroundImage != null)
+            {
+                PreviousImg.BackColor = (IsDarkMode() ? GPalette.LightBlack_Highlight : GPalette.White_Highlight);
+            }
+        }
+
+        private void PreviousImg_MouseLeave(object sender, EventArgs e)
+        {
+            if (PreviousImg.BackgroundImage != null)
+            {
+                PreviousImg.BackColor = (IsDarkMode() ? GPalette.LightBlack : GPalette.Grey);
+            }
+        }
+
+
         private void NextImg_Click(object sender, EventArgs eventArgs)
         {
             if (NextImg.BackgroundImage != null)
@@ -641,6 +688,22 @@ namespace CodeRedLauncher.Controls
             if (NextImg.BackgroundImage != null)
             {
                 LoadNextArticle();
+            }
+        }
+
+        private void NextImg_MouseEnter(object sender, EventArgs e)
+        {
+            if (NextImg.BackgroundImage != null)
+            {
+                NextImg.BackColor = (IsDarkMode() ? GPalette.LightBlack_Highlight : GPalette.White_Highlight);
+            }
+        }
+
+        private void NextImg_MouseLeave(object sender, EventArgs e)
+        {
+            if (NextImg.BackgroundImage != null)
+            {
+                NextImg.BackColor = (IsDarkMode() ? GPalette.LightBlack : GPalette.Grey);
             }
         }
     }

@@ -53,6 +53,8 @@
             ThumbnailImg.TabStop = false;
             ThumbnailImg.Click += ThumbnailImg_Click;
             ThumbnailImg.DoubleClick += ThumbnailImg_DoubleClick;
+            ThumbnailImg.MouseEnter += ThumbnailImg_MouseEnter;
+            ThumbnailImg.MouseLeave += ThumbnailImg_MouseLeave;
             // 
             // NextImg
             // 
@@ -66,6 +68,8 @@
             NextImg.TabStop = false;
             NextImg.Click += NextImg_Click;
             NextImg.DoubleClick += NexImg_DoubleClick;
+            NextImg.MouseEnter += NextImg_MouseEnter;
+            NextImg.MouseLeave += NextImg_MouseLeave;
             // 
             // PreviousImg
             // 
@@ -79,11 +83,14 @@
             PreviousImg.TabStop = false;
             PreviousImg.Click += PreviousBtn_Click;
             PreviousImg.DoubleClick += PreviousBtn_DoubleClick;
+            PreviousImg.MouseEnter += PreviousImg_MouseEnter;
+            PreviousImg.MouseLeave += PreviousImg_MouseLeave;
             // 
             // TitleLbl
             // 
             TitleLbl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TitleLbl.BackColor = System.Drawing.Color.Transparent;
+            TitleLbl.Cursor = System.Windows.Forms.Cursors.Hand;
             TitleLbl.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
             TitleLbl.ForeColor = System.Drawing.Color.FromArgb(242, 243, 245);
             TitleLbl.Location = new System.Drawing.Point(35, 490);
@@ -92,6 +99,10 @@
             TitleLbl.TabIndex = 14;
             TitleLbl.Text = "Loading...";
             TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            TitleLbl.Click += TitleLbl_Click;
+            TitleLbl.DoubleClick += TitleLbl_DoubleClick;
+            TitleLbl.MouseEnter += TitleLbl_MouseEnter;
+            TitleLbl.MouseLeave += TitleLbl_MouseLeave;
             // 
             // DateIconLbl
             // 

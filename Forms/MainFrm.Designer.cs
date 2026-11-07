@@ -51,7 +51,7 @@ namespace CodeRedLauncher
             ChangelogCtrl = new CodeRedLauncher.Controls.CRChangelog();
             DashboardArtTwo = new System.Windows.Forms.PictureBox();
             ProcessCtrl = new CodeRedLauncher.Controls.CRProcessStatus();
-            DashboardArtOne = new System.Windows.Forms.PictureBox();
+            DashboardArtTLImg = new System.Windows.Forms.PictureBox();
             ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
             NewsTab = new System.Windows.Forms.TabPage();
             NewsCtrl = new CodeRedLauncher.Controls.CRNews();
@@ -59,8 +59,8 @@ namespace CodeRedLauncher
             NewsArtTwo = new System.Windows.Forms.PictureBox();
             SettingsTab = new System.Windows.Forms.TabPage();
             AutoInstallBx = new CodeRedLauncher.Controls.CRCheckbox();
-            SettingsArtTwo = new System.Windows.Forms.PictureBox();
-            SettingsArtOne = new System.Windows.Forms.PictureBox();
+            SettingsArtBRImg = new System.Windows.Forms.PictureBox();
+            SettingsArtTRImg = new System.Windows.Forms.PictureBox();
             HideWhenMinimizedBx = new CodeRedLauncher.Controls.CRCheckbox();
             InstallPathLbl = new CodeRedLauncher.Controls.CRIconLabel();
             LightModeBx = new CodeRedLauncher.Controls.CRCheckbox();
@@ -99,13 +99,13 @@ namespace CodeRedLauncher
             ((System.ComponentModel.ISupportInitialize)EasterEggImg).BeginInit();
             DashboardTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DashboardArtTwo).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)DashboardArtOne).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DashboardArtTLImg).BeginInit();
             NewsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NewsArtOne).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NewsArtTwo).BeginInit();
             SettingsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)SettingsArtTwo).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)SettingsArtOne).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)SettingsArtBRImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)SettingsArtTRImg).BeginInit();
             BackgroundPnl.SuspendLayout();
             TabPnl.SuspendLayout();
             SuspendLayout();
@@ -339,9 +339,9 @@ namespace CodeRedLauncher
             CreditsLbl.BackColor = System.Drawing.Color.Transparent;
             CreditsLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             CreditsLbl.ForeColor = System.Drawing.Color.FromArgb(128, 132, 142);
-            CreditsLbl.Location = new System.Drawing.Point(35, 535);
+            CreditsLbl.Location = new System.Drawing.Point(35, 530);
             CreditsLbl.Name = "CreditsLbl";
-            CreditsLbl.Size = new System.Drawing.Size(840, 60);
+            CreditsLbl.Size = new System.Drawing.Size(840, 65);
             CreditsLbl.TabIndex = 21;
             CreditsLbl.Text = "CodeRed was created by ItsBrank, but its creation would not have been possible without the inspiration of the following people: ";
             CreditsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -353,7 +353,7 @@ namespace CodeRedLauncher
             DashboardTab.Controls.Add(ChangelogCtrl);
             DashboardTab.Controls.Add(DashboardArtTwo);
             DashboardTab.Controls.Add(ProcessCtrl);
-            DashboardTab.Controls.Add(DashboardArtOne);
+            DashboardTab.Controls.Add(DashboardArtTLImg);
             DashboardTab.Controls.Add(ManualInjectBtn);
             DashboardTab.Location = new System.Drawing.Point(4, 24);
             DashboardTab.Name = "DashboardTab";
@@ -388,8 +388,8 @@ namespace CodeRedLauncher
             ChangelogCtrl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             ChangelogCtrl.BackColor = System.Drawing.Color.FromArgb(40, 42, 45);
             ChangelogCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            ChangelogCtrl.IconLauncherDark = Properties.Resources.Changelog_Red;
-            ChangelogCtrl.IconLauncherLight = Properties.Resources.Changelog_Purple;
+            ChangelogCtrl.IconLauncherDark = Properties.Resources.Rocket_Red;
+            ChangelogCtrl.IconLauncherLight = Properties.Resources.Rocket_Purple;
             ChangelogCtrl.IconModuleDark = Properties.Resources.Changelog_Red;
             ChangelogCtrl.IconModuleLight = Properties.Resources.Changelog_Purple;
             ChangelogCtrl.LauncherText = "Loading...";
@@ -436,16 +436,16 @@ namespace CodeRedLauncher
             ProcessCtrl.TitleText = "Loading...";
             ProcessCtrl.View = CodeRedLauncher.Controls.ProcessViews.Loading;
             // 
-            // DashboardArtOne
+            // DashboardArtTLImg
             // 
-            DashboardArtOne.BackColor = System.Drawing.Color.Transparent;
-            DashboardArtOne.BackgroundImage = Properties.Resources.TL0_Red;
-            DashboardArtOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            DashboardArtOne.Location = new System.Drawing.Point(0, 0);
-            DashboardArtOne.Name = "DashboardArtOne";
-            DashboardArtOne.Size = new System.Drawing.Size(93, 122);
-            DashboardArtOne.TabIndex = 38;
-            DashboardArtOne.TabStop = false;
+            DashboardArtTLImg.BackColor = System.Drawing.Color.Transparent;
+            DashboardArtTLImg.BackgroundImage = Properties.Resources.TL0_Red;
+            DashboardArtTLImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            DashboardArtTLImg.Location = new System.Drawing.Point(0, 0);
+            DashboardArtTLImg.Name = "DashboardArtTLImg";
+            DashboardArtTLImg.Size = new System.Drawing.Size(93, 122);
+            DashboardArtTLImg.TabIndex = 38;
+            DashboardArtTLImg.TabStop = false;
             // 
             // ManualInjectBtn
             // 
@@ -524,8 +524,8 @@ namespace CodeRedLauncher
             SettingsTab.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
             SettingsTab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             SettingsTab.Controls.Add(AutoInstallBx);
-            SettingsTab.Controls.Add(SettingsArtTwo);
-            SettingsTab.Controls.Add(SettingsArtOne);
+            SettingsTab.Controls.Add(SettingsArtBRImg);
+            SettingsTab.Controls.Add(SettingsArtTRImg);
             SettingsTab.Controls.Add(HideWhenMinimizedBx);
             SettingsTab.Controls.Add(InstallPathLbl);
             SettingsTab.Controls.Add(LightModeBx);
@@ -569,29 +569,29 @@ namespace CodeRedLauncher
             AutoInstallBx.UncheckedLight = Properties.Resources.CheckboxEmpy_Black;
             AutoInstallBx.OnCheckChanged += AutoInstallBx_OnCheckChanged;
             // 
-            // SettingsArtTwo
+            // SettingsArtBRImg
             // 
-            SettingsArtTwo.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            SettingsArtTwo.BackColor = System.Drawing.Color.Transparent;
-            SettingsArtTwo.BackgroundImage = Properties.Resources.BR3_Dark;
-            SettingsArtTwo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            SettingsArtTwo.Location = new System.Drawing.Point(812, 466);
-            SettingsArtTwo.Name = "SettingsArtTwo";
-            SettingsArtTwo.Size = new System.Drawing.Size(98, 134);
-            SettingsArtTwo.TabIndex = 76;
-            SettingsArtTwo.TabStop = false;
+            SettingsArtBRImg.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            SettingsArtBRImg.BackColor = System.Drawing.Color.Transparent;
+            SettingsArtBRImg.BackgroundImage = Properties.Resources.BR1_Black;
+            SettingsArtBRImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            SettingsArtBRImg.Location = new System.Drawing.Point(791, 523);
+            SettingsArtBRImg.Name = "SettingsArtBRImg";
+            SettingsArtBRImg.Size = new System.Drawing.Size(119, 77);
+            SettingsArtBRImg.TabIndex = 76;
+            SettingsArtBRImg.TabStop = false;
             // 
-            // SettingsArtOne
+            // SettingsArtTRImg
             // 
-            SettingsArtOne.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            SettingsArtOne.BackColor = System.Drawing.Color.Transparent;
-            SettingsArtOne.BackgroundImage = Properties.Resources.TR3_Dark;
-            SettingsArtOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            SettingsArtOne.Location = new System.Drawing.Point(709, 0);
-            SettingsArtOne.Name = "SettingsArtOne";
-            SettingsArtOne.Size = new System.Drawing.Size(201, 221);
-            SettingsArtOne.TabIndex = 75;
-            SettingsArtOne.TabStop = false;
+            SettingsArtTRImg.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            SettingsArtTRImg.BackColor = System.Drawing.Color.Transparent;
+            SettingsArtTRImg.BackgroundImage = Properties.Resources.TR1_Red;
+            SettingsArtTRImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            SettingsArtTRImg.Location = new System.Drawing.Point(724, 0);
+            SettingsArtTRImg.Name = "SettingsArtTRImg";
+            SettingsArtTRImg.Size = new System.Drawing.Size(186, 163);
+            SettingsArtTRImg.TabIndex = 75;
+            SettingsArtTRImg.TabStop = false;
             // 
             // HideWhenMinimizedBx
             // 
@@ -1158,13 +1158,13 @@ namespace CodeRedLauncher
             ((System.ComponentModel.ISupportInitialize)EasterEggImg).EndInit();
             DashboardTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DashboardArtTwo).EndInit();
-            ((System.ComponentModel.ISupportInitialize)DashboardArtOne).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DashboardArtTLImg).EndInit();
             NewsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)NewsArtOne).EndInit();
             ((System.ComponentModel.ISupportInitialize)NewsArtTwo).EndInit();
             SettingsTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)SettingsArtTwo).EndInit();
-            ((System.ComponentModel.ISupportInitialize)SettingsArtOne).EndInit();
+            ((System.ComponentModel.ISupportInitialize)SettingsArtBRImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)SettingsArtTRImg).EndInit();
             BackgroundPnl.ResumeLayout(false);
             TabPnl.ResumeLayout(false);
             ResumeLayout(false);
@@ -1224,12 +1224,12 @@ namespace CodeRedLauncher
         private Controls.CRInstallPopup InstallPopup;
         private Controls.CRCheckbox HideWhenMinimizedBx;
         private System.Windows.Forms.PictureBox DashboardArtTwo;
-        private System.Windows.Forms.PictureBox DashboardArtOne;
+        private System.Windows.Forms.PictureBox DashboardArtTLImg;
         private System.Windows.Forms.PictureBox NewsArtOne;
         private System.Windows.Forms.PictureBox NewsArtTwo;
-        private System.Windows.Forms.PictureBox SettingsArtOne;
+        private System.Windows.Forms.PictureBox SettingsArtTRImg;
+        private System.Windows.Forms.PictureBox SettingsArtBRImg;
         private System.Windows.Forms.PictureBox AboutArtOne;
-        private System.Windows.Forms.PictureBox SettingsArtTwo;
         private Controls.CRDupePopup DuplicatePopup;
         private Controls.CRCheckbox AutoInstallBx;
         private Controls.CRPathPopup PathPopup;

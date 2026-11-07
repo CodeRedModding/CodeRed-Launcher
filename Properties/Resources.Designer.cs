@@ -183,6 +183,16 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BR1_Black {
+            get {
+                object obj = ResourceManager.GetObject("BR1_Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BR1_Dark {
             get {
                 object obj = ResourceManager.GetObject("BR1_Dark", resourceCulture);
@@ -196,6 +206,16 @@ namespace CodeRedLauncher.Properties {
         internal static System.Drawing.Bitmap BR1_Light {
             get {
                 object obj = ResourceManager.GetObject("BR1_Light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BR1_White {
+            get {
+                object obj = ResourceManager.GetObject("BR1_White", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1516,6 +1536,26 @@ namespace CodeRedLauncher.Properties {
         internal static System.Drawing.Bitmap TR0_Red {
             get {
                 object obj = ResourceManager.GetObject("TR0_Red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TR1_Purple {
+            get {
+                object obj = ResourceManager.GetObject("TR1_Purple", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TR1_Red {
+            get {
+                object obj = ResourceManager.GetObject("TR1_Red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
