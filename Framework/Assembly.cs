@@ -8,7 +8,7 @@ namespace CodeRedLauncher
         private static readonly string m_description = "Manages and injects the CodeRed module for Rocket League.";
         private static readonly string m_product = "CodeRedLauncher";
         private static readonly string m_copyright = "CodeRedModding 2026";
-        private static readonly string m_version = "1.4.6";
+        private static readonly string m_version = "1.4.7";
         private static readonly string m_frameworkVersion = "10.0";
 
         public static string GetTitle() { return m_title; }
