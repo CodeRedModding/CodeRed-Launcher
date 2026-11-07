@@ -16,6 +16,7 @@ namespace CodeRedLauncher.Controls
         InstallingLauncher,
         Module,
         Launcher,
+        Framework,
         Both,
         Fail
     }
@@ -260,6 +261,14 @@ namespace CodeRedLauncher.Controls
                 DenyBtn.Visible = true;
                 AltBtn.Visible = false;
             }
+            else if (View == UpdateViews.Framework)
+            {
+                DescriptionLbl.Text = "A new version of the launcher was found and requires a new version of .NET, would you like to open a link to install the .NET " + RemoteStorage.GetFrameworkVersion().Result + " runtime? If its already installed, you can skip this step and press no, if its not installed updating the launcher will fail.";
+                m_buttonsEnabled = true;
+                AcceptBtn.Visible = true;
+                DenyBtn.Visible = true;
+                AltBtn.Visible = false;
+            }
             else if (View == UpdateViews.Both)
             {
                 DescriptionLbl.Text = "A new version both the launcher and module were found, would you like to automatically install it now?";
@@ -283,7 +292,7 @@ namespace CodeRedLauncher.Controls
                 BackgroundPnl.BackColor = GPalette.LightBlack;
                 TitleLbl.ForeColor = GPalette.White;
                 DescriptionLbl.ForeColor = GPalette.White;
-                ArtImage.BackgroundImage = Properties.Resources.TL1_Dark;
+                ArtTLImg.BackgroundImage = Properties.Resources.TL2_Red;
             }
             else
             {
@@ -291,7 +300,7 @@ namespace CodeRedLauncher.Controls
                 BackgroundPnl.BackColor = GPalette.Grey;
                 TitleLbl.ForeColor = GPalette.Black;
                 DescriptionLbl.ForeColor = GPalette.Black;
-                ArtImage.BackgroundImage = Properties.Resources.TL1_Light;
+                ArtTLImg.BackgroundImage = Properties.Resources.TL2_Purple;
             }
 
             AcceptBtn.ButtonEnabled = ButtonsEnabled;

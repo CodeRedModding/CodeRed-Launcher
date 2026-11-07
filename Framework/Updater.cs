@@ -21,6 +21,7 @@ namespace CodeRedLauncher
 
     public static class Updater
     {
+        private static bool m_frameworkOutdated = false;
         private static bool m_launcherOutdated = false;
         private static bool m_moduleOutdated = false;
         private static UpdatorStatus m_updateStatus = UpdatorStatus.Idle;
@@ -93,6 +94,29 @@ namespace CodeRedLauncher
 
             Logger.Write("(IsModuleOutdated) Module is up to date!");
             m_moduleOutdated = false;
+            return false;
+        }
+
+        public static async Task<bool> IsFrameworkOutdated(bool bInvalidate)
+        {
+            if (bInvalidate)
+            {
+                LocalStorage.Invalidate();
+                RemoteStorage.Invalidate();
+            }
+
+            if (await RemoteStorage.CheckInitialized())
+            {
+                if (Assembly.GetFrameworkVersion() != await RemoteStorage.GetFrameworkVersion())
+                {
+                    Logger.Write("(IsFrameworkOutdated) Framework detected as outdated!");
+                    m_frameworkOutdated = true;
+                    return true;
+                }
+            }
+
+            Logger.Write("(IsFrameworkOutdated) Framework is up to date!");
+            m_frameworkOutdated = false;
             return false;
         }
 

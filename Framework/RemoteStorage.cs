@@ -237,16 +237,13 @@ namespace CodeRedLauncher
     {
         private static bool m_initialized = false;
         private static string m_remoteUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/Launcher.cr";
-        private static string m_privacyUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/PrivacyPolicy.cr";
-        private static string m_tosUrl = "https://raw.githubusercontent.com/CodeRedModding/CodeRed-Retrievers/main/Public/TermsOfService.cr";
-        private static string m_privacyContent = "";
-        private static string m_tosContent = "";
 
         private static List<InternalSetting> m_remoteSettings = new List<InternalSetting>()
         {
             new InternalSetting("000000.000000.000000", "PsyonixVersion"),
             new InternalSetting("0.0.0", "LauncherVersion"),
             new InternalSetting("0.0.0", "ModuleVersion"),
+            new InternalSetting("0", "DotNetFramework"),
             new InternalSetting(null, "UninstallerUrl"),
             new InternalSetting(null, "LauncherUrl"),
             new InternalSetting(null, "DropperUrl"),
@@ -329,16 +326,6 @@ namespace CodeRedLauncher
             return m_remoteUrl;
         }
 
-        public static string GetPrivacyURL()
-        {
-            return m_privacyUrl;
-        }
-
-        public static string GetTermsURL()
-        {
-            return m_tosUrl;
-        }
-
         public static async Task<string> GetPsyonixVersion()
         {
             if (await CheckInitialized()) { return GetStoredSetting("PsyonixVersion").GetStringValue(); }
@@ -375,6 +362,12 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return GetStoredSetting("ModuleVersion").GetStringValue(); }
             return GetStoredSetting("ModuleVersion").GetStringValue(true);
+        }
+
+        public static async Task<string> GetFrameworkVersion()
+        {
+            if (await CheckInitialized()) { return GetStoredSetting("DotNetFramework").GetStringValue(); }
+            return GetStoredSetting("DotNetFramework").GetStringValue(true);
         }
 
         public static async Task<string> GetUninstallerUrl()
@@ -435,18 +428,6 @@ namespace CodeRedLauncher
         {
             if (await CheckInitialized()) { return GetStoredSetting("Credits").GetStringValue(); }
             return GetStoredSetting("Credits").GetStringValue(true);
-        }
-
-        public static async Task<string> GetPrivacyPolicy()
-        {
-            if (string.IsNullOrEmpty(m_privacyContent)) { m_privacyContent = await Downloaders.DownloadPage(GetPrivacyURL()); }
-            return m_privacyContent;
-        }
-
-        public static async Task<string> GetTermsOfUse()
-        {
-            if (string.IsNullOrEmpty(m_tosContent)) { m_tosContent = await Downloaders.DownloadPage(GetTermsURL()); }
-            return m_tosContent;
         }
     }
 }

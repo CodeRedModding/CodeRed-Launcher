@@ -40,7 +40,7 @@ namespace CodeRedLauncher
         private static PrivateSetting m_epicFolder = new PrivateSetting();
         private static PrivateSetting m_currentPlatform = new PrivateSetting(PlatformTypes.Unknown.ToString());
         private static PrivateSetting m_psyonixVersion = new PrivateSetting("000000.000000.000000");
-        private static PrivateSetting m_netBuild = new PrivateSetting("0");
+        private static PrivateSetting m_psyBuildVersion = new PrivateSetting("0");
         private static PrivateSetting m_moduleVersion = new PrivateSetting("0.0.0");
         private static List<string> m_antiCheatKeywords = new List<string>() { "EasyAntiCheat", "start_protected_game", "RocketLeague_EAC", "EAC" };
 
@@ -116,7 +116,7 @@ namespace CodeRedLauncher
 
                             Match psyMatch = Regex.Match(logContents, "Log: GPsyonixBuildID (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
                             Match directoryMatch = Regex.Match(logContents, "Init: Base directory: (.*)\r", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                            Match netMatch = Regex.Match(logContents, "Log: BuildID: (.*) from GPsyonixBuildID", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                            Match buildMatch = Regex.Match(logContents, "Log: BuildID: (.*) from GPsyonixBuildID", RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
 
                             if (psyMatch.Groups[1].Success)
                             {
@@ -124,9 +124,9 @@ namespace CodeRedLauncher
                                 m_psyVersionValid = true;
                             }
 
-                            if (netMatch.Groups[1].Success)
+                            if (buildMatch.Groups[1].Success)
                             {
-                                m_netBuild.SetValue(netMatch.Groups[1].Value);
+                                m_psyBuildVersion.SetValue(buildMatch.Groups[1].Value);
                             }
 
                             if (directoryMatch.Groups[1].Success)
@@ -532,10 +532,10 @@ namespace CodeRedLauncher
             return dateNumber;
         }
 
-        public static Int32 GetNetBuild()
+        public static Int32 GetPsyBuildVersion()
         {
-            if (CheckInitialized()) { return m_netBuild.GetInt32Value(); }
-            return m_netBuild.GetInt32Value(true);
+            if (CheckInitialized()) { return m_psyBuildVersion.GetInt32Value(); }
+            return m_psyBuildVersion.GetInt32Value(true);
         }
 
         public static string GetModuleVersion()

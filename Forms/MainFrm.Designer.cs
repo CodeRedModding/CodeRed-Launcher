@@ -33,7 +33,7 @@ namespace CodeRedLauncher
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
             TabCtrl = new System.Windows.Forms.TabControl();
             AboutTab = new System.Windows.Forms.TabPage();
-            AboutArtOne = new System.Windows.Forms.PictureBox();
+            AboutArtTRImg = new System.Windows.Forms.PictureBox();
             EasterEggImg = new System.Windows.Forms.PictureBox();
             PlatformInfoCtrl = new CodeRedLauncher.Controls.CRAboutInfo();
             BuildInfoCtrl = new CodeRedLauncher.Controls.CRAboutInfo();
@@ -55,8 +55,8 @@ namespace CodeRedLauncher
             ManualInjectBtn = new CodeRedLauncher.Controls.CRButton();
             NewsTab = new System.Windows.Forms.TabPage();
             NewsCtrl = new CodeRedLauncher.Controls.CRNews();
-            NewsArtOne = new System.Windows.Forms.PictureBox();
-            NewsArtTwo = new System.Windows.Forms.PictureBox();
+            NewsArtTLImg = new System.Windows.Forms.PictureBox();
+            NewsArtTRImg = new System.Windows.Forms.PictureBox();
             SettingsTab = new System.Windows.Forms.TabPage();
             AutoInstallBx = new CodeRedLauncher.Controls.CRCheckbox();
             SettingsArtBRImg = new System.Windows.Forms.PictureBox();
@@ -95,14 +95,14 @@ namespace CodeRedLauncher
             UpdateTmr = new System.Windows.Forms.Timer(components);
             TabCtrl.SuspendLayout();
             AboutTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)AboutArtOne).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)AboutArtTRImg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EasterEggImg).BeginInit();
             DashboardTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DashboardArtTwo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DashboardArtTLImg).BeginInit();
             NewsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NewsArtOne).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NewsArtTwo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NewsArtTLImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NewsArtTRImg).BeginInit();
             SettingsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SettingsArtBRImg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SettingsArtTRImg).BeginInit();
@@ -127,7 +127,7 @@ namespace CodeRedLauncher
             // 
             AboutTab.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
             AboutTab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            AboutTab.Controls.Add(AboutArtOne);
+            AboutTab.Controls.Add(AboutArtTRImg);
             AboutTab.Controls.Add(EasterEggImg);
             AboutTab.Controls.Add(PlatformInfoCtrl);
             AboutTab.Controls.Add(BuildInfoCtrl);
@@ -146,21 +146,21 @@ namespace CodeRedLauncher
             AboutTab.TabIndex = 5;
             AboutTab.Text = "About";
             // 
-            // AboutArtOne
+            // AboutArtTRImg
             // 
-            AboutArtOne.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            AboutArtOne.BackColor = System.Drawing.Color.Transparent;
-            AboutArtOne.BackgroundImage = Properties.Resources.TR4_Dark;
-            AboutArtOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            AboutArtOne.Location = new System.Drawing.Point(713, 0);
-            AboutArtOne.Name = "AboutArtOne";
-            AboutArtOne.Size = new System.Drawing.Size(197, 140);
-            AboutArtOne.TabIndex = 78;
-            AboutArtOne.TabStop = false;
+            AboutArtTRImg.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            AboutArtTRImg.BackColor = System.Drawing.Color.Transparent;
+            AboutArtTRImg.BackgroundImage = Properties.Resources.TR2_Red;
+            AboutArtTRImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            AboutArtTRImg.Location = new System.Drawing.Point(718, 0);
+            AboutArtTRImg.Name = "AboutArtTRImg";
+            AboutArtTRImg.Size = new System.Drawing.Size(192, 144);
+            AboutArtTRImg.TabIndex = 78;
+            AboutArtTRImg.TabStop = false;
             // 
             // EasterEggImg
             // 
-            EasterEggImg.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            EasterEggImg.Anchor = System.Windows.Forms.AnchorStyles.None;
             EasterEggImg.BackColor = System.Drawing.Color.Transparent;
             EasterEggImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             EasterEggImg.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -335,7 +335,7 @@ namespace CodeRedLauncher
             // 
             // CreditsLbl
             // 
-            CreditsLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            CreditsLbl.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             CreditsLbl.BackColor = System.Drawing.Color.Transparent;
             CreditsLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             CreditsLbl.ForeColor = System.Drawing.Color.FromArgb(128, 132, 142);
@@ -469,8 +469,8 @@ namespace CodeRedLauncher
             // 
             NewsTab.BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
             NewsTab.Controls.Add(NewsCtrl);
-            NewsTab.Controls.Add(NewsArtOne);
-            NewsTab.Controls.Add(NewsArtTwo);
+            NewsTab.Controls.Add(NewsArtTLImg);
+            NewsTab.Controls.Add(NewsArtTRImg);
             NewsTab.Location = new System.Drawing.Point(4, 24);
             NewsTab.Name = "NewsTab";
             NewsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -497,27 +497,28 @@ namespace CodeRedLauncher
             NewsCtrl.TabIndex = 0;
             NewsCtrl.Theme = CodeRedLauncher.Controls.ControlTheme.Dark;
             // 
-            // NewsArtOne
+            // NewsArtTLImg
             // 
-            NewsArtOne.BackColor = System.Drawing.Color.Transparent;
-            NewsArtOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            NewsArtOne.Location = new System.Drawing.Point(0, 0);
-            NewsArtOne.Name = "NewsArtOne";
-            NewsArtOne.Size = new System.Drawing.Size(163, 157);
-            NewsArtOne.TabIndex = 1;
-            NewsArtOne.TabStop = false;
+            NewsArtTLImg.BackColor = System.Drawing.Color.Transparent;
+            NewsArtTLImg.BackgroundImage = Properties.Resources.TL1_Red;
+            NewsArtTLImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            NewsArtTLImg.Location = new System.Drawing.Point(0, 0);
+            NewsArtTLImg.Name = "NewsArtTLImg";
+            NewsArtTLImg.Size = new System.Drawing.Size(146, 181);
+            NewsArtTLImg.TabIndex = 1;
+            NewsArtTLImg.TabStop = false;
             // 
-            // NewsArtTwo
+            // NewsArtTRImg
             // 
-            NewsArtTwo.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            NewsArtTwo.BackColor = System.Drawing.Color.Transparent;
-            NewsArtTwo.BackgroundImage = Properties.Resources.TR0_Red;
-            NewsArtTwo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            NewsArtTwo.Location = new System.Drawing.Point(778, 0);
-            NewsArtTwo.Name = "NewsArtTwo";
-            NewsArtTwo.Size = new System.Drawing.Size(131, 79);
-            NewsArtTwo.TabIndex = 2;
-            NewsArtTwo.TabStop = false;
+            NewsArtTRImg.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            NewsArtTRImg.BackColor = System.Drawing.Color.Transparent;
+            NewsArtTRImg.BackgroundImage = Properties.Resources.TR0_Red;
+            NewsArtTRImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            NewsArtTRImg.Location = new System.Drawing.Point(778, 0);
+            NewsArtTRImg.Name = "NewsArtTRImg";
+            NewsArtTRImg.Size = new System.Drawing.Size(131, 79);
+            NewsArtTRImg.TabIndex = 2;
+            NewsArtTRImg.TabStop = false;
             // 
             // SettingsTab
             // 
@@ -575,9 +576,9 @@ namespace CodeRedLauncher
             SettingsArtBRImg.BackColor = System.Drawing.Color.Transparent;
             SettingsArtBRImg.BackgroundImage = Properties.Resources.BR1_Black;
             SettingsArtBRImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            SettingsArtBRImg.Location = new System.Drawing.Point(791, 523);
+            SettingsArtBRImg.Location = new System.Drawing.Point(809, 500);
             SettingsArtBRImg.Name = "SettingsArtBRImg";
-            SettingsArtBRImg.Size = new System.Drawing.Size(119, 77);
+            SettingsArtBRImg.Size = new System.Drawing.Size(101, 100);
             SettingsArtBRImg.TabIndex = 76;
             SettingsArtBRImg.TabStop = false;
             // 
@@ -988,7 +989,7 @@ namespace CodeRedLauncher
             // DashboardTabBtn
             // 
             DashboardTabBtn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            DashboardTabBtn.BackColor = System.Drawing.Color.FromArgb(10, 255, 50, 37);
+            DashboardTabBtn.BackColor = System.Drawing.Color.FromArgb(45, 45, 50);
             DashboardTabBtn.IconDark = Properties.Resources.Dashboard_White;
             DashboardTabBtn.IconDarkSelected = Properties.Resources.Dashboard_Red;
             DashboardTabBtn.IconLight = Properties.Resources.Dashboard_Black;
@@ -1154,14 +1155,14 @@ namespace CodeRedLauncher
             Resize += MainFrm_Resize;
             TabCtrl.ResumeLayout(false);
             AboutTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)AboutArtOne).EndInit();
+            ((System.ComponentModel.ISupportInitialize)AboutArtTRImg).EndInit();
             ((System.ComponentModel.ISupportInitialize)EasterEggImg).EndInit();
             DashboardTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DashboardArtTwo).EndInit();
             ((System.ComponentModel.ISupportInitialize)DashboardArtTLImg).EndInit();
             NewsTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)NewsArtOne).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NewsArtTwo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NewsArtTLImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NewsArtTRImg).EndInit();
             SettingsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)SettingsArtBRImg).EndInit();
             ((System.ComponentModel.ISupportInitialize)SettingsArtTRImg).EndInit();
@@ -1225,11 +1226,11 @@ namespace CodeRedLauncher
         private Controls.CRCheckbox HideWhenMinimizedBx;
         private System.Windows.Forms.PictureBox DashboardArtTwo;
         private System.Windows.Forms.PictureBox DashboardArtTLImg;
-        private System.Windows.Forms.PictureBox NewsArtOne;
-        private System.Windows.Forms.PictureBox NewsArtTwo;
+        private System.Windows.Forms.PictureBox NewsArtTLImg;
+        private System.Windows.Forms.PictureBox NewsArtTRImg;
         private System.Windows.Forms.PictureBox SettingsArtTRImg;
         private System.Windows.Forms.PictureBox SettingsArtBRImg;
-        private System.Windows.Forms.PictureBox AboutArtOne;
+        private System.Windows.Forms.PictureBox AboutArtTRImg;
         private Controls.CRDupePopup DuplicatePopup;
         private Controls.CRCheckbox AutoInstallBx;
         private Controls.CRPathPopup PathPopup;

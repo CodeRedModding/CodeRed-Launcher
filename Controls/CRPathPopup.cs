@@ -106,7 +106,7 @@ namespace CodeRedLauncher.Controls
                 BackgroundPnl.BackColor = GPalette.LightBlack;
                 TitleLbl.ForeColor = GPalette.White;
                 DescriptionLbl.ForeColor = GPalette.White;
-                ArtImage.BackgroundImage = Properties.Resources.TL1_Dark;
+                ArtTLImg.BackgroundImage = Properties.Resources.TL2_Red;
             }
             else
             {
@@ -114,7 +114,7 @@ namespace CodeRedLauncher.Controls
                 BackgroundPnl.BackColor = GPalette.Grey;
                 TitleLbl.ForeColor = GPalette.Black;
                 DescriptionLbl.ForeColor = GPalette.Black;
-                ArtImage.BackgroundImage = Properties.Resources.TL1_Light;
+                ArtTLImg.BackgroundImage = Properties.Resources.TL2_Purple;
             }
 
             Invalidate();

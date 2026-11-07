@@ -31,12 +31,12 @@
             DescriptionLbl = new System.Windows.Forms.Label();
             TitleLbl = new System.Windows.Forms.Label();
             BackgroundPnl = new System.Windows.Forms.Panel();
+            AltBtn = new CRButton();
             DenyBtn = new CRButton();
             AcceptBtn = new CRButton();
-            AltBtn = new CRButton();
-            ArtImage = new System.Windows.Forms.PictureBox();
+            ArtTLImg = new System.Windows.Forms.PictureBox();
             BackgroundPnl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ArtImage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ArtTLImg).BeginInit();
             SuspendLayout();
             // 
             // DescriptionLbl
@@ -77,6 +77,25 @@
             BackgroundPnl.Size = new System.Drawing.Size(970, 100);
             BackgroundPnl.TabIndex = 10;
             // 
+            // AltBtn
+            // 
+            AltBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            AltBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
+            AltBtn.ButtonEnabled = true;
+            AltBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            AltBtn.DisplayText = "Alright then, I'll try again";
+            AltBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            AltBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            AltBtn.IconDark = Properties.Resources.Yes_White;
+            AltBtn.IconLight = Properties.Resources.Yes_White;
+            AltBtn.Location = new System.Drawing.Point(335, 35);
+            AltBtn.Name = "AltBtn";
+            AltBtn.Size = new System.Drawing.Size(300, 40);
+            AltBtn.TabIndex = 8;
+            AltBtn.Theme = ControlTheme.Dark;
+            AltBtn.Visible = false;
+            AltBtn.OnButtonClick += AltBtn_OnButtonClick;
+            // 
             // DenyBtn
             // 
             DenyBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -113,42 +132,23 @@
             AcceptBtn.Theme = ControlTheme.Dark;
             AcceptBtn.OnButtonClick += AcceptBtn_OnButtonClick;
             // 
-            // AltBtn
+            // ArtTLImg
             // 
-            AltBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            AltBtn.BackColor = System.Drawing.Color.FromArgb(255, 50, 37);
-            AltBtn.ButtonEnabled = true;
-            AltBtn.DisplayFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            AltBtn.DisplayText = "Alright then, I'll try again";
-            AltBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            AltBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            AltBtn.IconDark = Properties.Resources.Yes_White;
-            AltBtn.IconLight = Properties.Resources.Yes_White;
-            AltBtn.Location = new System.Drawing.Point(335, 35);
-            AltBtn.Name = "AltBtn";
-            AltBtn.Size = new System.Drawing.Size(300, 40);
-            AltBtn.TabIndex = 8;
-            AltBtn.Theme = ControlTheme.Dark;
-            AltBtn.Visible = false;
-            AltBtn.OnButtonClick += AltBtn_OnButtonClick;
-            // 
-            // ArtImage
-            // 
-            ArtImage.BackColor = System.Drawing.Color.Transparent;
-            ArtImage.BackgroundImage = Properties.Resources.TL0_Dark;
-            ArtImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            ArtImage.Location = new System.Drawing.Point(0, 0);
-            ArtImage.Name = "ArtImage";
-            ArtImage.Size = new System.Drawing.Size(219, 166);
-            ArtImage.TabIndex = 11;
-            ArtImage.TabStop = false;
+            ArtTLImg.BackColor = System.Drawing.Color.Transparent;
+            ArtTLImg.BackgroundImage = Properties.Resources.TL2_Red;
+            ArtTLImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            ArtTLImg.Location = new System.Drawing.Point(0, 0);
+            ArtTLImg.Name = "ArtTLImg";
+            ArtTLImg.Size = new System.Drawing.Size(220, 182);
+            ArtTLImg.TabIndex = 11;
+            ArtTLImg.TabStop = false;
             // 
             // CROfflinePopup
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
-            Controls.Add(ArtImage);
+            Controls.Add(ArtTLImg);
             Controls.Add(BackgroundPnl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleLbl);
@@ -156,7 +156,7 @@
             Name = "CROfflinePopup";
             Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ArtImage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ArtTLImg).EndInit();
             ResumeLayout(false);
         }
 
@@ -166,7 +166,7 @@
         private System.Windows.Forms.Panel BackgroundPnl;
         private CRButton DenyBtn;
         private CRButton AcceptBtn;
-        private System.Windows.Forms.PictureBox ArtImage;
+        private System.Windows.Forms.PictureBox ArtTLImg;
         private CRButton AltBtn;
     }
 }

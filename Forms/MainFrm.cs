@@ -394,7 +394,7 @@ namespace CodeRedLauncher
         {
             if (EasterEggImg.BackgroundImage == null)
             {
-                EasterEggImg.BackgroundImage = (UserConfig.ShouldUseLightMode() ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
+                EasterEggImg.BackgroundImage = (UserConfig.ShouldUseLightMode() ? Properties.Resources.Bread_Purple : Properties.Resources.Bread_Red);
             }
             else
             {
@@ -799,7 +799,7 @@ namespace CodeRedLauncher
                 LauncherInfoCtrl.DescriptionText = Assembly.GetVersion();
                 ModuleInfoCtrl.DescriptionText = LocalStorage.GetModuleVersion();
                 PsyonixInfoCtrl.DescriptionText = LocalStorage.GetPsyonixVersion();
-                BuildInfoCtrl.DescriptionText = LocalStorage.GetNetBuild().ToString();
+                BuildInfoCtrl.DescriptionText = LocalStorage.GetPsyBuildVersion().ToString();
                 PlatformInfoCtrl.DescriptionText = LocalStorage.GetPlatformString(false);
                 CreditsLbl.Text = "CodeRed was created by ItsBrank, but its creation would not have been possible without the inspiration of the following people: ";
                 CreditsLbl.Text += await RemoteStorage.GetCredits();
@@ -817,10 +817,11 @@ namespace CodeRedLauncher
                 TabManager.Theme = theme;
                 TitleBar.Theme = theme;
                 TabPnl.BackColor = (lightMode ? GPalette.White : GPalette.LightBlack);
+
                 DuplicatePopup.Theme = theme;
                 InstallPopup.Theme = theme;
-                PathPopup.Theme = theme;
                 OfflinePopup.Theme = theme;
+                PathPopup.Theme = theme;
                 UpdatePopup.Theme = theme;
             }
 
@@ -837,8 +838,8 @@ namespace CodeRedLauncher
 
             // News
             {
-                NewsArtOne.BackgroundImage = (lightMode ? Properties.Resources.TL2_Light : Properties.Resources.TL2_Dark);
-                NewsArtTwo.BackgroundImage = (lightMode ? Properties.Resources.TR0_Purple : Properties.Resources.TR0_Red);
+                NewsArtTLImg.BackgroundImage = (lightMode ? Properties.Resources.TL1_Purple : Properties.Resources.TL1_Red);
+                NewsArtTRImg.BackgroundImage = (lightMode ? Properties.Resources.TR0_Purple : Properties.Resources.TR0_Red);
 
                 NewsCtrl.Theme = theme;
             }
@@ -868,11 +869,11 @@ namespace CodeRedLauncher
 
             // About
             {
-                AboutArtOne.BackgroundImage = (lightMode ? Properties.Resources.TR4_Light : Properties.Resources.TR4_Dark);
+                AboutArtTRImg.BackgroundImage = (lightMode ? Properties.Resources.TR2_Purple : Properties.Resources.TR2_Red);
 
                 if (EasterEggImg.BackgroundImage != null)
                 {
-                    EasterEggImg.BackgroundImage = (lightMode ? Properties.Resources.Cupcake_Purple : Properties.Resources.Cupcake_Red);
+                    EasterEggImg.BackgroundImage = (lightMode ? Properties.Resources.Bread_Purple : Properties.Resources.Bread_Red);
                 }
 
                 LauncherInfoCtrl.Theme = theme;
@@ -902,6 +903,7 @@ namespace CodeRedLauncher
                     if (await RemoteStorage.CheckInitialized())
                     {
                         bool moduleOutdated = await Updater.IsModuleOutdated(bInvalidate);
+                        bool frameworkOutdated = await Updater.IsFrameworkOutdated(bInvalidate);
                         bool launcherOutdated = await Updater.IsLauncherOutdated(bInvalidate);
 
                         UInt32 localVersion = LocalStorage.GetPsyonixDate();
@@ -1016,9 +1018,9 @@ namespace CodeRedLauncher
 
                                 if (bShowPrompt)
                                 {
-                                    UpdatePopup.View = UpdateViews.Launcher;
+                                    UpdatePopup.View = (frameworkOutdated ? UpdateViews.Framework : UpdateViews.Launcher);
 
-                                    if (UserConfig.ShouldAutoInstall())
+                                    if (UserConfig.ShouldAutoInstall() && !frameworkOutdated)
                                     {
                                         UpdatePopup_ButtonClickAccept(null, null);
                                     }
@@ -1144,26 +1146,33 @@ namespace CodeRedLauncher
 
         private async void UpdatePopup_ButtonClickAccept(object sender, EventArgs eventArgs)
         {
-            this.TopMost = false;
-            UpdatePopup.ButtonsEnabled = false;
-            VersionCtrl.View = VersionViews.Downloading;
-
-            RemoteStorage.Invalidate();
-            await RemoteStorage.CheckInitialized();
-
-            Result installResult = await Updater.InstallUpdates(UpdatePopup);
-            UpdatePopup.ButtonsEnabled = true;
-
-            if (installResult.Succeeded)
+            if (UpdatePopup.View == UpdateViews.Framework)
             {
-                NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
-                UpdatePopup.HidePopup();
-                ProcessTmr.Start();
-                CheckForUpdates(true, false);
+                Process.Start(new ProcessStartInfo("https://dotnet.microsoft.com/en-us/download/dotnet/" + RemoteStorage.GetFrameworkVersion().Result) { UseShellExecute = true });
             }
-            else if (installResult.HasFailReason())
+            else
             {
-                UpdatePopup.View = UpdateViews.Fail;
+                this.TopMost = false;
+                UpdatePopup.ButtonsEnabled = false;
+                VersionCtrl.View = VersionViews.Downloading;
+
+                RemoteStorage.Invalidate();
+                await RemoteStorage.CheckInitialized();
+
+                Result installResult = await Updater.InstallUpdates(UpdatePopup);
+                UpdatePopup.ButtonsEnabled = true;
+
+                if (installResult.Succeeded)
+                {
+                    NewsCtrl.ParseArticles(await RemoteStorage.GetNewsUrl());
+                    UpdatePopup.HidePopup();
+                    ProcessTmr.Start();
+                    CheckForUpdates(true, false);
+                }
+                else if (installResult.HasFailReason())
+                {
+                    UpdatePopup.View = UpdateViews.Fail;
+                }
             }
         }
 

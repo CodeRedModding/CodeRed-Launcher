@@ -193,26 +193,6 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BR1_Dark {
-            get {
-                object obj = ResourceManager.GetObject("BR1_Dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BR1_Light {
-            get {
-                object obj = ResourceManager.GetObject("BR1_Light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap BR1_White {
             get {
                 object obj = ResourceManager.GetObject("BR1_White", resourceCulture);
@@ -223,9 +203,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BR3_Dark {
+        internal static System.Drawing.Bitmap Bread_Purple {
             get {
-                object obj = ResourceManager.GetObject("BR3_Dark", resourceCulture);
+                object obj = ResourceManager.GetObject("Bread_Purple", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,9 +213,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BR3_Light {
+        internal static System.Drawing.Bitmap Bread_Red {
             get {
-                object obj = ResourceManager.GetObject("BR3_Light", resourceCulture);
+                object obj = ResourceManager.GetObject("Bread_Red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -396,36 +376,6 @@ namespace CodeRedLauncher.Properties {
         internal static System.Drawing.Bitmap Coffee_White {
             get {
                 object obj = ResourceManager.GetObject("Coffee_White", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Cupcake_Purple {
-            get {
-                object obj = ResourceManager.GetObject("Cupcake_Purple", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Cupcake_Red {
-            get {
-                object obj = ResourceManager.GetObject("Cupcake_Red", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Cupcake_White {
-            get {
-                object obj = ResourceManager.GetObject("Cupcake_White", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1443,26 +1393,6 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TL0_Dark {
-            get {
-                object obj = ResourceManager.GetObject("TL0_Dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TL0_Light {
-            get {
-                object obj = ResourceManager.GetObject("TL0_Light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap TL0_Purple {
             get {
                 object obj = ResourceManager.GetObject("TL0_Purple", resourceCulture);
@@ -1483,9 +1413,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TL1_Dark {
+        internal static System.Drawing.Bitmap TL1_Purple {
             get {
-                object obj = ResourceManager.GetObject("TL1_Dark", resourceCulture);
+                object obj = ResourceManager.GetObject("TL1_Purple", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1493,9 +1423,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TL1_Light {
+        internal static System.Drawing.Bitmap TL1_Red {
             get {
-                object obj = ResourceManager.GetObject("TL1_Light", resourceCulture);
+                object obj = ResourceManager.GetObject("TL1_Red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1503,9 +1433,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TL2_Dark {
+        internal static System.Drawing.Bitmap TL2_Purple {
             get {
-                object obj = ResourceManager.GetObject("TL2_Dark", resourceCulture);
+                object obj = ResourceManager.GetObject("TL2_Purple", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1513,9 +1443,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TL2_Light {
+        internal static System.Drawing.Bitmap TL2_Red {
             get {
-                object obj = ResourceManager.GetObject("TL2_Light", resourceCulture);
+                object obj = ResourceManager.GetObject("TL2_Red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1563,9 +1493,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TR2_Dark {
+        internal static System.Drawing.Bitmap TR2_Purple {
             get {
-                object obj = ResourceManager.GetObject("TR2_Dark", resourceCulture);
+                object obj = ResourceManager.GetObject("TR2_Purple", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1573,49 +1503,9 @@ namespace CodeRedLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TR2_Light {
+        internal static System.Drawing.Bitmap TR2_Red {
             get {
-                object obj = ResourceManager.GetObject("TR2_Light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TR3_Dark {
-            get {
-                object obj = ResourceManager.GetObject("TR3_Dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TR3_Light {
-            get {
-                object obj = ResourceManager.GetObject("TR3_Light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TR4_Dark {
-            get {
-                object obj = ResourceManager.GetObject("TR4_Dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TR4_Light {
-            get {
-                object obj = ResourceManager.GetObject("TR4_Light", resourceCulture);
+                object obj = ResourceManager.GetObject("TR2_Red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

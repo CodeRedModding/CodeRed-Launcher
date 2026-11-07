@@ -33,9 +33,9 @@
             AcceptBtn = new CRButton();
             DescriptionLbl = new System.Windows.Forms.Label();
             TitleLbl = new System.Windows.Forms.Label();
-            ArtImage = new System.Windows.Forms.PictureBox();
+            ArtTLImg = new System.Windows.Forms.PictureBox();
             BackgroundPnl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ArtImage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ArtTLImg).BeginInit();
             SuspendLayout();
             // 
             // BackgroundPnl
@@ -58,8 +58,8 @@
             DenyBtn.DisplayText = "Yea, I'm a control freak";
             DenyBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             DenyBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            DenyBtn.IconDark = Properties.Resources.Yes_White;
-            DenyBtn.IconLight = Properties.Resources.Yes_White;
+            DenyBtn.IconDark = Properties.Resources.Folder_White;
+            DenyBtn.IconLight = Properties.Resources.Folder_White;
             DenyBtn.Location = new System.Drawing.Point(520, 35);
             DenyBtn.Name = "DenyBtn";
             DenyBtn.Size = new System.Drawing.Size(300, 40);
@@ -76,8 +76,8 @@
             AcceptBtn.DisplayText = "Nah, do everything for me";
             AcceptBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             AcceptBtn.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            AcceptBtn.IconDark = Properties.Resources.No_White;
-            AcceptBtn.IconLight = Properties.Resources.No_White;
+            AcceptBtn.IconDark = Properties.Resources.Install_White;
+            AcceptBtn.IconLight = Properties.Resources.Install_White;
             AcceptBtn.Location = new System.Drawing.Point(150, 35);
             AcceptBtn.Name = "AcceptBtn";
             AcceptBtn.Size = new System.Drawing.Size(300, 40);
@@ -111,23 +111,23 @@
             TitleLbl.Text = "CodeRed Installer";
             TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ArtImage
+            // ArtTLImg
             // 
-            ArtImage.BackColor = System.Drawing.Color.Transparent;
-            ArtImage.BackgroundImage = Properties.Resources.TL0_Dark;
-            ArtImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            ArtImage.Location = new System.Drawing.Point(0, 0);
-            ArtImage.Name = "ArtImage";
-            ArtImage.Size = new System.Drawing.Size(219, 166);
-            ArtImage.TabIndex = 14;
-            ArtImage.TabStop = false;
+            ArtTLImg.BackColor = System.Drawing.Color.Transparent;
+            ArtTLImg.BackgroundImage = Properties.Resources.TL2_Red;
+            ArtTLImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            ArtTLImg.Location = new System.Drawing.Point(0, 0);
+            ArtTLImg.Name = "ArtTLImg";
+            ArtTLImg.Size = new System.Drawing.Size(220, 182);
+            ArtTLImg.TabIndex = 14;
+            ArtTLImg.TabStop = false;
             // 
             // CRInstallPopup
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
-            Controls.Add(ArtImage);
+            Controls.Add(ArtTLImg);
             Controls.Add(BackgroundPnl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleLbl);
@@ -135,7 +135,7 @@
             Name = "CRInstallPopup";
             Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ArtImage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ArtTLImg).EndInit();
             ResumeLayout(false);
         }
 
@@ -146,6 +146,6 @@
         private CRButton AcceptBtn;
         private System.Windows.Forms.Label DescriptionLbl;
         private System.Windows.Forms.Label TitleLbl;
-        private System.Windows.Forms.PictureBox ArtImage;
+        private System.Windows.Forms.PictureBox ArtTLImg;
     }
 }

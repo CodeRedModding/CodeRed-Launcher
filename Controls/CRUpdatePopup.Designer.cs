@@ -34,9 +34,9 @@
             DenyBtn = new CRButton();
             AcceptBtn = new CRButton();
             AltBtn = new CRButton();
-            ArtImage = new System.Windows.Forms.PictureBox();
+            ArtTLImg = new System.Windows.Forms.PictureBox();
             BackgroundPnl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ArtImage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ArtTLImg).BeginInit();
             SuspendLayout();
             // 
             // DescriptionLbl
@@ -132,23 +132,23 @@
             AltBtn.Visible = false;
             AltBtn.OnButtonClick += AltBtn_OnButtonClick;
             // 
-            // ArtImage
+            // ArtTLImg
             // 
-            ArtImage.BackColor = System.Drawing.Color.Transparent;
-            ArtImage.BackgroundImage = Properties.Resources.TL0_Dark;
-            ArtImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            ArtImage.Location = new System.Drawing.Point(0, 0);
-            ArtImage.Name = "ArtImage";
-            ArtImage.Size = new System.Drawing.Size(219, 166);
-            ArtImage.TabIndex = 13;
-            ArtImage.TabStop = false;
+            ArtTLImg.BackColor = System.Drawing.Color.Transparent;
+            ArtTLImg.BackgroundImage = Properties.Resources.TL2_Red;
+            ArtTLImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            ArtTLImg.Location = new System.Drawing.Point(0, 0);
+            ArtTLImg.Name = "ArtTLImg";
+            ArtTLImg.Size = new System.Drawing.Size(220, 182);
+            ArtTLImg.TabIndex = 13;
+            ArtTLImg.TabStop = false;
             // 
             // CRUpdatePopup
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(30, 31, 34);
-            Controls.Add(ArtImage);
+            Controls.Add(ArtTLImg);
             Controls.Add(BackgroundPnl);
             Controls.Add(DescriptionLbl);
             Controls.Add(TitleLbl);
@@ -156,7 +156,7 @@
             Name = "CRUpdatePopup";
             Size = new System.Drawing.Size(970, 630);
             BackgroundPnl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ArtImage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ArtTLImg).EndInit();
             ResumeLayout(false);
         }
 
@@ -168,6 +168,6 @@
         private CRButton AcceptBtn;
         private CRButton DenyBtn;
         private CRButton AltBtn;
-        private System.Windows.Forms.PictureBox ArtImage;
+        private System.Windows.Forms.PictureBox ArtTLImg;
     }
 }

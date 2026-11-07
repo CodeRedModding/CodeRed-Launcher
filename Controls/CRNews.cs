@@ -231,7 +231,7 @@ namespace CodeRedLauncher.Controls
             set
             {
                 DateIconLbl.DisplayText = value;
-                DateIconLbl.Visible = !string.IsNullOrEmpty(value);
+                DateIconLbl.Visible = (!string.IsNullOrEmpty(value) && (value != "null"));
                 OnThemeUpdated();
             }
         }
@@ -247,7 +247,7 @@ namespace CodeRedLauncher.Controls
             set
             {
                 CategoryIconLbl.DisplayText = value;
-                CategoryIconLbl.Visible = !string.IsNullOrEmpty(value);
+                CategoryIconLbl.Visible = (!string.IsNullOrEmpty(value) && (value != "null"));
                 OnThemeUpdated();
             }
         }
@@ -262,7 +262,7 @@ namespace CodeRedLauncher.Controls
             set
             {
                 AuthorIconLbl.DisplayText = value;
-                AuthorIconLbl.Visible = !string.IsNullOrEmpty(value);
+                AuthorIconLbl.Visible = (!string.IsNullOrEmpty(value) && (value != "null"));
                 OnThemeUpdated();
             }
         }
@@ -662,7 +662,7 @@ namespace CodeRedLauncher.Controls
         {
             if (PreviousImg.BackgroundImage != null)
             {
-                PreviousImg.BackColor = (IsDarkMode() ? GPalette.LightBlack_Highlight : GPalette.White_Highlight);
+                PreviousImg.BackColor = (IsDarkMode() ? GPalette.LightBlack_Highlight : GPalette.Grey_Highlight);
             }
         }
 
@@ -695,7 +695,7 @@ namespace CodeRedLauncher.Controls
         {
             if (NextImg.BackgroundImage != null)
             {
-                NextImg.BackColor = (IsDarkMode() ? GPalette.LightBlack_Highlight : GPalette.White_Highlight);
+                NextImg.BackColor = (IsDarkMode() ? GPalette.LightBlack_Highlight : GPalette.Grey_Highlight);
             }
         }
 
