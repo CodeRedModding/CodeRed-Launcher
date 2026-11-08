@@ -90,7 +90,7 @@ namespace CodeRedLauncher.Controls
     {
         // Primary Colors
         public static readonly Color CodeRed = Color.FromArgb(255, 50, 37);                     // #ff3225
-        public static readonly Color CodeRed_Highlight = Color.FromArgb(255, 65, 52);           // #ff4134
+        public static readonly Color CodeRed_Highlight = Color.FromArgb(255, 60, 47);           // #ff3c2f
         public static readonly Color CodeOrange = Color.FromArgb(255, 134, 35);                 // #ff8623
         public static readonly Color CodeOrange_Highlight = Color.FromArgb(255, 149, 50);       // #ff9532
         public static readonly Color CodeYellow = Color.FromArgb(255, 246, 37);                 // #fff625
@@ -99,8 +99,8 @@ namespace CodeRedLauncher.Controls
         public static readonly Color CodeGreen_Highlight = Color.FromArgb(55, 255, 86);         // #37ff56
         public static readonly Color CodeBlue = Color.FromArgb(41, 110, 255);                   // #296eff
         public static readonly Color CodeBlue_Highlight = Color.FromArgb(56, 125, 255);         // #387dff
-        public static readonly Color CodePurple = Color.FromArgb(209, 44, 107);                 // #d12c6b (Used by the lightmode UI)
-        public static readonly Color CodePurple_Highlight = Color.FromArgb(224, 59, 122);       // #e03b7a (Used by the lightmode UI)
+        public static readonly Color CodePurple = Color.FromArgb(209, 44, 107);                 // #d12c6b
+        public static readonly Color CodePurple_Highlight = Color.FromArgb(219, 54, 117);       // #db3675
         private static readonly Color CodePurple_Alt = Color.FromArgb(185, 37, 255);            // #b925ff (Unused in the launcher)
         private static readonly Color CodePurple_Alt_Highlight = Color.FromArgb(200, 52, 255);  // #c834ff (Unused in the launcher)
         public static readonly Color CodePink = Color.FromArgb(255, 48, 241);                   // #ff30f1

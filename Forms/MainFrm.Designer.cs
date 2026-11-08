@@ -420,8 +420,8 @@ namespace CodeRedLauncher
             ProcessCtrl.DescriptionFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             ProcessCtrl.DescriptionText = "Loading...";
             ProcessCtrl.ForeColor = System.Drawing.Color.FromArgb(235, 235, 235);
-            ProcessCtrl.IconDescDark = Properties.Resources.Message_Red;
-            ProcessCtrl.IconDescLight = Properties.Resources.Message_Purple;
+            ProcessCtrl.IconDescDark = Properties.Resources.List_Red;
+            ProcessCtrl.IconDescLight = Properties.Resources.List_Purple;
             ProcessCtrl.IconTitleDark = Properties.Resources.Rocket_Red;
             ProcessCtrl.IconTitleLight = Properties.Resources.Rocket_Purple;
             ProcessCtrl.IconWarnDark = Properties.Resources.Warning_Red;
